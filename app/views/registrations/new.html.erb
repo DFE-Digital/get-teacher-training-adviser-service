@@ -1,0 +1,7 @@
+<h1>Register for a TTA</h1>
+
+<%= form_for @registration do |f| %>
+  <%= render "#{@registration.current_step}_step", :f => f %>
+  <p><%= f.submit "Continue" %></p>
+  <p><%= f.submit "Back", :name => "back_button" unless @registration.first_step? %></p>
+<% end %>
