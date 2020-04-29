@@ -43,3 +43,13 @@ or
 
 bundle exec scss-lint app/webpacker/styles
 ```
+
+You can automatically run the Ruby linter on commit for any changed files with 
+the following pre-commit hook `.git/hooks/pre-commit`.
+
+```bash
+#!/bin/sh
+if [ "x$SKIPLINT" == "x" ]; then
+    exec bundle exec rubocop $(git diff --cached --name-only --diff-filter=ACM | egrep '\.rb|\.feature|\.rake' | grep -v 'db/schema.rb') Gemfile
+fi
+```
