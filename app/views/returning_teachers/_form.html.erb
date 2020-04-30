@@ -1,0 +1,7 @@
+<%= form_for @returning_teacher do |f| %>
+  <% if params[:all].nil? %>
+    <%= render 'returning_teachers/steps/current_step', f: f %>
+  <% else %>
+    <%= render 'returning_teachers/steps/all_steps', f: f %>
+  <% end %> 
+<% end %>

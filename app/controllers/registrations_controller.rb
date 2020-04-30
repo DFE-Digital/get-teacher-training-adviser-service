@@ -1,35 +1,50 @@
 class RegistrationsController < ApplicationController
 
+  def index
+    @wizard = ModelWizard.new(Registration, session, params).continue
+    @registration = @wizard.object
+    render :new
+  end
+
+  def show
+  end
+
   def new
-    session[:registration_params] ||= {}
-    @registration = Registration.new(session[:registration_params])
-    @registration.current_step = session[:registration_step]
+    @wizard = ModelWizard.new(Registration, session, params).start
+    @registration = @wizard.object
+  end
+
+  def edit
+    @registration = Registration.find_by(id: params[:id])
+    @wizard = ModelWizard.new(@registration, session, params).start
   end
 
   def create
-    #byebug
-    session[:registration_params].deep_merge!(params[:registration].to_unsafe_h) if params[:registration]
-    @registration = Registration.new(session[:registration_params])
-    @registration.current_step = session[:registration_step]
-    if @registration.valid?
-      if params[:back_button]
-        @registration.previous_step
-      elsif @registration.last_step?
-        @registration.save if @registration.all_valid?
+    @wizard = ModelWizard.new(Registration, session, params, registration_params).continue
+    @registration = @wizard.object
+    if @wizard.save
+      session[:registration] = @registration.attributes
+      byebug
+      if @registration.attributes["returning_to_teaching"]
+        redirect_to new_returning_teacher_path
       else
-        @registration.next_step
+        redirect_to another_path
       end
-      session[:registration_step] = @registration.current_step
-    end
-    if @registration.current_step != "completed"
-      render "new"
     else
-      session[:registration_step] = session[:registration_params] = nil
-      flash[:notice] = "Registration saved!"
-      redirect_to @registration
+      render :new
     end
   end
-  
+
+  def update
+    @registration = Registration.find_by(id: params[:id])
+    @wizard = ModelWizard.new(@registration, session, params, registration_params).continue
+    if @wizard.save
+      redirect_to @registration, notice: 'Registration updated.'
+    else
+      render :edit
+    end
+  end
+   
   private
    
   def registration_params
@@ -38,11 +53,8 @@ class RegistrationsController < ApplicationController
     :first_name,
     :last_name,
     :returning_to_teaching,
-    :have_a_degree, 
-    :primary_or_secondary,
-    :primary_subject_qualified_to_teach,
-    :secondary_subject_qualified_to_teach,
-    :date_of_birth)
+    :current_step
+    )
   end
 
 end

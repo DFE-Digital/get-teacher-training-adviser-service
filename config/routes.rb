@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   get "/500", to: "errors#internal_server_error", via: :all
 
   resources :registrations
+  resources :returning_teachers
 end
