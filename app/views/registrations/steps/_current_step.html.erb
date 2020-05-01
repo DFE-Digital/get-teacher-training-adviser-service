@@ -4,5 +4,5 @@
 
 <div class="field">
   <%= f.submit "Back", name: "back_button" unless f.object.first_step? %>
-  <%= f.submit f.object.last_step? ? "Hello" : "Next" %>
+  <%= f.submit f.object.last_step? ? "Next Branch" : "Next Step" %>
 </div>

@@ -3,6 +3,11 @@
 <%= render "returning_teachers/steps/page#{f.object.current_step + 1}", f: f %>
 
 <div class="field">
-  <%= f.submit "Back", name: "back_button" unless f.object.first_step? %>
-  <%= f.submit f.object.last_step? ? "Branch" : "Next" %>
+  <%#= f.submit "Back", name: "back_button" unless f.object.first_step? %>
+  <% if f.object.first_step? %>
+   <%= f.submit "Previous Branch", name: "previous_branch_button" %>
+  <% else %>
+    <%= f.submit "Back", name: "back_button" %>
+   <% end %>
+  <%= f.submit f.object.last_step? ? "Next Branch" : "Next Step" %>
 </div>

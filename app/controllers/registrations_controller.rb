@@ -10,6 +10,7 @@ class RegistrationsController < ApplicationController
   end
 
   def new
+    byebug
     @wizard = ModelWizard.new(Registration, session, params).start
     @registration = @wizard.object
   end
@@ -24,7 +25,6 @@ class RegistrationsController < ApplicationController
     @registration = @wizard.object
     if @wizard.save
       session[:registration] = @registration.attributes
-      byebug
       if @registration.attributes["returning_to_teaching"]
         redirect_to new_returning_teacher_path
       else

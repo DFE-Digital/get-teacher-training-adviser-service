@@ -8,8 +8,12 @@ class Registration
   attribute :last_name, :string
   attribute :returning_to_teaching, :boolean
 
-  def total_steps
+  def self.total_steps
     1
+  end
+
+  def total_steps
+    self.class.total_steps
   end
 
 end
