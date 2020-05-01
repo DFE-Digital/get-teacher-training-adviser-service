@@ -1,0 +1,50 @@
+<div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+                What is your name and email?
+            </h1>
+        </legend>
+
+        <div class="govuk-form-group">
+            <label class="govuk-label">
+                We now need to collect some personal details to complete your registration. Your details are protected under the terms of our privacy notice.
+            </label>
+        </div>
+
+        <div class="govuk-form-group">
+            <label class="govuk-label">
+                Our privacy notice explains how we use your personal data. It is important that you have read this notice before registering with Get Into Teaching.
+            </label>
+        </div>
+
+      <%= form_for @identity do |f| %>
+
+        <div class="govuk-form-group">
+            <label class="govuk-label" for="email-address" maxlength="320">
+                Email address
+            </label>
+            <input class="govuk-input govuk-input--width-20" id="email_address" name="identity[email_address]" type="text">
+        </div>
+
+        <div class="govuk-form-group">
+            <label class="govuk-label" for="first-name">
+                First name
+            </label>
+            <input class="govuk-input govuk-input--width-20" id="first_name" name="identity[first_name]" type="text" maxlength="255">
+        </div>
+
+        <div class="govuk-form-group">
+            <label class="govuk-label" for="last-name">
+                Last name
+            </label>
+            <input class="govuk-input govuk-input--width-20" id="last_name" name="identity[last_name]" type="text" maxlength="255">
+        </div>
+
+        <div class="govuk-form-group">
+          <%= f.submit :Continue, class: 'govuk-button auto-width' %>
+        </div>
+
+      <% end %>
+    </fieldset>
+</div>

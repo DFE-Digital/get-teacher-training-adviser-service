@@ -1,0 +1,39 @@
+<div class="govuk-form-group">
+
+    <%= link_to 'Back', 'javascript:history.go(-1);', class: "govuk-back-link" %>
+    
+    <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+                Are you qualified to teach primary or secondary?
+            </h1>
+        </legend>
+
+      <%= form_for @primary_or_secondary do |f| %>
+
+        <div class="govuk-form-group">
+            <div class="govuk-radios govuk-radios--inline">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="qualified-to-teach" name="primary_or_secondary[primary_or_secondary]" type="radio" value="primary">
+                    <label class="govuk-label govuk-radios__label" for="qualified-to-teach">
+                        Primary
+                    </label>
+                </div>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="qualified-to-teach-2" name="primary_or_secondary[primary_or_secondary]" type="radio" value="secondary">
+                    <label class="govuk-label govuk-radios__label" for="qualified-to-teach-2">
+                        Secondary
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="govuk-form-group">
+            <button class="govuk-button auto-width" data-module="govuk-button">
+                Continue
+            </button>
+        </div>
+        
+      <% end %>
+    </fieldset>
+</div>
