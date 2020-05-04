@@ -1,0 +1,24 @@
+name: Build and Deploy
+on: [ push ]
+env:
+  DOCKERHUB_REPOSITORY: dfedigital/get-teacher-training-adviser-service
+  GOVUKPAAS_ORG: dfe-teacher-services
+  GOVUKPAAS_SPACE: get-into-teaching
+jobs:
+  build_and_push:
+    name: Build and push to DockerHub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Build and push to DockerHub
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PERSONAL_ACCESS_TOKEN }}
+          repository: ${{ env.DOCKERHUB_REPOSITORY }}
+          always_pull: true
+          add_git_labels: true
+          tag_with_ref: true
+          tag_with_sha: true
+          push: false
