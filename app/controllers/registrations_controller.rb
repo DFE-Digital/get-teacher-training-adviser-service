@@ -1,9 +1,6 @@
 class RegistrationsController < ApplicationController
 
   def index
-    @wizard = ModelWizard.new(Registration, session, params).continue
-    @registration = @wizard.object
-    render :new
   end
 
   def show
@@ -13,6 +10,7 @@ class RegistrationsController < ApplicationController
     byebug
     @wizard = ModelWizard.new(Registration, session, params).start
     @registration = @wizard.object
+    @current_step = params[:current_step]
   end
 
   def edit
@@ -26,12 +24,12 @@ class RegistrationsController < ApplicationController
     if @wizard.save
       session[:registration] = @registration.attributes
       if @registration.attributes["returning_to_teaching"]
-        redirect_to new_returning_teacher_path
+        redirect_to new_returning_teacher_path(current_step: @current_step)
       else
-        redirect_to another_path
+        #redirect_to another_path
       end
     else
-      render :new
+      render :new, current_step: @registration.current_step
     end
   end
 

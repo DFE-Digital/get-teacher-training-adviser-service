@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get "/", to: "pages#10"
-  get "/:page", to: "pages#show"
+  #get "/", to: "pages#10"
+  #get "/:page", to: "pages#show"
 
   get "/404", to: "errors#not_found", via: :all
   get "/422", to: "errors#unprocessable_entity", via: :all
