@@ -26,6 +26,7 @@ jobs:
   deploy:
     name: Deploy to GovUK PaaS
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
     needs:
       - build_and_push
     steps:
