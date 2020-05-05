@@ -15,7 +15,6 @@ class OverseasCandidateConfirmationsController < ApplicationController
     
     @overseas_candidate_confirmation = OverseasCandidateConfirmation.new(required_params_hash)
     if @overseas_candidate_confirmation.valid?
-      
       session[:registration] = required_params_hash
       redirect_to new_opt_in_emails_path
     else
