@@ -6,8 +6,8 @@ env:
   GOVUKPAAS_SPACE: get-into-teaching
   GOVUKPAAS_APP: get-teacher-training-adviser-service
 jobs:
-  build_and_push:
-    name: Build and push to DockerHub
+  build_and_test:
+    name: Build, push to DockerHub and run tests
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
@@ -23,15 +23,19 @@ jobs:
           tag_with_ref: true
           tag_with_sha: true
           push: true
+      - name: Set DOCKER_IMAGE environment variable
+        run: |-
+          echo ::set-env name=DOCKER_IMAGE::${{ env.DOCKERHUB_REPOSITORY }}:sha-$(echo "${{ github.sha }}" | cut -c -7)
+      - name: Run Specs
+        run: |-
+          docker run -t --rm -e RAILS_ENV=test $DOCKER_IMAGE bundle exec rspec
   deploy:
     name: Deploy to GovUK PaaS
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
     needs:
-      - build_and_push
+      - build_and_test
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v2
       - name: Download CloudFoundry CLI
         run: wget -O /tmp/cf-cli.deb "https://packages.cloudfoundry.org/stable?release=debian64&source=github"
       - name: Install CloudFoundry CLI
@@ -39,8 +43,16 @@ jobs:
       - name: Check CloudFoundry CLI version
         run: cf --version
       - name: Login to PaaS
-        run: cf login -a api.london.cloud.service.gov.uk -u "${{ secrets.GOVUKPAAS_USERNAME }}" -p "${{ secrets.GOVUKPAAS_PASSWORD }}" -o $GOVUKPAAS_ORG -s $GOVUKPAAS_SPACE
+        run: |-
+          cf login \
+            -a api.london.cloud.service.gov.uk \
+            -u "${{ secrets.GOVUKPAAS_USERNAME }}" \
+            -p "${{ secrets.GOVUKPAAS_PASSWORD }}" \
+            -o $GOVUKPAAS_ORG \
+            -s $GOVUKPAAS_SPACE
       - name: Current Org and Space
         run: cf target
       - name: Deploy Built Image
-        run: cf push $GOVUKPAAS_APP --docker-image $DOCKERHUB_REPOSITORY:sha-$(git rev-parse --short $GITHUB_SHA)
+        run: |-
+          cf push $GOVUKPAAS_APP \
+            --docker-image $DOCKERHUB_REPOSITORY:sha-$(echo ${{ github.sha }} | cut -c -7)
