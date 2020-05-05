@@ -1,0 +1,32 @@
+<div class="govuk-form-group">
+
+    <%= link_to 'Back', 'javascript:history.go(-1);', class: "govuk-back-link" %>
+     
+    <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+                What subject are you qualified to teach?
+            </h1>
+        </legend>
+
+      <%= form_for @primary do |f| %>
+        <div class="govuk-form-group">
+            <label class="govuk-label" for="sort">
+            Select subject
+            </label>
+            <select class="govuk-select" id="qualified-subject" name="primary[qualified_subject]">
+                <option value="Maths">Maths</option>
+                <option value="Science" selected>Science</option>
+                <option value="English">English</option>
+                <option value="History">History</option>
+            </select>
+        </div>
+
+        <div class="govuk-form-group">
+            <button class="govuk-button auto-width" data-module="govuk-button">
+                Continue
+            </button>
+        </div>
+      <% end %>
+    </fieldset>
+</div>

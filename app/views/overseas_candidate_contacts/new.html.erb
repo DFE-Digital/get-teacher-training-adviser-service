@@ -1,6 +1,6 @@
 <div class="govuk-form-group">
 
-    <a href="#" class="govuk-back-link">Back</a>
+    <%= link_to 'Back', 'javascript:history.go(-1);', class: "govuk-back-link" %> 
     
     <fieldset class="govuk-fieldset">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -13,26 +13,26 @@
             You must talk to a teacher training adviser. You have to book a call in advance. 
             You must have the details of your overseas qualifications when they contact you.
         <p>
-
+      <%= form_for @overseas_candidate_contact do |f| %>
         <div class="govuk-form-group">
             <label class="govuk-label" for="email-address" maxlength="320">
                 Email address
             </label>
-            <input class="govuk-input govuk-input--width-20" id="email-address" name="email-address" type="text">
+            <input class="govuk-input govuk-input--width-20" id="email-address" name="overseas_candidate_contact[email_address]" type="text">
         </div>
 
         <div class="govuk-form-group">
             <label class="govuk-label" for="telephone-number">
                 Contact telephone number
             </label>
-            <input class="govuk-input govuk-input--width-20" id="telephone-number" name="telephone-number" type="text" maxlength="255">
+            <input class="govuk-input govuk-input--width-20" id="telephone-number]" name="overseas_candidate_contact[telephone_number]" type="text" maxlength="255">
         </div>
 
         <div class="govuk-form-group">
             <label class="govuk-label" for="sort">
             Select a date
             </label>
-            <select class="govuk-select" id="callback-date" name="callback-date">
+            <select class="govuk-select" id="callback-date" name="overseas_candidate_contact[callback_date]">
                 <option value="01-10-20">1st October 2020</option>
                 <option value="02-10-20" selected>2nd October 2020</option>
                 <option value="03-10-20">3rd October 2020</option>
@@ -44,7 +44,7 @@
             <label class="govuk-label" for="callback-time">
                 Book a time for the call back
             </label>
-            <select class="govuk-select" id="callback-time" name="callback-time">
+            <select class="govuk-select" id="callback-time" name="overseas_candidate_contact[callback_time]">
                 <option value="10:15">10:15am</option>
                 <option value="10:30" selected>10:30am</option>
                 <option value="10:45">10:45am</option>
@@ -53,9 +53,8 @@
         </div>
 
         <div class="govuk-form-group">
-            <button class="govuk-button auto-width" data-module="govuk-button">
-                Continue
-            </button>
+          <%= f.submit :Continue, class: 'govuk-button auto-width' %>
         </div>
+      <% end %>
     </fieldset>
 </div>
