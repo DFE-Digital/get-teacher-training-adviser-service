@@ -42,13 +42,12 @@ private
   end
 
   def process_save
-    byebug
     if @object.last_step?
       if @object.all_steps_valid?
-        name = @object.class.name.downcase.to_sym #is this doing anything?
-        @session[name] = @object.attributes
+        byebug
+        @session[:registration].merge!(@object.attributes.compact)
         @session[@session_param] = nil
-        return @session[name]
+        return @session[:registration]
       end
     else
       @object.step_forward

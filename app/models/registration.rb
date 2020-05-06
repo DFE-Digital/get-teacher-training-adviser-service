@@ -3,7 +3,7 @@ class Registration
   include ActiveModel::Attributes
   include MultiStepper
 
-  attribute :email, :string
+  attribute :email_address, :string
   attribute :first_name, :string
   attribute :last_name, :string
   attribute :returning_to_teaching, :boolean

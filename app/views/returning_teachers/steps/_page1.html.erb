@@ -1,4 +1,33 @@
-<h2>Are you qualified to teach primary or secondary?<h2>
- <p>
-  <%= f.select(:primary_or_secondary, [['Primary', 1], ['Secondary', 1]]) %>
- </p> 
+<div class="govuk-form-group">
+
+   <%= link_to 'Back', 'javascript:history.go(-1);', class: "govuk-back-link" %> 
+
+    <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+                Are you qualified to teach primary or secondary?
+            </h1>
+        </legend>
+
+        <div class="govuk-form-group">
+            <div class="govuk-radios govuk-radios--inline">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="qualified-to-teach" name="returning_teacher[primary_or_secondary]" type="radio" value="primary">
+                    <label class="govuk-label govuk-radios__label" for="qualified-to-teach">
+                        Primary
+                    </label>
+                </div>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="qualified-to-teach-2" name="returning_teacher[primary_or_secondary]" type="radio" value="secondary">
+                    <label class="govuk-label govuk-radios__label" for="qualified-to-teach-2">
+                        Secondary
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="govuk-form-group">
+           <%= f.submit :Continue, class: 'govuk-button auto-width' %> 
+        </div>
+    </fieldset>
+</div>

@@ -2,7 +2,3 @@
 
 <%= render "registrations/steps/page#{f.object.current_step + 1}", f: f %>
 
-<div class="field">
-  <%= f.submit "Back", name: "back_button" unless f.object.first_step? %>
-  <%= f.submit f.object.last_step? ? "Next Branch" : "Next Step" %>
-</div>

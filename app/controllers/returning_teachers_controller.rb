@@ -7,16 +7,17 @@ class ReturningTeachersController < ApplicationController
 
   def create
     @wizard = ModelWizard.new(ReturningTeacher, session, params, returning_teacher_params).continue
-      @returning_teacher = @wizard.object
-      if params[:previous_branch_button]
-        redirect_to new_registration_path(current_step: Registration.total_steps)
-      end
-      if @wizard.save
-       
-        #redirect to next paths
+    @returning_teacher = @wizard.object
+      
+    if @wizard.save
+      if @returning_teacher.primary_or_secondary == "primary"
+        redirect_to new_primary_path(step: 0)
       else
-        render :new
-      end
+        # redirect to another path
+      end 
+    else
+      redirect_to new_returning_teacher_path(step: @returning_teacher.current_step)
+    end
   end
 
   private

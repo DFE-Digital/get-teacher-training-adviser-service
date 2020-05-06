@@ -1,7 +1,33 @@
-<h2>Are you returning to teaching?<h2>
- <p>
-  <%= f.radio_button :returning_to_teaching, '0', :checked => true %>
-  <%= label :returning_to_teaching, "No" %>
-  <%= f.radio_button :returning_to_teaching, '1' %>
-   <%= label :returning_to_teaching, "Yes" %>
- </p> 
+<div class="govuk-form-group">
+
+    <%= link_to 'Back', 'javascript:history.go(-1);', class: "govuk-back-link" %>
+    
+    <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+                Are you returning to teaching?
+            </h1>
+        </legend>
+
+        <div class="govuk-form-group">
+            <div class="govuk-radios govuk-radios--inline">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="returning-to-teaching" name="registration[returning_to_teaching]" type="radio" value=true>
+                    <label class="govuk-label govuk-radios__label" for="returning-to-teaching">
+                        Yes
+                    </label>
+                </div>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="returning-to-teaching-2" name="registration[returning_to_teaching]" type="radio" value=false>
+                    <label class="govuk-label govuk-radios__label" for="returning-to-teaching-2">
+                        No
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="govuk-form-group">
+            <%= f.submit :Continue, class: 'govuk-button auto-width' %> 
+        </div>
+    </fieldset>
+</div>
