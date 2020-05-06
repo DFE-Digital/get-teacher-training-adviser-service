@@ -29,6 +29,9 @@ jobs:
       - name: Run Specs
         run: |-
           docker run -t --rm -e RAILS_ENV=test $DOCKER_IMAGE bundle exec rspec
+      - name: Lint Ruby and SCSS code
+        run: |-
+          docker run -t --rm -e RAILS_ENV=test $DOCKER_IMAGE bundle exec rake lint:ruby lint:scss
   deploy:
     name: Deploy to GovUK PaaS
     runs-on: ubuntu-latest
