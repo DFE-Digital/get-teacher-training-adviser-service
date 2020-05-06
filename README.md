@@ -53,3 +53,7 @@ if [ "x$SKIPLINT" == "x" ]; then
     exec bundle exec rubocop $(git diff --cached --name-only --diff-filter=ACM | egrep '\.rb|\.feature|\.rake' | grep -v 'db/schema.rb') Gemfile
 fi
 ```
+
+### Configuration
+
+`HTTPAUTH_USERNAME` and `HTTPAUTH_PASSWORD` - setting both enables site wide password protection

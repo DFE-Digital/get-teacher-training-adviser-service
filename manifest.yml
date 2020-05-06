@@ -1,6 +1,4 @@
 ---
 applications:
-- name: get-into-teaching-register
-  buildpacks:
-    - https://github.com/cloudfoundry/ruby-buildpack.git
-    - https://github.com/cloudfoundry/nodejs-buildpack
+- name: get-teacher-training-adviser-service
+  memory: 256M

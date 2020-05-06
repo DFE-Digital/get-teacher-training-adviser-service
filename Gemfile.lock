@@ -117,7 +117,6 @@ GEM
     parallel (1.19.1)
     parser (2.7.1.1)
       ast (~> 2.4.0)
-    pg (1.2.3)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -267,7 +266,6 @@ DEPENDENCIES
   foreman
   govuk_design_system_formbuilder
   listen (>= 3.0.5, < 3.3)
-  pg (>= 0.18, < 2.0)
   pry-byebug
   puma (~> 4.3)
   rails (~> 6.0.2)
@@ -282,7 +280,7 @@ DEPENDENCIES
   webpacker
 
 RUBY VERSION
-   ruby 2.7.1p83
+   ruby 2.6.6p146
 
 BUNDLED WITH
    2.1.4
