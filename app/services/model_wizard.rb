@@ -23,9 +23,7 @@ class ModelWizard
   end
 
   def save
-    if @params[:back_button]
-      @object.step_back
-    elsif @object.current_step_valid?
+    if @object.current_step_valid?
       return process_save
     end
     false
@@ -44,7 +42,6 @@ private
   def process_save
     if @object.last_step?
       if @object.all_steps_valid?
-        byebug
         @session[:registration].merge!(@object.attributes.compact)
         @session[@session_param] = nil
         return @session[:registration]

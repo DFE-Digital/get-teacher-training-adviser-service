@@ -7,6 +7,10 @@ class Registration
   attribute :first_name, :string
   attribute :last_name, :string
   attribute :returning_to_teaching, :boolean
+  attribute :stage, :string
+
+  
+  validates :email_address, presence: true, if: -> { stage == "0" }
 
   def self.total_steps
     1
@@ -15,5 +19,7 @@ class Registration
   def total_steps
     self.class.total_steps
   end
+
+  
 
 end

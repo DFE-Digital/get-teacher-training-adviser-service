@@ -11,9 +11,9 @@ class ReturningTeachersController < ApplicationController
       
     if @wizard.save
       if @returning_teacher.primary_or_secondary == "primary"
-        redirect_to new_primary_path(step: 0)
+        redirect_to new_primary_teacher_path(step: 0)
       else
-        # redirect to another path
+        redirect to new_secondary_teacher_path(step: 0)
       end 
     else
       redirect_to new_returning_teacher_path(step: @returning_teacher.current_step)

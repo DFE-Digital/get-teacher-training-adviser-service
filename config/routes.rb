@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :registrations, only: [:create]
   get "/returning_teachers/:step", to: "returning_teachers#new", as: "new_returning_teacher"
   resources :returning_teachers, only: [:create]
-  get "/primary_teachers/:step", to: "primaries#new", as: "new_primary_teachers"
-  resources :returning_teachers, only: [:create]
+  get "/primary_teachers/:step", to: "primary_teachers#new", as: "new_primary_teacher"
+  resources :primary_teachers, only: [:create]
 
 end
