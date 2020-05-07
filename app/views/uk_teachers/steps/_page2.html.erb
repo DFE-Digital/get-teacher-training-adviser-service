@@ -1,0 +1,44 @@
+<div class="govuk-form-group">
+
+    <%= link_to 'Back', 'javascript:history.go(-1);', class: "govuk-back-link" %>
+    
+    <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+                What is your address?
+            </h1>
+        </legend>
+
+        <div class="govuk-form-group">
+            <label class="govuk-label" for="address-line-1" maxlength="8">
+                Address line 1 *
+            </label>
+            <input class="govuk-input govuk-input--width-20" id="address-line-1" name="uk_teacher[address_line_1]" type="text">
+        </div>
+
+        <div class="govuk-form-group">
+            <label class="govuk-label" for="address-line-2" maxlength="8">
+                Address line 2 *
+            </label>
+            <input class="govuk-input govuk-input--width-20" id="address-line-2" name="uk_teacher[address_line_2]" type="text">
+        </div>
+
+        <div class="govuk-form-group">
+            <label class="govuk-label" for="town-city" maxlength="8">
+                Town or city *
+            </label>
+            <input class="govuk-input govuk-input--width-20" id="town-city" name="uk_teacher[town_city]" type="text">
+        </div>
+
+        <div class="govuk-form-group">
+            <label class="govuk-label" for="postcode" maxlength="8">
+                Postcode *
+            </label>
+            <input class="govuk-input govuk-input--width-20" id="postcode" name="uk_teacher[postcode]" type="text">
+        </div>
+
+        <div class="govuk-form-group">
+           <%= f.submit :Continue, class: 'govuk-button auto-width' %> 
+        </div>
+    </fieldset>
+</div>

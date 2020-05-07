@@ -1,0 +1,29 @@
+<div class="govuk-form-group">
+
+    <%= link_to 'Back', 'javascript:history.go(-1);', class: "govuk-back-link" %> 
+
+    <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+                Can we contact you by email about your application?
+            </h1>
+        </legend>
+
+        <div class="govuk-form-group">
+            <div class="govuk-checkboxes">
+                <div class="govuk-checkboxes__item">
+                    <!-- rails needs a hidden false value -->
+                    <input name="uk_teacher[email_opt_in]" type="hidden" value=false/>
+                    <input class="govuk-checkboxes__input" id="email-opt-in" name="uk_teacher[email_opt_in]" type="checkbox" value=true>
+                    <label class="govuk-label govuk-checkboxes__label" for="email-opt-in">
+                        Yes
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="govuk-form-group">
+            <%= f.submit :Continue, class: 'govuk-button auto-width' %>
+        </div>
+    </fieldset>
+</div>

@@ -12,5 +12,7 @@ Rails.application.routes.draw do
   resources :returning_teachers, only: [:create]
   get "/primary_teachers/:step", to: "primary_teachers#new", as: "new_primary_teacher"
   resources :primary_teachers, only: [:create]
+  get "/uk_teachers/:step", to: "uk_teachers#new", as: "new_uk_teacher"
+  resources :uk_teachers, only: [:create]
 
 end

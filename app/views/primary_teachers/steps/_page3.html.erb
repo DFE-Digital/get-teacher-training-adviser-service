@@ -1,0 +1,33 @@
+<div class="govuk-form-group">
+
+    <%= link_to 'Back', 'javascript:history.go(-1);', class: "govuk-back-link" %>
+
+    <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+                Where do you live? UK or Overseas?
+            </h1>
+        </legend>
+
+        <div class="govuk-form-group">
+            <div class="govuk-radios govuk-radios--inline">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="where-do-you-live" name="primary_teacher[uk_or_overseas]" type="radio" value="uk">
+                    <label class="govuk-label govuk-radios__label" for="where-do-you-live">
+                        UK
+                    </label>
+                </div>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="where-do-you-live-2" name="primary_teacher[uk_or_overseas]" type="radio" value="overseas">
+                    <label class="govuk-label govuk-radios__label" for="where-do-you-live-2">
+                        Overseas
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="govuk-form-group">
+            <%= f.submit :Continue, class: 'govuk-button auto-width' %>
+        </div>
+    </fieldset>
+</div>

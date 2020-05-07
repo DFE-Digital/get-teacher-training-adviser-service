@@ -4,6 +4,7 @@ class ReturningTeacher
   include MultiStepper
 
   attribute :primary_or_secondary, :string
+  attribute :stage, :string
 
   def self.total_steps
     0

@@ -1,0 +1,59 @@
+<div class="govuk-form-group">
+
+    <%= link_to 'Back', 'javascript:history.go(-1);', class: "govuk-back-link" %>
+    
+    <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+                Check your answers
+            </h1>
+        </legend>
+        <!-- should this all be in a controller ? -->
+        <%= f.hidden_field :confirmed, value: true %>
+
+        <div class="govuk-form-group">
+            <%= f.submit :Continue, class: 'govuk-button auto-width' %>
+        </div>
+
+        <div class="govuk-form-group">
+            <h3>
+                What are you interested in teaching?
+            </h3>
+            <p>Computer Science</p>
+            <p><a href='/'>Change</a></p>
+        </div>
+
+        <div class="govuk-form-group">
+            <h3>
+                When do you intend to start your teacher training?
+            </h3>
+            <p>2020</p>
+            <p><a href='/'>Change</a></p>
+        </div>
+
+        <div class="govuk-form-group">
+            <h3>
+                What stage are you at with your degree?
+            </h3>
+            <p>Undergraduate</p>
+            <p><a href='/'>Change</a></p>
+        </div>
+
+        <div class="govuk-form-group">
+            <h3>
+                What subject is your degree in?
+            </h3>
+            <p>Archeology</p>
+            <p><a href='/'>Change</a></p>
+        </div>
+
+        <div class="govuk-form-group">
+            <h3>
+                Which degree class did you achieve or are predicted to achieve?
+            </h3>
+            <p>First Class</p>
+            <p><a href='/'>Change</a></p>
+        </div>
+
+    </fieldset>
+</div>

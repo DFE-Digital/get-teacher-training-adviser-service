@@ -1,0 +1,39 @@
+<div class="govuk-form-group">
+
+    <%= link_to 'Back', 'javascript:history.go(-1);', class: "govuk-back-link" %> 
+    
+    <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+                Read and accept the Privacy Policy
+            </h1>
+        </legend>
+
+        <div class="govuk-form-group">
+            <p>
+                Our privacy notice explains how we use your personal data. It is important that you have read this notice before registering with Get Into Teaching.
+            </p>
+        </div>
+
+        <div class="govuk-form-group">
+            <a href='/'>Privacy Policy</a>
+        </div>
+
+        <div class="govuk-form-group">
+            <div class="govuk-checkboxes">
+                <div class="govuk-checkboxes__item">
+                <!-- rails needs a hidden false value -->
+                    <input name="uk_teacher[privacy_policy]" type="hidden" value=false />
+                    <input class="govuk-checkboxes__input" id="privacy-policy" name="uk_teacher[privacy_policy]" type="checkbox" value=true>
+                    <label class="govuk-label govuk-checkboxes__label" for="privacy-policy">
+                        Accept the Privacy Policy
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="govuk-form-group">
+             <%= f.submit :Complete_application, class: 'govuk-button auto-width' %>
+        </div>
+    </fieldset>
+</div>

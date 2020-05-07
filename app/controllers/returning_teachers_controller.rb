@@ -25,6 +25,7 @@ class ReturningTeachersController < ApplicationController
   def returning_teacher_params
     params.require(:returning_teacher).permit(
     :primary_or_secondary,
+    :stage,
     :current_step
     )
   end

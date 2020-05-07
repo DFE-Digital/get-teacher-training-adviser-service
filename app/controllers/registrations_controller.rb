@@ -8,7 +8,6 @@ class RegistrationsController < ApplicationController
   def create
     @wizard = ModelWizard.new(Registration, session, params, registration_params).continue
     @registration = @wizard.object
-  byebug
     if @wizard.save
       if @registration.attributes["returning_to_teaching"]
         redirect_to new_returning_teacher_path(step: 0)

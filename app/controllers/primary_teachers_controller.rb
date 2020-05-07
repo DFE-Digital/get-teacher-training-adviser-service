@@ -8,9 +8,8 @@ class PrimaryTeachersController < ApplicationController
   def create
     @wizard = ModelWizard.new(PrimaryTeacher, session, params, primary_teacher_params).continue
     @primary_teacher = @wizard.object
-  byebug
     if @wizard.save
-      if @primary_teacher.attributes["uk_or_overseas"] == "uk"
+      if @primary_teacher.attributes["uk_or_overseas"] == "overseas"
         redirect_to new_overseas_teacher_path(step: 0)
       else
         redirect_to new_uk_teacher_path(step: 0)
