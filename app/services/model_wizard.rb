@@ -9,7 +9,6 @@ class ModelWizard
   end
 
   def start
-    byebug
     @session[:registration].merge!(@session[@session_params])
     @session[@session_params] = {}
     @object = load_object
@@ -18,7 +17,6 @@ class ModelWizard
   end
 
   def continue
-    byebug
     @session[@session_params].deep_merge!(@object_params) if @object_params
     @object = load_object
     @object.assign_attributes(@session[@session_params]) unless class?
@@ -45,7 +43,6 @@ private
   def process_save
     if @object.last_step?
       if @object.all_steps_valid?
-        byebug
         @session[:registration].merge!(@object.attributes.compact)
         @session[@session_param] = nil
         return @session[:registration]

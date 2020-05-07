@@ -8,7 +8,7 @@ class UkTeachersController < ApplicationController
   def create
     @wizard = ModelWizard.new(UkTeacher, session, params, uk_teacher_params).continue
     @uk_teacher = @wizard.object
-      byebug
+
     if @wizard.save
       # completion
     else
