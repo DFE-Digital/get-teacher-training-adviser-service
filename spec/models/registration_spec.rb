@@ -30,16 +30,16 @@ RSpec.describe 'Registration' do
     context "with invalid email addresses" do
       ['test.com', 'test@@test.com', 'FFFF', 'test@test', 'test@test.'].each do |invalid_email_address|
         let(:instance) { build(:registration, email_address: invalid_email_address) }
-        it " should not be valid" do
+        it "should not be valid" do
           expect(instance).to_not be_valid
         end
       end
     end
 
     context "with valid email addresses" do
-      ['test@example.com(opens in new tab)', 'testymctest@gmail.com(opens in new tab)', 'test%.mctest@domain.co.uk'].each do |valid_email_address|
+      ['test@example.com', 'testymctest@gmail.com', 'test%.mctest@domain.co.uk'].each do |valid_email_address|
         let(:instance) { build(:registration, email_address: valid_email_address) }
-        it " should be valid" do
+        it "should be valid" do
           expect(instance).to be_valid
         end
       end
