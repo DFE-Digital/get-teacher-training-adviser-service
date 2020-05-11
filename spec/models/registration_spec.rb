@@ -17,13 +17,31 @@ RSpec.describe 'Registration' do
 
       it "should return error messages" do
         no_email_stage0.valid?
-        expect(no_email_stage0.errors.messages[:email_address]).to eq ["can't be blank"]
+        expect(no_email_stage0.errors.messages[:email_address]).to eq ["is invalid"]
       end
     end
 
     context "without required attributes at last stage" do
       it "should be invalid" do
         expect(no_email_stage1).to_not be_valid 
+      end
+    end
+
+    context "with invalid email addresses" do
+      ['test.com', 'test@@test.com', 'FFFF', 'test@test', 'test@test.'].each do |invalid_email_address|
+        let(:instance) { build(:registration, email_address: invalid_email_address) }
+        it " should not be valid" do
+          expect(instance).to_not be_valid
+        end
+      end
+    end
+
+    context "with valid email addresses" do
+      ['test@example.com(opens in new tab)', 'testymctest@gmail.com(opens in new tab)', 'test%.mctest@domain.co.uk'].each do |valid_email_address|
+        let(:instance) { build(:registration, email_address: valid_email_address) }
+        it " should be valid" do
+          expect(instance).to be_valid
+        end
       end
     end
 
