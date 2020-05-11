@@ -1,5 +1,5 @@
 <%= f.hidden_field :current_step, value: f.object.current_step %>
-<%= f.hidden_field :stage, value: f.object.current_step %>
+<%= f.hidden_field :stage, value: f.object.current_step.to_i %>
 
 <%= render "registrations/steps/page#{f.object.current_step + 1}", f: f %>
 
