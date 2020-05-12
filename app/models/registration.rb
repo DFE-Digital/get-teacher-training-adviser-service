@@ -9,9 +9,11 @@ class Registration
   attribute :returning_to_teaching, :boolean
   attribute :stage, :integer
 
-  validates :email_address, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :first_name, presence: true
-  validates :last_name, presence: true
+  with_options if: -> { stage == 0 } do |stage0|
+    stage0.validates :email_address, format: { with: URI::MailTo::EMAIL_REGEXP }
+    stage0.validates :first_name, presence: true
+    stage0.validates :last_name, presence: true
+  end
   
   validates :returning_to_teaching, presence: true, if: -> { stage > 0 }
 

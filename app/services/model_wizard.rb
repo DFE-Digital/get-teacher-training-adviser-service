@@ -42,11 +42,11 @@ private
 
   def process_save
     if @object.last_step?
-      if @object.all_steps_valid?
+      if @object.all_steps_valid? # not working
         @session[:registration].merge!(@object.attributes.compact)
         @session[@session_param] = nil
         return @session[:registration]
-      end
+      end # whats the alternative?
     else
       @object.step_forward
     end

@@ -17,7 +17,7 @@ RSpec.describe 'Registration' do
 
       it "should return error messages" do
         no_email_stage0.valid?
-        expect(no_email_stage0.errors.messages[:email_address]).to eq ["is invalid"]
+        expect(no_email_stage0.errors[:email_address]).to eq ["is invalid"]
       end
     end
 

@@ -9,7 +9,7 @@ module MultiStepper
     valid?
   end
 
-  def all_steps_valid?
+  def all_steps_valid? # this is not doing anything
     (0...self.total_steps).all? do |step|
       @current_step = step
       current_step_valid?
