@@ -1,9 +1,8 @@
-# DFE-Digital Get Into Teaching Registrations
+# DFE-Digital Get Teacher Training Adviser Service
 
 ## Prerequisites
 
-- Ruby 2.7.1
-- PostgreSQL
+- Ruby 2.6.6
 - NodeJS 12.16.x
 - Yarn 1.12.x
 
@@ -11,7 +10,6 @@
 
 1. Run `bundle install` to install the gem dependencies
 2. Run `yarn` to install node dependencies
-3. Run `bin/rails db:setup` to set up the database development and test schemas, and seed with test data
 4. Run `bundle exec rails server` to launch the app on http://localhost:3000
 5. (optional) Run `./bin/webpack-dev-server` in a separate shell for faster compilation of assets
 
@@ -21,6 +19,9 @@
 - [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend)
 - RSpec
 - Dotenv (managing environment variables)
+- Dockerfile
+- CI based on GitHub Actions
+- Deployment utilising GovUK PAAS
 
 ## Running specs, linter(without auto correct) and annotate models and serializers
 ```
