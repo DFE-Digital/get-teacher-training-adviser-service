@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Identity' do
+RSpec.describe Identity do
   let(:identity) { build(:identity) }
   let(:no_name) { build(:identity, first_name: "") }
 

@@ -15,7 +15,6 @@ class RegistrationsController < ApplicationController
       redirect_to new_registration_path(step_name: @registration.next_step)
     else
      render :new
-     # redirect_to new_registration_path(step_name: step_name)
     end
   end
 
