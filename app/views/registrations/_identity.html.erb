@@ -1,0 +1,10 @@
+<%= f.govuk_fieldset legend: { text: 'What is your name and email?' } do %>
+<h1>What is your name and email?</h1>
+  <%= f.govuk_email_field :email_address, width: 20,
+    label: { text: 'Email Address' } %>
+  <%= f.govuk_text_field :first_name, width: 20,
+    label: { text: 'First Name' } %>
+  <%= f.govuk_text_field :last_name, width: 20,
+    label: { text: 'Surname' } %>
+  <%= f.govuk_submit %>
+<% end %>
