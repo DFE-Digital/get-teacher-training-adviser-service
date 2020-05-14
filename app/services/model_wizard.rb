@@ -18,7 +18,9 @@ class ModelWizard
 
   def continue 
     byebug
+    @session[@session_params] ||= {}
     @session[@session_params].deep_merge!(@object_params.to_unsafe_h) if @object_params
+    # don't need to load and assign
     @object = load_object
     @object.assign_attributes(@session[@session_params]) unless class?
     save
@@ -46,6 +48,7 @@ class ModelWizard
     @session[:registration] ||= {} # create session[:registration] if nil on first pass
     @session[:registration].merge!(@object.attributes.compact)
     @session[@session_params] = nil
+    byebug
     @session[:last_valid_step] = @object.class
     return @session[:registration]
   end

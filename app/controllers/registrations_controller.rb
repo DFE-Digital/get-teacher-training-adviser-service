@@ -10,7 +10,7 @@ class RegistrationsController < ApplicationController
   def create
     byebug
     step_name = params.keys[1]
-    class_name = step_name.capitalize.constantize
+    class_name = step_name.camelize.constantize
     @wizard = ModelWizard.new(class_name, session, params, params[step_name]).continue
     @registration = @wizard.object
     
