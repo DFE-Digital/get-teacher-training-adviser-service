@@ -19,6 +19,7 @@ class StepFactory
 
   def self.create(name)
     classified_name = name.camelize
+    # what behaviour if error raised, redirect?
     raise NameNotFoundError.new(classified_name) unless STEP_NAMES.include?(classified_name)
     Object.const_get(classified_name).new
   end
