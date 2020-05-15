@@ -3,6 +3,8 @@ class RegistrationsController < ApplicationController
   def new
     step_name = params[:step_name]
     @registration = StepFactory.create(step_name)
+  rescue StepFactory::NameNotFoundError => e
+    redirect_to :root, alert: "Error: #{e.message}"
   end
 
   def create

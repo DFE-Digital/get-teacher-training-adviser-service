@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe RegistrationsController, type: :request do
   let(:identity) { build(:identity) }
   let(:invalid_step) { "invalid_entity" }
+  subject(:get_invalid_step_url) { get new_registration_path(invalid_step) }
 
   describe "get /registrations/:step_name" do
 
@@ -14,10 +15,8 @@ RSpec.describe RegistrationsController, type: :request do
     end
 
     context "with an invalid step name" do
-      it "raises an error" do
-        expect {
-        get new_registration_path(invalid_step)
-        }.to raise_error(StepFactory::NameNotFoundError)
+      it "redirects to root" do
+        expect(get_invalid_step_url).to redirect_to :root
       end
     end
   end
