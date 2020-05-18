@@ -16,13 +16,13 @@ RSpec.describe PrimaryOrSecondary do
   describe "#next_step" do
     context "when answer is primary" do
       it "returns the correct option" do
-        expect(primary.next_step).to eq("primaryy")
+        expect(primary.next_step).to eq("qualified_to_teach")
       end
     end
 
-    context "when answer is no" do
+    context "when answer is secondary" do
       it "returns the correct option" do
-        expect(secondary.next_step).to eq("secondary")
+        expect(secondary.next_step).to eq("qualified_to_teach")
       end
     end
   end

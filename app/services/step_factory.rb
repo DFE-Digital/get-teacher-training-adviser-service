@@ -1,6 +1,8 @@
 class StepFactory
   # need to register permitted names/classes
-  STEP_NAMES = %w( Identity ReturningTeacher PrimaryOrSecondary ).freeze
+  STEP_NAMES = [
+    'Identity', 'ReturningTeacher', 'PrimaryOrSecondary', 'QualifiedToTeach', 'DateOfBirth'
+  ].freeze
 
   class NameNotFoundError < StandardError
     attr_reader :name
@@ -16,7 +18,7 @@ class StepFactory
 
   def self.create(name)
     classified_name = name.camelize
-    # what behaviour if error raised, redirect to root?
+    # need to redirect to root or last valid step.
     raise NameNotFoundError.new(classified_name) unless STEP_NAMES.include?(classified_name)
     Object.const_get(classified_name).new
   end

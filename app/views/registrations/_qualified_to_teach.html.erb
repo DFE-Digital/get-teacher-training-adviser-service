@@ -1,0 +1,12 @@
+<%= f.govuk_collection_select :qualified_subject,
+[
+    OpenStruct.new(value: 'Science', name: 'Science'),
+    OpenStruct.new(value: 'History', name: 'History'),
+    OpenStruct.new(value: 'Maths', name: 'Maths'),
+    OpenStruct.new(value: 'English', name: 'English')
+  ],
+:value,
+:name,
+label: { text: "Which subject are you qualified to teach?", tag: "h1", size: "m" }
+%>
+<%= f.govuk_submit %>
