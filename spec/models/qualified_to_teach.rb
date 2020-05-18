@@ -6,7 +6,7 @@ RSpec.describe QualifiedToTeach do
 
   describe "validation" do
     context "with invalid subject options" do
-      ['skiing', 'fishing', 'golfing', 'surfing', 'boozing'].each do |invalid_subject|
+      ['skiing', 'fishing', 'golfing', 'surfing' ].each do |invalid_subject|
         let(:instance) { build(:qualified_to_teach, qualified_subject: invalid_subject) }
         it "is not valid" do
           expect(instance).to_not be_valid
