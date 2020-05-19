@@ -2,7 +2,7 @@ class Dob < Base
 
   attribute :date_of_birth, :datetime
   
-  validates :date_of_birth, presence: true
+  validates :date_of_birth, presence: { message: "not a valid date" }
   
   def next_step
    "uk_or_overseas" 
@@ -20,7 +20,7 @@ class Dob < Base
 
     multiparameter_attributes.each do |multiparameter_attribute, values_hash|
       set_values = (1..3).collect{ |position| values_hash[position].to_i }
-      
+
     # validation checks
     if set_values.include?(0)
       return
