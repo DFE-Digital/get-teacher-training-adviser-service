@@ -1,16 +1,8 @@
-class DateOfBirth < Base
+class Dob < Base
 
   attribute :date_of_birth, :datetime
-
-  validate :validate_date
-
-  def validate_date
-    begin
-      self.date_of_birth = Date.parse(self.date_of_birth)
-    rescue
-      errors.add(:date_of_birth, 'Date does not exist. Please insert valid date')
-    end
-  end
+  
+  validates :date_of_birth, presence: true
   
   def next_step
    "uk_or_overseas" 
