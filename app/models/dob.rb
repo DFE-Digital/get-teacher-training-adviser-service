@@ -20,21 +20,18 @@ class Dob < Base
 
     multiparameter_attributes.each do |multiparameter_attribute, values_hash|
       set_values = (1..3).collect{ |position| values_hash[position].to_i }
-   
+      
+    # validation checks
     if set_values.include?(0)
-      errors.add(:date_of_birth, "can't be blank") 
       return
     elsif set_values[0] < 1920 || set_values[0] > Date.today.year
-      errors.add(:date_of_birth, "not a valid year")
       return
     elsif set_values[1] < 1 || set_values[1] > 12
-      errors.add(:date_of_birth, "not a valid month")
       return
     elsif set_values[2] < 1 || set_values[2] > 31
-      errors.add(:date_of_birth, "not a valid day")
       return
     end
-      
+  
       self.send("#{multiparameter_attribute}=", Date.new(*set_values))
     end
   end

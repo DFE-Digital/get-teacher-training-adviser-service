@@ -29,7 +29,7 @@ class RegistrationsController < ApplicationController
   end
 
   def entity_name
-    @registration.model_name.name.underscore.to_sym
+    @registration.step_name.to_sym
   end
 
   def registration_params
