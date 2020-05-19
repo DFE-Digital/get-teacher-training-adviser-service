@@ -1,0 +1,10 @@
+---
+applications:
+- name: {{APPLICATION}}
+  memory: 256M
+  docker:
+    image: {{DOCKER_IMAGE}}
+  env:
+    HTTPAUTH_PASSWORD: {{HTTPAUTH_PASSWORD}}
+    HTTPAUTH_USERNAME: {{HTTPAUTH_USERNAME}}
+    SECRET_KEY_BASE:   {{SECRET_KEY_BASE}}
