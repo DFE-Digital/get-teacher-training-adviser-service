@@ -1,4 +1,4 @@
-class Dob < Base
+class DateOfBirth < Base
 
   attribute :date_of_birth, :datetime
   

@@ -4,7 +4,7 @@ class QualifiedToTeach < Base
   validates :qualified_subject, inclusion: { in: %w(Maths English Science History) }
 
   def next_step
-    "dob"
+    "date_of_birth"
   end
 
 end 
