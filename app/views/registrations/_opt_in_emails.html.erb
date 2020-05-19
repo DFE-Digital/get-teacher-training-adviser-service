@@ -1,13 +1,7 @@
-<%= f.govuk_check_boxes_fieldset :confirmed, legend: { text: "Read and accept the Privacy Policy"} do %>
+<%= f.govuk_check_boxes_fieldset :confirmed, legend: { text: "Can we contact you by email about your application?" } do %>
   <%= f.hidden_field :confirmed, value: false %>
 
-  <p class="govuk-body">Our privacy notice explains how we use your personal data. It is important that you have read this notice before registering with Get Into Teaching.</p>
-
-  <div class="govuk-form-group">
-    <a href='/'>Privacy Policy</a>
-  </div>
-
-  <%= f.govuk_check_box :confirmed, true, multiple: false, label: { text: "Accept the Privacy Policy"} %>
+  <%= f.govuk_check_box :confirmed, true, multiple: false, label: { text: "Yes"} %>
 
  <% end %>
 

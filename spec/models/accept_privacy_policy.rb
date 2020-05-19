@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe OptInEmails do
-  let(:confirmed) { build(:opt_in_emails) }
-  let(:unconfirmed) { build(:opt_in_emails, confirmed: false) }
-  let(:wrong_answer) { build(:opt_in_emails, confirmed: nil) }
+RSpec.describe AcceptPrivacyPolicy do
+  let(:confirmed) { build(:accept_privacy_policy) }
+  let(:unconfirmed) { build(:accept_privacy_policy, confirmed: false) }
+  let(:wrong_answer) { build(:accept_privacy_policy, confirmed: nil) }
 
   describe "validation" do
     it "only accepts true or false values" do
@@ -16,13 +16,13 @@ RSpec.describe OptInEmails do
   describe "#next_step" do
     context "when confirmed is true" do
       it "returns the correct option" do
-        expect(confirmed.next_step).to eq("accept_privacy_policy")
+        expect(confirmed.next_step).to eq("complete_registration")
       end
     end
 
     context "when unconfirmed" do
       it "returns the correct option" do
-        expect(unconfirmed.next_step).to eq("accept_privacy_policy")
+        expect(unconfirmed.next_step).to eq("incomplete_registration")
       end
     end
   end

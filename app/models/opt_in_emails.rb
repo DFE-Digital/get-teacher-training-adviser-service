@@ -4,10 +4,6 @@ class OptInEmails < Base
   validates :confirmed, inclusion: { in: [true, false] }
 
   def next_step
-    if confirmed == true
-      "privacy_policy"
-    else
-      nil
-    end
+    "accept_privacy_policy"
   end
 end
