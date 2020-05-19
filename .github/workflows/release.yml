@@ -9,6 +9,17 @@ env:
   GOVUKPAAS_SPACE: get-into-teaching-test
   CONTAINER: get-teacher-training-adviser-service-test
 
+
+name: Release to test
+on: 
+   release:
+     types:  [edited, created]
+env:
+  DOCKERHUB_REPOSITORY: dfedigital/get-into-teaching-frontend
+  GOVUKPAAS_ORG: dfe-teacher-services
+  GOVUKPAAS_SPACE: get-into-teaching-test
+  CONTAINER: get-into-teaching-app-test
+
 jobs:
   deploy:
     name: Deploy to GovUK PaaS Test Environment
@@ -20,11 +31,21 @@ jobs:
         run: wget -O /tmp/cf-cli.deb "https://packages.cloudfoundry.org/stable?release=debian64&source=github"
       - name: Install CloudFoundry CLI
         run: sudo dpkg -i /tmp/cf-cli.deb
-      - name: Check CloudFoundry CLI version
-        run: cf --version
+      - name: Get Short SHA
+        id: sha
+        run: echo ::set-output name=short::$(git rev-parse --short $GITHUB_SHA)
+      - name: Deploy Built Image
+        uses: cuchi/jinja2-action@v1.1.0
+        with:
+          template:  manifest.yml.j2
+          output_file:  manifest.yml
+          variables: |
+              HTTPAUTH_PASSWORD="${{ secrets.HTTPAUTH_PASSWORD }}"
+              HTTPAUTH_USERNAME="${{ secrets.HTTPAUTH_USERNAME }}"
+              SECRET_KEY_BASE="${{ secrets.RAILS_MASTER_KEY }}"
+              APPLICATION="${{env.CONTAINER}}"
+              DOCKER_IMAGE=${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
       - name: Login to PaaS
         run: cf login -a api.london.cloud.service.gov.uk -u "${{ secrets.GOVUKPAAS_USERNAME }}" -p "${{ secrets.GOVUKPAAS_PASSWORD }}" -o $GOVUKPAAS_ORG -s $GOVUKPAAS_SPACE
-      - name: Current Org and Space
-        run: cf target
-      - name: Deploy Built Image
-        run: cf push $CONTAINER  --docker-image $DOCKERHUB_REPOSITORY:sha-$(git rev-parse --short $GITHUB_SHA)
+      - name: Push Manifest
+        run: cf push 
