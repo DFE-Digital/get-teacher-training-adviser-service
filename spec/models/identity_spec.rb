@@ -11,10 +11,6 @@ RSpec.describe Identity do
         expect(no_name).to_not be_valid
       end
 
-      it "returns error messages" do
-        no_name.valid?
-        expect(no_name.errors[:first_name]).to eq ["can't be blank"]
-      end
     end
 
     context "with invalid email addresses" do
