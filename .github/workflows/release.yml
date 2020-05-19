@@ -1,4 +1,4 @@
-  
+---  
 name: Release to test
 on: 
    release:
@@ -8,17 +8,6 @@ env:
   GOVUKPAAS_ORG: dfe-teacher-services
   GOVUKPAAS_SPACE: get-into-teaching-test
   CONTAINER: get-teacher-training-adviser-service-test
-
-
-name: Release to test
-on: 
-   release:
-     types:  [edited, created]
-env:
-  DOCKERHUB_REPOSITORY: dfedigital/get-into-teaching-frontend
-  GOVUKPAAS_ORG: dfe-teacher-services
-  GOVUKPAAS_SPACE: get-into-teaching-test
-  CONTAINER: get-into-teaching-app-test
 
 jobs:
   deploy:
