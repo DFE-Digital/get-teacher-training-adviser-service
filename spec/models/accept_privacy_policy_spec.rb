@@ -8,7 +8,7 @@ RSpec.describe AcceptPrivacyPolicy do
   describe "validation" do
     it "only accepts true or false values" do
       expect(wrong_answer).not_to be_valid
-      expect(unconfirmed).to be_valid
+      expect(unconfirmed).not_to be_valid
       expect(confirmed).to be_valid
     end
   end
@@ -22,7 +22,7 @@ RSpec.describe AcceptPrivacyPolicy do
 
     context "when unconfirmed" do
       it "returns the correct option" do
-        expect(unconfirmed.next_step).to eq("incomplete_registration")
+        expect(unconfirmed.next_step).to be(nil)
       end
     end
   end
