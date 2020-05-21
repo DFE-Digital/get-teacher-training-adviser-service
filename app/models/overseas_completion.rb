@@ -4,10 +4,7 @@ class OverseasCompletion < Base
   validates :confirmed, inclusion: { in: [true, false] }
 
   def next_step
-    if confirmed == true
-      "opt_in_emails"
-    else
-      nil
-    end
+    return "opt_in_emails" if confirmed
+    nil
   end
 end
