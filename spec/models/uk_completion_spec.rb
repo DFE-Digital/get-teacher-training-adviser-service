@@ -22,7 +22,7 @@ RSpec.describe UkCompletion do
 
     context "when unconfirmed" do
       it "returns nil" do
-        expect(unconfirmed.next_step).to eq(nil)
+        expect(unconfirmed.next_step).to be(nil)
       end
     end
   end
