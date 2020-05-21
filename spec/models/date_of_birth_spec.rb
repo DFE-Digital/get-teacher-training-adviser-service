@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe DateOfBirth do
-  subject(:date_of_birth) { DateOfBirth.new({'date_of_birth(3i)' => '1', 'date_of_birth(2i)' => '12', 'date_of_birth(1i)' => '2001'}) }
-  subject(:invalid_month) { DateOfBirth.new({'date_of_birth(3i)' => '1', 'date_of_birth(2i)' => '13', 'date_of_birth(1i)' => '2001'}) }
-  subject(:invalid_day) { DateOfBirth.new({'date_of_birth(3i)' => '32', 'date_of_birth(2i)' => '12', 'date_of_birth(1i)' => '2001'}) }
-  subject(:invalid_year) { DateOfBirth.new({'date_of_birth(3i)' => '32', 'date_of_birth(2i)' => '12', 'date_of_birth(1i)' => Time.now.year + 1 }) }
+  let(:date_of_birth) { described_class.new({'date_of_birth(3i)' => '1', 'date_of_birth(2i)' => '12', 'date_of_birth(1i)' => '2001'}) }
+  let(:invalid_month) { described_class.new({'date_of_birth(3i)' => '1', 'date_of_birth(2i)' => '13', 'date_of_birth(1i)' => '2001'}) }
+  let(:invalid_day) { described_class.new({'date_of_birth(3i)' => '32', 'date_of_birth(2i)' => '12', 'date_of_birth(1i)' => '2001'}) }
+  let(:invalid_year) { described_class.new({'date_of_birth(3i)' => '32', 'date_of_birth(2i)' => '12', 'date_of_birth(1i)' => Time.now.year + 1 }) }
 
   describe "validation" do
     context "with required attributes" do
