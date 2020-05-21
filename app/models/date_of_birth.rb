@@ -27,7 +27,6 @@ class DateOfBirth < Base
       return if set_values[1] < 1 || set_values[1] > 12
       return if set_values[2] < 1 || set_values[2] > 31
  
-
       self.send("#{multiparameter_attribute}=", Date.new(*set_values))
     end
   end
