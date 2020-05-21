@@ -1,9 +1,9 @@
 class DateOfBirth < Base
 
-  attribute :date_of_birth, :datetime
+  attribute :date_of_birth, :date
   
   validates :date_of_birth, presence: { message: "not a valid date" }
-  
+
   def next_step
    "uk_or_overseas" 
   end
@@ -21,17 +21,17 @@ class DateOfBirth < Base
     multiparameter_attributes.each do |multiparameter_attribute, values_hash|
       set_values = (1..3).collect{ |position| values_hash[position].to_i }
 
-    # validation checks
-    if set_values.include?(0)
-      return
-    elsif set_values[0] < 1920 || set_values[0] > Date.today.year
-      return
-    elsif set_values[1] < 1 || set_values[1] > 12
-      return
-    elsif set_values[2] < 1 || set_values[2] > 31
-      return
-    end
-  
+      # validation checks
+      if set_values.include?(0)
+        return
+      elsif set_values[0] < 1920 || set_values[0] > Date.today.year
+        return
+      elsif set_values[1] < 1 || set_values[1] > 12
+        return
+      elsif set_values[2] < 1 || set_values[2] > 31
+        return
+      end
+
       self.send("#{multiparameter_attribute}=", Date.new(*set_values))
     end
   end
@@ -69,3 +69,5 @@ class DateOfBirth < Base
   end  
 
 end 
+
+

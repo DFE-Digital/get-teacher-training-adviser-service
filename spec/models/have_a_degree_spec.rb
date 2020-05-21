@@ -45,7 +45,7 @@ RSpec.describe HaveADegree do
 
     context "when answer is equivalent" do
       it "returns the correct option" do
-        expect(equivalent.next_step).to eq("stage_interested_in_teaching")
+        expect(equivalent.next_step).to eq("stage_interested_teaching")
       end
     end
 
