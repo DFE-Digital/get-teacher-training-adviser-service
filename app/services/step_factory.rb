@@ -2,7 +2,7 @@ class StepFactory
   # need to register permitted names/classes
   STEP_NAMES = [
     'Identity', 'ReturningTeacher', 'PrimaryOrSecondary', 'QualifiedToTeach', 'DateOfBirth', 'UkOrOverseas',
-    'UkCandidate', 'UkCompletion', 'OptInEmails', 'AcceptPrivacyPolicy', 'OverseasCandidate', 'OverseasCompletion', 'HaveADegree'
+    'UkCandidate', 'UkCompletion', 'OptInEmails', 'AcceptPrivacyPolicy', 'OverseasCandidate', 'OverseasCompletion', 'HaveADegree', 'WhatSubjectDegree'
   ].freeze
 
   class NameNotFoundError < StandardError
