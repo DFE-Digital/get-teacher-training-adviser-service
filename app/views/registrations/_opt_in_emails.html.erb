@@ -1,0 +1,8 @@
+<%= f.govuk_check_boxes_fieldset :confirmed, legend: { text: "Can we contact you by email about your application?" } do %>
+  <%= f.hidden_field :confirmed, value: false %>
+
+  <%= f.govuk_check_box :confirmed, true, multiple: false, label: { text: "Yes"} %>
+
+ <% end %>
+
+<%= f.govuk_submit %>

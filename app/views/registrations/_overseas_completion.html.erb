@@ -1,0 +1,41 @@
+<div class="govuk-form-group">
+
+    <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+                Check your answers
+            </h1>
+        </legend>
+
+        <%= f.hidden_field :confirmed, value: true %>
+
+        <div class="govuk-form-group">
+            <%= f.submit :Continue, class: 'govuk-button auto-width' %>
+        </div>
+
+        <div class="govuk-form-group">
+            <h3>
+                Do you have an overseas qualification
+            </h3>
+            <p>yes</p>
+            <p><a href='/'>Change</a></p>
+        </div>
+
+        <div class="govuk-form-group">
+            <h3>
+                Where do you live
+            </h3>
+            <p>Manchester</p>
+            <p><a href='/'>Change</a></p>
+        </div>
+
+        <div class="govuk-form-group">
+            <h3>
+                How do you want to be contacted?
+            </h3>
+            <p>Telephone</p>
+            <p><a href='/'>Change</a></p>
+        </div>
+
+    </fieldset>
+</div>

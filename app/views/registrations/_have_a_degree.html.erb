@@ -1,0 +1,7 @@
+<%= f.govuk_radio_buttons_fieldset(:degree, legend: { text: 'Do you have a degree?'} ) do %>
+  <%= f.govuk_radio_button :degree, 'yes', label: { text: 'Yes' } %>
+  <%= f.govuk_radio_button :degree, 'no', label: { text: 'No' } %>
+  <%= f.govuk_radio_button :degree, 'studying', label: { text: "I'm studying for a degree" } %>
+  <%= f.govuk_radio_button :degree, 'equivalent', label: { text: 'I have an equivalent from another country' } %>
+<% end %>
+<%= f.govuk_submit%>
