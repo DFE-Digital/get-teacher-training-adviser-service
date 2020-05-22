@@ -16,6 +16,17 @@
     <%= favicon_link_tag asset_pack_path('media/images/govuk-apple-touch-icon-180x180.png'), rel: 'apple-touch-icon', type: 'image/png', size: '180x180' %>
     <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload', media: 'all' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
+    <%= javascript_pack_tag 'google_analytics' %>
+    <% if Rails.env.production? %>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src=“https://www.googletagmanager.com/gtag/js?id=UA-159214613-3”></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag(‘js’, new Date());
+        gtag(‘config’, ‘UA-159214613-3’);
+      </script>
+    <% end %>
   </head>
 
   <body class="govuk-template__body govuk-body">
