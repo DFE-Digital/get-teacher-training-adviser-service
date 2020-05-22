@@ -1,6 +1,7 @@
 document.addEventListener("turbolinks:load", function (event) {
   if (typeof gtag === "function") {
-    gtag("set", "location", event.data.url);
-    gtag("send", "pageview");
+    gtag("config", "UA-159214613-3", {
+      page_path: event.data.url,
+    });
   }
 });
