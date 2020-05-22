@@ -1,0 +1,4 @@
+<%= link_to "Back", :back , class: "govuk-back-link" %><!-- or javascript history -->
+<%= form_for @registration, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: registrations_path do |f| %>
+  <%= render @registration, f: f %>
+<% end %> 

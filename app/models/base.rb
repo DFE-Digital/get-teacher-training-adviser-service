@@ -1,0 +1,13 @@
+class Base
+  include ActiveModel::Model
+  include ActiveModel::Attributes
+
+  def step_name
+    model_name.name.underscore
+  end
+
+  def to_partial_path
+    "registrations/#{step_name}"
+  end
+
+end 

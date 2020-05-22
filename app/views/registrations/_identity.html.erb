@@ -1,0 +1,11 @@
+<%= f.govuk_fieldset legend: { text: 'What is your name and email?' } do %>
+<p>We now need to collect some personal details to complete your registration. Your details are protected under the terms of our privacy notice.</p>
+<p>Our privacy notice explains how we use your personal data. It is important that you have read this notice before registering with Get Into Teaching.</p>
+  <%= f.govuk_email_field :email_address, width: 20,
+    label: { text: 'Email Address' } %>
+  <%= f.govuk_text_field :first_name, width: 20,
+    label: { text: 'First Name' } %>
+  <%= f.govuk_text_field :last_name, width: 20,
+    label: { text: 'Surname' } %>
+  <%= f.govuk_submit %>
+<% end %>
