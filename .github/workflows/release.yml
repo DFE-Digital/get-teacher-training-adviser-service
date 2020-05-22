@@ -1,43 +1,18 @@
-name: Build and Deploy
-on: [ push ]
+---  
+name: Release to test
+on: 
+   release:
+     types:  [edited, created]
 env:
   DOCKERHUB_REPOSITORY: dfedigital/get-teacher-training-adviser-service
   GOVUKPAAS_ORG: dfe-teacher-services
-  GOVUKPAAS_SPACE: get-into-teaching
-  CONTAINER: get-teacher-training-adviser-service
+  GOVUKPAAS_SPACE: get-into-teaching-test
+  CONTAINER: get-teacher-training-adviser-service-test
+
 jobs:
-  build_and_test:
-    name: Build, push to DockerHub and run tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v2
-      - name: Build and push to DockerHub
-        uses: docker/build-push-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PERSONAL_ACCESS_TOKEN }}
-          repository: ${{ env.DOCKERHUB_REPOSITORY }}
-          always_pull: true
-          add_git_labels: true
-          tag_with_ref: true
-          tag_with_sha: true
-          push: true
-      - name: Set DOCKER_IMAGE environment variable
-        run: |-
-          echo ::set-env name=DOCKER_IMAGE::${{ env.DOCKERHUB_REPOSITORY }}:sha-$(echo "${{ github.sha }}" | cut -c -7)
-      - name: Run Specs
-        run: |-
-          docker run -t --rm -e RAILS_ENV=test $DOCKER_IMAGE bundle exec rspec
-      - name: Lint Ruby and SCSS code
-        run: |-
-          docker run -t --rm -e RAILS_ENV=test $DOCKER_IMAGE bundle exec rake lint:ruby lint:scss
   deploy:
-    name: Deploy to GovUK PaaS
+    name: Deploy to GovUK PaaS Test Environment
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
-    needs:
-      - build_and_test
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2

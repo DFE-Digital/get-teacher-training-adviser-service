@@ -1,4 +1,0 @@
----
-applications:
-- name: get-teacher-training-adviser-service
-  memory: 256M
