@@ -1,6 +1,6 @@
 module SessionHelper
   def show_session(question)
-    session[:registration][question] ? session[:registration][question].capitalize : nil
+    session[:registration][question] ? session[:registration][question].titleize : nil
   end 
 
   def show_link(href)
@@ -22,12 +22,8 @@ module SessionHelper
     address.join('<br />').html_safe
   end
 
-  def show_overseas_callback
-    phone = session[:registration]['telephone']
-    date = session[:registration]['callback_date']
-    time = session[:registration]['callback_time']
-    
-    
+  def show_name_and_email
+    "#{session[:registration]['first_name'].capitalize}" + " " + "#{session[:registration]['last_name'].capitalize}" + ", " + "#{session[:registration]['email_address']}"
   end
 
 end
