@@ -1,4 +1,9 @@
 # DFE-Digital Get Teacher Training Adviser Service
+![Build and Deploy](https://github.com/DFE-Digital/get-teacher-training-adviser-service/workflows/Build%20and%20Deploy/badge.svg)
+
+![Release to test](https://github.com/DFE-Digital/get-teacher-training-adviser-service/workflows/Release%20to%20test/badge.svg)
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DFE-Digital_get-teacher-training-adviser-service&metric=alert_status)](https://sonarcloud.io/dashboard?id=DFE-Digital_get-teacher-training-adviser-service)
 
 ## Prerequisites
 
