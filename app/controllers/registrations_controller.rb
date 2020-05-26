@@ -12,7 +12,7 @@ class RegistrationsController < ApplicationController
     step_name = params[:step_name]
     @registration = StepFactory.create(step_name)
     @registration.assign_attributes(registration_params)
-  
+byebug
     if @registration.valid?
       update_session_registration_hash
       redirect_to new_registration_path(step_name: @registration.next_step)
@@ -25,7 +25,7 @@ class RegistrationsController < ApplicationController
 
   def update_session_registration_hash
     session[:registration] ||= {}
-    session[:registration].merge!(registration_params)
+    session[:registration].merge!(@registration.attributes)
   end
 
   def entity_name
