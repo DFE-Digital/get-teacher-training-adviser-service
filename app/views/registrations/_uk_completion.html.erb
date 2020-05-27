@@ -12,45 +12,53 @@
         <div class="govuk-form-group">
             <%= f.submit :Continue, class: 'govuk-button auto-width' %>
         </div>
-
+        <!-- helper for session info ? -->
         <div class="govuk-form-group">
             <h3>
-                What are you interested in teaching?
+               Are you returning to teaching?
             </h3>
-            <p>Computer Science</p>
-            <p><a href='/'>Change</a></p>
+            <p><%= show_session('returning_to_teaching')%></p>
+            <p><%= show_link('returning_teacher') %>
         </div>
 
         <div class="govuk-form-group">
             <h3>
-                When do you intend to start your teacher training?
+                Are you qualified to teach Primary or Secondary?
             </h3>
-            <p>2020</p>
-            <p><a href='/'>Change</a></p>
+            <p><%= show_session('primary_or_secondary') %></p>
+            <p><%= show_link('primary_or_secondary') %>
         </div>
 
         <div class="govuk-form-group">
             <h3>
-                What stage are you at with your degree?
+                What subject are you qualified to teach?
             </h3>
-            <p>Undergraduate</p>
-            <p><a href='/'>Change</a></p>
+            <p><%= show_session('qualified_subject') %></p>
+            <p><%= show_link('qualified_to_teach') %>
         </div>
 
         <div class="govuk-form-group">
             <h3>
-                What subject is your degree in?
+                What is your date of birth?
             </h3>
-            <p>Archeology</p>
-            <p><a href='/'>Change</a></p>
+            <p><%= show_dob %></p>
+            <p><%= show_link('date_of_birth') %>
         </div>
 
         <div class="govuk-form-group">
             <h3>
-                Which degree class did you achieve or are predicted to achieve?
+                Where do you live, Uk or Overseas?
             </h3>
-            <p>First Class</p>
-            <p><a href='/'>Change</a></p>
+            <p><%= show_session('uk_or_overseas') %></p>
+            <p><%= show_link('uk_or_overseas') %>
+        </div>
+
+        <div class="govuk-form-group">
+            <h3>
+                What is your address?
+            </h3>
+            <p><%= show_uk_address %></p>
+            <p><%= show_link('uk_candidate') %>
         </div>
 
     </fieldset>

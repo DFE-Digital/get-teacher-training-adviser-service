@@ -16,13 +16,13 @@ RSpec.describe PrimaryMathsEnglishGrade4 do
   describe "#next_step" do
     context "when answer is primary" do
       it "returns the correct option" do
-        expect(yes.next_step).to eq("subject_interested_in_teaching")
+        expect(yes.next_step).to eq("subject_interested_teaching")
       end
     end
 
     context "when answer is secondary" do
       it "returns the correct option" do
-        expect(no.next_step).to eq("required_gcse")
+        expect(no.next_step).to eq("qualification_required")
       end
     end
   end

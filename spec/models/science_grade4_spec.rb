@@ -22,7 +22,7 @@ RSpec.describe ScienceGrade4 do
 
     context "when answer is no" do
       it "returns the correct option" do
-        expect(new_teacher.next_step).to eq("required_gcse")
+        expect(new_teacher.next_step).to eq("qualification_required")
       end
     end
   end

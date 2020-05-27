@@ -6,35 +6,75 @@
                 Check your answers
             </h1>
         </legend>
-
+       
         <%= f.hidden_field :confirmed, value: true %>
 
         <div class="govuk-form-group">
             <%= f.submit :Continue, class: 'govuk-button auto-width' %>
         </div>
-
+        <!-- helper for session info ? -->
         <div class="govuk-form-group">
             <h3>
-                Do you have an overseas qualification
+               Are you returning to teaching?
             </h3>
-            <p>yes</p>
-            <p><a href='/'>Change</a></p>
+            <p><%= show_session('returning_to_teaching')%></p>
+            <p><%= show_link('returning_teacher') %>
         </div>
 
         <div class="govuk-form-group">
             <h3>
-                Where do you live
+                Are you qualified to teach Primary or Secondary?
             </h3>
-            <p>Manchester</p>
-            <p><a href='/'>Change</a></p>
+            <p><%= show_session('primary_or_secondary') %></p>
+            <p><%= show_link('primary_or_secondary') %>
         </div>
 
         <div class="govuk-form-group">
             <h3>
-                How do you want to be contacted?
+                What subject are you qualified to teach?
             </h3>
-            <p>Telephone</p>
-            <p><a href='/'>Change</a></p>
+            <p><%= show_session('qualified_subject') %></p>
+            <p><%= show_link('qualified_to_teach') %>
+        </div>
+
+        <div class="govuk-form-group">
+            <h3>
+                What is your date of birth?
+            </h3>
+            <p><%= show_dob %></p>
+            <p><%= show_link('date_of_birth') %>
+        </div>
+
+        <div class="govuk-form-group">
+            <h3>
+                Where do you live, Uk or Overseas?
+            </h3>
+            <p><%= show_session('uk_or_overseas') %></p>
+            <p><%= show_link('uk_or_overseas') %>
+        </div>
+
+        <div class="govuk-form-group">
+            <h3>
+                Telephone number.
+            </h3>
+            <p><%= show_session('telephone_number') %></p>
+            <p><%= show_link('overseas_candidate') %>
+        </div>
+
+        <div class="govuk-form-group">
+            <h3>
+                Callback Date.
+            </h3>
+            <p><%= show_session('callback_date').gsub('_',' ').titleize %></p>
+            <p><%= show_link('overseas_candidate') %>
+        </div>
+
+        <div class="govuk-form-group">
+            <h3>
+                Callback Time.
+            </h3>
+            <p><%= show_session('callback_time') %>&nbsp;hrs</p>
+            <p><%= show_link('overseas_candidate') %>
         </div>
 
     </fieldset>

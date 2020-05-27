@@ -7,7 +7,7 @@ class ScienceGrade4 < Base
     if have_science == "yes"
       "primary_maths_english_grade4"
     else
-      "required_gcse"
+      "qualification_required"
     end
   end
 
