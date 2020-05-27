@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root "pages#10"
+  get "/sitemap", to: "sitemaps#index"
   get "/:page", to: "pages#show"
 
   get "/404", to: "errors#not_found", via: :all
@@ -8,5 +9,6 @@ Rails.application.routes.draw do
 
   get "/registrations/:step_name", to: "registrations#new", as: "new_registration"
   post "/registrations/:step_name", to: "registrations#create", as: "registrations"
+
 
 end
