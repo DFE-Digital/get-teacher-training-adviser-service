@@ -6,5 +6,4 @@ task :sitemap do
         '/ping?sitemap=' +
         URI.escape('http://domain.com/sitemap.xml')
     )
-  end
 end
