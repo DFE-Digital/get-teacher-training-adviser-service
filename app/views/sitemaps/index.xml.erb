@@ -2,11 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
       <loc><%= @host %></loc>
+      <lastmod><%= Time.now.strftime("%Y-%m-%dT%H:%M:%S")%></lastmod>
    </url>
   
    <% @steps.each do |step| %>
      <url>
-        <loc><%= "#{@host}/registrations/#{step}" %></loc>
+        <loc><%= "#{@host}/registrations/#{step.underscore}" %></loc>
+        <lastmod><%= Time.now.strftime("%Y-%m-%dT%H:%M:%S")%></lastmod>
      </url>
    <% end %>
 </urlset>
