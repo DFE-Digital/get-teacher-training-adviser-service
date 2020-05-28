@@ -10,55 +10,51 @@
         <%= f.hidden_field :confirmed, value: true %>
 
         <div class="govuk-form-group">
-            <%= f.submit :Continue, class: 'govuk-button auto-width' %>
-        </div>
-
-        <div class="govuk-form-group">
             <h3>
                What is your name and email?
             </h3>
-            <p><%= show_name_and_email %></p>
-            <p><%= show_link('identity') %>
+            <p class="govuk-body"><%= show_name_and_email %></p>
+            <p class="govuk-body"><%= show_link('identity') %>
         </div>
 
         <div class="govuk-form-group">
             <h3>
                Are you returning to teaching?
             </h3>
-            <p><%= show_session('returning_to_teaching')%></p>
-            <p><%= show_link('returning_teacher') %>
+            <p class="govuk-body"><%= show_session('returning_to_teaching')%></p>
+            <p class="govuk-body"><%= show_link('returning_teacher') %>
         </div>
 
         <div class="govuk-form-group">
             <h3>
                Do you have a degree?
             </h3>
-            <p><%= show_session('degree')%></p>
-            <p><%= show_link('have_a_degree') %>
+            <p class="govuk-body"><%= show_session('degree')%></p>
+            <p class="govuk-body"><%= show_link('have_a_degree') %>
         </div>
 
         <div class="govuk-form-group">
             <h3>
                What subject is your degree?
             </h3>
-            <p><%= show_session('degree_subject')%></p>
-            <p><%= show_link('what_subject_degree') %>
+            <p class="govuk-body"><%= show_session('degree_subject')%></p>
+            <p class="govuk-body"><%= show_link('what_subject_degree') %>
         </div>
 
         <div class="govuk-form-group">
             <h3>
                What stage are you interested in teaching?
             </h3>
-            <p><%= show_session('primary_or_secondary')%></p>
-            <p><%= show_link('stage_interested_teaching') %>
+            <p class="govuk-body"><%= show_session('primary_or_secondary')%></p>
+            <p class="govuk-body"><%= show_link('stage_interested_teaching') %>
         </div>
         
         <div class="govuk-form-group">
             <h3>
                 Do you have Maths and English GCSE Grade 4 or above?
             </h3>
-            <p><%= show_session('has_required_subjects') %></p>
-            <p><%= show_link('primary_maths_english_grade4') %>
+            <p class="govuk-body"><%= show_session('has_required_subjects') %></p>
+            <p class="govuk-body"><%= show_link('primary_maths_english_grade4') %>
         </div>
 
       <% if session[:registration]['has_required_subjects'] == 'no' %>
@@ -66,8 +62,8 @@
             <h3>
                 Are you planning to retake you English and Maths GCSE?
             </h3>
-            <p><%= show_session('retaking') %></p>
-            <p><%= show_link('retake_english_maths') %>
+            <p class="govuk-body"><%= show_session('retaking') %></p>
+            <p class="govuk-body"><%= show_link('retake_english_maths') %>
         </div>
       <% end %>
 
@@ -75,40 +71,44 @@
             <h3>
                 What are you interested in teaching?
             </h3>
-            <p><%= show_session('teaching_subject') %></p>
-            <p><%= show_link('subject_interested_teaching') %>
+            <p class="govuk-body"><%= show_session('teaching_subject') %></p>
+            <p class="govuk-body"><%= show_link('subject_interested_teaching') %>
         </div>
 
         <div class="govuk-form-group">
             <h3>
                 When do you want to start your teacher training?
             </h3>
-            <p><%= show_session('year_of_entry') %></p>
-            <p><%= show_link('qualified_to_teach') %>
+            <p class="govuk-body"><%= show_session('year_of_entry') %></p>
+            <p class="govuk-body"><%= show_link('qualified_to_teach') %>
         </div>
 
         <div class="govuk-form-group">
             <h3>
                 What is your date of birth?
             </h3>
-            <p><%= show_dob %></p>
-            <p><%= show_link('date_of_birth') %>
+            <p class="govuk-body"><%= show_dob %></p>
+            <p class="govuk-body"><%= show_link('date_of_birth') %>
         </div>
 
         <div class="govuk-form-group">
             <h3>
                 Where do you live, Uk or Overseas?
             </h3>
-            <p><%= show_session('uk_or_overseas') %></p>
-            <p><%= show_link('uk_or_overseas') %>
+            <p class="govuk-body"><%= show_session('uk_or_overseas') %></p>
+            <p class="govuk-body"><%= show_link('uk_or_overseas') %>
         </div>
 
         <div class="govuk-form-group">
             <h3>
                 What is your address?
             </h3>
-            <p><%= show_uk_address %></p>
-            <p><%= show_link('uk_candidate') %>
+            <p class="govuk-body"><%= show_uk_address %></p>
+            <p class="govuk-body"><%= show_link('uk_candidate') %>
+        </div>
+
+         <div class="govuk-form-group">
+            <%= f.submit :Continue, class: 'govuk-button auto-width' %>
         </div>
 
     </fieldset>

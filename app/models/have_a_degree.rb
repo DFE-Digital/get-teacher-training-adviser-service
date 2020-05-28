@@ -1,7 +1,7 @@
 class HaveADegree < Base
   attribute :degree, :string
   
-  validates :degree, inclusion: { in: %w(yes no studying equivalent), message: "Please click an option."}
+  validates :degree, inclusion: { in: %w(yes no studying equivalent), message: "You must select an option"}
 
   def next_step
     case

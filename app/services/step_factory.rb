@@ -3,7 +3,7 @@ class StepFactory
   STEP_NAMES = [
     'Identity', 'ReturningTeacher', 'PrimaryOrSecondary', 'QualifiedToTeach', 'DateOfBirth', 'UkOrOverseas',
     'UkCandidate', 'UkCompletion', 'OptInEmails', 'AcceptPrivacyPolicy', 'OverseasCandidate', 'OverseasCompletion', 'HaveADegree', 'WhatSubjectDegree', 'StageInterestedTeaching', 'ScienceGrade4',
-    'PrimaryMathsEnglishGrade4', 'QualificationRequired', 'SubjectInterestedTeaching', 'SecondaryMathsEnglishGrade4', 'RetakeEnglishMaths', 'StartTeacherTraining', 'EquivalentStageInterestedTeaching', 'NoDegree', 'UkNewPrimaryCompletion', 'UkNewSecondaryCompletion'
+    'PrimaryMathsEnglishGrade4', 'QualificationRequired', 'SubjectInterestedTeaching', 'SecondaryMathsEnglishGrade4', 'RetakeEnglishMaths', 'StartTeacherTraining', 'EquivalentStageInterestedTeaching', 'NoDegree', 'UkNewPrimaryCompletion', 'UkNewSecondaryCompletion', 'UkStudyingCompletion'
   ].freeze
 
   class NameNotFoundError < StandardError
@@ -24,5 +24,5 @@ class StepFactory
     raise NameNotFoundError.new(classified_name) unless STEP_NAMES.include?(classified_name)
     Object.const_get(classified_name).new
   end
-  
+
 end
