@@ -1,3 +1,2 @@
 module Degree
-  
 end

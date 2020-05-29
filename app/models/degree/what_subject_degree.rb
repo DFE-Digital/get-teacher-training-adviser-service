@@ -1,11 +1,7 @@
 module Degree
-  class WhatSubjectDegree < Base
-    attribute :degree_subject, :string
-    
-    validates :degree_subject, inclusion: { in: %w(Maths History English French), message: "Please select an option."}
-
+  class WhatSubjectDegree < WhatSubjectDegree
     def next_step
-      "stage_interested_teaching"
+      "degree/stage_interested_teaching"
     end
   end
 end

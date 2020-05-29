@@ -1,0 +1,5 @@
+<%= f.govuk_radio_buttons_fieldset(:have_science, legend: { text: 'Do you have grade 4(C) or above in GCSE science, or equivalent?'}, inline: true ) do %>
+  <%= f.govuk_radio_button :have_science, 'yes', label: { text: 'Yes' } %>
+  <%= f.govuk_radio_button :have_science, 'no', label: { text: 'No' } %>
+<% end %>
+<%= f.govuk_submit%>

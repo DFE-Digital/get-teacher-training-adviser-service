@@ -7,7 +7,7 @@
   
    <% @steps.each do |step| %>
      <url>
-        <loc><%= "#{@host}/registrations/#{step.underscore}" %></loc>
+        <loc><%= "#{@host}" + "#{new_registration_path step.underscore}" %></loc>
         <lastmod><%= Time.now.strftime("%Y-%m-%dT%H:%M:%S")%></lastmod>
      </url>
    <% end %>

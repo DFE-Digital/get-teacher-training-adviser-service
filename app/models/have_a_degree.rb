@@ -6,7 +6,7 @@ class HaveADegree < Base
   def next_step
     case
     when degree == "yes"
-      "what_subject_degree"
+      "degree/what_subject_degree"
     when degree == "no"
       "no_degree"
     when degree == "studying"
