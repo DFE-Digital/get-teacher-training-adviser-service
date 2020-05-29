@@ -3,8 +3,8 @@ module SessionHelper
     session[:registration][question] ? session[:registration][question].titleize : nil
   end 
 
-  def show_link(href)
-    "<a href='#{href}'>Change</a>".html_safe
+  def show_link(step)
+    "<a href='#{ new_registration_path(step) }'>Change</a>".html_safe
   end
 
   def show_dob

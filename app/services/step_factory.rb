@@ -6,7 +6,7 @@ class StepFactory
     'PrimaryMathsEnglishGrade4', 'QualificationRequired', 'SubjectInterestedTeaching', 'SecondaryMathsEnglishGrade4', 'RetakeEnglishMaths', 'StartTeacherTraining', 'EquivalentStageInterestedTeaching', 'NoDegree', 'UkNewPrimaryCompletion', 'UkNewSecondaryCompletion', 'UkStudyingCompletion',
 
     'Degree::WhatSubjectDegree', 'Degree::StageInterestedTeaching', 'Degree::ScienceGrade4',
-    'Degree::PrimaryMathsEnglishGrade4', 'Degree::SubjectInterestedTeaching', 'Degree::StartTeacherTraining', 'Degree::DateOfBirth', 'Degree::UkOrOverseas'
+    'Degree::PrimaryMathsEnglishGrade4', 'Degree::SubjectInterestedTeaching', 'Degree::StartTeacherTraining', 'Degree::DateOfBirth', 'Degree::UkOrOverseas', 'Degree::UkCandidate', 'Degree::UkCompletion', 'Degree::SecondaryMathsEnglishGrade4', 'Degree::RetakeEnglishMaths', 'Degree::OverseasCandidate', 'Degree::OverseasCompletion'
   ].freeze
 
   class NameNotFoundError < StandardError
