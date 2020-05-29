@@ -1,8 +1,5 @@
-<%= f.govuk_check_boxes_fieldset :confirmed, legend: { text: "Can we contact you by email?" } do %>
-  <%= f.hidden_field :confirmed, value: false %>
-
-  <%= f.govuk_check_box :confirmed, true, multiple: false, label: { text: "Yes"} %>
-
- <% end %>
-
-<%= f.govuk_submit %>
+<%= f.govuk_radio_buttons_fieldset(:email, legend: { text: 'Can we constact you by email?' }, inline: true ) do %>
+  <%= f.govuk_radio_button :email, 'yes', label: { text: 'Yes' } %>
+  <%= f.govuk_radio_button :email, 'no', label: { text: 'No' } %>
+<% end %>
+<%= f.govuk_submit%>
