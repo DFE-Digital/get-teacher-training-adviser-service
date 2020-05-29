@@ -10,7 +10,7 @@ class HaveADegree < Base
     when degree == "no"
       "no_degree"
     when degree == "studying"
-      "what_subject_degree"
+      "degree/what_subject_degree"
     when degree == "equivalent"
       "equivalent_stage_interested_teaching"
     end
