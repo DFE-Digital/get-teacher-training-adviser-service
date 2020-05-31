@@ -1,13 +1,20 @@
 name: Build and Deploy
-on: [ push ]
+on:
+  repository_dispatch:
+  push:
+    branches:
+      - master
 env:
   DOCKERHUB_REPOSITORY: dfedigital/get-teacher-training-adviser-service
-  GOVUKPAAS_ORG: dfe-teacher-services
-  GOVUKPAAS_SPACE: get-into-teaching
-  CONTAINER: get-teacher-training-adviser-service
+  TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
+  TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
+  TF_VAR_HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
+  TF_VAR_HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
+  TF_VAR_RAILS_MASTER_KEY:  "${{ secrets.RAILS_MASTER_KEY_ROLLING }}"
+  TF_RAILS_ENV="rolling"
 jobs:
-  build_and_test:
-    name: Build, push to DockerHub and run tests
+  build_and_push:
+    name: Build and push to DockerHub
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
@@ -23,43 +30,51 @@ jobs:
           tag_with_ref: true
           tag_with_sha: true
           push: true
-      - name: Set DOCKER_IMAGE environment variable
-        run: |-
-          echo ::set-env name=DOCKER_IMAGE::${{ env.DOCKERHUB_REPOSITORY }}:sha-$(echo "${{ github.sha }}" | cut -c -7)
-      - name: Run Specs
-        run: |-
-          docker run -t --rm -e RAILS_ENV=test $DOCKER_IMAGE bundle exec rspec
-      - name: Lint Ruby and SCSS code
-        run: |-
-          docker run -t --rm -e RAILS_ENV=test $DOCKER_IMAGE bundle exec rake lint:ruby lint:scss
-  deploy:
-    name: Deploy to GovUK PaaS
+  deploy_qa:
+    name: 'Deploy to Quality Assurance'
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
+
     needs:
-      - build_and_test
+         build_docker
+
+    defaults:
+      run:
+        shell: bash
+
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v2
-      - name: Download CloudFoundry CLI
-        run: wget -O /tmp/cf-cli.deb "https://packages.cloudfoundry.org/stable?release=debian64&source=github"
-      - name: Install CloudFoundry CLI
-        run: sudo dpkg -i /tmp/cf-cli.deb
-      - name: Get Short SHA
-        id: sha
-        run: echo ::set-output name=short::$(git rev-parse --short $GITHUB_SHA)
-      - name: Deploy Built Image
-        uses: cuchi/jinja2-action@v1.1.0
-        with:
-          template:  manifest.yml.j2
-          output_file:  manifest.yml
-          variables: |
-              HTTPAUTH_PASSWORD="${{ secrets.HTTPAUTH_PASSWORD }}"
-              HTTPAUTH_USERNAME="${{ secrets.HTTPAUTH_USERNAME }}"
-              SECRET_KEY_BASE="${{ secrets.RAILS_MASTER_KEY }}"
-              APPLICATION="${{env.CONTAINER}}"
-              DOCKER_IMAGE=${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
-      - name: Login to PaaS
-        run: cf login -a api.london.cloud.service.gov.uk -u "${{ secrets.GOVUKPAAS_USERNAME }}" -p "${{ secrets.GOVUKPAAS_PASSWORD }}" -o $GOVUKPAAS_ORG -s $GOVUKPAAS_SPACE
-      - name: Push Manifest
-        run: cf push 
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Get Short SHA
+      id: sha
+      run: echo ::set-output name=short::$(git rev-parse --short $GITHUB_SHA)
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Install Terraform CloudFoundry Provider
+      run: |
+          wget https://github.com/cloudfoundry-community/terraform-provider-cf/releases/download/v0.12.2/terraform-provider-cloudfoundry_linux_amd64
+          mkdir -p $HOME/.terraform.d/plugins/linux_amd64
+          mv terraform-provider-cloudfoundry_linux_amd64 $HOME/.terraform.d/plugins/linux_amd64/terraform-provider-cloudfoundry
+          cd $HOME/.terraform.d/plugins/linux_amd64
+          chmod 755 terraform-provider-cloudfoundry
+          pwd && ls -lafg
+
+    - name: Terraform Init
+      run: |
+          cd terraform && pwd
+          terraform init
+
+    - name: Terraform Plan
+      run: |
+          cd terraform && pwd
+          terraform plan -var-file=test.env.tfvars -out plan
+      env:
+          TF_VAR_api_docker_image:   ${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}} 
+
+    - name: Terraform Apply
+      run: |
+          cd terraform && pwd
+          terraform apply -auto-approve  plan
