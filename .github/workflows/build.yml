@@ -10,8 +10,8 @@ env:
   TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
   TF_VAR_HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
   TF_VAR_HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
-  TF_VAR_RAILS_MASTER_KEY:  "${{ secrets.RAILS_MASTER_KEY_ROLLING }}"
-  TF_RAILS_ENV:             "rolling"
+  TF_VAR_RAILS_MASTER_KEY:  "${{ secrets.RAILS_MASTER_KEY_PREPROD }}"
+  TF_RAILS_ENV:             "preprod"
 jobs:
   build_and_push:
     name: Build and push to DockerHub
