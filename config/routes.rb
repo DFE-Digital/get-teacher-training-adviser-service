@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "pages#10"
+  root "pages#home"
   get "/sitemap", to: "sitemaps#index"
   get "/:page", to: "pages#show"
 
