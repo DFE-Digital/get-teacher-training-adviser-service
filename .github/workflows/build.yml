@@ -11,7 +11,7 @@ env:
   TF_VAR_HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
   TF_VAR_HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
   TF_VAR_RAILS_MASTER_KEY:  "${{ secrets.RAILS_MASTER_KEY_ROLLING }}"
-  TF_RAILS_ENV="rolling"
+  TF_RAILS_ENV:             "rolling"
 jobs:
   build_and_push:
     name: Build and push to DockerHub
