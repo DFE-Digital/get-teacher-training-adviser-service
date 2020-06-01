@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
 
     needs:
-         build_docker
+         build_and_push
 
     defaults:
       run:
