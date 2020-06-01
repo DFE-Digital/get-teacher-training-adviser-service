@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe EquivalentStageInterestedTeaching do
+RSpec.describe Equivalent::StageInterestedTeaching do
   let(:primary) { build(:equivalent_stage_interested_teaching) }
   let(:wrong_answer) { build(:equivalent_stage_interested_teaching, primary_or_secondary: "dont know") }
   let(:secondary) { build(:equivalent_stage_interested_teaching, primary_or_secondary: "secondary") }
@@ -16,13 +16,13 @@ RSpec.describe EquivalentStageInterestedTeaching do
   describe "#next_step" do
     context "when answer is primary" do
       it "returns the correct option" do
-        expect(primary.next_step).to eq("subject_interested_teaching")
+        expect(primary.next_step).to eq("equivalent/subject_interested_teaching")
       end
     end
 
     context "when answer is secondary" do
       it "returns the correct option" do
-        expect(secondary.next_step).to eq("subject_interested_teaching")
+        expect(secondary.next_step).to eq("equivalent/subject_interested_teaching")
       end
     end
   end
