@@ -26,6 +26,8 @@ gem "canonical-rails"
 
 gem "govuk_design_system_formbuilder"
 
+gem "dotenv-rails"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: %i[mri mingw x64_mingw]
@@ -42,9 +44,8 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem "capybara", "~> 3.32"
 
-  gem "dotenv-rails"
   # Factory builder
-  gem 'factory_bot_rails'
+  gem "factory_bot_rails"
 end
 
 group :development do

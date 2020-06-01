@@ -27,4 +27,7 @@ yarn-debug.log*
 .yarn-integrity
 
 .env
+.env*.local
 *.log
+
+/config/credentials/*.key
