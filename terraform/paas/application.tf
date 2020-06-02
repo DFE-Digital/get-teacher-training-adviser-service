@@ -2,6 +2,7 @@ resource "cloudfoundry_app" "adviser_application" {
     name =  var.paas_adviser_application_name
     space = data.cloudfoundry_space.space.id
     docker_image = var.paas_adviser_docker_image
+    routes {
         route = cloudfoundry_route.adviser_route.id
     }    
     environment = {
