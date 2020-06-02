@@ -26,4 +26,12 @@ module SessionHelper
     "#{session[:registration]['first_name'].capitalize}" + " " + "#{session[:registration]['last_name'].capitalize}" + ", " + "#{session[:registration]['email_address']}"
   end
 
+  def show_name
+    "#{session[:registration]['first_name'].capitalize}" + " " + "#{session[:registration]['last_name'].capitalize}"
+  end
+
+  def show_email
+    "#{session[:registration]['email_address']}"
+  end
+
 end
