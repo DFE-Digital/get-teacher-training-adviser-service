@@ -8,6 +8,7 @@ env:
   GOVUKPAAS_ORG: dfe-teacher-services
   GOVUKPAAS_SPACE: get-into-teaching-test
   CONTAINER: get-teacher-training-adviser-service-test
+  APPLICATION: get-teacher-training-adviser-service-test 
 
 jobs:
   deploy:
@@ -33,7 +34,7 @@ jobs:
               HTTPAUTH_USERNAME = "${{ secrets.HTTPAUTH_USERNAME }}"
               SECRET_KEY_BASE.  = "${{ secrets.RAILS_MASTER_KEY }}"
               RAILS_MASTER_KEY  = "${{ secrets.RAILS_MASTER_KEY_PREPROD }}"
-              TF_RAILS_ENV.     = "preprod"
+              RAILS_ENV         = "preprod"
               APPLICATION       = "${{env.CONTAINER}}"
               DOCKER_IMAGE=${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
       - name: Login to PaaS
