@@ -40,4 +40,6 @@ jobs:
       - name: Login to PaaS
         run: cf login -a api.london.cloud.service.gov.uk -u "${{ secrets.GOVUKPAAS_USERNAME }}" -p "${{ secrets.GOVUKPAAS_PASSWORD }}" -o $GOVUKPAAS_ORG -s $GOVUKPAAS_SPACE
       - name: Push Manifest
-        run: cf push 
+        run: |
+            cat manifest.yml
+            cf push -f manifest.yml
