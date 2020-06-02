@@ -30,12 +30,12 @@ jobs:
           template:  manifest.yml.j2
           output_file:  manifest.yml
           variables: |
-              HTTPAUTH_PASSWORD = "${{ secrets.HTTPAUTH_PASSWORD }}"
-              HTTPAUTH_USERNAME = "${{ secrets.HTTPAUTH_USERNAME }}"
-              SECRET_KEY_BASE.  = "${{ secrets.RAILS_MASTER_KEY }}"
-              RAILS_MASTER_KEY  = "${{ secrets.RAILS_MASTER_KEY_PREPROD }}"
-              RAILS_ENV         = "preprod"
-              APPLICATION       = "${{env.CONTAINER}}"
+              HTTPAUTH_PASSWORD=${{ secrets.HTTPAUTH_PASSWORD }}
+              HTTPAUTH_USERNAME=${{ secrets.HTTPAUTH_USERNAME }}
+              SECRET_KEY_BASE=${{ secrets.RAILS_MASTER_KEY }}
+              RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY_PREPROD }}
+              RAILS_ENV=preprod
+              APPLICATION=${{env.CONTAINER}}
               DOCKER_IMAGE=${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
       - name: Login to PaaS
         run: cf login -a api.london.cloud.service.gov.uk -u "${{ secrets.GOVUKPAAS_USERNAME }}" -p "${{ secrets.GOVUKPAAS_PASSWORD }}" -o $GOVUKPAAS_ORG -s $GOVUKPAAS_SPACE
