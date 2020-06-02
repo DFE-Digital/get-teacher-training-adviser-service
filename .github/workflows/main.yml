@@ -1,6 +1,7 @@
 name: Build and Deploy
-on:
-  watch:
+  schedule:
+    - cron: "*/5 * * * *"
+      
 env:
   TF_VAR_MASTER_KEY:        "${{ secrets.RAILS_MASTER_KEY_PREPROD }}"
    
