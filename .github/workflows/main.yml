@@ -1,13 +1,42 @@
-name: Build and Deploy
-  schedule:
-    - cron: "*/5 * * * *"
-      
+---  
+name: Release to test
+on: 
+   release:
+     types:  [edited, created]
 env:
-  TF_VAR_MASTER_KEY:        "${{ secrets.RAILS_MASTER_KEY_PREPROD }}"
-   
+  DOCKERHUB_REPOSITORY: dfedigital/get-teacher-training-adviser-service
+  GOVUKPAAS_ORG: dfe-teacher-services
+  GOVUKPAAS_SPACE: get-into-teaching-test
+  CONTAINER: get-teacher-training-adviser-service-test
+
 jobs:
-  trial:
-    name: 'Deploy to Quality Assurance'
+  deploy:
+    name: Deploy to GovUK PaaS Test Environment
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${TF_VAR_MASTER_KEY}
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Download CloudFoundry CLI
+        run: wget -O /tmp/cf-cli.deb "https://packages.cloudfoundry.org/stable?release=debian64&source=github"
+      - name: Install CloudFoundry CLI
+        run: sudo dpkg -i /tmp/cf-cli.deb
+      - name: Get Short SHA
+        id: sha
+        run: echo ::set-output name=short::$(git rev-parse --short $GITHUB_SHA)
+      - name: Deploy Built Image
+        uses: cuchi/jinja2-action@v1.1.0
+        with:
+          template:  manifest.yml.j2
+          output_file:  manifest.yml
+          variables: |
+              HTTPAUTH_PASSWORD = "${{ secrets.HTTPAUTH_PASSWORD }}"
+              HTTPAUTH_USERNAME = "${{ secrets.HTTPAUTH_USERNAME }}"
+              SECRET_KEY_BASE.  = "${{ secrets.RAILS_MASTER_KEY }}"
+              RAILS_MASTER_KEY  = "${{ secrets.RAILS_MASTER_KEY_PREPROD }}"
+              TF_RAILS_ENV.     = "preprod"
+              APPLICATION       = "${{env.CONTAINER}}"
+              DOCKER_IMAGE=${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
+      - name: Login to PaaS
+        run: cf login -a api.london.cloud.service.gov.uk -u "${{ secrets.GOVUKPAAS_USERNAME }}" -p "${{ secrets.GOVUKPAAS_PASSWORD }}" -o $GOVUKPAAS_ORG -s $GOVUKPAAS_SPACE
+      - name: Push Manifest
+        run: cf push 
