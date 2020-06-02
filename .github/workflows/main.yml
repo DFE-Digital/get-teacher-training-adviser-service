@@ -1,0 +1,12 @@
+name: Build and Deploy
+on:
+  watch:
+env:
+  TF_VAR_MASTER_KEY:        "${{ secrets.RAILS_MASTER_KEY_PREPROD }}"
+   
+jobs:
+  trial:
+    name: 'Deploy to Quality Assurance'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${TF_VAR_MASTER_KEY}
