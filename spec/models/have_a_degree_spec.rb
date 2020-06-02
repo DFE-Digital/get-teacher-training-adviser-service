@@ -27,7 +27,7 @@ RSpec.describe HaveADegree do
   describe "#next_step" do
     context "when answer is yes" do
       it "returns the correct option" do
-        expect(have_a_degree.next_step).to eq("what_subject_degree")
+        expect(have_a_degree.next_step).to eq("degree/what_subject_degree")
       end
     end
 
@@ -39,13 +39,13 @@ RSpec.describe HaveADegree do
 
     context "when answer is studying" do
       it "returns the correct option" do
-        expect(studying.next_step).to eq("what_subject_degree")
+        expect(studying.next_step).to eq("degree/what_subject_degree")
       end
     end
 
     context "when answer is equivalent" do
       it "returns the correct option" do
-        expect(equivalent.next_step).to eq("equivalent_stage_interested_teaching")
+        expect(equivalent.next_step).to eq("equivalent/stage_interested_teaching")
       end
     end
 

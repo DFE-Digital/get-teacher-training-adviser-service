@@ -29,6 +29,8 @@ class RegistrationsController < ApplicationController
   end
 
   def entity_name
+    # check for namespaces
+    return @registration.step_name.gsub("/","_").to_sym if @registration.step_name.include?("/")
     @registration.step_name.to_sym
   end
 

@@ -16,7 +16,7 @@ RSpec.describe AcceptPrivacyPolicy do
   describe "#next_step" do
     context "when confirmed is true" do
       it "returns the correct option" do
-        expect(confirmed.next_step).to eq("complete_registration")
+        expect(confirmed.next_step).to eq("complete_application")
       end
     end
 

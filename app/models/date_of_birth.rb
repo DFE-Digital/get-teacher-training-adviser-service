@@ -2,7 +2,7 @@ class DateOfBirth < Base
 
   attribute :date_of_birth, :date
   
-  validates :date_of_birth, presence: { message: "not a valid date" }
+  validates :date_of_birth, presence: { message: "Enter a valid date" }
 
   def next_step
    "uk_or_overseas" 

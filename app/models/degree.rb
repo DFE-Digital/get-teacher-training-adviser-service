@@ -1,0 +1,2 @@
+module Degree
+end

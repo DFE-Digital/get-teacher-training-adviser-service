@@ -1,0 +1,2 @@
+module Equivalent
+end
