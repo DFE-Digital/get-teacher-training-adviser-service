@@ -1,0 +1,11 @@
+<%= f.govuk_collection_select :year_of_entry,
+[
+    OpenStruct.new(value: '2020', name: '2020'),
+    OpenStruct.new(value: '2021', name: '2021'),
+    OpenStruct.new(value: '2022', name: '2022')
+  ],
+:value,
+:name,
+label: { text: "When do you want to start your teacher training?", tag: "h1", size: "m" }
+%>
+<%= f.govuk_submit %>

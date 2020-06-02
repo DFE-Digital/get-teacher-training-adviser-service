@@ -1,7 +1,7 @@
 class OptInEmails < Base
-  attribute :confirmed, :boolean, default: false
+  attribute :email, :string
 
-  validates :confirmed, inclusion: { in: [true, false] }
+  validates :email, inclusion: { in: %w(yes no), message: "You must select an option"}
 
   def next_step
     "accept_privacy_policy"

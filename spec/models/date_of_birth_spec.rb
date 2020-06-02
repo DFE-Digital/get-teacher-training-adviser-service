@@ -21,4 +21,10 @@ RSpec.describe DateOfBirth do
       end
     end
   end
+
+  describe "#next_step" do
+    it "returns the next step" do
+      expect(date_of_birth.next_step).to eq("uk_or_overseas")
+    end
+  end
 end
