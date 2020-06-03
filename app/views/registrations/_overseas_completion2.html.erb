@@ -16,7 +16,7 @@
             <p class="govuk-body"><%= show_name_and_email %></p>
             <p class="govuk-body"><%= show_link('identity') %>
         </div>
-        
+
         <div class="govuk-form-group">
             <h3>
                Are you returning to teaching?
@@ -59,13 +59,29 @@
 
         <div class="govuk-form-group">
             <h3>
-                What is your address?
+                Telephone number.
             </h3>
-            <p class="govuk-body"><%= show_uk_address %></p>
-            <p class="govuk-body"><%= show_link('uk_candidate') %>
+            <p class="govuk-body"><%= show_session('telephone_number') %></p>
+            <p class="govuk-body"><%= show_link('overseas_candidate') %>
         </div>
 
-         <div class="govuk-form-group">
+        <div class="govuk-form-group">
+            <h3>
+                Callback Date.
+            </h3>
+            <p class="govuk-body"><%= show_session('callback_date').gsub('_',' ').titleize %></p>
+            <p class="govuk-body"><%= show_link('overseas_candidate') %>
+        </div>
+
+        <div class="govuk-form-group">
+            <h3>
+                Callback Time.
+            </h3>
+            <p class="govuk-body"><%= show_session('callback_time') %>&nbsp;hrs</p>
+            <p class="govuk-body"><%= show_link('overseas_candidate') %>
+        </div>
+
+        <div class="govuk-form-group">
             <%= f.submit :Continue, class: 'govuk-button auto-width' %>
         </div>
 

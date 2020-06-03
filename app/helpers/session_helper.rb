@@ -34,4 +34,7 @@ module SessionHelper
     "#{session[:registration]['email_address']}"
   end
 
+  def show_phone
+    "#{session[:registration]['telephone_number']}"
+  end
 end

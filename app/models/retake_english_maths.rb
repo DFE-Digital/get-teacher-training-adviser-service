@@ -1,7 +1,7 @@
 class RetakeEnglishMaths < Base
   attribute :retaking, :string
 
-  validates :retaking, inclusion: { in: %w(yes no), message: "Please answer yes or no."}
+  validates :retaking, inclusion: { in: %w(yes no), message: "You must select an option"}
 
   def next_step
     if retaking == "yes"
