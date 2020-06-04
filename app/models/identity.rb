@@ -3,9 +3,9 @@ class Identity < Base
   attribute :first_name, :string
   attribute :last_name, :string
 
-  validates :email_address, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :first_name, presence: true
-  validates :last_name, presence: true
+  validates :email_address, format: { with: URI::MailTo::EMAIL_REGEXP, message: "You need to complete this field" }
+  validates :first_name, presence: { message: "You need to complete this field" }
+  validates :last_name, presence: { message: "You need to complete this field" }
 
   def next_step
     "returning_teacher"

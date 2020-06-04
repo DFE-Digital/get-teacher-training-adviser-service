@@ -1,73 +1,37 @@
-<div class="govuk-form-group">
+<div class="govuk-width-container">
 
-    <fieldset class="govuk-fieldset">
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-            <h1 class="govuk-fieldset__heading">
-                Check your answers
-            </h1>
-        </legend>
-       
+  <main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds-from-desktop">
+
+        <h1 class="govuk-heading-l">Check your answers before sending your application</h1>
+
+        <h2 class="govuk-heading-m">Personal details</h2>
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+          <%= render 'check_answers/name' %>
+          <%= render 'check_answers/date_of_birth' %>
+          <%= render 'check_answers/uk_candidate' %>
+          <%= render 'check_answers/email' %> 
+        </dl>
+
+        <h2 class="govuk-heading-m">Application details</h2>
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+          
+          <%= render 'check_answers/returning_teacher' %>
+          <%= render 'check_answers/primary_or_secondary' %>
+          <%= render 'check_answers/qualified_to_teach' %>
+          <%= render 'check_answers/uk_or_overseas' %>
+        </dl>
+
         <%= f.hidden_field :confirmed, value: true %>
 
         <div class="govuk-form-group">
-            <h3>
-               What is your name and email?
-            </h3>
-            <p class="govuk-body"><%= show_name_and_email %></p>
-            <p class="govuk-body"><%= show_link('identity') %>
-        </div>
-        
-        <div class="govuk-form-group">
-            <h3>
-               Are you returning to teaching?
-            </h3>
-            <p class="govuk-body"><%= show_session('returning_to_teaching')%></p>
-            <p class="govuk-body"><%= show_link('returning_teacher') %>
-        </div>
-
-        <div class="govuk-form-group">
-            <h3>
-                Are you qualified to teach Primary or Secondary?
-            </h3>
-            <p class="govuk-body"><%= show_session('primary_or_secondary') %></p>
-            <p class="govuk-body"><%= show_link('primary_or_secondary') %>
-        </div>
-
-        <div class="govuk-form-group">
-            <h3>
-                What subject are you qualified to teach?
-            </h3>
-            <p class="govuk-body"><%= show_session('qualified_subject') %></p>
-            <p class="govuk-body"><%= show_link('qualified_to_teach') %>
-        </div>
-
-        <div class="govuk-form-group">
-            <h3>
-                What is your date of birth?
-            </h3>
-            <p class="govuk-body"><%= show_dob %></p>
-            <p class="govuk-body"><%= show_link('date_of_birth') %>
-        </div>
-
-        <div class="govuk-form-group">
-            <h3>
-                Where do you live?
-            </h3>
-            <p class="govuk-body"><%= show_session('uk_or_overseas') %></p>
-            <p class="govuk-body"><%= show_link('uk_or_overseas') %>
-        </div>
-
-        <div class="govuk-form-group">
-            <h3>
-                What is your address?
-            </h3>
-            <p class="govuk-body"><%= show_uk_address %></p>
-            <p class="govuk-body"><%= show_link('uk_candidate') %>
-        </div>
-
-         <div class="govuk-form-group">
             <%= f.submit :Continue, class: 'govuk-button auto-width' %>
         </div>
 
-    </fieldset>
+      </div>
+    </div>
+  </main>
 </div>

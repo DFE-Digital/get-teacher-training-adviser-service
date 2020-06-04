@@ -40,13 +40,30 @@ RSpec.describe SessionHelper, type: :helper do
     end
   end
 
-  describe "show_name_and_email" do
-    it "returns the session name and email values" do
+  describe "show_name" do
+    it "returns the session name value" do
       session[:registration] = { 'first_name' => 'joe',
         'last_name' => 'bloggs',
+      }
+      expect(show_name).to eq("Joe Bloggs")
+    end
+  end
+
+  describe "show_email" do
+    it "returns the session email value" do
+      session[:registration] = {
         'email_address' => 'jo@bloggs.com'
       }
-      expect(show_name_and_email).to eq("Joe Bloggs, jo@bloggs.com")
+      expect(show_email).to eq("jo@bloggs.com")
+    end
+  end
+
+  describe "show_phone" do
+    it "returns the session telephone value" do
+      session[:registration] = { 
+        'telephone_number' => '1234567'
+      }
+      expect(show_phone).to eq("1234567")
     end
   end
 end

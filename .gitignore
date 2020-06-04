@@ -25,6 +25,8 @@
 /vendor/cache
 yarn-debug.log*
 .yarn-integrity
+#spec state
+/spec/examples.txt
 
 .env
 .env*.local

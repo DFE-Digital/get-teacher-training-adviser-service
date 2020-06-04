@@ -1,7 +1,7 @@
 class StageInterestedTeaching < Base
   attribute :primary_or_secondary, :string
 
-  validates :primary_or_secondary, inclusion: { in: %w(primary secondary), message: "Please answer Primary or Secondary." }
+  validates :primary_or_secondary, inclusion: { in: %w(primary secondary), message: "You must select an option" }
 
   def next_step
     if primary_or_secondary == "primary"

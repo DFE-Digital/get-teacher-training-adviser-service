@@ -1,12 +1,1 @@
-<%= f.govuk_collection_select :degree_subject,
-[
-    OpenStruct.new(value: 'French', name: 'Science'),
-    OpenStruct.new(value: 'History', name: 'History'),
-    OpenStruct.new(value: 'Maths', name: 'Maths'),
-    OpenStruct.new(value: 'English', name: 'English')
-  ],
-:value,
-:name,
-label: { text: "Which subject is your degree?", tag: "h1", size: "m" }
-%>
-<%= f.govuk_submit %>
+<%= render 'what_subject_degree', f: f %>

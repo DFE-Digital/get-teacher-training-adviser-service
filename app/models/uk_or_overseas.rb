@@ -1,7 +1,7 @@
 class UkOrOverseas < Base
   attribute :uk_or_overseas, :string
   
-  validates :uk_or_overseas, inclusion: { in: %w(uk overseas), message: "Please answer Uk or Overseas." }
+  validates :uk_or_overseas, inclusion: { in: %w(uk overseas), message: "You must select an option" }
 
   def next_step
     if uk_or_overseas == "uk"
