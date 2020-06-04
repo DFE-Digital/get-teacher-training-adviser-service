@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :retake_english_maths do
-    retaking { "yes" }
+    retaking {'yes' }
   end
 end

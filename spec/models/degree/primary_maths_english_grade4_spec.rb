@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Degree::PrimaryMathsEnglishGrade4 do
   let(:yes) { build(:degree_primary_maths_english_grade4) }
-  let(:wrong_answer) { build(:degree_primary_maths_english_grade4, has_required_subjects: "dont know") }
-  let(:no) { build(:degree_primary_maths_english_grade4, has_required_subjects: "no") }
+  let(:wrong_answer) { build(:degree_primary_maths_english_grade4, has_required_subjects: 'hjuy') }
+  let(:no) { build(:degree_primary_maths_english_grade4, has_required_subjects: 'no' ) }
 
   describe "validation" do
     it "only accepts primary or secondary" do

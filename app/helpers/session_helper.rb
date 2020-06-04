@@ -22,10 +22,6 @@ module SessionHelper
     address.join('<br />').html_safe
   end
 
-  def show_name_and_email
-    "#{session[:registration]['first_name'].capitalize}" + " " + "#{session[:registration]['last_name'].capitalize}" + ", " + "#{session[:registration]['email_address']}"
-  end
-
   def show_name
     "#{session[:registration]['first_name'].capitalize}" + " " + "#{session[:registration]['last_name'].capitalize}"
   end

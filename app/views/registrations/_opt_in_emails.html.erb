@@ -1,5 +1,5 @@
 <%= f.govuk_radio_buttons_fieldset(:email, legend: { text: 'Can we contact you by email?' }, inline: true ) do %>
-  <%= f.govuk_radio_button :email, 'yes', label: { text: 'Yes' } %>
-  <%= f.govuk_radio_button :email, 'no', label: { text: 'No' } %>
+  <%= f.govuk_radio_button :email, true, label: { text: 'Yes' } %>
+  <%= f.govuk_radio_button :email, false, label: { text: 'No' } %>
 <% end %>
 <%= f.govuk_submit%>

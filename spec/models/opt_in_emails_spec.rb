@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe OptInEmails do
   let(:confirmed) { build(:opt_in_emails) }
   let(:unconfirmed) { build(:opt_in_emails, email: 'no') }
-  let(:wrong_answer) { build(:opt_in_emails, email: '') }
+  let(:wrong_answer) { build(:opt_in_emails, email: 'yiuyi') }
 
   describe "validation" do
     it "only accepts yes or no answers" do

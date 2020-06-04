@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe RetakeEnglishMaths do
   let(:retake_english_maths) { build(:retake_english_maths) }
-  let(:wrong_answer) { build(:retake_english_maths, retaking: "dont know") }
-  let(:no) { build(:retake_english_maths, retaking: "no") }
+  let(:wrong_answer) { build(:retake_english_maths, retaking: 'gibberish') }
+  let(:no) { build(:retake_english_maths, retaking: 'no') }
 
   describe "validation" do
     it "only accepts yes or no" do
