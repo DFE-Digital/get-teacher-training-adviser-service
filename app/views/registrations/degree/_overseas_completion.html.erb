@@ -12,7 +12,7 @@
           <%= render 'check_answers/name' %>
           <%= render 'check_answers/degree/date_of_birth' %>
           <%= render 'check_answers/email' %> 
-          <%= render 'check_answers/telephone' %>
+          <%= render 'check_answers/degree/telephone' %>
         </dl>
 
         <h2 class="govuk-heading-m">Application details</h2>
@@ -39,9 +39,9 @@
 
             <%= render 'check_answers/degree/subject_interested_teaching' %>
             <%= render 'check_answers/degree/start_teacher_training' %>
-            <%= render 'check_answers/uk_or_overseas' %>
-            <%= render 'check_answers/callback_date' %>
-            <%= render 'check_answers/callback_time' %>
+            <%= render 'check_answers/degree/uk_or_overseas' %>
+            <%= render 'check_answers/degree/callback_date' %>
+            <%= render 'check_answers/degree/callback_time' %>
         </dl>
         
         <%= f.hidden_field :confirmed, value: true %>

@@ -18,7 +18,6 @@
         <h2 class="govuk-heading-m">Application details</h2>
 
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-          <%= render 'check_answers/degree/uk_or_overseas' %>
           <%= render 'check_answers/returning_teacher' %>
           <%= render 'check_answers/have_a_degree' %>
           <%= render 'check_answers/degree/what_subject_degree' %>
@@ -40,6 +39,7 @@
 
             <%= render 'check_answers/degree/subject_interested_teaching' %>
             <%= render 'check_answers/degree/start_teacher_training' %>
+            <%= render 'check_answers/degree/uk_or_overseas' %>
         </dl>
         
         <%= f.hidden_field :confirmed, value: true %>
