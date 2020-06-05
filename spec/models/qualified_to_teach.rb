@@ -15,7 +15,12 @@ RSpec.describe QualifiedToTeach do
     end
 
     context "with valid subject options" do
-      ['English', 'History', 'Science', 'Maths'].each do |valid_subject|
+      ['Art and design', 'Biology', 'Business studies', 'Chemistry',
+      'Citizenship','Classics','Computing','Dance','Design and technology',
+      'Drama','Economics','English','French','Geography','German','Health and social care', 
+      'History','Languages (other)','Maths','Media studies','French','Music','Physical education', 
+      'Physics','Physics with maths','Primary','Psychology','Religious education','Social sciences','Spanish', 
+      'Vocational health'].each do |valid_subject|
         let(:instance) { build(:qualified_to_teach, qualified_subject: valid_subject) }
         it "is valid" do
           expect(instance).to be_valid
