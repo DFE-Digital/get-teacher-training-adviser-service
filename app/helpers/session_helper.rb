@@ -1,6 +1,6 @@
 module SessionHelper
   def show_session(question)
-    if question == 'uk_or_overseas'
+    if question == 'uk_or_overseas' and session[:registration][question] == 'Uk'
       session[:registration][question] ? session[:registration][question].upcase : nil
     else
       session[:registration][question] ? session[:registration][question].capitalize : nil
