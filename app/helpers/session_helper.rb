@@ -1,11 +1,8 @@
 module SessionHelper
   def show_session(question)
-    if question == 'uk_or_overseas' and session[:registration][question] == 'Uk'
-      session[:registration][question] ? session[:registration][question].upcase : nil
-    else
-      session[:registration][question] ? session[:registration][question].capitalize : nil
-    end
-  end 
+    answer = session[:registration][question]
+    answer.downcase == 'uk' ? answer&.upcase : answer&.capitalize
+  end
 
   def show_link(step)
     "<a href='#{ new_registration_path(step) }'>Change</a>".html_safe
