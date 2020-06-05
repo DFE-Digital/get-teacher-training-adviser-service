@@ -1,6 +1,10 @@
 module SessionHelper
   def show_session(question)
-    session[:registration][question] ? session[:registration][question].titleize : nil
+    if question == 'uk_or_overseas'
+      session[:registration][question] ? session[:registration][question].upcase : nil
+    else
+      session[:registration][question] ? session[:registration][question].capitalize : nil
+    end
   end 
 
   def show_link(step)
