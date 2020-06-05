@@ -1,6 +1,6 @@
 <%= f.govuk_fieldset legend: { text: 'You told us you live overseas' } do %>
 
-<p class="govuk-body">You need to speak to a teacher training adviser. You will have to book a call in advance.</p>
+<p class="govuk-body">You need to speak to a teaching adviser. You will have to book a call in advance.</p>
 <p class="govuk-body">For this, you must have the details of your overseas qualifications when they contact you.</p>
   
   <%= f.govuk_text_field :telephone_number, width: 20,
@@ -22,10 +22,15 @@ label: { text: "Select a date", }
 
 <%= f.govuk_collection_select :callback_time,
 [
-    OpenStruct.new(value: '1030', name: '10:30am'),
-    OpenStruct.new(value: '1100', name: '11:00am'),
-    OpenStruct.new(value: '1130', name: '11:30am'),
-    OpenStruct.new(value: '1200', name: '12:00pm')
+    OpenStruct.new(value: '0900', name: '09:00am'),
+    OpenStruct.new(value: '1000', name: '10:00am'),
+    OpenStruct.new(value: '1000', name: '11:00am'),
+    OpenStruct.new(value: '1200', name: '12:00pm'),
+    OpenStruct.new(value: '1300', name: '01:00pm'),
+    OpenStruct.new(value: '1400', name: '02:00pm'),
+    OpenStruct.new(value: '1500', name: '03:00pm'),
+    OpenStruct.new(value: '1600', name: '04:00pm'),
+    OpenStruct.new(value: '1700', name: '05:00pm')
   ],
 :value,
 :name,
