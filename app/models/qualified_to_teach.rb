@@ -27,7 +27,7 @@ class QualifiedToTeach < Base
     'Physical education', 
     'Physics',
     'Physics with maths',
-    'Primary Psychology',
+    'Primary psychology',
     'Religious education',
     'Social sciences',
     'Spanish',
