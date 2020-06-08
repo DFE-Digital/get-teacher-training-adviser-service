@@ -27,6 +27,8 @@ yarn-debug.log*
 .yarn-integrity
 #spec state
 /spec/examples.txt
+# redis dump
+dump.rdb
 
 .env
 .env*.local

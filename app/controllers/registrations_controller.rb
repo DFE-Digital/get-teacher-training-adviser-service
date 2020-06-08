@@ -17,7 +17,7 @@ class RegistrationsController < ApplicationController
       update_session_registration_hash
       redirect_to new_registration_path(step_name: @registration.next_step)
     else
-     render :new
+      render :new
     end
   end
 

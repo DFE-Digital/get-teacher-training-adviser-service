@@ -97,6 +97,7 @@ GEM
       actionview (>= 5.2)
       activemodel (>= 5.2)
       activesupport (>= 5.2)
+    hiredis (0.6.3)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.4)
@@ -167,6 +168,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    redis (4.1.4)
     regexp_parser (1.7.0)
     rexml (3.2.4)
     rspec-core (3.9.1)
@@ -271,10 +273,12 @@ DEPENDENCIES
   factory_bot_rails
   foreman
   govuk_design_system_formbuilder
+  hiredis
   listen (>= 3.0.5, < 3.3)
   pry-byebug
   puma (~> 4.3)
   rails (~> 6.0.2)
+  redis
   rspec-rails (~> 4.0.0)
   rubocop-govuk
   scss_lint-govuk
