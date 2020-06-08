@@ -8,6 +8,16 @@ RSpec.describe SessionHelper, type: :helper do
         expect(show_session('identity')).to eq('Me')
       end
     end
+    context "with uk as the value" do
+      it "returns the value capitalised" do
+        session[:registration] = {'identity' => 'uk' }
+        expect(show_session('identity')).to eq('UK')
+        session[:registration] = {'identity' => 'UK' }
+        expect(show_session('identity')).to eq('UK')
+        session[:registration] = {'identity' => 'Uk' }
+        expect(show_session('identity')).to eq('UK')
+      end
+    end
     context "with missing sesson value" do
       it "returns nil" do
         session[:registration] = {}
