@@ -1,14 +1,15 @@
 module SessionHelper
   def show_session(question)
-    session[:registration][question] ? session[:registration][question].titleize : nil
-  end 
+    answer = session[:registration][question]
+    answer&.downcase == 'uk' ? answer&.upcase : answer&.capitalize
+  end
 
   def show_link(step)
     "<a href='#{ new_registration_path(step) }'>Change</a>".html_safe
   end
 
   def show_dob
-    dob = Date.parse(session[:registration]['date_of_birth'])
+    dob = session[:registration]['date_of_birth']
     dob.strftime('%b %d, %Y')
   end
 

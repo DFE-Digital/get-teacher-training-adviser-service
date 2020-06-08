@@ -3,9 +3,19 @@ require 'rails_helper'
 RSpec.describe SessionHelper, type: :helper do
   describe "#show_session" do
     context "with a session value" do
-      it "returns the value titleized" do
+      it "returns the value capitalized" do
         session[:registration] = {'identity' => 'me' }
         expect(show_session('identity')).to eq('Me')
+      end
+    end
+    context "with uk as the value" do
+      it "returns the value capitalised" do
+        session[:registration] = {'identity' => 'uk' }
+        expect(show_session('identity')).to eq('UK')
+        session[:registration] = {'identity' => 'UK' }
+        expect(show_session('identity')).to eq('UK')
+        session[:registration] = {'identity' => 'Uk' }
+        expect(show_session('identity')).to eq('UK')
       end
     end
     context "with missing sesson value" do
@@ -24,7 +34,7 @@ RSpec.describe SessionHelper, type: :helper do
 
   describe "#show_dob" do
     it "returns the session date_of_birth value" do
-      session[:registration] = { 'date_of_birth' => '2000-10-1'}
+      session[:registration] = { 'date_of_birth' => Date.new(2000, 10, 1)}
       expect(show_dob).to eq("Oct 01, 2000")
     end
   end
