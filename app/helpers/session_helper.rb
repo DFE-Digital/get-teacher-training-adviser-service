@@ -9,7 +9,7 @@ module SessionHelper
   end
 
   def show_dob
-    dob = Date.parse(session[:registration]['date_of_birth'])
+    dob = session[:registration]['date_of_birth']
     dob.strftime('%b %d, %Y')
   end
 
