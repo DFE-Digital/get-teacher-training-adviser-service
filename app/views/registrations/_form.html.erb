@@ -1,4 +1,5 @@
 <%= link_to 'Back', 'javascript:history.go(-1);', class: "govuk-back-link" %>
 <%= form_for @registration, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: registrations_path do |f| %>
+  <%= f.govuk_error_summary %>
   <%= render @registration, f: f %>
 <% end %> 
