@@ -31,7 +31,8 @@ class QualifiedToTeach < Base
     'Religious education',
     'Social sciences',
     'Spanish',
-    'Vocational health'] }
+    'Vocational health'] 
+  }
 
   def next_step
     "date_of_birth" 
