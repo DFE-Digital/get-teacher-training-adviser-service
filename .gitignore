@@ -19,7 +19,6 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-/config/credentials/development.key
 /public/packs
 /public/packs-test
 /node_modules
@@ -28,6 +27,8 @@ yarn-debug.log*
 .yarn-integrity
 #spec state
 /spec/examples.txt
+# redis dump
+dump.rdb
 
 .env
 .env*.local

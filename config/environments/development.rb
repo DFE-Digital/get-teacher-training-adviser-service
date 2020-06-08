@@ -27,7 +27,7 @@ Rails.application.configure do
 
     config.cache_store = :null_store
   end
-
+  # to enable redsis session store
   config.cache_store = :redis_cache_store
   
 
