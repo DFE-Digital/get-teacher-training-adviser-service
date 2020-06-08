@@ -1,5 +1,5 @@
 <%= f.govuk_collection_select :qualified_subject,
-[
+  [
     OpenStruct.new(value: 'Art and design', name: 'Art and design'),
     OpenStruct.new(value: 'Biology', name: 'Biology'),
     OpenStruct.new(value: 'Business studies', name: 'Business studies'),
@@ -31,8 +31,8 @@
     OpenStruct.new(value: 'Spanish', name: 'Spanish'),
     OpenStruct.new(value: 'Vocational health', name: 'Vocational health')
   ],
-:value,
-:name,
-label: { text: "Which subject are you qualified to teach?", tag: "h1", size: "m" }
+  :value,
+  :name,
+  label: { text: "Which subject are you qualified to teach?", tag: "h1", size: "m" }
 %>
 <%= f.govuk_submit %>
