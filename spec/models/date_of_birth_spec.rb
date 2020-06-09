@@ -7,7 +7,7 @@ RSpec.describe DateOfBirth do
   let(:invalid_year) { described_class.new({'date_of_birth(3i)' => '32', 'date_of_birth(2i)' => '12', 'date_of_birth(1i)' => Time.now.year + 1 }) }
   let(:impossible_date) { described_class.new({'date_of_birth(3i)' => '31', 'date_of_birth(2i)' => '2', 'date_of_birth(1i)' => Time.now.year }) }
   let(:too_young)  { described_class.new({'date_of_birth(3i)' => '1', 'date_of_birth(2i)' => '2', 'date_of_birth(1i)' => Time.now.years_ago(15) }) }
-  let(:too_old)  { described_class.new({'date_of_birth(3i)' => '1', 'date_of_birth(2i)' => '2', 'date_of_birth(1i)' => Time.now.years_ago(71) }) }
+  let(:upper_limit)  { described_class.new({'date_of_birth(3i)' => '1', 'date_of_birth(2i)' => '2', 'date_of_birth(1i)' => Time.now.years_ago(71) }) }
 
   describe "validation" do
     context "with required attributes" do
@@ -28,7 +28,7 @@ RSpec.describe DateOfBirth do
     context "outside lower and upper age limit" do
       it "is not valid" do
         expect(too_young).not_to be_valid
-        expect(too_old).not_to be_valid
+        expect(upper_limit).not_to be_valid
       end
       
     end
