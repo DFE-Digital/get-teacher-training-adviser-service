@@ -22,7 +22,6 @@ class OverseasCandidate < Base
   end
 
   def make_a_date
-    # validation checks
     year = self.send("callback_date(1i)").to_i 
     month = self.send("callback_date(2i)").to_i
     day = self.send("callback_date(3i)").to_i

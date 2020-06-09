@@ -8,7 +8,7 @@ class DateOfBirth < Base
   before_validation :make_a_date
   
   validates :date_of_birth, presence: { message: "You need to enter your date of birth" }
-  validate :date_cannot_be_in_the_future, :age_limit
+  validate :date_cannot_be_in_the_future, :age_limit, :upper_age_limit
 
   def date_cannot_be_in_the_future
     if self.date_of_birth.present? && date_of_birth > Date.today
@@ -17,7 +17,13 @@ class DateOfBirth < Base
   end
 
   def age_limit
-    if date_of_birth.present? && date_of_birth.year < 1950
+    if date_of_birth.present? && date_of_birth > Date.today.years_ago(16)
+      errors.add(:date_of_birth, "You must be more than 16 years old")
+    end
+  end
+
+  def upper_age_limit
+    if date_of_birth.present? && date_of_birth < Date.today.years_ago(70)
       errors.add(:date_of_birth, "You must be less than 70 years old")
     end
   end
