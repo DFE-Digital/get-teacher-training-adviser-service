@@ -1,4 +1,5 @@
 # DFE-Digital Get Teacher Training Adviser Service
+
 ![Build and Deploy](https://github.com/DFE-Digital/get-teacher-training-adviser-service/workflows/Build%20and%20Deploy/badge.svg)
 
 ![Release to test](https://github.com/DFE-Digital/get-teacher-training-adviser-service/workflows/Release%20to%20test/badge.svg)
@@ -10,13 +11,21 @@
 - Ruby 2.6.6
 - NodeJS 12.16.x
 - Yarn 1.12.x
+- Redis
 
 ## Setting up the app in development
 
 1. Run `bundle install` to install the gem dependencies
 2. Run `yarn` to install node dependencies
+3. Start Redis in alternate terminal, see below
 4. Run `bundle exec rails server` to launch the app on http://localhost:3000
 5. (optional) Run `./bin/webpack-dev-server` in a separate shell for faster compilation of assets
+
+## Redis for session storage
+
+1. Install redis, https://redis.io/documentation
+2. Edit redis.conf file, e.g. /usr/local/redis.conf for maxmemory size and policy keys (allkeys-lru), https://redis.io/topics/lru-cache
+3. Run `(sudo if required) redis-server` in alternate terminal window
 
 ## Whats included in this application?
 
@@ -29,11 +38,13 @@
 - Deployment utilising GovUK PAAS
 
 ## Running specs, linter(without auto correct) and annotate models and serializers
+
 ```
 bundle exec rake
 ```
 
 ## Running specs
+
 ```
 bundle exec rspec
 ```
@@ -50,7 +61,7 @@ or
 bundle exec scss-lint app/webpacker/styles
 ```
 
-You can automatically run the Ruby linter on commit for any changed files with 
+You can automatically run the Ruby linter on commit for any changed files with
 the following pre-commit hook `.git/hooks/pre-commit`.
 
 ```bash
@@ -72,7 +83,7 @@ The application has 2 extra Rails environments, in addition to the default 3.
 4. `rolling` - 'production-like' - continuously delivered, reflects current master
 5. `preprod` - 'production-like' - stage before release to final production
 
-**NOTE:** It is **important** if checking for the production environment to also 
+**NOTE:** It is **important** if checking for the production environment to also
 check for other 'production-like' environments unless you really intend to only
 check for production, ie.
 
@@ -85,7 +96,7 @@ if Rails.env.rolling? || Rails.env.preprod? || Rails
 First its worth mentioning that all config from `production.rb` is inherited by
 both `rolling.rb` and `preprod.rb` so separate configuration may not be required
 
-Publicly visible Environment Variables can be added to the relevant `.env` 
+Publicly visible Environment Variables can be added to the relevant `.env`
 files for each environment
 
 1. `/.env.production`
@@ -94,6 +105,5 @@ files for each environment
 
 ### Variables
 
-`HTTPAUTH_USERNAME` and `HTTPAUTH_PASSWORD` - setting both enables site wide 
+`HTTPAUTH_USERNAME` and `HTTPAUTH_PASSWORD` - setting both enables site wide
 password protection
-
