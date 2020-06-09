@@ -11,7 +11,7 @@ class DateOfBirth < Base
   validate :date_cannot_be_in_the_future, :age_limit, :upper_age_limit
 
   def date_cannot_be_in_the_future
-    if self.date_of_birth.present? && date_of_birth > Date.today
+    if date_of_birth.present? && date_of_birth > Date.today
       errors.add(:date_of_birth, "Date can't be in the future")
     end
   end
