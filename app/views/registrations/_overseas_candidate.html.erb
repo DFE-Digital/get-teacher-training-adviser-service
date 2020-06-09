@@ -8,17 +8,9 @@
 
 <% end %>
 
-<%= f.govuk_collection_select :callback_date,
-[
-    OpenStruct.new(value: '2_january', name: '2 January 2021'),
-    OpenStruct.new(value: '3_january', name: '3 January 2021'),
-    OpenStruct.new(value: '4_january', name: '4 January 2021'),
-    OpenStruct.new(value: '5_january', name: '4 January 2021')
-  ],
-:value,
-:name,
-label: { text: "Select a date", }
-%>
+<%= f.govuk_date_field :callback_date,
+legend: { text: 'Select a date' },
+hint_text: 'For example, 31 3 1980' %>
 
 <%= f.govuk_collection_select :callback_time,
 [
