@@ -1,5 +1,7 @@
-<%= link_to 'Back', 'javascript:history.go(-1);', class: "govuk-back-link" %>
+<%= link_to 'Back', 'javascript:history.go(-1);', class: "govuk-back-link hidden", id: "backlink" %>
 <%= form_for @registration, builder: GOVUKDesignSystemFormBuilder::FormBuilder, url: registrations_path do |f| %>
   <%= f.govuk_error_summary %>
   <%= render @registration, f: f %>
 <% end %> 
+
+<%= javascript_pack_tag 'back_link'%>
