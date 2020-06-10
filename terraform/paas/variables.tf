@@ -9,6 +9,25 @@ variable api_url {
 variable user {}
 variable password {}
 
+variable "application_stopped" {
+   default =  false
+}
+
+variable "logging" {
+   default = "0"
+}
+
+variable "paas_logging_name" {
+   default = "logit-ssl-drain"
+}
+
+variable "paas_logging_endpoint_port" {
+    default = ""
+}
+
+variable "paas_redis_1_name" {
+    default = "get-into-teaching-adviser-dev-red-svc"
+}
 
 variable "paas_space" {
    default = "sandbox"
@@ -19,7 +38,7 @@ variable "paas_org_name" {
 }
 
 variable "paas_adviser_application_name" {
-   default = "dfe-teacher-services-api"
+   default = "dfe-teacher-services-tta"
 }
 
 variable "paas_adviser_docker_image" {
@@ -27,7 +46,7 @@ variable "paas_adviser_docker_image" {
 }
 
 variable "paas_adviser_route_name" {
-   default = "dfe-teacher-services-sb-api"
+   default = "dfe-teacher-services-sb-tta"
 }
 
 variable    "HTTPAUTH_PASSWORD"  {}
