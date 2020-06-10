@@ -39,6 +39,13 @@ RSpec.describe SessionHelper, type: :helper do
     end
   end
 
+  describe "#show_callback_date" do
+    it "returns the session callback_date value" do
+      session[:registration] = { 'callback_date' => Date.new(2000, 10, 1)}
+      expect(show_callback_date).to eq("Oct 01, 2000")
+    end
+  end
+
   describe "#show_uk_address" do
     it "returns the session address values" do
       session[:registration] = { 'address_line_1' => "22",

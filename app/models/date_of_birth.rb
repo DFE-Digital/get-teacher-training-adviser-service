@@ -1,67 +1,49 @@
 class DateOfBirth < Base
 
   attribute :date_of_birth, :date
+  attribute "date_of_birth(3i)", :string
+  attribute "date_of_birth(2i)", :string
+  attribute "date_of_birth(1i)", :string
+
+  before_validation :make_a_date
   
   validates :date_of_birth, presence: { message: "You need to enter your date of birth" }
+  validate :date_cannot_be_in_the_future, :age_limit, :upper_age_limit
+
+  def date_cannot_be_in_the_future
+    if date_of_birth.present? && date_of_birth > Date.today
+      errors.add(:date_of_birth, "Date can't be in the future")
+    end
+  end
+
+  def age_limit
+    if date_of_birth.present? && date_of_birth > Date.today.years_ago(16)
+      errors.add(:date_of_birth, "You must be more than 16 years old")
+    end
+  end
+
+  def upper_age_limit
+    if date_of_birth.present? && date_of_birth < Date.today.years_ago(70)
+      errors.add(:date_of_birth, "You must be less than 70 years old")
+    end
+  end
+
+  def make_a_date
+    year = self.send("date_of_birth(1i)").to_i 
+    month = self.send("date_of_birth(2i)").to_i
+    day = self.send("date_of_birth(3i)").to_i
+    
+    begin # catch invalid dates, e.g. 31 Feb
+      self.date_of_birth = Date.new(year, month, day)
+    rescue ArgumentError
+      return
+    end
+
+  end
 
   def next_step
    "uk_or_overseas" 
   end
-
-  def initialize(attributes = nil)
-    super
-
-    assign_attributes(attributes) if attributes
-  end
-
-  def assign_attributes(attributes)
-    new_attributes = attributes.stringify_keys
-    multiparameter_attributes = extract_multiparameter_attributes(new_attributes)
-
-    multiparameter_attributes.each do |multiparameter_attribute, values_hash|
-      set_values = (1..3).collect{ |position| values_hash[position].to_i }
-
-      # validation checks
-      return if set_values.include?(0)
-      return if set_values[0] < 1920 || set_values[0] > Date.today.year
-      return if set_values[1] < 1 || set_values[1] > 12
-      return if set_values[2] < 1 || set_values[2] > 31
- 
-      self.send("#{multiparameter_attribute}=", Date.new(*set_values))
-    end
-  end
-
-  protected
-
-  def extract_multiparameter_attributes(new_attributes)
-    multiparameter_attributes = []
-
-    new_attributes.each do |k, v|
-      if k.include?('(')
-        multiparameter_attributes << [k, v]
-      end
-    end
-
-    extract_attributes(multiparameter_attributes)
-  end
-
-  def extract_attributes(pairs)
-    attributes = {}
-
-    pairs.each do |pair|
-      multiparameter_name, value = pair
-      attribute_name = multiparameter_name.split('(').first
-      attributes[attribute_name] = {} unless attributes.include?(attribute_name)
-
-      attributes[attribute_name][find_parameter_position(multiparameter_name)] ||= value
-    end
-
-    attributes
-  end
-
-  def find_parameter_position(multiparameter_name)
-    multiparameter_name.scan(/\(([0-9]*).*\)/).first.first.to_i
-  end  
 
 end 
 

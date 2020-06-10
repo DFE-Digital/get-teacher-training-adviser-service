@@ -13,6 +13,11 @@ module SessionHelper
     dob.strftime('%b %d, %Y')
   end
 
+  def show_callback_date
+    dob = session[:registration]['callback_date']
+    dob.strftime('%b %d, %Y')
+  end
+
   def show_uk_address
     addr1 = session[:registration]['address_line_1']
     addr2 = session[:registration]['address_line_2']

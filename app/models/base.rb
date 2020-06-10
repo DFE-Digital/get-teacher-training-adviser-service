@@ -1,6 +1,7 @@
 class Base
   include ActiveModel::Model
   include ActiveModel::Attributes
+  include ActiveModel::Validations::Callbacks
 
   def step_name
     model_name.name.underscore
