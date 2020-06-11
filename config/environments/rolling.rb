@@ -6,7 +6,7 @@ Rails.application.configure do
 
   # Use a different cache store in rolling.
   redis_url = JSON.parse(ENV['VCAP_SERVICES'])[:redis][0][:credentials][:uri]
-  config.cache_store = :redis_cache_store { 
+  config.cache_store = :redis_cache_store, { 
     url: redis_url,
     reconnect_attempts: 1,
     error_handler: -> (method:, returning:, exception:) {
