@@ -21,7 +21,7 @@ jobs:
       with:
         ruby-version: 2.6.6
     - name: Install Yarn
-       run: yarn install && yarn cache clean
+      run: yarn install && yarn cache clean
     - name: Install dependencies
       run: bundle install
     - name: Run tests
