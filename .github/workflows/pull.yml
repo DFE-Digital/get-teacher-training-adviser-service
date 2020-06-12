@@ -24,19 +24,12 @@ jobs:
       uses: warchant/setup-sonar-scanner@v1  
     - name: Install Yarn
       run: yarn install && yarn cache clean
-    - name: Results Directory
-      run: mkdir results
     - name: Install dependencies
       run: bundle install
     - name: Compile
       run: bundle exec rake assets:precompile
     - name: Run tests
-      run:  RAILS_ENV=test bundle exec rspec --format RspecJunitFormatter --out results/xunit-result-rspec.xml
-    - uses: actions/upload-artifact@v2
-      if: always()
-      with:
-          name: test-results
-          path: results/xunit-result-rspec.xml
+      run:  RAILS_ENV=test bundle exec
     - name: Run sonarqube
       if: always()
       env:
@@ -46,4 +39,4 @@ jobs:
            -Dsonar.organization=dfe-digital
            -Dsonar.host.url=https://sonarcloud.io/
            -Dsonar.projectKey=PP
-           -Dsonar.testExecutionReportPaths=results/xunit-result-rspec.xml
+           -Dsonar.testExecutionReportPaths=out/test-report.xml
