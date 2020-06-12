@@ -45,6 +45,7 @@ group :development, :test do
 
   # Testing framework
   gem "rspec-rails", "~> 4.0.0"
+  gem "rspec_junit_formatter"
   # Adds support for Capybara system testing and selenium driver
   gem "capybara", "~> 3.32"
 
