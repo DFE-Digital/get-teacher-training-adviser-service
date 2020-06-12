@@ -29,7 +29,7 @@ jobs:
     - name: Compile
       run: bundle exec rake assets:precompile
     - name: Run tests
-      run:  RAILS_ENV=test bundle exec
+      run:  RAILS_ENV=test bundle exec rspec
     - name: Run sonarqube
       if: always()
       env:
