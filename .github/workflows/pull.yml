@@ -34,9 +34,12 @@ jobs:
       if: always()
       with:
           name: Test_Results
-          path: |
-                out/
-                coverage/
+          path: out/
+    - uses: actions/upload-artifact@v2
+      if: always()
+      with:
+          name: Coverage_Results
+          path: coverage/
     - name: Run sonarqube
       if: always()
       env:
