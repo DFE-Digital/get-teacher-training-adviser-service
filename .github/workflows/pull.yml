@@ -45,5 +45,5 @@ jobs:
            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
            -Dsonar.organization=dfe-digital
            -Dsonar.host.url=https://sonarcloud.io/
-           -Dsonar.projectKey=DFE-Digital_get-teacher-training-adviser-service
+           -Dsonar.projectKey=PP
            -Dsonar.cs.xunit.reportsPaths=results
