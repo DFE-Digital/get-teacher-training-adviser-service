@@ -46,4 +46,4 @@ jobs:
            -Dsonar.organization=dfe-digital
            -Dsonar.host.url=https://sonarcloud.io/
            -Dsonar.projectKey=PP
-           -Dsonar.simplecovrcov.reportPath=results
+           -Dsonar.testExecutionReportPaths=results/xunit-result-rspec.xml
