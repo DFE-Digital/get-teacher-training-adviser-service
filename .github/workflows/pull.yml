@@ -30,6 +30,11 @@ jobs:
       run: bundle exec rake assets:precompile
     - name: Run tests
       run:  RAILS_ENV=test bundle exec rspec
+    - uses: actions/upload-artifact@v2
+      if: always()
+      with:
+          name: Test_Results
+          path: out/
     - name: Run sonarqube
       if: always()
       env:
