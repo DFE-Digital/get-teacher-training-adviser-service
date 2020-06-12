@@ -24,5 +24,7 @@ jobs:
       run: yarn install && yarn cache clean
     - name: Install dependencies
       run: bundle install
-    - name: Run tests
+    - name: Compile
       run: bundle exec rake assets:precompile
+    - name: Run tests
+      run: bundle exec rspec
