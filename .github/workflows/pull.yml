@@ -24,16 +24,26 @@ jobs:
       uses: warchant/setup-sonar-scanner@v1  
     - name: Install Yarn
       run: yarn install && yarn cache clean
-    - name: Install Rspec Junit Formatter
-      run: gem install rspec_junit_formatter
+    - name: Results Directory
+      run: mkdir results
     - name: Install dependencies
       run: bundle install
     - name: Compile
       run: bundle exec rake assets:precompile
     - name: Run tests
-      run:  RAILS_ENV=test bundle exec rspec --format RspecJunitFormatter --out rspec.xml
+      run:  RAILS_ENV=test bundle exec rspec --format RspecJunitFormatter --out results/xunit-result-rspec.xml
     - uses: actions/upload-artifact@v2
       if: always()
       with:
           name: test-results
-          path: rspec.xml
+          path: results/xunit-result-rspec.xml
+    - name: Run sonarqube
+      if: always()
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: sonar-scanner
+           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+           -Dsonar.organization=dfe-digital
+           -Dsonar.host.url=https://sonarcloud.io/
+           -Dsonar.projectKey=DFE-Digital_get-teacher-training-adviser-service
+           -Dsonar.cs.xunit.reportsPaths=results
