@@ -22,10 +22,10 @@ jobs:
         ruby-version: 2.6.6
     - name: Install Yarn
       run: yarn install && yarn cache clean
-    - name: Install dependencies
-      run: bundle install
     - name: Install Rspec Junit Formatter
       run: gem install rspec_junit_formatter
+    - name: Install dependencies
+      run: bundle install
     - name: Compile
       run: bundle exec rake assets:precompile
     - name: Run tests
