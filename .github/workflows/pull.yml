@@ -20,6 +20,8 @@ jobs:
       uses: ruby/setup-ruby@ec106b438a1ff6ff109590de34ddc62c540232e0
       with:
         ruby-version: 2.6.6
+    - name: Setup sonarqube
+      uses: warchant/setup-sonar-scanner@v1  
     - name: Install Yarn
       run: yarn install && yarn cache clean
     - name: Install Rspec Junit Formatter
