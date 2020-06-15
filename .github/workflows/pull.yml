@@ -20,18 +20,37 @@ jobs:
       uses: ruby/setup-ruby@ec106b438a1ff6ff109590de34ddc62c540232e0
       with:
         ruby-version: 2.6.6
+    - name: Setup sonarqube
+      uses: warchant/setup-sonar-scanner@v1  
     - name: Install Yarn
       run: yarn install && yarn cache clean
-    - name: Install Rspec Junit Formatter
-      run: gem install rspec_junit_formatter
     - name: Install dependencies
       run: bundle install
     - name: Compile
       run: bundle exec rake assets:precompile
     - name: Run tests
-      run:  RAILS_ENV=test bundle exec rspec --format RspecJunitFormatter --out rspec.xml
+      run:  RAILS_ENV=test bundle exec rspec
     - uses: actions/upload-artifact@v2
       if: always()
       with:
-          name: test-results
-          path: rspec.xml
+          name: Test_Results
+          path: out/
+    - uses: actions/upload-artifact@v2
+      if: always()
+      with:
+          name: Coverage_Results
+          path: coverage/
+    - name: Run sonarqube
+      if: always()
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: sonar-scanner
+           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+           -Dsonar.organization=dfe-digital
+           -Dsonar.host.url=https://sonarcloud.io/
+           -Dsonar.projectKey=PP
+           -Dsonar.testExecutionReportPaths=out/test-report.xml
+           -Dsonar.sources='app,lib,db,config' 
+           -Dsonar.tests='./spec' 
+           -Dsonar.exclusions='app/assets/**/*'
+           -Dsonar.ruby.coverage.reportPaths=coverage/.resultset.json
