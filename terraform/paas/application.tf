@@ -4,6 +4,7 @@ resource "cloudfoundry_app" "adviser_application" {
     docker_image = var.paas_adviser_docker_image
     stopped      = var.application_stopped
     strategy     = "blue-green-v2"
+    timeout      = 1000
     service_binding  {
             service_instance = cloudfoundry_service_instance.redis.id
     }
@@ -19,7 +20,6 @@ resource "cloudfoundry_app" "adviser_application" {
     environment = {
        HTTPAUTH_PASSWORD = var.HTTPAUTH_PASSWORD
        HTTPAUTH_USERNAME = var.HTTPAUTH_USERNAME
-       SECRET_KEY_BASE   = var.SECRET_KEY_BASE
        RAILS_ENV         = var.RAILS_ENV
        RAILS_MASTER_KEY  = var.RAILS_MASTER_KEY
     }    

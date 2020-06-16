@@ -10,8 +10,8 @@ env:
   TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
   TF_VAR_HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
   TF_VAR_HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
-  TF_VAR_RAILS_MASTER_KEY:  "${{ secrets.RAILS_MASTER_KEY_PREPROD }}"
-  TF_RAILS_ENV:             "preprod"
+  TF_VAR_RAILS_MASTER_KEY:  "${{ secrets.RAILS_MASTER_KEY_ROLLING }}"
+  TF_RAILS_ENV:             "rolling"
   ARM_ACCESS_KEY:           "${{ secrets.DEV_ARM_ACCESS_KEY  }}"
   CF_PROVIDER_DIR: $HOME/.terraform.d/plugins/linux_amd64/terraform-provider-cloudfoundry
 
