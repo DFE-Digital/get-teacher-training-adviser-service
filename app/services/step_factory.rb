@@ -2,7 +2,7 @@ class StepFactory
   # need to register permitted names/classes
   STEP_NAMES = [
     'Identity', 'ReturningTeacher', 'PrimaryOrSecondary', 'QualifiedToTeach', 'DateOfBirth', 'UkOrOverseas',
-    'UkCandidate', 'UkCompletion', 'OptInEmails', 'AcceptPrivacyPolicy', 'OverseasCandidate', 'OverseasCompletion', 'HaveADegree', 'WhatSubjectDegree', 'StageInterestedTeaching', 'ScienceGrade4',
+    'UkCandidate', 'UkCompletion', 'AcceptPrivacyPolicy', 'OverseasCandidate', 'OverseasCompletion', 'HaveADegree', 'WhatSubjectDegree', 'StageInterestedTeaching', 'ScienceGrade4',
     'PrimaryMathsEnglishGrade4', 'QualificationRequired', 'SubjectInterestedTeaching', 'SecondaryMathsEnglishGrade4', 'RetakeEnglishMaths', 'StartTeacherTraining', 'EquivalentStageInterestedTeaching', 'NoDegree', 'UkNewPrimaryCompletion', 'UkNewSecondaryCompletion', 'UkStudyingCompletion', 'CompleteApplication',
 
     'Degree::WhatSubjectDegree', 'Degree::StageInterestedTeaching', 'Degree::ScienceGrade4',
