@@ -1,7 +1,7 @@
-class QualifiedToTeach < Base
-  attribute :qualified_subject, :string
+class PreviousSubject < Base
+  attribute :prev_subject, :string
 
-  validates :qualified_subject, inclusion: { in: [
+  validates :prev_subject, inclusion: { in: [
     'Art and design', 
     'Biology',
     'Business studies', 
@@ -32,10 +32,10 @@ class QualifiedToTeach < Base
     'Social sciences',
     'Spanish',
     'Vocational health']
-  }
+   }
 
   def next_step
-    "date_of_birth" 
+    "subject_like_to_teach"
   end
 
 end 

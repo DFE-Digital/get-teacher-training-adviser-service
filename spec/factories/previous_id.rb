@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :previous_id do
-    id { "123456" }
+    prev_id { "123456" }
   end
 end
