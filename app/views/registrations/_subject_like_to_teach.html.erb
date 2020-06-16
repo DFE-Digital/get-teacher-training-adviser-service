@@ -1,0 +1,6 @@
+<%= f.govuk_radio_buttons_fieldset(:like_to_teach, legend: { text: 'Which subject would you like to teach if you return to teaching?' } ) do %>
+  <%= f.govuk_radio_button :like_to_teach, 'maths', label: { text: 'Maths' } %>
+  <%= f.govuk_radio_button :like_to_teach, 'physics', label: { text: 'Physics' } %>
+   <%= f.govuk_radio_button :like_to_teach, 'modern foreign language', label: { text: 'Modern Foreign Language' } %>
+<% end %>
+<%= f.govuk_submit %>
