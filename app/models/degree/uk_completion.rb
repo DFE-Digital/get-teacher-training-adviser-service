@@ -1,7 +1,7 @@
 module Degree
   class UkCompletion < UkCompletion
     def next_step
-      return "opt_in_emails" if confirmed
+      return "accept_privacy_policy" if confirmed
       nil
     end
   end

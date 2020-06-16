@@ -16,7 +16,7 @@ RSpec.describe Degree::OverseasCompletion do
   describe "#next_step" do
     context "when confirmed is true" do
       it "returns the correct option" do
-        expect(confirmed.next_step).to eq("opt_in_emails")
+        expect(confirmed.next_step).to eq("accept_privacy_policy")
       end
     end
 
