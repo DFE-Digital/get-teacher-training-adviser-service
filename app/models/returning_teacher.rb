@@ -5,7 +5,7 @@ class ReturningTeacher < Base
 
   def next_step
     if returning_to_teaching == "yes"
-      "primary_or_secondary"
+      "has_teacher_id"
     else
       "have_a_degree"
     end

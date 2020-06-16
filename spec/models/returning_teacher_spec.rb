@@ -16,7 +16,7 @@ RSpec.describe ReturningTeacher do
   describe "#next_step" do
     context "when answer is yes" do
       it "returns the correct option" do
-        expect(returning_teacher.next_step).to eq("primary_or_secondary")
+        expect(returning_teacher.next_step).to eq("has_teacher_id")
       end
     end
 
