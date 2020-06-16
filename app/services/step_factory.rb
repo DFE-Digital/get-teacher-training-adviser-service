@@ -3,7 +3,7 @@ class StepFactory
   STEP_NAMES = [
     'Identity', 'ReturningTeacher', 'PrimaryOrSecondary', 'QualifiedToTeach', 'DateOfBirth', 'UkOrOverseas',
     'UkCandidate', 'UkCompletion', 'AcceptPrivacyPolicy', 'OverseasCandidate', 'OverseasCompletion', 'HaveADegree', 'WhatSubjectDegree', 'StageInterestedTeaching', 'ScienceGrade4',
-    'PrimaryMathsEnglishGrade4', 'QualificationRequired', 'SubjectInterestedTeaching', 'SecondaryMathsEnglishGrade4', 'RetakeEnglishMaths', 'StartTeacherTraining', 'EquivalentStageInterestedTeaching', 'NoDegree', 'UkNewPrimaryCompletion', 'UkNewSecondaryCompletion', 'UkStudyingCompletion', 'CompleteApplication',
+    'PrimaryMathsEnglishGrade4', 'QualificationRequired', 'SubjectInterestedTeaching', 'SecondaryMathsEnglishGrade4', 'RetakeEnglishMaths', 'StartTeacherTraining', 'EquivalentStageInterestedTeaching', 'NoDegree', 'UkNewPrimaryCompletion', 'UkNewSecondaryCompletion', 'UkStudyingCompletion', 'CompleteApplication', 'HasTeacherId', 'PreviousId', 'PreviousSubject', 'SubjectLikeToTeach', 'UkTelephone',
 
     'Degree::WhatSubjectDegree', 'Degree::StageInterestedTeaching', 'Degree::ScienceGrade4',
     'Degree::PrimaryMathsEnglishGrade4', 'Degree::SubjectInterestedTeaching', 'Degree::StartTeacherTraining', 'Degree::DateOfBirth', 'Degree::UkOrOverseas', 'Degree::UkCandidate', 'Degree::UkCompletion', 'Degree::SecondaryMathsEnglishGrade4', 'Degree::RetakeEnglishMaths', 'Degree::OverseasCandidate', 'Degree::OverseasCompletion',

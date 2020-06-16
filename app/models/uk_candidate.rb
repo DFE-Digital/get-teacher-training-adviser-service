@@ -11,7 +11,7 @@ class UkCandidate < Base
 
 
   def next_step
-    "uk_completion"
+    "uk_telephone"
   end
 
 
