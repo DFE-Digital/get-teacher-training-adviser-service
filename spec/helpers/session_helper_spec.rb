@@ -83,5 +83,14 @@ RSpec.describe SessionHelper, type: :helper do
       expect(show_phone).to eq("1234567")
     end
   end
+
+  describe "show_country" do
+    it "returns the session country_code name" do
+      session[:registration] = { 
+        'country_code' => 'GB'
+      }
+      expect(show_country).to eq("United Kingdom of Great Britain and Northern Ireland")
+    end
+  end
 end
   

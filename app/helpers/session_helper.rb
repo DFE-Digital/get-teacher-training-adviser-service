@@ -33,10 +33,16 @@ module SessionHelper
   end
 
   def show_email
-    "#{session[:registration]['email_address']}"
+    session[:registration]['email_address']
   end
 
   def show_phone
-    "#{session[:registration]['telephone_number']}"
+    session[:registration]['telephone_number']
+  end
+
+  def show_country
+    code = session[:registration]['country_code']
+    country = ISO3166::Country[code]
+    country.name
   end
 end
