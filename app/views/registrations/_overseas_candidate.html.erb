@@ -2,11 +2,9 @@
 
 <p class="govuk-body">You need to speak to a teacher training adviser. You will have to book a call in advance.</p>
 <p class="govuk-body">For this, you must have the details of your overseas qualifications when they contact you.</p>
-  
+
   <%= f.govuk_phone_field :telephone_number, width: 20,
     label: { text: 'Contact telephone number *' } %>
-
-<% end %>
 
 <%= f.govuk_date_field :callback_date,
 legend: { text: 'Select a date' },
@@ -29,3 +27,4 @@ hint_text: 'For example, 31 3 1980' %>
 label: { text: "Select a time", }
 %>
 <%= f.govuk_submit %>
+<% end %>
