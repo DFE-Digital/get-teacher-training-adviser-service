@@ -12,15 +12,15 @@ hint_text: 'For example, 31 3 1980' %>
 
 <%= f.govuk_collection_select :callback_time,
 [
-    OpenStruct.new(value: '0900', name: '09:00am'),
-    OpenStruct.new(value: '1000', name: '10:00am'),
-    OpenStruct.new(value: '1000', name: '11:00am'),
-    OpenStruct.new(value: '1200', name: '12:00pm'),
-    OpenStruct.new(value: '1300', name: '01:00pm'),
-    OpenStruct.new(value: '1400', name: '02:00pm'),
-    OpenStruct.new(value: '1500', name: '03:00pm'),
-    OpenStruct.new(value: '1600', name: '04:00pm'),
-    OpenStruct.new(value: '1700', name: '05:00pm')
+    OpenStruct.new(value: '09:00am', name: '9:00am'),
+    OpenStruct.new(value: '10:00am', name: '10:00am'),
+    OpenStruct.new(value: '11:00am', name: '11:00am'),
+    OpenStruct.new(value: 'midday', name: 'midday'),
+    OpenStruct.new(value: '1:00pm', name: '1:00pm'),
+    OpenStruct.new(value: '2:00pm', name: '2:00pm'),
+    OpenStruct.new(value: '3:00pm', name: '3:00pm'),
+    OpenStruct.new(value: '4:00pm', name: '4:00pm'),
+    OpenStruct.new(value: '5:00pm', name: '5:00pm')
   ],
 :value,
 :name,

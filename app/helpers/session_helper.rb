@@ -10,12 +10,16 @@ module SessionHelper
 
   def show_dob
     dob = session[:registration]['date_of_birth']
-    dob.strftime('%b %d, %Y')
+    dob.strftime('%d %m %Y')
   end
 
   def show_callback_date
     dob = session[:registration]['callback_date']
-    dob.strftime('%b %d, %Y')
+    dob.strftime('%d %m %Y')
+  end
+
+  def show_callback_time
+    session[:registration]['callback_time']
   end
 
   def show_uk_address
