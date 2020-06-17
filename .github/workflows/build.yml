@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - bugfix/deploy-to-test
 
 env:
   DOCKERHUB_REPOSITORY: dfedigital/get-teacher-training-adviser-service
