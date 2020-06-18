@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe PreviousSubject do
   let(:previous) { build(:previous_subject) }
-  let(:no_previous) { build(:previous_id, prev_id: "") }
+  let(:no_previous) { build(:previous_subject, prev_subject: "") }
 
   describe "validation" do
     context "with no imput" do

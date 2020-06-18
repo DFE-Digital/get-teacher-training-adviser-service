@@ -7,7 +7,7 @@ class UkOrOverseas < Base
     if uk_or_overseas == "UK"
       "uk_candidate"
     else
-      "overseas_candidate"
+      "overseas_country"
     end
   end
 end

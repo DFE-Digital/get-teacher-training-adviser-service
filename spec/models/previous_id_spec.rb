@@ -12,8 +12,8 @@ RSpec.describe PreviousId do
     end
 
     context "with no imput" do
-      it "is not valid" do
-        expect(no_previous).not_to be_valid
+      it "is valid" do
+        expect(no_previous).to be_valid
       end
     end
   end

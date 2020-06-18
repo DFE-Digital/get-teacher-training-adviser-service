@@ -1,0 +1,9 @@
+<%= f.govuk_fieldset legend: { text: 'Which country do you live in?' } do %>
+
+<div class="govuk-form-group">
+  <%= f.label 'Country of residence', class: "govuk-label" %>
+  <%= f.country_select :country_code, { except: ["GB"] }, { class: "govuk-select" } %>
+</div>
+
+<%= f.govuk_submit %>
+<% end %>

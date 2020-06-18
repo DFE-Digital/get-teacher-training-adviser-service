@@ -10,12 +10,16 @@ module SessionHelper
 
   def show_dob
     dob = session[:registration]['date_of_birth']
-    dob.strftime('%b %d, %Y')
+    dob.strftime('%d %m %Y')
   end
 
   def show_callback_date
     dob = session[:registration]['callback_date']
-    dob.strftime('%b %d, %Y')
+    dob.strftime('%d %m %Y')
+  end
+
+  def show_callback_time
+    session[:registration]['callback_time']
   end
 
   def show_uk_address
@@ -33,10 +37,16 @@ module SessionHelper
   end
 
   def show_email
-    "#{session[:registration]['email_address']}"
+    session[:registration]['email_address']
   end
 
   def show_phone
-    "#{session[:registration]['telephone_number']}"
+    session[:registration]['telephone_number']
+  end
+
+  def show_country
+    code = session[:registration]['country_code']
+    country = ISO3166::Country[code]
+    country.name
   end
 end

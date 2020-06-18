@@ -35,14 +35,21 @@ RSpec.describe SessionHelper, type: :helper do
   describe "#show_dob" do
     it "returns the session date_of_birth value" do
       session[:registration] = { 'date_of_birth' => Date.new(2000, 10, 1)}
-      expect(show_dob).to eq("Oct 01, 2000")
+      expect(show_dob).to eq("01 10 2000")
     end
   end
 
   describe "#show_callback_date" do
     it "returns the session callback_date value" do
       session[:registration] = { 'callback_date' => Date.new(2000, 10, 1)}
-      expect(show_callback_date).to eq("Oct 01, 2000")
+      expect(show_callback_date).to eq("01 10 2000")
+    end
+  end
+
+  describe "#show_callback_time" do
+    it "returns the session callback_date value" do
+      session[:registration] = { 'callback_time' => '9:00pm'}
+      expect(show_callback_time).to eq("9:00pm")
     end
   end
 
@@ -81,6 +88,15 @@ RSpec.describe SessionHelper, type: :helper do
         'telephone_number' => '1234567'
       }
       expect(show_phone).to eq("1234567")
+    end
+  end
+
+  describe "show_country" do
+    it "returns the session country_code name" do
+      session[:registration] = { 
+        'country_code' => 'GB'
+      }
+      expect(show_country).to eq("United Kingdom of Great Britain and Northern Ireland")
     end
   end
 end
