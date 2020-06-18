@@ -6,7 +6,7 @@ class StepFactory
     'PrimaryMathsEnglishGrade4', 'QualificationRequired', 'SubjectInterestedTeaching', 'SecondaryMathsEnglishGrade4', 'RetakeEnglishMaths', 'StartTeacherTraining', 'EquivalentStageInterestedTeaching', 'NoDegree', 'UkNewPrimaryCompletion', 'UkNewSecondaryCompletion', 'UkStudyingCompletion', 'CompleteApplication', 'HasTeacherId', 'PreviousId', 'PreviousSubject', 'SubjectLikeToTeach', 'UkTelephone', 'OverseasCountry',
 
     'Degree::WhatSubjectDegree', 'Degree::StageInterestedTeaching', 'Degree::ScienceGrade4',
-    'Degree::PrimaryMathsEnglishGrade4', 'Degree::SubjectInterestedTeaching', 'Degree::StartTeacherTraining', 'Degree::DateOfBirth', 'Degree::UkOrOverseas', 'Degree::UkCandidate', 'Degree::UkCompletion', 'Degree::SecondaryMathsEnglishGrade4', 'Degree::RetakeEnglishMaths', 'Degree::OverseasCandidate', 'Degree::OverseasCompletion', 'Degree::WhatDegreeClass',
+    'Degree::PrimaryMathsEnglishGrade4', 'Degree::SubjectInterestedTeaching', 'Degree::StartTeacherTraining', 'Degree::DateOfBirth', 'Degree::UkOrOverseas', 'Degree::UkCandidate', 'Degree::UkCompletion', 'Degree::SecondaryMathsEnglishGrade4', 'Degree::RetakeEnglishMaths', 'Degree::OverseasCandidate', 'Degree::OverseasCompletion', 'Degree::WhatDegreeClass', 'Degree::UkTelephone',
 
     'Equivalent::StageInterestedTeaching', 'Equivalent::SubjectInterestedTeaching', 'Equivalent::StartTeacherTraining', 'Equivalent::DateOfBirth', 'Equivalent::UkOrOverseas', 'Equivalent::UkCandidate', 'Equivalent::UkCompletion', 'Equivalent::OverseasCandidate', 'Equivalent::OverseasCompletion' 
   ].freeze

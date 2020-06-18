@@ -34,7 +34,7 @@ RSpec.describe UkCandidate do
 
   describe '#next_step' do
     it "returns the next step" do
-      expect(address.next_step).to eq('degree/uk_completion')
+      expect(address.next_step).to eq('degree/uk_telephone')
     end
   end
 
