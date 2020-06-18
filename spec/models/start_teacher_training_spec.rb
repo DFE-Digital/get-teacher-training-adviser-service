@@ -28,4 +28,19 @@ RSpec.describe StartTeacherTraining do
       expect(starter.next_step).to eq("date_of_birth")
     end
   end
+
+  describe "#year_range" do
+    subject { starter.year_range(2) }
+
+    it "returns an array of OpenStructs" do
+      expect(subject).to be_an(Array)
+      expect(subject.first).to be_an(OpenStruct)
+    end
+
+    it "returns a range of years starting with current year" do
+      expect(subject.first.value).to eq(Date.today.year)
+      expect(subject.last.value).to eq(Date.today.next_year(2).year)
+    end
+  end
+
 end

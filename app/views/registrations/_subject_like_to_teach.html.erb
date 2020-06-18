@@ -3,7 +3,7 @@
   <%= f.govuk_radio_button :like_to_teach, 'physics', label: { text: 'Physics' } %>
    <%= f.govuk_radio_button :like_to_teach, 'modern foreign language', label: { text: 'Modern foreign language' } %>
 <% end %>
-<!-- details as per slack message -->
+
 <details class="govuk-details" data-module="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
@@ -11,7 +11,8 @@
     </span>
   </summary>
   <div class="govuk-details__text">
-    If you want to return to teaching witha subject that is not listed above you can get further help by visiting the LINK TO GUIDANCE PAGE.
+    If you want to return to teaching with a subject that is not listed above you can get further help by visiting the LINK TO GUIDANCE PAGE.
   </div>
 </details>
+
 <%= f.govuk_submit %>
