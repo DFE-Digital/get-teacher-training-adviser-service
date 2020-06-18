@@ -3,8 +3,8 @@ resource "cloudfoundry_app" "adviser_application" {
     space = data.cloudfoundry_space.space.id
     docker_image = var.paas_adviser_docker_image
     stopped      = var.application_stopped
-    strategy     = "blue-green-v2"
-    timeout      = 1000
+    strategy     = var.strategy
+    memory       = 1024
     service_binding  {
             service_instance = cloudfoundry_service_instance.redis.id
     }
@@ -12,6 +12,12 @@ resource "cloudfoundry_app" "adviser_application" {
       for_each = data.cloudfoundry_user_provided_service.logging
       content {
         service_instance = service_binding.value["id"]
+      }
+    }
+    dynamic "routes" {
+      for_each = data.cloudfoundry_route.app_route_internet
+      content {
+        route = routes.value["id"]
       }
     }
     routes {
@@ -29,4 +35,10 @@ resource "cloudfoundry_route" "adviser_route" {
     domain = data.cloudfoundry_domain.cloudapps.id
     space = data.cloudfoundry_space.space.id
     hostname =  var.paas_adviser_route_name
+}
+
+data "cloudfoundry_route" "app_route_internet" {
+    count = var.additional_routes
+    domain = data.cloudfoundry_domain.internet.id
+    hostname = var.paas_additional_route_name
 }

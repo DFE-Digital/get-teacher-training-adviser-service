@@ -17,6 +17,16 @@ variable "logging" {
    default = "0"
 }
 
+variable "additional_routes" {
+  default = 0
+}
+
+
+variable "strategy" {
+   default = "standard"
+}
+
+
 variable "paas_logging_name" {
    default = "logit-ssl-drain"
 }
@@ -49,9 +59,13 @@ variable "paas_adviser_route_name" {
    default = "dfe-teacher-services-sb-tta"
 }
 
+variable "paas_additional_route_name" {
+   default = ""
+}
+
+
 variable    "HTTPAUTH_PASSWORD"  {}
 variable    "HTTPAUTH_USERNAME"  {}
-variable    "SECRET_KEY_BASE"    {}
 variable    "RAILS_ENV" {}
 variable    "RAILS_MASTER_KEY" {}
 
