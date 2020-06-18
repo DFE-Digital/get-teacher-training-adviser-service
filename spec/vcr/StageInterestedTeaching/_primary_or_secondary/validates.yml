@@ -1,0 +1,91 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://get-into-teaching-api-test.london.cloudapps.digital/api/types/candidate/preferred_education_phases
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swagger-Codegen/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Authorization:
+      - gitss123
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      date:
+      - Fri, 19 Jun 2020 13:29:37 GMT
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '327'
+      server:
+      - Kestrel
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-vcap-request-id:
+      - f4108b9e-f00b-4ebc-66e0-696dd0ed3746
+    body:
+      encoding: UTF-8
+      string: '[{"id":"222750004","value":"Middle"},{"id":"222750005","value":"Higher
+        Education"},{"id":"222750006","value":"Teaching adults"},{"id":"222750007","value":"Early
+        years"},{"id":"222750000","value":"Primary"},{"id":"222750001","value":"Secondary"},{"id":"222750002","value":"Further
+        Education"},{"id":"222750003","value":"Other"}]'
+    http_version: '2'
+    adapter_metadata:
+      effective_url: https://get-into-teaching-api-test.london.cloudapps.digital/api/types/candidate/preferred_education_phases
+  recorded_at: Fri, 19 Jun 2020 13:29:37 GMT
+- request:
+    method: get
+    uri: https://get-into-teaching-api-test.london.cloudapps.digital/api/types/candidate/preferred_education_phases
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swagger-Codegen/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Authorization:
+      - gitss123
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      date:
+      - Fri, 19 Jun 2020 13:29:37 GMT
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '327'
+      server:
+      - Kestrel
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-vcap-request-id:
+      - b2767294-cac3-4bfb-746a-1b02eee3f2dc
+    body:
+      encoding: UTF-8
+      string: '[{"id":"222750004","value":"Middle"},{"id":"222750005","value":"Higher
+        Education"},{"id":"222750006","value":"Teaching adults"},{"id":"222750007","value":"Early
+        years"},{"id":"222750000","value":"Primary"},{"id":"222750001","value":"Secondary"},{"id":"222750002","value":"Further
+        Education"},{"id":"222750003","value":"Other"}]'
+    http_version: '2'
+    adapter_metadata:
+      effective_url: https://get-into-teaching-api-test.london.cloudapps.digital/api/types/candidate/preferred_education_phases
+  recorded_at: Fri, 19 Jun 2020 13:29:37 GMT
+recorded_with: VCR 6.0.0

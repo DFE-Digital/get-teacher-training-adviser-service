@@ -1,61 +1,20 @@
 require 'rails_helper'
 
-RSpec.describe SubjectInterestedTeaching do
-  let(:what_subject) { build(:subject_interested_teaching) }
+RSpec.describe SubjectInterestedTeaching, :vcr do
+  let(:subject) { build(:subject_interested_teaching) }
 
-  describe "validation" do
-    context "with invalid subject options" do
-      ['skiing', 'fishing', 'golfing', 'surfing' ].each do |invalid_subject|
-        let(:instance) { build(:subject_interested_teaching, teaching_subject: invalid_subject) }
-        it "is not valid" do
-          expect(instance).to_not be_valid
-        end
-      end
-    end
-
-    context "with valid subject options" do
-      [
-        'Art and design', 
-        'Biology',
-        'Business studies', 
-        'Chemistry',
-        'Citizenship', 
-        'Classics',
-        'Computing', 
-        'Dance',
-        'Design and technology',
-        'Drama',
-        'Economic', 
-        'English',
-        'French',
-        'Geography', 
-        'German',
-        'Health and social care', 
-        'History',
-        'Languages (other)', 
-        'Maths',
-        'Media studies', 
-        'French',
-        'Music',
-        'Physical education', 
-        'Physics',
-        'Physics with maths',
-        'Primary psychology',
-        'Religious education',
-        'Social sciences',
-        'Spanish',
-        'Vocational health'].each do |valid_subject|
-        let(:instance) { build(:subject_interested_teaching, teaching_subject: valid_subject) }
-        it "is valid" do
-          expect(instance).to be_valid
-        end
-      end
+  describe "#teaching_subject" do
+    it "validates" do
+      subject.teaching_subject = 'invalid-id'
+      expect(subject).to_not be_valid
+      subject.teaching_subject = '6b793433-cd1f-e911-a979-000d3a20838a'
+      expect(subject).to be_valid
     end
   end
 
   describe "#next_step" do
     it "returns the correct option" do
-      expect(what_subject.next_step).to eq("start_teacher_training")
+      expect(subject.next_step).to eq("start_teacher_training")
     end
   end
 end

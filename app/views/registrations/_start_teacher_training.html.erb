@@ -1,7 +1,7 @@
 <%= f.govuk_collection_select :year_of_entry,
-  @registration.year_range(3),  
+  ApiClient::get_candidate_initial_teacher_training_years,
+  :id,
   :value,
-  :name,
   label: { text: "When do you want to start your teacher training?", tag: "h1", size: "m" }
 %>
 <%= f.govuk_submit %>

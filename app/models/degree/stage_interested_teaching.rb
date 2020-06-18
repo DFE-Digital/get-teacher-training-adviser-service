@@ -1,7 +1,7 @@
 module Degree
   class StageInterestedTeaching < StageInterestedTeaching 
     def next_step
-      if primary_or_secondary == "primary"
+      if primary_or_secondary == STAGES[:primary]
         "degree/science_grade4"
       else
         "degree/secondary_maths_english_grade4" 

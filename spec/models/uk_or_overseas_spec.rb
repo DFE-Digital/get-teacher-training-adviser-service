@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe UkOrOverseas do
+RSpec.describe UkOrOverseas, :vcr do
   let(:uk) { build(:uk_or_overseas) }
-  let(:wrong_answer) { build(:uk_or_overseas, uk_or_overseas: "dont know") }
-  let(:overseas) { build(:uk_or_overseas, uk_or_overseas: "overseas") }
+  let(:wrong_answer) { build(:uk_or_overseas, uk_or_overseas: "invalid-id") }
+  let(:overseas) { build(:uk_or_overseas, :overseas) }
 
-  describe "validation" do
-    it "only accepts uk or overseas" do
+  describe "#uk_or_overseas" do
+    it "validates" do
       expect(wrong_answer).not_to be_valid
       expect(uk).to be_valid
       expect(overseas).to be_valid

@@ -1,0 +1,126 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://get-into-teaching-api-test.london.cloudapps.digital/api/types/candidate/locations
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swagger-Codegen/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Authorization:
+      - gitss123
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      date:
+      - Fri, 19 Jun 2020 13:29:36 GMT
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '78'
+      server:
+      - Kestrel
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-vcap-request-id:
+      - 0ee458c7-4de8-426e-61e3-3d1a1e9c8e1c
+    body:
+      encoding: UTF-8
+      string: '[{"id":"222750000","value":"In the UK"},{"id":"222750001","value":"Overseas"}]'
+    http_version: '2'
+    adapter_metadata:
+      effective_url: https://get-into-teaching-api-test.london.cloudapps.digital/api/types/candidate/locations
+  recorded_at: Fri, 19 Jun 2020 13:29:36 GMT
+- request:
+    method: get
+    uri: https://get-into-teaching-api-test.london.cloudapps.digital/api/types/candidate/locations
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swagger-Codegen/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Authorization:
+      - gitss123
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      date:
+      - Fri, 19 Jun 2020 13:29:36 GMT
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '78'
+      server:
+      - Kestrel
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-vcap-request-id:
+      - a7e9d4e9-d82e-4589-423a-dc9e5a816cc7
+    body:
+      encoding: UTF-8
+      string: '[{"id":"222750000","value":"In the UK"},{"id":"222750001","value":"Overseas"}]'
+    http_version: '2'
+    adapter_metadata:
+      effective_url: https://get-into-teaching-api-test.london.cloudapps.digital/api/types/candidate/locations
+  recorded_at: Fri, 19 Jun 2020 13:29:36 GMT
+- request:
+    method: get
+    uri: https://get-into-teaching-api-test.london.cloudapps.digital/api/types/candidate/locations
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swagger-Codegen/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Authorization:
+      - gitss123
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      date:
+      - Fri, 19 Jun 2020 13:29:36 GMT
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '78'
+      server:
+      - Kestrel
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-vcap-request-id:
+      - eed5813e-58e5-41a7-7878-7c34b29d09a2
+    body:
+      encoding: UTF-8
+      string: '[{"id":"222750000","value":"In the UK"},{"id":"222750001","value":"Overseas"}]'
+    http_version: '2'
+    adapter_metadata:
+      effective_url: https://get-into-teaching-api-test.london.cloudapps.digital/api/types/candidate/locations
+  recorded_at: Fri, 19 Jun 2020 13:29:36 GMT
+recorded_with: VCR 6.0.0

@@ -1,0 +1,89 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://get-into-teaching-api-test.london.cloudapps.digital/api/types/qualification/types
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swagger-Codegen/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Authorization:
+      - gitss123
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      date:
+      - Fri, 19 Jun 2020 13:29:37 GMT
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '361'
+      server:
+      - Kestrel
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-vcap-request-id:
+      - 3417b94a-a88b-4346-7158-b5ac5542fefd
+    body:
+      encoding: UTF-8
+      string: '[{"id":"222750004","value":"Other"},{"id":"222750006","value":"Postgraduate"},{"id":"222750007","value":"A
+        level or equivalent"},{"id":"222750008","value":"GCSE or equivalent"},{"id":"222750000","value":"Degree"},{"id":"222750001","value":"Professional/vocational"},{"id":"222750002","value":"Teaching
+        qualification"},{"id":"222750003","value":"Undergraduate"}]'
+    http_version: '2'
+    adapter_metadata:
+      effective_url: https://get-into-teaching-api-test.london.cloudapps.digital/api/types/qualification/types
+  recorded_at: Fri, 19 Jun 2020 13:29:37 GMT
+- request:
+    method: get
+    uri: https://get-into-teaching-api-test.london.cloudapps.digital/api/types/qualification/types
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swagger-Codegen/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Authorization:
+      - gitss123
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      date:
+      - Fri, 19 Jun 2020 13:29:37 GMT
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '361'
+      server:
+      - Kestrel
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      x-vcap-request-id:
+      - f09b358c-b7d3-4d24-7b28-8b39bdc302d4
+    body:
+      encoding: UTF-8
+      string: '[{"id":"222750004","value":"Other"},{"id":"222750006","value":"Postgraduate"},{"id":"222750007","value":"A
+        level or equivalent"},{"id":"222750008","value":"GCSE or equivalent"},{"id":"222750000","value":"Degree"},{"id":"222750001","value":"Professional/vocational"},{"id":"222750002","value":"Teaching
+        qualification"},{"id":"222750003","value":"Undergraduate"}]'
+    http_version: '2'
+    adapter_metadata:
+      effective_url: https://get-into-teaching-api-test.london.cloudapps.digital/api/types/qualification/types
+  recorded_at: Fri, 19 Jun 2020 13:29:37 GMT
+recorded_with: VCR 6.0.0
