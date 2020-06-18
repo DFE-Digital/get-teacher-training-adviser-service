@@ -1,0 +1,13 @@
+<%= f.govuk_collection_select :degree_class,
+  [
+    OpenStruct.new(value: 'Not applicable', name: 'Not applicable'),
+    OpenStruct.new(value: 'First class', name: 'First class'),
+    OpenStruct.new(value: '2:1', name: '2:1'),
+    OpenStruct.new(value: '2:2', name: '2:2'),
+    OpenStruct.new(value: 'Third class and lower class', name: 'Third class and lower class')
+  ],
+  :value,
+  :name,
+  label: { text: "What is your degree class?", tag: "h1", size: "m" }
+  %>
+<%= f.govuk_submit %>
