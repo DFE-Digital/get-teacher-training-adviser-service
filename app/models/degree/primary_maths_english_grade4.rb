@@ -2,9 +2,9 @@ module Degree
   class PrimaryMathsEnglishGrade4 < PrimaryMathsEnglishGrade4
     def next_step
       if has_required_subjects == "yes" 
-        "degree/subject_interested_teaching"
+        "degree/science_grade4"
       else
-        "qualification_required"
+        "degree/primary_retake_english_maths"
       end
     end
   end

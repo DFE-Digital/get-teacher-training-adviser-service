@@ -1,7 +1,7 @@
 module Degree
   class RetakeEnglishMaths < RetakeEnglishMaths
     def next_step
-      if retaking == "yes"
+      if retaking_english_maths == "yes"
         "degree/subject_interested_teaching"
       else
         "qualification_required"

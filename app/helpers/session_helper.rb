@@ -49,4 +49,9 @@ module SessionHelper
     country = ISO3166::Country[code]
     country.name
   end
+  
+  def show_true_or_false(question)
+    answer = session[:registration][question]
+    answer == true ? "Yes" : "No"
+  end
 end

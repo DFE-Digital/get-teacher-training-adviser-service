@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe RetakeEnglishMaths do
-  let(:retake_english_maths) { build(:retake_english_maths) }
-  let(:wrong_answer) { build(:retake_english_maths, retaking_english_maths: 'gibberish') }
-  let(:no) { build(:retake_english_maths, retaking_english_maths: 'no') }
+RSpec.describe PrimaryRetakeEnglishMaths do
+  let(:retake_english_maths) { build(:primary_retake_english_maths) }
+  let(:wrong_answer) { build(:primary_retake_english_maths, retaking: 'gibberish') }
+  let(:no) { build(:primary_retake_english_maths, retaking: 'no') }
 
   describe "validation" do
     it "only accepts yes or no" do
@@ -16,7 +16,7 @@ RSpec.describe RetakeEnglishMaths do
   describe "#next_step" do
     context "when answer is yes" do
       it "returns the correct option" do
-        expect(retake_english_maths.next_step).to eq("subject_interested_teaching")
+        expect(retake_english_maths.next_step).to eq("retake_science")
       end
     end
 

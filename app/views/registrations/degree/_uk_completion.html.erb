@@ -27,9 +27,21 @@
           <%= render 'check_answers/degree/stage_interested_teaching' %>
 
           <!-- Primary options -->
-          <% if session[:registration]['primary_or_secondary'] == 'primary' %>
-            <%= render 'check_answers/degree/science_grade4' %>
+          <% if session[:registration]['primary_or_secondary'] != 'secondary' %>
             <%= render 'check_answers/degree/primary_maths_english_grade4' %>
+
+            <% if session[:registration]['has_required_subjects'] == 'yes' %> 
+              <%= render 'check_answers/degree/science_grade4' %>
+
+              <% if session[:registration]['have_science'] == 'no' %>
+                <%= render 'check_answers/degree/retake_science' %>
+              <% end %>
+
+            <% else %>
+              <%= render 'check_answers/degree/retake_english_maths' %>
+              <%= render 'check_answers/degree/retake_science' %>
+
+            <% end %>
           <% end %>
 
           <!-- Secondary options -->
@@ -40,7 +52,6 @@
             <% end %>
           <% end %>
 
-            <%= render 'check_answers/degree/subject_interested_teaching' %>
             <%= render 'check_answers/degree/start_teacher_training' %>
             <%= render 'check_answers/degree/uk_or_overseas' %>
         </dl>
