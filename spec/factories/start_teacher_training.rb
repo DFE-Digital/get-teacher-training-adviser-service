@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :start_teacher_training do
-    year_of_entry { "2020" }
+    year_of_entry { Date.today.year }
   end
 end

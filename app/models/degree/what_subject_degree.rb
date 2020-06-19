@@ -1,7 +1,7 @@
 module Degree
   class WhatSubjectDegree < WhatSubjectDegree
     def next_step
-      "degree/stage_interested_teaching"
+      "degree/what_degree_class"
     end
   end
 end

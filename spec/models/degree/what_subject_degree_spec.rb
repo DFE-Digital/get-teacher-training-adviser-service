@@ -56,7 +56,7 @@ RSpec.describe Degree::WhatSubjectDegree do
 
   describe "#next_step" do
     it "returns the correct option" do
-      expect(what_subject_degree.next_step).to eq("degree/stage_interested_teaching")
+      expect(what_subject_degree.next_step).to eq("degree/what_degree_class")
     end
   end
 end
