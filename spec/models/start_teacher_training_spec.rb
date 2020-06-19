@@ -2,23 +2,18 @@ require 'rails_helper'
 
 RSpec.describe StartTeacherTraining do
   let(:starter) { build(:start_teacher_training) }
+  let(:invalid_instance) { build(:start_teacher_training, year_of_entry: "1999") }
 
   describe "validation" do
     context "with invalid subject options" do
-      ['skiing', '2030', '1995', 'surfing' ].each do |invalid_year|
-        let(:instance) { build(:start_teacher_training, year_of_entry: invalid_year) }
-        it "is not valid" do
-          expect(instance).to_not be_valid
-        end
+      it "is not valid" do
+        expect(invalid_instance).to_not be_valid
       end
     end
 
     context "with valid subject options" do
-      ['2020', '2021', '2022'].each do |valid_year|
-        let(:instance) { build(:start_teacher_training, year_of_entry: valid_year) }
-        it "is valid" do
-          expect(instance).to be_valid
-        end
+      it "is valid" do
+        expect(starter).to be_valid
       end
     end
   end
