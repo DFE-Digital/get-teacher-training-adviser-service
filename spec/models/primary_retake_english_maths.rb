@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe PrimaryRetakeEnglishMaths do
   let(:retake_english_maths) { build(:primary_retake_english_maths) }
   let(:wrong_answer) { build(:primary_retake_english_maths, retaking: 'gibberish') }
-  let(:no) { build(:primary_retake_english_maths, retaking: 'no') }
+  let(:no) { build(:primary_retake_english_maths, retaking: false) }
 
   describe "validation" do
     it "only accepts yes or no" do
