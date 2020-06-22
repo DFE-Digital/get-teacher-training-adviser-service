@@ -23,7 +23,7 @@ variable "additional_routes" {
 
 
 variable "strategy" {
-   default = "standard"
+   default = "blue-green"
 }
 
 
