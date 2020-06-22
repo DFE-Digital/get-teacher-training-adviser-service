@@ -8,6 +8,9 @@ class StepFactory
     'Degree::WhatSubjectDegree', 'Degree::StageInterestedTeaching', 'Degree::ScienceGrade4',
     'Degree::PrimaryMathsEnglishGrade4', 'Degree::SubjectInterestedTeaching', 'Degree::StartTeacherTraining', 'Degree::DateOfBirth', 'Degree::UkOrOverseas', 'Degree::UkCandidate', 'Degree::UkCompletion', 'Degree::SecondaryMathsEnglishGrade4', 'Degree::RetakeEnglishMaths', 'Degree::OverseasCandidate', 'Degree::OverseasCompletion', 'Degree::WhatDegreeClass', 'Degree::UkTelephone', 'Degree::PrimaryRetakeEnglishMaths', 'Degree::RetakeScience', 'Degree::OverseasCountry',
 
+    'Studying::WhatSubjectDegree', 'Studying::StageInterestedTeaching', 'Studying::ScienceGrade4',
+    'Studying::PrimaryMathsEnglishGrade4', 'Studying::SubjectInterestedTeaching', 'Studying::StartTeacherTraining', 'Studying::DateOfBirth', 'Studying::UkOrOverseas', 'Studying::UkCandidate', 'Studying::UkCompletion', 'Studying::SecondaryMathsEnglishGrade4', 'Studying::RetakeEnglishMaths', 'Studying::OverseasCandidate', 'Studying::OverseasCompletion', 'Studying::WhatDegreeClass', 'Studying::UkTelephone', 'Studying::PrimaryRetakeEnglishMaths', 'Studying::RetakeScience', 'Studying::OverseasCountry',
+
     'Equivalent::StageInterestedTeaching', 'Equivalent::SubjectInterestedTeaching', 'Equivalent::StartTeacherTraining', 'Equivalent::DateOfBirth', 'Equivalent::UkOrOverseas', 'Equivalent::UkCandidate', 'Equivalent::UkCompletion', 'Equivalent::OverseasCandidate', 'Equivalent::OverseasCompletion' 
   ].freeze
 

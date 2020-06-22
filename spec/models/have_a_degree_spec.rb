@@ -39,7 +39,7 @@ RSpec.describe HaveADegree do
 
     context "when answer is studying" do
       it "returns the correct option" do
-        expect(studying.next_step).to eq("degree/what_subject_degree")
+        expect(studying.next_step).to eq("studying/what_subject_degree")
       end
     end
 
