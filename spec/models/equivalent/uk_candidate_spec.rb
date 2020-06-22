@@ -34,7 +34,7 @@ RSpec.describe Equivalent::UkCandidate do
 
   describe '#next_step' do
     it "returns the next step" do
-      expect(address.next_step).to eq('equivalent/uk_completion')
+      expect(address.next_step).to eq('equivalent/uk_callback')
     end
   end
 

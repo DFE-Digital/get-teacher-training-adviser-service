@@ -1,7 +1,7 @@
 module Equivalent
   class UkCandidate < UkCandidate
     def next_step
-      "equivalent/uk_completion"
+      "equivalent/uk_callback"
     end
   end 
 end

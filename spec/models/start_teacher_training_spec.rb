@@ -34,7 +34,7 @@ RSpec.describe StartTeacherTraining do
 
     it "returns a range of years starting with current year" do
       expect(subject.first.value).to eq(Date.today.year)
-      expect(subject.last.value).to eq(Date.today.next_year(2).year)
+      expect(subject.last.value).to eq("dont know")
     end
   end
 
