@@ -14,8 +14,8 @@ module SessionHelper
   end
 
   def show_callback_date
-    dob = session[:registration]['callback_date']
-    dob.strftime('%d %m %Y')
+    cdate = session[:registration]['callback_date']
+    cdate.strftime('%d %m %Y')
   end
 
   def show_callback_time
