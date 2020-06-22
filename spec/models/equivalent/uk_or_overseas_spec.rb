@@ -22,7 +22,7 @@ RSpec.describe Degree::UkOrOverseas do
 
     context "when answer is overseas" do
       it "returns the correct option" do
-        expect(overseas.next_step).to eq("degree/overseas_candidate")
+        expect(overseas.next_step).to eq("degree/overseas_country")
       end
     end
   end
