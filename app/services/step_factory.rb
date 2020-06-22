@@ -11,7 +11,7 @@ class StepFactory
     'Studying::WhatSubjectDegree', 'Studying::StageInterestedTeaching', 'Studying::ScienceGrade4',
     'Studying::PrimaryMathsEnglishGrade4', 'Studying::SubjectInterestedTeaching', 'Studying::StartTeacherTraining', 'Studying::DateOfBirth', 'Studying::UkOrOverseas', 'Studying::UkCandidate', 'Studying::UkCompletion', 'Studying::SecondaryMathsEnglishGrade4', 'Studying::RetakeEnglishMaths', 'Studying::OverseasCandidate', 'Studying::OverseasCompletion', 'Studying::WhatDegreeClass', 'Studying::UkTelephone', 'Studying::PrimaryRetakeEnglishMaths', 'Studying::RetakeScience', 'Studying::OverseasCountry',
 
-    'Equivalent::StageInterestedTeaching', 'Equivalent::SubjectInterestedTeaching', 'Equivalent::StartTeacherTraining', 'Equivalent::DateOfBirth', 'Equivalent::UkOrOverseas', 'Equivalent::UkCandidate', 'Equivalent::UkCompletion', 'Equivalent::OverseasCandidate', 'Equivalent::OverseasCompletion', 'Equivalent::UkCallback' 
+    'Equivalent::StageInterestedTeaching', 'Equivalent::SubjectInterestedTeaching', 'Equivalent::StartTeacherTraining', 'Equivalent::DateOfBirth', 'Equivalent::UkOrOverseas', 'Equivalent::UkCandidate', 'Equivalent::UkCompletion', 'Equivalent::OverseasCandidate', 'Equivalent::OverseasCompletion', 'Equivalent::UkCallback', 'Equivalent::OverseasCountry' 
   ].freeze
 
   class NameNotFoundError < StandardError
