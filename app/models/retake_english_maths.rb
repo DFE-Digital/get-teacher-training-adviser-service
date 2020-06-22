@@ -1,10 +1,10 @@
 class RetakeEnglishMaths < Base
-  attribute :retaking, :string
+  attribute :retaking_english_maths, :boolean
 
-  validates :retaking, inclusion: { in: %w(yes no), message: "You must select an option"}
+  validates :retaking_english_maths, inclusion: { in: [true, false], message: "You must select an option"}
 
   def next_step
-    if retaking == "yes"
+    if retaking_english_maths == true
       "subject_interested_teaching"
     else
       "qualification_required"

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe QualifiedToTeach do
   let(:qualified_to_teach) { build(:qualified_to_teach) }
-  let(:wrong_answer) { build(: qualified_to_teach, qualified_subject: "dont know") }
+  let(:wrong_answer) { build(:qualified_to_teach, qualified_subject: "dont know") }
 
   describe "validation" do
     context "with invalid subject options" do

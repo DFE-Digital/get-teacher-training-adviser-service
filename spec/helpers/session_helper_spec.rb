@@ -64,7 +64,7 @@ RSpec.describe SessionHelper, type: :helper do
     end
   end
 
-  describe "show_name" do
+  describe "#show_name" do
     it "returns the session name value" do
       session[:registration] = { 'first_name' => 'joe',
         'last_name' => 'bloggs',
@@ -73,7 +73,7 @@ RSpec.describe SessionHelper, type: :helper do
     end
   end
 
-  describe "show_email" do
+  describe "#show_email" do
     it "returns the session email value" do
       session[:registration] = {
         'email_address' => 'jo@bloggs.com'
@@ -82,7 +82,7 @@ RSpec.describe SessionHelper, type: :helper do
     end
   end
 
-  describe "show_phone" do
+  describe "#show_phone" do
     it "returns the session telephone value" do
       session[:registration] = { 
         'telephone_number' => '1234567'
@@ -91,12 +91,25 @@ RSpec.describe SessionHelper, type: :helper do
     end
   end
 
-  describe "show_country" do
+  describe "#show_country" do
     it "returns the session country_code name" do
       session[:registration] = { 
         'country_code' => 'GB'
       }
       expect(show_country).to eq("United Kingdom of Great Britain and Northern Ireland")
+    end
+  end
+
+  describe "#show_true_or_false" do
+    it "converts bools to yes or no" do
+      session[:registration] = {
+        'retaking_science' => true
+      }
+      expect(show_true_or_false('retaking_science')).to eq("Yes")
+      session[:registration] = {
+        'retaking_science' => false
+      }
+      expect(show_true_or_false('retaking_science')).to eq("No")
     end
   end
 end

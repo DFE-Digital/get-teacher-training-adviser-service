@@ -2,9 +2,9 @@ module Degree
   class ScienceGrade4 < ScienceGrade4
     def next_step
       if have_science == "yes"
-        "degree/primary_maths_english_grade4"
+        "degree/start_teacher_training"
       else
-        "qualification_required"
+        "degree/retake_science"
       end
     end
   end
