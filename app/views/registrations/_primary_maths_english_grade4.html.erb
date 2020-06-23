@@ -2,4 +2,15 @@
   <%= f.govuk_radio_button :has_required_subjects, true, label: { text: 'Yes' } %>
   <%= f.govuk_radio_button :has_required_subjects, false, label: { text: 'No' } %>
 <% end %>
+<details class="govuk-details" data-module="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      What is a GCSE?
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    GCSE stands for General Certificate of Secondary Education. It's the part of the National Curriculum taught to pupils aged 14 to 16.<br><br>
+    Functional Skills Level 2 are an equivalent qualification to GCSE in the UK.  
+ </div>
+</details>
 <%= f.govuk_submit%>

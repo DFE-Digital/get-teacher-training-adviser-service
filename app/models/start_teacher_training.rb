@@ -7,7 +7,7 @@ class StartTeacherTraining < Base
     years = (Date.today.year..Date.today.next_year(number_of_years).year).map do |year|
       OpenStruct.new(value: year, name: year)
     end
-    years << OpenStruct.new(value: 'dont know', name: "Don't know")
+    years << OpenStruct.new(value: "don't know", name: "Don't know")
   end
 
   def date_cannot_be_in_the_past
@@ -17,7 +17,7 @@ class StartTeacherTraining < Base
   end
 
   def dont_know
-    year_of_entry == "dont know"
+    year_of_entry == "don't know"
   end
 
   def next_step

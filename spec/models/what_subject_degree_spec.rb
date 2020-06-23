@@ -46,9 +46,8 @@ RSpec.describe WhatSubjectDegree do
         'Social sciences',
         'Spanish',
         'Vocational health'].each do |valid_subject|
-        let(:instance) { build(:what_subject_degree, degree_subject: valid_subject) }
         it "is valid" do
-          expect(instance).to be_valid
+          expect(build(:what_subject_degree, degree_subject: valid_subject)).to be_valid
         end
       end
     end

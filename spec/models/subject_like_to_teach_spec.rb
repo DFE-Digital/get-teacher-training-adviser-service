@@ -6,18 +6,16 @@ RSpec.describe SubjectLikeToTeach do
   describe "validation" do
     context "with invalid subject options" do
       ['skiing', 'fishing', 'golfing', 'surfing' ].each do |invalid_subject|
-        let(:instance) { build(:subject_like_to_teach, like_to_teach: invalid_subject) }
         it "is not valid" do
-          expect(instance).to_not be_valid
+          expect(build(:subject_like_to_teach, like_to_teach: invalid_subject)).to_not be_valid
         end
       end
     end
 
     context "with valid subject options" do
       ['maths', 'physics', 'modern foreign language'].each do |valid_subject|
-        let(:instance) { build(:subject_like_to_teach, like_to_teach: valid_subject) }
         it "is valid" do
-          expect(instance).to be_valid
+          expect(build(:subject_like_to_teach, like_to_teach: valid_subject)).to be_valid
         end
       end
     end

@@ -1,5 +1,9 @@
 module Studying
-  class StageInterestedTeaching < StageInterestedTeaching 
+  class StageInterestedTeaching < Base
+    attribute :primary_or_secondary, :string
+    
+    validates :primary_or_secondary, inclusion: { in: ['primary', 'secondary'], message: "You must select primary or secondary" }
+
     def next_step
       if primary_or_secondary == "secondary"
         "studying/secondary_maths_english_grade4" 

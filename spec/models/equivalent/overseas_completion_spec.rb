@@ -3,15 +3,6 @@ require 'rails_helper'
 RSpec.describe Equivalent::OverseasCompletion do
   let(:confirmed) { build(:equivalent_overseas_completion) }
   let(:unconfirmed) { build(:equivalent_overseas_completion, confirmed: false) }
-  let(:wrong_answer) { build(:equivalent_overseas_completion, confirmed: nil) }
-
-  describe "validation" do
-    it "only accepts true or false values" do
-      expect(wrong_answer).not_to be_valid
-      expect(unconfirmed).to be_valid
-      expect(confirmed).to be_valid
-    end
-  end
 
   describe "#next_step" do
     context "when confirmed is true" do

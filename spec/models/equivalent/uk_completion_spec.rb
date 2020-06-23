@@ -3,15 +3,6 @@ require 'rails_helper'
 RSpec.describe Equivalent::UkCompletion do
   let(:confirmed) { build(:equivalent_uk_completion) }
   let(:unconfirmed) { build(:equivalent_uk_completion, confirmed: false) }
-  let(:wrong_answer) { build(:equivalent_uk_completion, confirmed: nil) }
-
-  describe "validation" do
-    it "only accepts true or false values" do
-      expect(wrong_answer).not_to be_valid
-      expect(unconfirmed).to be_valid
-      expect(confirmed).to be_valid
-    end
-  end
 
   describe "#next_step" do
     context "when confirmed is true" do

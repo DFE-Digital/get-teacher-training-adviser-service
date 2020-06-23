@@ -17,8 +17,8 @@ class DateOfBirth < Base
   end
 
   def age_limit
-    if date_of_birth.present? && date_of_birth > Date.today.years_ago(16)
-      errors.add(:date_of_birth, "You must be more than 16 years old")
+    if date_of_birth.present? && date_of_birth > Date.today.years_ago(18)
+      errors.add(:date_of_birth, "You must be 18 years or older to use this service")
     end
   end
 
