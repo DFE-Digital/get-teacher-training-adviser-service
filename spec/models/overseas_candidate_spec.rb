@@ -26,18 +26,16 @@ RSpec.describe OverseasCandidate do
 
     context "with invalid phone number" do
       ['', '12345uh', '123-123-123'].each do |invalid_phone|
-        let(:instance) { build(:overseas_candidate, telephone_number: invalid_phone) }
         it "is not valid" do
-          expect(instance).to_not be_valid
+          expect(build(:overseas_candidate, telephone_number: invalid_phone)).to_not be_valid
         end
       end
     end
 
     context "with valid phone numbers" do
       ['123456', '123456 90'].each do |valid_phone|
-        let(:instance) { build(:overseas_candidate, telephone_number: valid_phone) }
         it "is valid" do
-          expect(instance).to be_valid
+          expect(build(:overseas_candidate, telephone_number: valid_phone)).to be_valid
         end
       end
     end

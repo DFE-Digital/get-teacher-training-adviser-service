@@ -10,9 +10,8 @@ RSpec.describe HaveADegree do
   describe "validation" do
     context "with valid answers" do
       ['yes', 'no', 'studying', 'equivalent'].each do |valid_answer|
-        let(:instance) { build(:have_a_degree, degree: valid_answer) }
         it "is valid" do
-          expect(instance).to be_valid
+          expect(build(:have_a_degree, degree: valid_answer)).to be_valid
         end
       end
     end
