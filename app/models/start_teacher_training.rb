@@ -4,9 +4,8 @@ class StartTeacherTraining < Base
   validate :date_cannot_be_in_the_past, unless: :dont_know
   
   def year_range(number_of_years) # sets year range for view
-    years = []
-    (Date.today.year..Date.today.next_year(number_of_years).year).each do |year|
-      years << OpenStruct.new(value: year, name: year)
+    years = (Date.today.year..Date.today.next_year(number_of_years).year).map do |year|
+      OpenStruct.new(value: year, name: year)
     end
     years << OpenStruct.new(value: 'dont know', name: "Don't know")
   end
