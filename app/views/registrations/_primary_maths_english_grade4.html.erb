@@ -1,5 +1,5 @@
 <%= f.govuk_radio_buttons_fieldset(:has_required_subjects, legend: { text: 'Do you have grade 4 (C) or above in English and maths GCSEs, or equivalent?' }, inline: true ) do %>
-  <%= f.govuk_radio_button :has_required_subjects, 'yes', label: { text: 'Yes' } %>
-  <%= f.govuk_radio_button :has_required_subjects, 'no', label: { text: 'No' } %>
+  <%= f.govuk_radio_button :has_required_subjects, true, label: { text: 'Yes' } %>
+  <%= f.govuk_radio_button :has_required_subjects, false, label: { text: 'No' } %>
 <% end %>
 <%= f.govuk_submit%>

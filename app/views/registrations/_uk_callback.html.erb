@@ -1,0 +1,30 @@
+<%= f.govuk_fieldset legend: { text: 'You told us you live in the United Kingdom' } do %>
+
+<p class="govuk-body">You need to speak to a teacher training adviser. You will have to book a call in advance.</p>
+<p class="govuk-body">For this, you must have the details of your overseas qualifications when they contact you.</p>
+
+  <%= f.govuk_phone_field :telephone_number, width: 20,
+    label: { text: 'Contact telephone number *' } %>
+
+<%= f.govuk_date_field :callback_date,
+legend: { text: 'Select a date' },
+hint_text: 'For example, 31 3 1980' %>
+
+<%= f.govuk_collection_select :callback_time,
+[
+    OpenStruct.new(value: '09:00am', name: '9:00am'),
+    OpenStruct.new(value: '10:00am', name: '10:00am'),
+    OpenStruct.new(value: '11:00am', name: '11:00am'),
+    OpenStruct.new(value: 'midday', name: 'midday'),
+    OpenStruct.new(value: '1:00pm', name: '1:00pm'),
+    OpenStruct.new(value: '2:00pm', name: '2:00pm'),
+    OpenStruct.new(value: '3:00pm', name: '3:00pm'),
+    OpenStruct.new(value: '4:00pm', name: '4:00pm'),
+    OpenStruct.new(value: '5:00pm', name: '5:00pm')
+  ],
+:value,
+:name,
+label: { text: "Select a time", }
+%>
+<%= f.govuk_submit %>
+<% end %>

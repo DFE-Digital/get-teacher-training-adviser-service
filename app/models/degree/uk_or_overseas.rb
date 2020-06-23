@@ -4,7 +4,7 @@ module Degree
       if uk_or_overseas == "UK"
         "degree/uk_candidate"
       else
-        "degree/overseas_candidate"
+        "degree/overseas_country"
       end
     end
   end

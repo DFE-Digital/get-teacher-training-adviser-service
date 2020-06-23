@@ -12,7 +12,8 @@
           <%= render 'check_answers/name' %>
           <%= render 'check_answers/equivalent/date_of_birth' %>
           <%= render 'check_answers/equivalent/uk_candidate' %>
-          <%= render 'check_answers/email' %> 
+          <%= render 'check_answers/email' %>
+          <%= render 'check_answers/equivalent/uk_callback_telephone' %> 
         </dl>
 
         <h2 class="govuk-heading-m">What you've told us</h2>
@@ -24,6 +25,8 @@
           <%= render 'check_answers/equivalent/subject_interested_teaching' %>
           <%= render 'check_answers/equivalent/start_teacher_training' %>
           <%= render 'check_answers/equivalent/uk_or_overseas' %>
+          <%= render 'check_answers/equivalent/uk_callback_date' %>
+          <%= render 'check_answers/equivalent/uk_callback_time' %>
         </dl>
         
         <%= f.hidden_field :confirmed, value: true %>

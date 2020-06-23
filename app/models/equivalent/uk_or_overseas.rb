@@ -4,7 +4,7 @@ module Equivalent
       if uk_or_overseas == "UK"
         "equivalent/uk_candidate"
       else
-        "equivalent/overseas_candidate"
+        "equivalent/overseas_country"
       end
     end
   end
