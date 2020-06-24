@@ -73,10 +73,9 @@ jobs:
           docker run -t --rm -e RAILS_ENV=test $DOCKER_IMAGE bundle exec rubocop app config db lib spec Gemfile --format clang || true
 
       - name: Run sonarqube
-      if: always()
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: sonar-scanner
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: sonar-scanner
            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
            -Dsonar.organization=dfe-digital
            -Dsonar.host.url=https://sonarcloud.io/
