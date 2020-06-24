@@ -69,7 +69,7 @@ jobs:
 
       - name: Run Specs
         run: |-
-          docker run -td --rm -v ${PWD}/out:/app/out -v ${PWD}/coverage:/app/coverage -e RAILS_ENV=test $DOCKER_IMAGE bundle exec rspec
+          docker run -t --rm -v ${PWD}/out:/app/out -v ${PWD}/coverage:/app/coverage -e RAILS_ENV=test $DOCKER_IMAGE bundle exec rspec
           ls ${PWD}/coverage
           ls ${PWD}/out
 
