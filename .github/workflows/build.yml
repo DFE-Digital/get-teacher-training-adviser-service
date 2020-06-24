@@ -72,8 +72,6 @@ jobs:
       - name: Run Specs
         run: |-
           docker run -t --rm -v ${PWD}/out:/app/out -v ${PWD}/coverage:/app/coverage -e RAILS_ENV=test $DOCKER_IMAGE bundle exec rspec
-          ls ${PWD}/coverage
-          ls ${PWD}/out
 
       - name: Lint Ruby
         run: |-
@@ -87,11 +85,11 @@ jobs:
            -Dsonar.organization=dfe-digital
            -Dsonar.host.url=https://sonarcloud.io/
            -Dsonar.projectKey=get-teacher-training-adviser-service
-           -Dsonar.testExecutionReportPaths=out/test-report.xml
+           -Dsonar.testExecutionReportPaths=${PWD}/out/test-report.xml
            -Dsonar.sources='app,lib,db,config' 
            -Dsonar.tests='./spec' 
            -Dsonar.exclusions='app/assets/**/*'
-           -Dsonar.ruby.coverage.reportPaths=coverage/.resultset.json
+           -Dsonar.ruby.coverage.reportPaths=${PWD}/coverage/.resultset.json
 
       - name:  Send Message to Sentry.io
         if: always() 
