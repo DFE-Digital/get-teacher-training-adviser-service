@@ -7,7 +7,7 @@ on:
     branches:
       - master
 env:
-  DOCKERHUB_REPOSITORY: dfedigital/get-teacher-training-adviser-service
+  APP_REPOSITORY:           dfedigital/get-teacher-training-adviser-service
   TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
   TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
   TF_VAR_HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
@@ -102,7 +102,7 @@ jobs:
              cd terraform/paas && pwd
              terraform plan -var-file=dev.env.tfvars -out plan
          env:
-             TF_VAR_paas_adviser_docker_image: ${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}} 
+             TF_VAR_paas_adviser_docker_image: ${{env.APP_REPOSITORY}}:sha-${{ steps.sha.outputs.short}} 
        - name: Terraform Apply
          run: |
              cd terraform/paas && pwd
