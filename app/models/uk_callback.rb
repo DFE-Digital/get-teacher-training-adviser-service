@@ -40,7 +40,7 @@ class UkCallback < Base
   end
 
   def next_step
-    "overseas_completion"
+    "uk_completion"
   end
 
 
