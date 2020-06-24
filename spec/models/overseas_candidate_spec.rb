@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe OverseasCandidate do
   let(:candidate_details) { build(:overseas_candidate) }
   let(:no_callback_time) { build(:overseas_candidate, callback_time: "") }
+  let(:no_time_zone) { build(:overseas_candidate, time_zone: "") }
   let(:yesterday) { build(:overseas_candidate, callback_date: Date.yesterday) }
 
   describe "validation" do
@@ -15,6 +16,7 @@ RSpec.describe OverseasCandidate do
     context "without required attributes" do
       it "is invalid" do
         expect(no_callback_time).to_not be_valid
+        expect(no_time_zone).to_not be_valid
       end
     end
 
