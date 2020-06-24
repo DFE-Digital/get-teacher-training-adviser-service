@@ -10,6 +10,11 @@
 legend: { text: 'Select a date' },
 hint_text: 'For example, 31 3 1980' %>
 
+<div class="govuk-form-group">
+  <%= f.label 'Select your time zone', class: "govuk-label" %>
+  <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.all.drop(1), {}, { class: "govuk-select" }  %>
+</div>
+
 <%= f.govuk_collection_select :callback_time,
 [
     OpenStruct.new(value: '9:00am', name: '9:00am'),
