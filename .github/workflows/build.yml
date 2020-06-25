@@ -99,7 +99,7 @@ jobs:
              STATE:  ${{job.status}}
              ENVIRON: "Development"
         env:
-            SENTRY_DSN: ${{secrets.SENTRY_DSN}}
+            SENTRY_DSN: ${{secrets.DEV_OPS_SENTRY_DSN}}
 
   deploy:
     name: 'Deploy to Development'
@@ -145,4 +145,4 @@ jobs:
              STATE:  ${{job.status}}
              ENVIRON: "Development"
          env:
-            SENTRY_DSN: ${{secrets.SENTRY_DSN}}
+            SENTRY_DSN: ${{secrets.DEV_OPS_SENTRY_DSN}}
