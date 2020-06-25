@@ -5,13 +5,7 @@ on:
      types:  [edited, created]
 env:
   DOCKERHUB_REPOSITORY: dfedigital/get-teacher-training-adviser-service
-  TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
-  TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
-  TF_VAR_HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
-  TF_VAR_HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
-  TF_VAR_RAILS_MASTER_KEY:  "${{ secrets.RAILS_MASTER_KEY_PREPROD }}"
   TF_VAR_RAILS_ENV:         "preprod"
-  ARM_ACCESS_KEY:           "${{ secrets.TEST_ARM_ACCESS_KEY  }}"
   CF_PROVIDER_DIR:          "$HOME/.terraform.d/plugins/linux_amd64/terraform-provider-cloudfoundry"
 
 jobs:
@@ -24,9 +18,11 @@ jobs:
     steps:
        - name: Checkout
          uses: actions/checkout@v2
+
        - name: Get Short SHA
          id: sha
          run: echo ::set-output name=short::$(git rev-parse --short $GITHUB_SHA)
+
        - name: Install Terraform CloudFoundry Provider
          run: |
              mkdir -p $HOME/.terraform.d/plugins/linux_amd64
@@ -37,12 +33,21 @@ jobs:
          run: |
              cd terraform/paas && pwd
              terraform init -backend-config=test.bk.vars
+         env:
+              TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
+              TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
+              ARM_ACCESS_KEY:           "${{ secrets.TEST_ARM_ACCESS_KEY  }}"
+
        - name: Terraform Plan
          run: |
              cd terraform/paas && pwd
              terraform plan -var-file=test.env.tfvars -out plan
          env:
              TF_VAR_paas_adviser_docker_image: ${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}} 
+             TF_VAR_HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
+             TF_VAR_HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
+             TF_VAR_RAILS_MASTER_KEY:  "${{ secrets.RAILS_MASTER_KEY_PREPROD }}"
+
        - name: Terraform Apply
          run: |
              cd terraform/paas && pwd
