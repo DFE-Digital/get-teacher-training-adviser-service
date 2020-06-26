@@ -29,7 +29,7 @@ private
 
   def entity_name
     # check for namespaces
-    @registration.step_name.gsub('/', '_').to_sym
+    @registration.step_name.gsub("/", '_').to_sym
   end
 
   def registration_params
