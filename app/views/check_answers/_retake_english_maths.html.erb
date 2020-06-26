@@ -1,11 +1,11 @@
 <div class="govuk-summary-list__row">
   <dt class="govuk-summary-list__key">
-    Which stage are you interested in teaching?
+   Are you planning to retake your English or maths GCSEs?
   </dt>
   <dd class="govuk-summary-list__value">
-    <%= show_session('primary_or_secondary')%>
+    <%= show_true_or_false('retaking_english_maths') %>
   </dd>
   <dd class="govuk-summary-list__actions">
-    <%= show_link("#{link}" + "stage_interested_teaching")%>
+    <%= show_link("#{link}" + 'retake_english_maths') %>
   </dd>
 </div>

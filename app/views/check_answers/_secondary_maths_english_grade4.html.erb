@@ -1,0 +1,11 @@
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">
+    Do you have grade 4 (C) or above in maths and English GCSE, or equivalent? 
+  </dt>
+  <dd class="govuk-summary-list__value">
+    <%= show_session('has_required_subjects') %>
+  </dd>
+  <dd class="govuk-summary-list__actions">
+    <%= show_link("#{link}" + 'secondary_maths_english_grade4') %>
+  </dd>
+</div>
