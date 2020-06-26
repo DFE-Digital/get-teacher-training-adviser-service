@@ -1,53 +1,116 @@
 name: Build and Deploy
 on:
   repository_dispatch:
+  pull_request:
+    types: [assigned, opened, synchronize, reopened]
   push:
     branches:
       - master
-
 env:
-  DOCKERHUB_REPOSITORY: dfedigital/get-teacher-training-adviser-service
-  TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
-  TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
-  TF_VAR_HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
-  TF_VAR_HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
-  TF_VAR_RAILS_MASTER_KEY:  "${{ secrets.RAILS_MASTER_KEY_ROLLING }}"
-  TF_VAR_RAILS_ENV:         "rolling"
-  ARM_ACCESS_KEY:           "${{ secrets.DEV_ARM_ACCESS_KEY  }}"
+  APP_REPOSITORY:           dfedigital/get-teacher-training-adviser-service
   CF_PROVIDER_DIR: $HOME/.terraform.d/plugins/linux_amd64/terraform-provider-cloudfoundry
 
 jobs:
-  build_and_push:
+  build:
     name: Build and push to DockerHub
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
-      - name: Build and push to DockerHub
+        with:
+             fetch-depth: 0
+
+      - name: Lint Dockerfile
+        uses: brpaz/hadolint-action@master
+        with:
+             dockerfile: "Dockerfile"
+
+      - name: Setup sonarqube
+        uses: warchant/setup-sonar-scanner@v1 
+
+      - name: Get Short SHA
+        id: sha
+        run: echo ::set-output name=short::$(git rev-parse --short $GITHUB_SHA)
+
+      - name: Build and push to Docker Hub
+        if: github.ref == 'refs/heads/master'
         uses: docker/build-push-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PERSONAL_ACCESS_TOKEN }}
-          repository: ${{ env.DOCKERHUB_REPOSITORY }}
+          repository: ${{ env.APP_REPOSITORY }}
           always_pull: true
           add_git_labels: true
           tag_with_ref: true
           tag_with_sha: true
           push: true
+
+      - name: Build Only
+        if: github.ref != 'refs/heads/master'
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PERSONAL_ACCESS_TOKEN }}
+          repository: ${{ env.APP_REPOSITORY }}
+          always_pull: true
+          add_git_labels: true
+          tag_with_ref: true
+          tag_with_sha: true
+          push: false
+
+      - name: Set DOCKER_IMAGE environment variable
+        run: |-
+          echo ::set-env name=DOCKER_IMAGE::${{ env.APP_REPOSITORY }}:sha-$(echo "${{ github.sha }}" | cut -c -7)
+
+      - name: Run Specs
+        run: |-
+          docker run -t --rm -v ${PWD}/out:/app/out -v ${PWD}/coverage:/app/coverage -e RAILS_ENV=test $DOCKER_IMAGE bundle exec rspec
+
+      - name: Lint Ruby
+        run: |-
+          docker run -t --rm -e RAILS_ENV=test $DOCKER_IMAGE bundle exec rubocop app config db lib spec Gemfile --format clang || true
+
+      - name: Run sonarqube
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: sonar-scanner
+           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+           -Dsonar.organization=dfe-digital
+           -Dsonar.host.url=https://sonarcloud.io/
+           -Dsonar.projectKey=get-teacher-training-adviser-service
+           -Dsonar.testExecutionReportPaths=${PWD}/out/test-report.xml
+           -Dsonar.sources='app,lib,db,config' 
+           -Dsonar.tests='./spec' 
+           -Dsonar.exclusions='app/assets/**/*'
+           -Dsonar.ruby.coverage.reportPaths=${PWD}/coverage/.resultset.json
+
+      - name:  Send Message to Sentry.io
+        if: always() 
+        uses: sfawcett123/sentry-event@v1
+        with:
+             MESSAGE: "Build Application - get-teacher-training-adviser-service"
+             STATE:  ${{job.status}}
+             ENVIRON: "Development"
+        env:
+            SENTRY_DSN: ${{secrets.DEV_OPS_SENTRY_DSN}}
+
   deploy:
     name: 'Deploy to Development'
     runs-on: ubuntu-latest
     needs:
-         build_and_push
+         build
     defaults:
       run:
         shell: bash
+    if: github.ref == 'refs/heads/master'
     steps:
        - name: Checkout
          uses: actions/checkout@v2
+
        - name: Get Short SHA
          id: sha
          run: echo ::set-output name=short::$(git rev-parse --short $GITHUB_SHA)
+
        - name: Install Terraform CloudFoundry Provider
          run: |
              mkdir -p $HOME/.terraform.d/plugins/linux_amd64
@@ -58,13 +121,33 @@ jobs:
          run: |
              cd terraform/paas && pwd
              terraform init -backend-config=dev.bk.vars
+         env:
+             TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
+             TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
+             ARM_ACCESS_KEY:           "${{ secrets.DEV_ARM_ACCESS_KEY  }}"
+
        - name: Terraform Plan
          run: |
              cd terraform/paas && pwd
              terraform plan -var-file=dev.env.tfvars -out plan
          env:
-             TF_VAR_paas_adviser_docker_image: ${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}} 
+             TF_VAR_RAILS_ENV:         "rolling"
+             TF_VAR_paas_adviser_docker_image: ${{env.APP_REPOSITORY}}:sha-${{ steps.sha.outputs.short}} 
+             TF_VAR_RAILS_MASTER_KEY:  "${{ secrets.RAILS_MASTER_KEY_ROLLING }}"
+             TF_VAR_HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
+             TF_VAR_HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
+
        - name: Terraform Apply
          run: |
              cd terraform/paas && pwd
              terraform apply -auto-approve plan
+
+       - name:  Send Message to Sentry.io
+         if: always() 
+         uses: sfawcett123/sentry-event@v1
+         with:
+             MESSAGE: "Deploy Application - get-teacher-training-adviser-service"
+             STATE:  ${{job.status}}
+             ENVIRON: "Development"
+         env:
+            SENTRY_DSN: ${{secrets.DEV_OPS_SENTRY_DSN}}
