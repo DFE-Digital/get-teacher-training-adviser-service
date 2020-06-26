@@ -6,6 +6,10 @@
     <%= show_session('qualified_subject')%>
   </dd>
   <dd class="govuk-summary-list__actions">
-    <%= show_link("#{link}" + 'qualified_to_teach')%>
+    <% if defined?(link) %>
+      <%= show_link("#{link}" + 'qualified_to_teach') %>
+    <% else %> 
+      <%= show_link('qualified_to_teach') %>
+    <% end %>
   </dd>
 </div>

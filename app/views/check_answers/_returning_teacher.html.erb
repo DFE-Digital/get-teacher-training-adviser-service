@@ -6,6 +6,10 @@
     <%= show_true_or_false('returning_to_teaching') %>
   </dd>
   <dd class="govuk-summary-list__actions">
-    <%= show_link('returning_teacher') %>
+    <% if defined?(link) %>
+      <%= show_link("#{link}" + 'returning_teacher') %>
+    <% else %> 
+      <%= show_link('returning_teacher') %>
+    <% end %>
   </dd>
 </div>

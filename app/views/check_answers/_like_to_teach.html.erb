@@ -5,6 +5,10 @@
     <p class="govuk-body"><%= show_session('like_to_teach') %></p>
   </dd>
   <dd class="govuk-summary-list__actions">
-    <%= show_link("#{link}" + 'subject_like_to_teach')%>
+    <% if defined?(link) %>
+      <%= show_link("#{link}" + 'subject_like_to_teach') %>
+    <% else %> 
+      <%= show_link('subject_like_to_teach') %>
+    <% end %>
   </dd>
 </div>

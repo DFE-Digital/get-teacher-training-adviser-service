@@ -6,6 +6,10 @@
     <p class="govuk-body"><%= show_callback_time %></p>
   </dd>
   <dd class="govuk-summary-list__actions">
-    <%= show_link("#{link}" + 'overseas_candidate')%>
+    <% if defined?(link) %>
+      <%= show_link("#{link}" + 'uk_callback') %>
+    <% else %> 
+      <%= show_link('uk_callback') %>
+    <% end %>
   </dd>
 </div>

@@ -52,7 +52,7 @@
           <% end %>
 
             <%= render partial: 'check_answers/start_teacher_training', locals: { link: Degree::LINK } %>
-            <%= render partial: 'check_answers/degree/uk_or_overseas', locals: { link: Degree::LINK } %>
+            <%= render partial: 'check_answers/uk_or_overseas', locals: { link: Degree::LINK } %>
         </dl>
         
         <%= f.hidden_field :confirmed, value: true %>

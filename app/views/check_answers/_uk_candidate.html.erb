@@ -6,6 +6,10 @@
     <%= show_uk_address %>
   </dd>
   <dd class="govuk-summary-list__actions">
-    <%= show_link("#{link}" + 'uk_candidate')%>
+    <% if defined?(link) %>
+      <%= show_link("#{link}" + 'uk_candidate') %>
+    <% else %> 
+      <%= show_link('uk_candidate') %>
+    <% end %>
   </dd>
 </div>

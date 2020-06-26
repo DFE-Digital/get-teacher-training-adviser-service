@@ -6,6 +6,10 @@
     <%= show_phone %>
   </dd>
   <dd class="govuk-summary-list__actions">
-    <%= show_link("#{link}" + 'uk_telephone') %>
+    <% if defined?(link) %>
+      <%= show_link("#{link}" + 'uk_telephone') %>
+    <% else %> 
+      <%= show_link('uk_telephone') %>
+    <% end %>
   </dd>
 </div>
