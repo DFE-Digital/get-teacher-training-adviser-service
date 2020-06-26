@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe ReturningTeacher do
   let(:returning_teacher) { build(:returning_teacher) }

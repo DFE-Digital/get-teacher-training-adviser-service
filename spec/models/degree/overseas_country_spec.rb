@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Degree::OverseasCountry do
   let(:country) { build(:degree_overseas_country) }
@@ -8,5 +8,4 @@ RSpec.describe Degree::OverseasCountry do
       expect(country.next_step).to eq("degree/overseas_candidate")
     end
   end
-  
 end

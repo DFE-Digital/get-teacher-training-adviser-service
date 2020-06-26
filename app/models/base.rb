@@ -10,5 +10,4 @@ class Base
   def to_partial_path
     "registrations/#{step_name}"
   end
-
-end 
+end

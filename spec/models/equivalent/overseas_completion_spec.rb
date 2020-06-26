@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Equivalent::OverseasCompletion do
   let(:confirmed) { build(:equivalent_overseas_completion) }

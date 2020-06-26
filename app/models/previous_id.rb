@@ -6,5 +6,4 @@ class PreviousId < Base
   def next_step
     "previous_subject"
   end
-
-end 
+end

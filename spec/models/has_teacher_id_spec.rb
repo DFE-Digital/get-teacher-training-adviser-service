@@ -1,8 +1,8 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe HasTeacherId do
   let(:has_id) { build(:has_teacher_id) }
-  let(:wrong_answer) { build(:has_teacher_id, has_id: "invalid" ) }
+  let(:wrong_answer) { build(:has_teacher_id, has_id: "invalid") }
   let(:no_id) { build(:has_teacher_id, has_id: false) }
 
   describe "validation" do
@@ -26,7 +26,5 @@ RSpec.describe HasTeacherId do
         expect(no_id.next_step).to eq("previous_subject")
       end
     end
-
   end
-
 end

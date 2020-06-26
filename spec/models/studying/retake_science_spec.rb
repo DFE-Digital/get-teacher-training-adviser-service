@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Studying::RetakeScience do
   let(:retake_science) { build(:studying_retake_science) }

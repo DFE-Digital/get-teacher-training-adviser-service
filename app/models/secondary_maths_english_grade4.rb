@@ -1,7 +1,7 @@
 class SecondaryMathsEnglishGrade4 < Base
   attribute :has_required_subjects, :string
 
-  validates :has_required_subjects, inclusion: { in: %w(yes no), message: "You must select either yes or no"}
+  validates :has_required_subjects, inclusion: { in: %w(yes no), message: "You must select either yes or no" }
 
   def next_step
     if has_required_subjects == "yes"
@@ -10,6 +10,4 @@ class SecondaryMathsEnglishGrade4 < Base
       "retake_english_maths"
     end
   end
-
-
-end 
+end

@@ -1,9 +1,9 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe PrimaryMathsEnglishGrade4 do
   let(:yes) { build(:primary_maths_english_grade4) }
-  let(:wrong_answer) { build(:primary_maths_english_grade4, has_required_subjects: 'gibberish') }
-  let(:no) { build(:primary_maths_english_grade4, has_required_subjects: false ) }
+  let(:wrong_answer) { build(:primary_maths_english_grade4, has_required_subjects: "gibberish") }
+  let(:no) { build(:primary_maths_english_grade4, has_required_subjects: false) }
 
   describe "validation" do
     it "only accepts true or false values" do

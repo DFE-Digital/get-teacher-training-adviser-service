@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Equivalent::SubjectInterestedTeaching do
   let(:what_subject) { build(:equivalent_subject_interested_teaching) }

@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe PreviousSubject do
   let(:previous) { build(:previous_subject) }
@@ -13,12 +13,12 @@ RSpec.describe PreviousSubject do
   end
 
   context "with valid subject options" do
-    ['Art and design', 'Biology', 'Business studies', 'Chemistry',
-    'Citizenship','Classics','Computing','Dance','Design and technology',
-    'Drama','English','French','Geography','German','Health and social care', 
-    'History','Languages (other)','Maths','Media studies','French','Music','Physical education', 
-    'Physics','Physics with maths','Primary psychology','Religious education','Social sciences','Spanish', 
-    'Vocational health'].each do |valid_subject|
+    ["Art and design", "Biology", "Business studies", "Chemistry",
+     "Citizenship", "Classics", "Computing", "Dance", "Design and technology",
+     "Drama", "English", "French", "Geography", "German", "Health and social care",
+     "History", "Languages (other)", "Maths", "Media studies", "French", "Music", "Physical education",
+     "Physics", "Physics with maths", "Primary psychology", "Religious education", "Social sciences", "Spanish",
+     "Vocational health"].each do |valid_subject|
       let(:instance) { build(:qualified_to_teach, qualified_subject: valid_subject) }
       xit "is valid" do
         expect(build(:qualified_to_teach, qualified_subject: valid_subject)).to be_valid

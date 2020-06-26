@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Studying::StageInterestedTeaching do
   let(:primary) { build(:studying_stage_interested_teaching) }

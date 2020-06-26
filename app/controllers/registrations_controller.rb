@@ -1,5 +1,4 @@
 class RegistrationsController < ApplicationController
-
   def new
     step_name = params[:step_name]
     @registration = StepFactory.create(step_name)
@@ -21,7 +20,7 @@ class RegistrationsController < ApplicationController
     end
   end
 
-  private
+private
 
   def update_session_registration_hash
     session[:registration] ||= {}
@@ -30,7 +29,7 @@ class RegistrationsController < ApplicationController
 
   def entity_name
     # check for namespaces
-    @registration.step_name.gsub("/","_").to_sym
+    @registration.step_name.gsub("/", "_").to_sym
   end
 
   def registration_params
@@ -40,5 +39,4 @@ class RegistrationsController < ApplicationController
       {}
     end
   end
-
-end 
+end

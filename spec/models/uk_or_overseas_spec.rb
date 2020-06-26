@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe UkOrOverseas do
   let(:uk) { build(:uk_or_overseas) }

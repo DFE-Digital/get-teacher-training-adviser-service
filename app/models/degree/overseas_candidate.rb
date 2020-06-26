@@ -3,5 +3,5 @@ module Degree
     def next_step
       "degree/overseas_completion"
     end
-  end 
+  end
 end

@@ -1,8 +1,8 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe PrimaryRetakeEnglishMaths do
   let(:retake_english_maths) { build(:primary_retake_english_maths) }
-  let(:wrong_answer) { build(:primary_retake_english_maths, retaking_english_maths: 'gibberish') }
+  let(:wrong_answer) { build(:primary_retake_english_maths, retaking_english_maths: "gibberish") }
   let(:no) { build(:primary_retake_english_maths, retaking_english_maths: false) }
 
   describe "validation" do

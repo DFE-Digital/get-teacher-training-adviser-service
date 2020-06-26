@@ -1,8 +1,8 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Studying::PrimaryMathsEnglishGrade4 do
   let(:yes) { build(:studying_primary_maths_english_grade4) }
-  let(:no) { build(:studying_primary_maths_english_grade4, has_required_subjects: false ) }
+  let(:no) { build(:studying_primary_maths_english_grade4, has_required_subjects: false) }
 
   describe "#next_step" do
     context "when answer is true" do

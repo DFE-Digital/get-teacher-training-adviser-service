@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Degree::UkTelephone do
   let(:phone) { build(:degree_uk_telephone) }

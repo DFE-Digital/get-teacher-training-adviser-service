@@ -6,5 +6,4 @@ class PreviousSubject < Base
   def next_step
     "subject_like_to_teach"
   end
-
-end 
+end

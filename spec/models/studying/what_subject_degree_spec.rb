@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Studying::WhatSubjectDegree do
   let(:what_subject_degree) { build(:studying_what_subject_degree) }

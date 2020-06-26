@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Degree::StartTeacherTraining do
   let(:starter) { build(:degree_start_teacher_training) }

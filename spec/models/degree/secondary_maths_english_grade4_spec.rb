@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Degree::SecondaryMathsEnglishGrade4 do
   let(:yes) { build(:degree_secondary_maths_english_grade4) }

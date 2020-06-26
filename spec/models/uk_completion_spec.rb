@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe UkCompletion do
   let(:confirmed) { build(:uk_completion) }

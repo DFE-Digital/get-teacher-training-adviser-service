@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe OverseasCountry do
   let(:country) { build(:overseas_country) }
@@ -23,5 +23,4 @@ RSpec.describe OverseasCountry do
       expect(country.next_step).to eq("overseas_candidate")
     end
   end
-  
 end
