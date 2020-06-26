@@ -1,1 +1,12 @@
-<%= render 'what_degree_class', f: f %>
+<%= f.govuk_collection_select :degree_class,
+  [
+    OpenStruct.new(value: 'First class', name: 'First'),
+    OpenStruct.new(value: '2:1', name: '2:1'),
+    OpenStruct.new(value: '2:2', name: '2:2'),
+    OpenStruct.new(value: 'Third class', name: 'Third')
+  ],
+  :value,
+  :name,
+  label: { text: "Which class is your degree?", tag: "h1", size: "m" }
+  %>
+<%= f.govuk_submit %>
