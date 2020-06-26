@@ -1,3 +1,3 @@
 module Degree
-  LINK = "degree/"
+  LINK = "degree/".freeze
 end

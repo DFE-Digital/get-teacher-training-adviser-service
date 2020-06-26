@@ -1,3 +1,3 @@
 module Equivalent
-  LINK = "equivalent/"
+  LINK = "equivalent/".freeze
 end
