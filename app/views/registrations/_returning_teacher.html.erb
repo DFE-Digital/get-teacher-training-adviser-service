@@ -1,5 +1,5 @@
 <%= f.govuk_radio_buttons_fieldset(:returning_to_teaching, legend: { text: 'Are you returning to teaching?'}, inline: true ) do %>
-  <%= f.govuk_radio_button :returning_to_teaching, 'yes', label: { text: 'Yes' } %>
-  <%= f.govuk_radio_button :returning_to_teaching, 'no', label: { text: 'No' } %>
+  <%= f.govuk_radio_button :returning_to_teaching, true, label: { text: 'Yes' } %>
+  <%= f.govuk_radio_button :returning_to_teaching, false, label: { text: 'No' } %>
 <% end %>
 <%= f.govuk_submit%>

@@ -6,6 +6,10 @@
     <%= show_session('have_science') %>
   </dd>
   <dd class="govuk-summary-list__actions">
-    <%= show_link('science_grade4') %>
+    <% if defined?(link) %>
+      <%= show_link("#{link}" + 'science_grade4') %>
+    <% else %> 
+      <%= show_link('science_grade4') %>
+    <% end %>
   </dd>
 </div>

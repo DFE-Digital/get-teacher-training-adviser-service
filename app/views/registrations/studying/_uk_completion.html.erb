@@ -10,10 +10,10 @@
 
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
           <%= render 'check_answers/name' %>
-          <%= render 'check_answers/studying/date_of_birth' %>
-          <%= render 'check_answers/studying/uk_candidate' %>
+          <%= render partial: 'check_answers/date_of_birth', locals: { link: Studying::LINK } %>
+          <%= render partial: 'check_answers/studying/uk_candidate', locals: { link: Studying::LINK } %>
           <%= render 'check_answers/email' %> 
-          <%= render 'check_answers/studying/uk_telephone' %> 
+          <%= render partial: 'check_answers/studying/uk_telephone', locals: { link: Studying::LINK } %> 
 
         </dl>
 
@@ -22,38 +22,37 @@
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
           <%= render 'check_answers/returning_teacher' %>
           <%= render 'check_answers/have_a_degree' %>
-          <%= render 'check_answers/studying/what_subject_degree' %>
-          <%= render 'check_answers/studying/what_degree_class' %>
-          <%= render 'check_answers/studying/stage_interested_teaching' %>
+          <%= render partial: 'check_answers/what_subject_degree', locals: { link: Studying::LINK } %>
+          <%= render partial: 'check_answers/what_degree_class', locals: { link: Studying::LINK } %>
+          <%= render partial: 'check_answers/stage_interested_teaching', locals: { link: Studying::LINK } %>
 
           <!-- Primary options -->
           <% if session[:registration]['primary_or_secondary'] != 'secondary' %>
-            <%= render 'check_answers/studying/primary_maths_english_grade4' %>
+            <%= render partial: 'check_answers/primary_maths_english_grade4', locals: { link: Studying::LINK } %>
 
             <% if session[:registration]['has_required_subjects'] == 'yes' %> 
-              <%= render 'check_answers/studying/science_grade4' %>
+              <%= render partial: 'check_answers/science_grade4', locals: { link: Studying::LINK } %>
 
               <% if session[:registration]['have_science'] == 'no' %>
-                <%= render 'check_answers/studying/retake_science' %>
+                <%= render partial: 'check_answers/retake_science', locals: { link: Studying::LINK } %>
               <% end %>
 
             <% else %>
-              <%= render 'check_answers/studying/retake_english_maths' %>
-              <%= render 'check_answers/studying/retake_science' %>
-
+              <%= render partial: 'check_answers/retake_english_maths', locals: { link: Studying::LINK } %>
+              <%= render partial: 'check_answers/retake_science', locals: { link: Studying::LINK } %>
             <% end %>
           <% end %>
 
           <!-- Secondary options -->
           <% if session[:registration]['primary_or_secondary'] == 'secondary' %>
-            <%= render 'check_answers/studying/secondary_maths_english_grade4' %>
+            <%= render partial: 'check_answers/secondary_maths_english_grade4', locals: { link: Studying::LINK } %>
             <% if session[:registration]['has_required_subjects'] == 'no' %>
-              <%= render 'check_answers/studying/retake_english_maths' %>
+              <%= render partial: 'check_answers/retake_english_maths', locals: { link: Studying::LINK } %>
             <% end %>
           <% end %>
 
-            <%= render 'check_answers/studying/start_teacher_training' %>
-            <%= render 'check_answers/studying/uk_or_overseas' %>
+            <%= render partial: 'check_answers/start_teacher_training', locals: { link: Studying::LINK } %>
+            <%= render partial: 'check_answers/uk_or_overseas', locals: { link: Studying::LINK } %>
         </dl>
         
         <%= f.hidden_field :confirmed, value: true %>

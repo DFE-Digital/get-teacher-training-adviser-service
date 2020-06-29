@@ -6,6 +6,10 @@
     <%= show_session('uk_or_overseas') %>
   </dd>
   <dd class="govuk-summary-list__actions">
-    <%= show_link('uk_or_overseas') %>
+    <% if defined?(link) %>
+      <%= show_link("#{link}" + 'uk_or_overseas') %>
+    <% else %> 
+      <%= show_link('uk_or_overseas') %>
+    <% end %>
   </dd>
 </div>

@@ -6,6 +6,10 @@
     <p class="govuk-body"><%= show_country %></p>
   </dd>
   <dd class="govuk-summary-list__actions">
-    <%= show_link('overseas_country')%>
+    <% if defined?(link) %>
+      <%= show_link("#{link}" + 'overseas_country') %>
+    <% else %> 
+      <%= show_link('overseas_country') %>
+    <% end %>
   </dd>
 </div>

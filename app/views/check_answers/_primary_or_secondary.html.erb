@@ -6,6 +6,10 @@
     <%= show_session('primary_or_secondary')%>
   </dd>
   <dd class="govuk-summary-list__actions">
-    <%= show_link('primary_or_secondary')%>
+    <% if defined?(link) %>
+      <%= show_link("#{link}" + 'primary_or_secondary') %>
+    <% else %> 
+      <%= show_link('primary_or_secondary') %>
+    <% end %>
   </dd>
 </div>

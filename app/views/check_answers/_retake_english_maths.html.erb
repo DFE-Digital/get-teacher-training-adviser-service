@@ -6,6 +6,10 @@
     <%= show_true_or_false('retaking_english_maths') %>
   </dd>
   <dd class="govuk-summary-list__actions">
-    <%= show_link('degree/retake_english_maths') %>
+    <% if defined?(link) %>
+      <%= show_link("#{link}" + 'retake_english_maths') %>
+    <% else %> 
+      <%= show_link('retake_english_maths') %>
+    <% end %>
   </dd>
 </div>

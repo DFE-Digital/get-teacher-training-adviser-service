@@ -6,6 +6,10 @@
     <%= show_session('year_of_entry')%>
   </dd>
   <dd class="govuk-summary-list__actions">
-    <%= show_link('equivalent/start_teacher_training')%>
+    <% if defined?(link) %>
+      <%= show_link("#{link}" + 'start_teacher_training') %>
+    <% else %> 
+      <%= show_link('start_teacher_training') %>
+    <% end %>
   </dd>
 </div>

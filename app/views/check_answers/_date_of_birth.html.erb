@@ -6,6 +6,10 @@
     <%= show_dob %>
   </dd>
   <dd class="govuk-summary-list__actions">
-    <%= show_link('date_of_birth') %> 
+    <% if defined?(link) %>
+      <%= show_link("#{link}" + 'date_of_birth') %>
+    <% else %> 
+      <%= show_link('date_of_birth') %>
+    <% end %>
   </dd>
 </div>

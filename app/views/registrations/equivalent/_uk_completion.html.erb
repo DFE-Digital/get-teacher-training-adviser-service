@@ -10,10 +10,10 @@
 
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
           <%= render 'check_answers/name' %>
-          <%= render 'check_answers/equivalent/date_of_birth' %>
-          <%= render 'check_answers/equivalent/uk_candidate' %>
+          <%= render partial: 'check_answers/date_of_birth', locals: { link: Equivalent::LINK } %>
+          <%= render partial: 'check_answers/uk_candidate', locals: { link: Equivalent::LINK } %>
           <%= render 'check_answers/email' %>
-          <%= render 'check_answers/equivalent/uk_callback_telephone' %> 
+          <%= render partial: 'check_answers/uk_callback_telephone', locals: { link: Equivalent::LINK } %> 
         </dl>
 
         <h2 class="govuk-heading-m">What you've told us</h2>
@@ -21,12 +21,14 @@
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
           <%= render 'check_answers/returning_teacher' %>
           <%= render 'check_answers/have_a_degree' %>
-          <%= render 'check_answers/equivalent/stage_interested_teaching' %>
-          <%= render 'check_answers/equivalent/subject_interested_teaching' %>
-          <%= render 'check_answers/equivalent/start_teacher_training' %>
-          <%= render 'check_answers/equivalent/uk_or_overseas' %>
-          <%= render 'check_answers/equivalent/uk_callback_date' %>
-          <%= render 'check_answers/equivalent/uk_callback_time' %>
+          <% ['stage_interested_teaching',
+              'subject_interested_teaching',
+              'start_teacher_training',
+              'uk_or_overseas',
+              'uk_callback_date',
+              'uk_callback_time'].each do |url| %>
+            <%= render partial: 'check_answers/' + "#{url}", locals: { link: Equivalent::LINK } %>
+          <% end %>
         </dl>
         
         <%= f.hidden_field :confirmed, value: true %>
