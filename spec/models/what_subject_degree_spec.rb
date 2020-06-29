@@ -1,11 +1,11 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe WhatSubjectDegree do
   let(:what_subject_degree) { build(:what_subject_degree) }
   let(:wrong_answer) { build(:what_subject_degree, degree_subject: "dont know") }
 
   describe "validation" do
-    xit "will do something when we have the api" 
+    xit "will do something when we have the api"
   end
 
   describe "#next_step" do

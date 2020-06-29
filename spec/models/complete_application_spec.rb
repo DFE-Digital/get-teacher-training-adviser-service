@@ -1,7 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe CompleteApplication do
-    it "does nothing for now" do
-     
-    end
+  it "does nothing for now" do
   end
+end

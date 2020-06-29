@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe StepFactory do
   subject { described_class }
@@ -13,12 +13,10 @@ RSpec.describe StepFactory do
     context "with an invalid constant" do
       it "raises a custom NameNotFoundError" do
         expect { subject.create("Invalid") }.to raise_error { |error|
-        expect(error).to be_a(StepFactory::NameNotFoundError)
-        expect(error.message).to eq("Step name not found for Invalid")
-      }
+                                                  expect(error).to be_a(StepFactory::NameNotFoundError)
+                                                  expect(error.message).to eq("Step name not found for Invalid")
+                                                }
       end
     end
-
   end
-  
 end

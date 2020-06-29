@@ -3,5 +3,5 @@ module Studying
     def next_step
       "studying/overseas_completion"
     end
-  end 
+  end
 end

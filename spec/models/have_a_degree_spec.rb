@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe HaveADegree do
   let(:have_a_degree) { build(:have_a_degree) }
@@ -9,7 +9,7 @@ RSpec.describe HaveADegree do
 
   describe "validation" do
     context "with valid answers" do
-      ['yes', 'no', 'studying', 'equivalent'].each do |valid_answer|
+      %w[yes no studying equivalent].each do |valid_answer|
         it "is valid" do
           expect(build(:have_a_degree, degree: valid_answer)).to be_valid
         end
@@ -47,6 +47,5 @@ RSpec.describe HaveADegree do
         expect(equivalent.next_step).to eq("equivalent/stage_interested_teaching")
       end
     end
-
   end
 end

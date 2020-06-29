@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Degree::UkOrOverseas do
   let(:uk) { build(:degree_uk_or_overseas) }

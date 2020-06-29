@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe OverseasCandidate do
   let(:candidate_details) { build(:overseas_candidate) }
@@ -27,7 +27,7 @@ RSpec.describe OverseasCandidate do
     end
 
     context "with invalid phone number" do
-      ['', '12345uh', '123-123-123'].each do |invalid_phone|
+      ["", "12345uh", "123-123-123"].each do |invalid_phone|
         it "is not valid" do
           expect(build(:overseas_candidate, telephone_number: invalid_phone)).to_not be_valid
         end
@@ -35,19 +35,17 @@ RSpec.describe OverseasCandidate do
     end
 
     context "with valid phone numbers" do
-      ['123456', '123456 90'].each do |valid_phone|
+      ["123456", "123456 90"].each do |valid_phone|
         it "is valid" do
           expect(build(:overseas_candidate, telephone_number: valid_phone)).to be_valid
         end
       end
     end
-
   end
 
-  describe '#next_step' do
+  describe "#next_step" do
     it "returns the next step" do
-      expect(candidate_details.next_step).to eq('overseas_completion')
+      expect(candidate_details.next_step).to eq("overseas_completion")
     end
   end
-
 end

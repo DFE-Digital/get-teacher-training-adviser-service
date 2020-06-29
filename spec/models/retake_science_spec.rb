@@ -1,8 +1,8 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe RetakeScience do
   let(:retake_science) { build(:retake_science) }
-  let(:wrong_answer) { build(:retake_science, retaking_science: 'gibberish') }
+  let(:wrong_answer) { build(:retake_science, retaking_science: "gibberish") }
   let(:no) { build(:retake_science, retaking_science: false) }
 
   describe "validation" do

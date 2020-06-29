@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe QualifiedToTeach do
   let(:qualified_to_teach) { build(:qualified_to_teach) }
@@ -6,7 +6,7 @@ RSpec.describe QualifiedToTeach do
 
   describe "validation" do
     context "with invalid subject options" do
-      ['skiing', 'fishing', 'golfing', 'surfing' ].each do |invalid_subject|
+      %w[skiing fishing golfing surfing].each do |invalid_subject|
         let(:instance) { build(:qualified_to_teach, qualified_subject: invalid_subject) }
         xit "is not valid" do
           expect(instance).to_not be_valid
@@ -15,12 +15,12 @@ RSpec.describe QualifiedToTeach do
     end
 
     context "with valid subject options" do
-      ['Art and design', 'Biology', 'Business studies', 'Chemistry',
-      'Citizenship','Classics','Computing','Dance','Design and technology',
-      'Drama','English','French','Geography','German','Health and social care', 
-      'History','Languages (other)','Maths','Media studies','French','Music','Physical education', 
-      'Physics','Physics with maths','Primary psychology','Religious education','Social sciences','Spanish', 
-      'Vocational health'].each do |valid_subject|
+      ["Art and design", "Biology", "Business studies", "Chemistry",
+       "Citizenship", "Classics", "Computing", "Dance", "Design and technology",
+       "Drama", "English", "French", "Geography", "German", "Health and social care",
+       "History", "Languages (other)", "Maths", "Media studies", "French", "Music", "Physical education",
+       "Physics", "Physics with maths", "Primary psychology", "Religious education", "Social sciences", "Spanish",
+       "Vocational health"].each do |valid_subject|
         let(:instance) { build(:qualified_to_teach, qualified_subject: valid_subject) }
         xit "is valid" do
           expect(build(:qualified_to_teach, qualified_subject: valid_subject)).to be_valid

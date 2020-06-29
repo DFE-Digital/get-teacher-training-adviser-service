@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe ScienceGrade4 do
   let(:science_grade4) { build(:science_grade4) }

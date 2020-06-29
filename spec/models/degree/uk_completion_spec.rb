@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Degree::UkCompletion do
   let(:confirmed) { build(:degree_uk_completion) }

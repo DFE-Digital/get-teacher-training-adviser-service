@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Degree::PrimaryRetakeEnglishMaths do
   let(:retake_english_maths) { build(:degree_primary_retake_english_maths) }

@@ -3,5 +3,5 @@ module Equivalent
     def next_step
       "equivalent/uk_callback"
     end
-  end 
+  end
 end

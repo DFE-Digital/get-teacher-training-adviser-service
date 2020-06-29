@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe PrimaryOrSecondary do
   let(:primary) { build(:primary_or_secondary) }

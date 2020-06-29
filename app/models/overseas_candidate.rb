@@ -1,11 +1,10 @@
 class OverseasCandidate < Base
-
   attribute :telephone_number, :string
   attribute :callback_date, :date
   attribute "callback_date(3i)", :string
   attribute "callback_date(2i)", :string
   attribute "callback_date(1i)", :string
-  attribute :callback_time, :string 
+  attribute :callback_time, :string
   attribute :time_zone, :string
 
   before_validation :make_a_date
@@ -30,20 +29,18 @@ class OverseasCandidate < Base
   end
 
   def make_a_date
-    year = self.send("callback_date(1i)").to_i 
+    year = self.send("callback_date(1i)").to_i
     month = self.send("callback_date(2i)").to_i
     day = self.send("callback_date(3i)").to_i
-    
+
     begin # catch invalid dates, e.g. 31 Feb
       self.callback_date = Date.new(year, month, day)
     rescue ArgumentError
-      return
+      nil
     end
   end
 
   def next_step
     "overseas_completion"
   end
-
-
-end 
+end

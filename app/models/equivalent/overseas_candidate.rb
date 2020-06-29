@@ -3,5 +3,5 @@ module Equivalent
     def next_step
       "equivalent/overseas_completion"
     end
-  end 
+  end
 end

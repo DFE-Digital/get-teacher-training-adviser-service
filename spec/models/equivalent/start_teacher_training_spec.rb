@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Equivalent::StartTeacherTraining do
   let(:starter) { build(:equivalent_start_teacher_training) }

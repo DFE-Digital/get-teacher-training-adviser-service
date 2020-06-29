@@ -9,6 +9,4 @@ Rails.application.routes.draw do
 
   get "/registrations/*step_name", to: "registrations#new", as: "new_registration"
   post "/registrations/*step_name", to: "registrations#create", as: "registrations"
-
 end
-

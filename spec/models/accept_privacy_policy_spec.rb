@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe AcceptPrivacyPolicy do
   let(:confirmed) { build(:accept_privacy_policy) }

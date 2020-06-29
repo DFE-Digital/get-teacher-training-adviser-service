@@ -3,5 +3,5 @@ module Equivalent
     def next_step
       "equivalent/date_of_birth"
     end
-  end 
+  end
 end

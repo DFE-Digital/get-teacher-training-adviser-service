@@ -7,5 +7,5 @@ module Studying
         "qualification_required"
       end
     end
-  end 
+  end
 end

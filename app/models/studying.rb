@@ -1,3 +1,3 @@
 module Studying
-  LINK = "studying/"
+  LINK = "studying/".freeze
 end

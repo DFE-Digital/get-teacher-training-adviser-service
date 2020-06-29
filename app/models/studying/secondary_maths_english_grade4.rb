@@ -7,5 +7,5 @@ module Studying
         "studying/retake_english_maths"
       end
     end
-  end 
+  end
 end
