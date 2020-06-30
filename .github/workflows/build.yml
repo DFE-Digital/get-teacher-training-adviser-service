@@ -7,8 +7,10 @@ on:
     branches:
       - master
 env:
-  APP_REPOSITORY:           dfedigital/get-teacher-training-adviser-service
+  APP_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
   CF_PROVIDER_DIR: $HOME/.terraform.d/plugins/linux_amd64/terraform-provider-cloudfoundry
+  CONTAINER:       get-teacher-training-adviser-service
+  DOMAIN:          london.cloudapps.digital
 
 jobs:
   build:
@@ -44,6 +46,7 @@ jobs:
           tag_with_ref: true
           tag_with_sha: true
           push: true
+          build_args: APP_SHA=${{ steps.sha.outputs.short }}
 
       - name: Build Only
         if: github.ref != 'refs/heads/master'
@@ -57,6 +60,7 @@ jobs:
           tag_with_ref: true
           tag_with_sha: true
           push: false
+          build_args: APP_SHA=${{ steps.sha.outputs.short }}
 
       - name: Set DOCKER_IMAGE environment variable
         run: |-
@@ -157,4 +161,34 @@ jobs:
              STATE:  ${{job.status}}
              ENVIRON: "Development"
          env:
+            SENTRY_DSN: ${{secrets.DEV_OPS_SENTRY_DSN}}
+
+  owasp:
+    name: OWASP Test
+    runs-on: ubuntu-latest
+    if: always()
+    needs: deploy
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: master
+
+      - name: ZAP Scan
+        uses: zaproxy/action-full-scan@v0.1.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: 'owasp/zap2docker-stable'
+          target: 'https://${{ secrets.HTTPAUTH_USERNAME }}:${{ secrets.HTTPAUTH_PASSWORD }}@${{env.CONTAINER}}-dev.${{env.DOMAIN}}/'
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a'
+
+      - name:  Send Message to Sentry.io
+        if: always()
+        uses: sfawcett123/sentry-event@v1
+        with:
+             MESSAGE: "OWASP Application - get-teacher-training-adviser-service"
+             STATE:  ${{job.status}}
+             ENVIRON: "Development"
+        env:
             SENTRY_DSN: ${{secrets.DEV_OPS_SENTRY_DSN}}
