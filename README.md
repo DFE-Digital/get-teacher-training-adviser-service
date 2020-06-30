@@ -107,3 +107,12 @@ files for each environment
 
 `HTTPAUTH_USERNAME` and `HTTPAUTH_PASSWORD` - setting both enables site wide
 password protection
+
+## DevOps
+
+### OWASP Scanning
+On deployment to the development environment the web url is scanned using [ZAP Scanner](https://github.com/marketplace/actions/owasp-zap-full-scan). The scanner is controlled by a rules file stored in .zap/rules.tsv.   Ideally there should be no rules supressed but intially it has been agreed to resolve them at a slower pace. The scanner will produce an artifact in the output of the running action (zap_scan.zip), by downloading this file and reading the contents it is possible to see what vulnerabilities have beeen detected.
+The following rules have been added:
+- 10038	IGNORE	(Content Security Policy (CSP) Header Not Set)
+- 10063	IGNORE	(Feature Policy Header Not Set)
+- 40025	IGNORE	(Proxy Disclosure)
