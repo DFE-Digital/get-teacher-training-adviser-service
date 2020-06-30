@@ -171,8 +171,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          ref: master
 
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.1.0
