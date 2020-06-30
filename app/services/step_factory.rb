@@ -1,12 +1,14 @@
 class StepFactory
   # need to register permitted names/classes
   STEP_NAMES = [
-    "Identity", "ReturningTeacher", "PrimaryOrSecondary", "QualifiedToTeach", "DateOfBirth", "UkOrOverseas",
-    "UkCandidate", "UkCompletion", "AcceptPrivacyPolicy", "OverseasCandidate", "OverseasCompletion", "HaveADegree", "WhatSubjectDegree", "StageInterestedTeaching", "ScienceGrade4",
-    "PrimaryMathsEnglishGrade4", "QualificationRequired", "SubjectInterestedTeaching", "SecondaryMathsEnglishGrade4", "RetakeEnglishMaths", "StartTeacherTraining", "EquivalentStageInterestedTeaching", "NoDegree", "UkNewPrimaryCompletion", "UkNewSecondaryCompletion", "UkStudyingCompletion", "CompleteApplication", "HasTeacherId", "PreviousId", "PreviousSubject", "SubjectLikeToTeach", "UkTelephone", "OverseasCountry",
+    "Identity", "ReturningTeacher",
+    "PreviousId", "HasTeacherId", "PreviousSubject", "SubjectLikeToTeach",
+    "DateOfBirth", "UkOrOverseas", "UkCandidate", "UkTelephone", "UkCompletion", "AcceptPrivacyPolicy",
+    "OverseasCountry", "OverseasCandidate", "OverseasCompletion",
+    "NoDegree", "HaveADegree", "QualificationRequired", "CompleteApplication",
 
-    "Degree::WhatSubjectDegree", "Degree::StageInterestedTeaching", "Degree::ScienceGrade4",
-    "Degree::PrimaryMathsEnglishGrade4", "Degree::SubjectInterestedTeaching", "Degree::StartTeacherTraining", "Degree::DateOfBirth", "Degree::UkOrOverseas", "Degree::UkCandidate", "Degree::UkCompletion", "Degree::SecondaryMathsEnglishGrade4", "Degree::RetakeEnglishMaths", "Degree::OverseasCandidate", "Degree::OverseasCompletion", "Degree::WhatDegreeClass", "Degree::UkTelephone", "Degree::PrimaryRetakeEnglishMaths", "Degree::RetakeScience", "Degree::OverseasCountry",
+    "Degree::WhatSubjectDegree", "Degree::WhatDegreeClass", "Degree::StageInterestedTeaching", "Degree::ScienceGrade4",
+    "Degree::PrimaryMathsEnglishGrade4", "Degree::SubjectInterestedTeaching", "Degree::StartTeacherTraining", "Degree::DateOfBirth", "Degree::UkOrOverseas", "Degree::UkCandidate", "Degree::UkCompletion", "Degree::SecondaryMathsEnglishGrade4", "Degree::RetakeEnglishMaths", "Degree::OverseasCandidate", "Degree::OverseasCompletion", "Degree::UkTelephone", "Degree::PrimaryRetakeEnglishMaths", "Degree::RetakeScience", "Degree::OverseasCountry",
 
     "Studying::WhatSubjectDegree", "Studying::StageInterestedTeaching", "Studying::ScienceGrade4",
     "Studying::PrimaryMathsEnglishGrade4", "Studying::SubjectInterestedTeaching", "Studying::StartTeacherTraining", "Studying::DateOfBirth", "Studying::UkOrOverseas", "Studying::UkCandidate", "Studying::UkCompletion", "Studying::SecondaryMathsEnglishGrade4", "Studying::RetakeEnglishMaths", "Studying::OverseasCandidate", "Studying::OverseasCompletion", "Studying::WhatDegreeClass", "Studying::UkTelephone", "Studying::PrimaryRetakeEnglishMaths", "Studying::RetakeScience", "Studying::OverseasCountry",
