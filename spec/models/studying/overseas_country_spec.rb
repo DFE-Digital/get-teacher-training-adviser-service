@@ -5,7 +5,7 @@ RSpec.describe Studying::OverseasCountry do
 
   describe "#next_step" do
     it "returns the correct step" do
-      expect(country.next_step).to eq("studying/overseas_candidate")
+      expect(country.next_step).to eq("studying/overseas_telephone")
     end
   end
 end

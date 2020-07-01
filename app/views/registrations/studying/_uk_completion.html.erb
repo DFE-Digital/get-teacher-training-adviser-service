@@ -11,10 +11,9 @@
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
           <%= render 'check_answers/name' %>
           <%= render partial: 'check_answers/date_of_birth', locals: { link: Studying::LINK } %>
-          <%= render partial: 'check_answers/studying/uk_candidate', locals: { link: Studying::LINK } %>
+          <%= render partial: 'check_answers/uk_candidate', locals: { link: Studying::LINK } %>
           <%= render 'check_answers/email' %> 
-          <%= render partial: 'check_answers/studying/uk_telephone', locals: { link: Studying::LINK } %> 
-
+          <%= render partial: 'check_answers/uk_telephone', locals: { link: Studying::LINK } %>
         </dl>
 
         <h2 class="govuk-heading-m">What you've told us</h2>

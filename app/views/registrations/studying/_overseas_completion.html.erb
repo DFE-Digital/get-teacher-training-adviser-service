@@ -40,10 +40,7 @@
           <% ['subject_interested_teaching',
               'start_teacher_training',
               'uk_or_overseas',
-              'country_code',
-              'callback_date',
-              'time_zone',
-              'callback_time'].each do |url| %>
+              'country_code'].each do |url| %>
             <%= render partial: 'check_answers/' + "#{url}", locals: { link: Studying::LINK } %>
           <% end %>
         </dl>
