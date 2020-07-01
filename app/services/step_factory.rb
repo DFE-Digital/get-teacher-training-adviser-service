@@ -4,7 +4,7 @@ class StepFactory
     "Identity", "ReturningTeacher",
     "PreviousId", "HasTeacherId", "PreviousSubject", "SubjectLikeToTeach",
     "DateOfBirth", "UkOrOverseas", "UkCandidate", "UkTelephone", "UkCompletion", "AcceptPrivacyPolicy",
-    "OverseasCountry", "OverseasCandidate", "OverseasCompletion",
+    "OverseasCountry", "OverseasTelephone", "OverseasCompletion",
     "NoDegree", "HaveADegree", "QualificationRequired", "CompleteApplication",
 
     "Degree::WhatSubjectDegree", "Degree::WhatDegreeClass", "Degree::StageInterestedTeaching", "Degree::ScienceGrade4",
