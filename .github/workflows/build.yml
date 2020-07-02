@@ -70,7 +70,7 @@ jobs:
         run: |-
           docker run -t --rm -v ${PWD}/out:/app/out -v ${PWD}/coverage:/app/coverage -e RAILS_ENV=test $DOCKER_IMAGE /bin/sh -c 'cd /app; bundle exec rspec'
           sed -e "s/app\/app/app/g" < coverage/.resultset.json > tmp.file
-          mv tmp.file coverage/.resultset.json
+          sudo mv tmp.file coverage/.resultset.json
 
       - name: Lint Ruby
         run: |-
