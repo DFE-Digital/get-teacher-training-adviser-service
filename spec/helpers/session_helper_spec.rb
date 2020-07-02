@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SessionHelper, type: :helper do
+RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_session" do
     context "with a session value" do
       it "returns the value capitalized" do
@@ -108,6 +108,15 @@ RSpec.describe SessionHelper, type: :helper do
         "retaking_science" => false,
       }
       expect(show_true_or_false("retaking_science")).to eq("No")
+    end
+  end
+
+  describe "#show_subject" do
+    it "returns the session prev_subject name" do
+      session[:registration] = {
+        "prev_subject" => "6b793433-cd1f-e911-a979-000d3a20838a"
+      }
+      expect(show_subject("prev_subject")).to eq("Art")
     end
   end
 end

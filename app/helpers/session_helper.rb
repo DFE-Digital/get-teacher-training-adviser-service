@@ -55,8 +55,8 @@ module SessionHelper
     answer == true ? "Yes" : "No"
   end
 
-  def show_previous_subject
-    subject_id = session[:registration]["prev_subject"]
-    answer = ApiClient::get_teaching_subjects.select { |subject| subject.id == subject_id }[0].value
+  def show_subject(question)
+    subject_id = session[:registration][question]
+    ApiClient::get_teaching_subjects.find { |subject| subject.id == subject_id }.value
   end
 end
