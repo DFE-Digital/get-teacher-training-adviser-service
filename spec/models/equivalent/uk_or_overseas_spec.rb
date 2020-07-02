@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Equivalent::UkOrOverseas do
   let(:uk) { build(:equivalent_uk_or_overseas) }
-  let(:overseas) { build(:equivalent_uk_or_overseas, uk_or_overseas: "overseas") }
+  let(:overseas) { build(:equivalent_uk_or_overseas, uk_or_overseas: "222750001") }
 
   describe "#next_step" do
     context "when answer is uk" do
