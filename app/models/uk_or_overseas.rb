@@ -3,7 +3,7 @@ class UkOrOverseas < Base
 
   validates :uk_or_overseas, types: { method: :get_candidate_locations, message: "Select if you live in the UK or overseas" }
 
-  LOCATIONS = { uk: "222750000", overseas: "222750001" }
+  LOCATIONS = { uk: "222750000", overseas: "222750001" }.freeze
 
   def next_step
     if uk_or_overseas == LOCATIONS[:uk]
