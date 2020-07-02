@@ -76,7 +76,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Code_Coverage
-          path: ${PWD}/coverage 
+          path: ${{ github.workspace }}/coverage/*
 
       - name: Lint Ruby
         run: |-
