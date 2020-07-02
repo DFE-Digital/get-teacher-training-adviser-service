@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-   <url>
-      <loc><%= @host %></loc>
-      <lastmod><%= Time.now.strftime("%Y-%m-%dT%H:%M:%S")%></lastmod>
-   </url>
-  
-   <% @steps.each do |step| %>
-     <url>
-        <loc><%= "#{@host}" + "#{new_registration_path step.underscore}" %></loc>
-        <lastmod><%= Time.now.strftime("%Y-%m-%dT%H:%M:%S")%></lastmod>
-     </url>
-   <% end %>
+  <url>
+    <loc><%= @host %></loc>
+    <lastmod><%= Time.now.strftime("%Y-%m-%dT%H:%M:%S")%></lastmod>
+  </url>
+  <% static_urls = ["/privacy_policy", "/cookie_policy"] %>
+  <% static_urls.each do |static_url| %>
+  <url>
+    <loc><%= "#{@host}" + "#{static_url}" %></loc>
+    <lastmod><%= Time.now.strftime("%Y-%m-%dT%H:%M:%S")%></lastmod>
+  </url>
+  <% end %>
+  <% @steps.each do |step| %>
+  <url>
+    <loc><%= "#{@host}" + "#{new_registration_path step.underscore}" %></loc>
+    <lastmod><%= Time.now.strftime("%Y-%m-%dT%H:%M:%S")%></lastmod>
+  </url>
+  <% end %>
 </urlset>

@@ -1,5 +1,5 @@
 module Degree
-  class OverseasCandidate < OverseasCandidate
+  class OverseasTelephone < OverseasTelephone
     def next_step
       "degree/overseas_completion"
     end

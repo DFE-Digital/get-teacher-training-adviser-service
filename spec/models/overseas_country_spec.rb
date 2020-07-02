@@ -20,7 +20,7 @@ RSpec.describe OverseasCountry do
 
   describe "#next_step" do
     it "returns the correct step" do
-      expect(country.next_step).to eq("overseas_candidate")
+      expect(country.next_step).to eq("overseas_telephone")
     end
   end
 end

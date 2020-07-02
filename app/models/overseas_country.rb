@@ -4,6 +4,6 @@ class OverseasCountry < Base
   validates :country_code, length: { is: 2 }
 
   def next_step
-    "overseas_candidate"
+    "overseas_telephone"
   end
 end
