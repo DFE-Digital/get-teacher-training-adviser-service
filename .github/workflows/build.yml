@@ -72,6 +72,12 @@ jobs:
           sed -e "s?/app/app?${PWD}/app?" < coverage/.resultset.json > tmp.file
           sudo mv tmp.file coverage/.resultset.json
 
+      - name:  Keep Code Coverage Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: Code_Coverage
+          path: ${PWD}/coverage 
+
       - name: Lint Ruby
         run: |-
           docker run -t --rm -e RAILS_ENV=test $DOCKER_IMAGE bundle exec rubocop app config db lib spec Gemfile --format clang || true
