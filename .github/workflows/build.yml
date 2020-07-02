@@ -78,6 +78,12 @@ jobs:
           name: Code_Coverage
           path: ${{ github.workspace }}/coverage/*
 
+      - name:  Keep Unit Tests Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: unit_tests 
+          path: ${{ github.workspace }}/out/*
+
       - name: Lint Ruby
         run: |-
           docker run -t --rm -e RAILS_ENV=test $DOCKER_IMAGE bundle exec rubocop app config db lib spec Gemfile --format clang || true
