@@ -68,7 +68,21 @@ jobs:
 
       - name: Run Specs
         run: |-
-          docker run -t --rm -v ${PWD}/out:/app/out -v ${PWD}/coverage:/app/coverage -e RAILS_ENV=test $DOCKER_IMAGE bundle exec rspec
+          docker run -t --rm -v ${PWD}/out:/app/out -v ${PWD}/coverage:/app/coverage -e RAILS_ENV=test $DOCKER_IMAGE /bin/sh -c 'cd /app; bundle exec rspec'
+          sed -e "s?/app/app?${PWD}/app?" < coverage/.resultset.json > tmp.file
+          sudo mv tmp.file coverage/.resultset.json
+
+      - name:  Keep Code Coverage Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: Code_Coverage
+          path: ${{ github.workspace }}/coverage/*
+
+      - name:  Keep Unit Tests Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: unit_tests 
+          path: ${{ github.workspace }}/out/*
 
       - name: Lint Ruby
         run: |-
@@ -76,7 +90,7 @@ jobs:
 
       - name: Run sonarqube
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: sonar-scanner
            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
            -Dsonar.organization=dfe-digital
@@ -96,7 +110,7 @@ jobs:
              STATE:  ${{job.status}}
              ENVIRON: "Development"
         env:
-            SENTRY_DSN: ${{secrets.DEV_OPS_SENTRY_DSN}}
+             SENTRY_DSN: ${{secrets.DEV_OPS_SENTRY_DSN}}
 
   deploy:
     name: 'Deploy to Development'
