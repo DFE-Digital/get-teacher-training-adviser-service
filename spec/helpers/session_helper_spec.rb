@@ -119,4 +119,13 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
       expect(show_subject("prev_subject")).to eq("Art")
     end
   end
+
+  describe "#show_location" do
+    it "returns the session 'question' name" do
+      session[:registration] = {
+        "uk_or_overseas" => "222750000",
+      }
+      expect(show_location).to eq("In the UK")
+    end
+  end
 end

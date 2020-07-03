@@ -59,4 +59,9 @@ module SessionHelper
     subject_id = session[:registration][question]
     ApiClient::get_teaching_subjects.find { |subject| subject.id == subject_id }.value
   end
+
+  def show_location
+    location_id = session[:registration]["uk_or_overseas"]
+    ApiClient::get_candidate_locations.find { |location| location.id == location_id }.value
+  end
 end
