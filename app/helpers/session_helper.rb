@@ -45,9 +45,8 @@ module SessionHelper
   end
 
   def show_country
-    code = session[:registration]["country_code"]
-    country = ISO3166::Country[code]
-    country.name
+    country_id = session[:registration]["country_code"]
+    ApiClient::get_country_types.find { |country| country.id == country_id }.value
   end
 
   def show_true_or_false(question)
@@ -58,10 +57,5 @@ module SessionHelper
   def show_subject(question)
     subject_id = session[:registration][question]
     ApiClient::get_teaching_subjects.find { |subject| subject.id == subject_id }.value
-  end
-
-  def show_location
-    location_id = session[:registration]["uk_or_overseas"]
-    ApiClient::get_candidate_locations.find { |location| location.id == location_id }.value
   end
 end

@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:DFE-Digital/get-into-teaching-api-ruby-client.git
-  revision: fc522654b4884e6ec0ff21a41430c42ced50ede5
+  revision: 9a2e7399c45eb635475aaffb6b60618e085c0470
   specs:
     get_into_teaching_api_client (1.0.0)
       json (~> 2.1, >= 2.1.0)

@@ -92,9 +92,9 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_country" do
     it "returns the session country_code name" do
       session[:registration] = {
-        "country_code" => "GB",
+        "country_code" => "0df4c2e6-74f9-e811-a97a-000d3a2760f2",
       }
-      expect(show_country).to eq("United Kingdom of Great Britain and Northern Ireland")
+      expect(show_country).to eq("Australia")
     end
   end
 
@@ -117,15 +117,6 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
         "prev_subject" => "6b793433-cd1f-e911-a979-000d3a20838a",
       }
       expect(show_subject("prev_subject")).to eq("Art")
-    end
-  end
-
-  describe "#show_location" do
-    it "returns the session 'question' name" do
-      session[:registration] = {
-        "uk_or_overseas" => "222750000",
-      }
-      expect(show_location).to eq("In the UK")
     end
   end
 end
