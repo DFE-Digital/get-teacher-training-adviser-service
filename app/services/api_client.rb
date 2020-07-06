@@ -17,11 +17,6 @@ class ApiClient
       api_instance.get_candidate_preferred_education_phases
     end
 
-    def get_candidate_preferred_education_phases
-      api_instance = GetIntoTeachingApiClient::TypesApi.new
-      api_instance.get_candidate_preferred_education_phases
-    end
-
     def get_qualification_degree_status
       api_instance = GetIntoTeachingApiClient::TypesApi.new
       api_instance.get_qualification_degree_status

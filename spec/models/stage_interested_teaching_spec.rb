@@ -19,7 +19,7 @@ RSpec.describe StageInterestedTeaching, :vcr do
   end
 
   describe "#next_step" do
-    let(:secondary) { build(:stage_interested_teaching, primary_or_secondary: "222750001")}
+    let(:secondary) { build(:stage_interested_teaching, primary_or_secondary: "222750001") }
 
     context "when answer is primary" do
       it "returns the correct option" do
