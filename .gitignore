@@ -46,3 +46,5 @@ dump.rdb
 /config/credentials/development.key
 
 /config/credentials/test.key
+
+/config/credentials/rolling.key
