@@ -1,13 +1,7 @@
 <%= f.govuk_collection_select :degree_class,
-  [
-    OpenStruct.new(value: 'Not applicable', name: 'Not applicable'),
-    OpenStruct.new(value: 'First class', name: 'First'),
-    OpenStruct.new(value: '2:1', name: '2:1'),
-    OpenStruct.new(value: '2:2', name: '2:2'),
-    OpenStruct.new(value: 'Third class', name: 'Third')
-  ],
+  ApiClient::get_qualification_uk_degree_grades,
+  :id,
   :value,
-  :name,
-  label: { text: "Which degree class are you predicted to get?", tag: "h1", size: "m" }
-  %>
+  label: { text: "What degree class are you predicted to get?", tag: "h1", size: "m" }
+%>
 <%= f.govuk_submit %>
