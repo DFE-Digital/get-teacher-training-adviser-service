@@ -12,10 +12,10 @@ class ApiClient
       api_instance.get_candidate_initial_teacher_training_years
     end
 
-    #def get_candidate_locations
-    #  api_instance = GetIntoTeachingApiClient::TypesApi.new
-    #  api_instance.get_candidate_locations
-    #end
+    def get_candidate_preferred_education_phases
+      api_instance = GetIntoTeachingApiClient::TypesApi.new
+      api_instance.get_candidate_preferred_education_phases
+    end
 
     def get_candidate_preferred_education_phases
       api_instance = GetIntoTeachingApiClient::TypesApi.new

@@ -1,7 +1,6 @@
 <%= f.govuk_radio_buttons_fieldset(:primary_or_secondary, legend: { text: 'Which stage are you interested in teaching?'},
-hint_text: "Select a stage even if you're not sure yet, as this will not affect the sign up process" ) do %>
-  <%= f.govuk_radio_button :primary_or_secondary, 'primary', label: { text: 'Primary' } %>
-  <%= f.govuk_radio_button :primary_or_secondary, 'primary with maths', label: { text: 'Primary with maths' } %>
-  <%= f.govuk_radio_button :primary_or_secondary, 'secondary', label: { text: 'Secondary' } %>
+hint_text: "Select a stage even if you're not sure yet, as this will not affect the sign up process", inline: true ) do %>
+  <%= f.govuk_radio_button :primary_or_secondary, '222750000', label: { text: 'Primary' } %>
+  <%= f.govuk_radio_button :primary_or_secondary, '222750001', label: { text: 'Secondary' } %>
 <% end %>
 <%= f.govuk_submit%>
