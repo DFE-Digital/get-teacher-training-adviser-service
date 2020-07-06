@@ -16,7 +16,6 @@ RSpec.describe WhatSubjectDegree, :vcr do
         expect(subject).to_not be_valid
       end
     end
-
   end
 
   describe "#next_step" do

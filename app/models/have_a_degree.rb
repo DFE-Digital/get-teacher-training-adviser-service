@@ -3,7 +3,7 @@ class HaveADegree < Base
 
   validates :degree, types: { method: :get_qualification_degree_status, message: "You must select an option" }
   # may need updating
-  OPTIONS  = { yes: "222750000", no: "222750004", studying: "222750001", equivalent: "222750005" }
+  OPTIONS = { yes: "222750000", no: "222750004", studying: "222750001", equivalent: "222750005" }.freeze
 
   def next_step
     if degree == OPTIONS[:yes]
