@@ -25,7 +25,7 @@ RUN yarn install && yarn cache clean
 RUN gem install bundler --version=2.1.4
 # Install git
 RUN apk add --no-cache git=2.24.3-r0
-RUN apk add --no-cache ssh-client
+RUN apk add --no-cache ssh-client=OpenSSH_7.9p1
 
 ARG APP_SHA
 RUN echo "${APP_SHA}" > /etc/get-teacher-training-adviser-service-sha
