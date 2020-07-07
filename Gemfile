@@ -34,7 +34,6 @@ gem "redis"
 gem "country_select", "~> 4.0"
 
 # api client
-#gem "get_into_teaching_api_client", git: "git@github.com:DFE-Digital/get-into-teaching-api-ruby-client.git"
 gem "get_into_teaching_api_client", git: "https://github.com/DFE-Digital/get-into-teaching-api-ruby-client.git"
 
 group :development, :test do

@@ -1,28 +1,19 @@
 require "rails_helper"
 
-RSpec.describe PrimaryMathsEnglishGrade4 do
-  let(:yes) { build(:primary_maths_english_grade4) }
-  let(:wrong_answer) { build(:primary_maths_english_grade4, has_required_subjects: "gibberish") }
-  let(:no) { build(:primary_maths_english_grade4, has_required_subjects: false) }
+RSpec.describe PrimaryMathsEnglishGrade4, :vcr do
+  subject { build(:primary_maths_english_grade4) }
 
   describe "validation" do
-    it "only accepts true or false values" do
-      expect(wrong_answer).to be_valid
-      expect(yes).to be_valid
-      expect(no).to be_valid
-    end
-  end
-
-  describe "#next_step" do
-    context "when answer is true" do
-      it "returns the correct option" do
-        expect(yes.next_step).to eq("subject_interested_teaching")
+    context "with valid subject option" do
+      it "is valid" do
+        expect(subject).to be_valid
       end
     end
 
-    context "when answer is false" do
-      it "returns the correct option" do
-        expect(no.next_step).to eq("qualification_required")
+    context "with invalid subject option" do
+      it "is not valid" do
+        subject.has_required_subjects = "invalid_id"
+        expect(subject).to_not be_valid
       end
     end
   end

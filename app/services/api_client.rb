@@ -36,5 +36,10 @@ class ApiClient
       api_instance = GetIntoTeachingApiClient::TypesApi.new
       api_instance.get_country_types
     end
+
+    def get_candidate_gcse_status
+      api_instance = GetIntoTeachingApiClient::TypesApi.new
+      api_instance.get_candidate_gcse_status
+    end
   end
 end
