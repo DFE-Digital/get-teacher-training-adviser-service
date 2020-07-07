@@ -27,8 +27,6 @@ yarn-debug.log*
 .yarn-integrity
 #spec state
 /spec/examples.txt
-#vcr cassettes
-/spec/vcr/*
 /out/*
 # redis dump
 dump.rdb
