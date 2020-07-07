@@ -14,7 +14,7 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - gitss123
+      - ENV[api_key]
       Expect:
       - ''
   response:
@@ -23,7 +23,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 06 Jul 2020 11:06:30 GMT
+      - Tue, 07 Jul 2020 08:44:33 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -31,20 +31,20 @@ http_interactions:
       Connection:
       - keep-alive
       Etag:
-      - 3A28AB2E3774DBA265144DAD62FA257241EDDD62BA1BD42E3A1E0A0DDCEC1FB2
+      - BD72A05312D2FA40501B584619AE52079A03EB719CB081142756F07772A1E4C6
       Server:
       - Kestrel
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Vcap-Request-Id:
-      - 5ff72502-147e-4a68-7dfe-1c17b4453ade
+      - d57804e5-7e80-4e44-7ab5-2f339b751914
     body:
       encoding: UTF-8
-      string: '[{"id":"222750000","value":"Not applicable"},{"id":"222750001","value":"First
-        class"},{"id":"222750002","value":"2:1"},{"id":"222750003","value":"2:2"},{"id":"222750004","value":"Third
-        class or below"},{"id":"222750005","value":"Pass (grade unknown)"}]'
+      string: '[{"id":"222750002","value":"2:1"},{"id":"222750000","value":"Not applicable"},{"id":"222750003","value":"2:2"},{"id":"222750004","value":"Third
+        class or below"},{"id":"222750005","value":"Pass (grade unknown)"},{"id":"222750001","value":"First
+        class"}]'
     http_version: '1.1'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/qualification/uk_degree_grades
-  recorded_at: Mon, 06 Jul 2020 11:06:30 GMT
+  recorded_at: Tue, 07 Jul 2020 08:44:33 GMT
 recorded_with: VCR 6.0.0

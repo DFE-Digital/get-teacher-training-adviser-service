@@ -14,7 +14,7 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - gitss123
+      - ENV[api_key]
       Expect:
       - ''
   response:
@@ -23,7 +23,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 03 Jul 2020 11:46:02 GMT
+      - Tue, 07 Jul 2020 08:44:32 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -31,22 +31,22 @@ http_interactions:
       Connection:
       - keep-alive
       Etag:
-      - F365A7DBA2607E520080D1E3DC9D1A3D3E8888AB5896DBD3AACE976E8EAEBCBC
+      - A1167BFA03025C45A13CA9569B76CEF0E9146E253616D033789B04C567AC136D
       Server:
       - Kestrel
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Vcap-Request-Id:
-      - df15cf0c-17d9-4a03-6976-2d54760277dd
+      - ff05ee53-9614-4d1a-701f-c45f721507f0
     body:
       encoding: UTF-8
       string: '[{"id":"6b793433-cd1f-e911-a979-000d3a20838a","value":"Art"},{"id":"7e2655a1-2afa-e811-a981-000d3a276620","value":"Art
         and design"},{"id":"802655a1-2afa-e811-a981-000d3a276620","value":"Biology"},{"id":"822655a1-2afa-e811-a981-000d3a276620","value":"Business
-        studies"},{"id":"842655a1-2afa-e811-a981-000d3a276620","value":"Chemistry"},{"id":"862655a1-2afa-e811-a981-000d3a276620","value":"Citizenship"},{"id":"882655a1-2afa-e811-a981-000d3a276620","value":"Classics"},{"id":"8a2655a1-2afa-e811-a981-000d3a276620","value":"Computing"},{"id":"8c2655a1-2afa-e811-a981-000d3a276620","value":"Dance"},{"id":"8e2655a1-2afa-e811-a981-000d3a276620","value":"Design
+        studies"},{"id":"842655a1-2afa-e811-a981-000d3a276620","value":"Chemistry"},{"id":"862655a1-2afa-e811-a981-000d3a276620","value":"Citizenship"},{"id":"8e2655a1-2afa-e811-a981-000d3a276620","value":"Design
         and technology"},{"id":"902655a1-2afa-e811-a981-000d3a276620","value":"Drama"},{"id":"922655a1-2afa-e811-a981-000d3a276620","value":"Economics"},{"id":"942655a1-2afa-e811-a981-000d3a276620","value":"English"},{"id":"962655a1-2afa-e811-a981-000d3a276620","value":"French"},{"id":"982655a1-2afa-e811-a981-000d3a276620","value":"General
         science"},{"id":"9a2655a1-2afa-e811-a981-000d3a276620","value":"Geography"},{"id":"9c2655a1-2afa-e811-a981-000d3a276620","value":"German"},{"id":"9e2655a1-2afa-e811-a981-000d3a276620","value":"Health
         and social care"},{"id":"a02655a1-2afa-e811-a981-000d3a276620","value":"History"},{"id":"a22655a1-2afa-e811-a981-000d3a276620","value":"Languages
-        (other)"},{"id":"a42655a1-2afa-e811-a981-000d3a276620","value":"Maths"},{"id":"a62655a1-2afa-e811-a981-000d3a276620","value":"Media
+        (other)"},{"id":"a42655a1-2afa-e811-a981-000d3a276620","value":"Maths"},{"id":"882655a1-2afa-e811-a981-000d3a276620","value":"Classics"},{"id":"8a2655a1-2afa-e811-a981-000d3a276620","value":"Computing"},{"id":"8c2655a1-2afa-e811-a981-000d3a276620","value":"Dance"},{"id":"a62655a1-2afa-e811-a981-000d3a276620","value":"Media
         studies"},{"id":"a82655a1-2afa-e811-a981-000d3a276620","value":"Music"},{"id":"aa2655a1-2afa-e811-a981-000d3a276620","value":"Physical
         education"},{"id":"ac2655a1-2afa-e811-a981-000d3a276620","value":"Physics"},{"id":"ae2655a1-2afa-e811-a981-000d3a276620","value":"Physics
         with maths"},{"id":"b02655a1-2afa-e811-a981-000d3a276620","value":"Primary"},{"id":"b22655a1-2afa-e811-a981-000d3a276620","value":"Psychology"},{"id":"b42655a1-2afa-e811-a981-000d3a276620","value":"Religious
@@ -56,5 +56,5 @@ http_interactions:
     http_version: '1.1'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/teaching_subjects
-  recorded_at: Fri, 03 Jul 2020 11:46:02 GMT
+  recorded_at: Tue, 07 Jul 2020 08:44:32 GMT
 recorded_with: VCR 6.0.0

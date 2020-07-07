@@ -14,7 +14,7 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - gitss123
+      - ENV[api_key]
       Expect:
       - ''
   response:
@@ -23,7 +23,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 03 Jul 2020 15:15:32 GMT
+      - Tue, 07 Jul 2020 08:44:35 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -31,13 +31,13 @@ http_interactions:
       Connection:
       - keep-alive
       Etag:
-      - 5F700AFF086F8912C8CB10040AC662248F936AB244B22E26C564E8B05D7BD44B
+      - 0BEA19727D971F0581FE57B863F9EBD7C096DC02ED0580EA1E1D86B7CB20859D
       Server:
       - Kestrel
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Vcap-Request-Id:
-      - 05b0373b-b837-480f-6b85-23ef758bf24a
+      - 1e81b210-8233-4edd-7be3-47a04926d1f1
     body:
       encoding: UTF-8
       string: '[{"id":"222750000","value":"Graduate or postgraduate"},{"id":"222750001","value":"Final
@@ -47,5 +47,5 @@ http_interactions:
     http_version: '1.1'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/qualification/degree_status
-  recorded_at: Fri, 03 Jul 2020 15:15:32 GMT
+  recorded_at: Tue, 07 Jul 2020 08:44:35 GMT
 recorded_with: VCR 6.0.0
