@@ -23,7 +23,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 08 Jul 2020 11:49:16 GMT
+      - Wed, 08 Jul 2020 11:45:09 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -37,7 +37,7 @@ http_interactions:
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Vcap-Request-Id:
-      - 136f109e-2557-4c67-4099-d97a0517b49f
+      - 416581f7-9c0f-40d0-6dbc-bb6cebf19d54
     body:
       encoding: UTF-8
       string: '[{"id":"222750001","value":"Not Answered"},{"id":"222750000","value":"Planning
@@ -45,5 +45,5 @@ http_interactions:
     http_version: '1.1'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/candidate/retake_gcse_status
-  recorded_at: Wed, 08 Jul 2020 11:49:16 GMT
+  recorded_at: Wed, 08 Jul 2020 11:45:09 GMT
 recorded_with: VCR 6.0.0
