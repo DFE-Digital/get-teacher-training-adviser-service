@@ -146,4 +146,13 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
       expect(show_stage_interested_teaching).to eq("Secondary")
     end
   end
+
+  describe "#show_start_teacher_training" do
+    it "returns the session 'year_of_entry' value" do
+      session[:registration] = {
+        "year_of_entry" => "12917",
+      }
+      expect(show_start_teacher_training).to eq("Not sure")
+    end
+  end
 end
