@@ -1,7 +1,7 @@
 module Degree
   class SecondaryMathsEnglishGrade4 < SecondaryMathsEnglishGrade4
     def next_step
-      if has_required_subjects == "yes"
+      if has_required_subjects == SecondaryMathsEnglishGrade4::OPTIONS[:yes]
         "degree/subject_interested_teaching"
       else
         "degree/retake_english_maths"
