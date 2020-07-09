@@ -3,12 +3,12 @@
     Which stage are you interested in teaching?
   </dt>
   <dd class="govuk-summary-list__value">
-    <%= show_session('primary_or_secondary')%>
+    <%= show_stage_interested_teaching %>
   </dd>
   <dd class="govuk-summary-list__actions">
     <% if defined?(link) %>
       <%= show_link("#{link}" + 'stage_interested_teaching') %>
-    <% else %> 
+    <% else %>
       <%= show_link('stage_interested_teaching') %>
     <% end %>
   </dd>

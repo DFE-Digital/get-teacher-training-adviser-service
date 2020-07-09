@@ -17,20 +17,4 @@ RSpec.describe StageInterestedTeaching, :vcr do
       end
     end
   end
-
-  describe "#next_step" do
-    let(:secondary) { build(:stage_interested_teaching, primary_or_secondary: "222750001") }
-
-    context "when answer is primary" do
-      it "returns the correct option" do
-        expect(subject.next_step).to eq("science_grade4")
-      end
-    end
-
-    context "when answer is secondary" do
-      it "returns the correct option" do
-        expect(secondary.next_step).to eq("secondary_maths_english_grade4")
-      end
-    end
-  end
 end

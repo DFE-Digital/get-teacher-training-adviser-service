@@ -58,4 +58,19 @@ module SessionHelper
     subject_id = session[:registration][question]
     ApiClient::get_teaching_subjects.find { |subject| subject.id == subject_id }.value
   end
+
+  def show_have_a_degree
+    degree_option = session[:registration]["degree"]
+    HaveADegree::OPTIONS.key(degree_option).to_s.capitalize
+  end
+
+  def show_what_degree_class
+    degree_class = session[:registration]["degree_class"]
+    WhatDegreeClass::options.key(degree_class)
+  end
+
+  def show_stage_interested_teaching
+    stage = session[:registration]["primary_or_secondary"]
+    StageInterestedTeaching::OPTIONS.key(stage).to_s.capitalize
+  end
 end

@@ -119,4 +119,32 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
       expect(show_subject("prev_subject")).to eq("Art")
     end
   end
+
+  describe "#show_have_a_degree" do
+    it "returns the session 'degree' value" do
+      session[:registration] = {
+        "degree" => "222750000",
+      }
+      expect(show_have_a_degree).to eq("Yes")
+    end
+  end
+
+  describe "#show_what_degree_class" do
+    it "returns the session 'degree_class' value" do
+      session[:registration] = {
+        "degree_class" => "222750001",
+      }
+      expect(show_what_degree_class).to eq("First class")
+    end
+  end
+
+  describe "#show_stage_interested_teaching" do
+    it "returns the session 'primary_or_secondary' value" do
+      session[:registration] = {
+        "primary_or_secondary" => "222750001",
+      }
+      expect(show_stage_interested_teaching).to eq("Secondary")
+    end
+  end
+
 end
