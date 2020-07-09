@@ -54,6 +54,11 @@ module SessionHelper
     answer == true ? "Yes" : "No"
   end
 
+  def show_yes_or_no(question)
+    answer = session[:registration][question]
+    answer == "222750000" ? "Yes" : "No"
+  end
+
   def show_subject(question)
     subject_id = session[:registration][question]
     ApiClient::get_teaching_subjects.find { |subject| subject.id == subject_id }.value

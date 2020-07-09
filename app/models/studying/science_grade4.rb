@@ -2,7 +2,7 @@ module Studying
   class ScienceGrade4 < ScienceGrade4
     def next_step
       if have_science == OPTIONS[:yes]
-        "studying/start_teacher_training"
+        "studying/subject_interested_teaching"
       else
         "studying/retake_science"
       end
