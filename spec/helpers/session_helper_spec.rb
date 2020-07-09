@@ -146,5 +146,4 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
       expect(show_stage_interested_teaching).to eq("Secondary")
     end
   end
-
 end

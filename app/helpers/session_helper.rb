@@ -73,4 +73,9 @@ module SessionHelper
     stage = session[:registration]["primary_or_secondary"]
     StageInterestedTeaching::OPTIONS.key(stage).to_s.capitalize
   end
+
+  def show_start_teacher_training
+    start_year = session[:registration]["year_of_entry"]
+    StartTeacherTraining::options.key(start_year)
+  end
 end
