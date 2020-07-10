@@ -46,6 +46,5 @@ class ApiClient
       api_instance = GetIntoTeachingApiClient::CallbackBookingQuotasApi.new
       api_instance.get_callback_booking_quotas
     end
-
   end
 end
