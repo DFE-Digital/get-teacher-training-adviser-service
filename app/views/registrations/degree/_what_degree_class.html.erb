@@ -1,1 +1,7 @@
-<%= render 'what_degree_class', f: f %>
+<%= f.govuk_collection_select :degree_class,
+  ApiClient::get_qualification_uk_degree_grades,
+  :id,
+  :value,
+  label: { text: "Which class is your degree?", tag: "h1", size: "m" }
+%>
+<%= f.govuk_submit %>
