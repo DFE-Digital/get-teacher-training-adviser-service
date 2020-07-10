@@ -29,18 +29,16 @@
           <% if StageInterestedTeaching::OPTIONS.key(session[:registration]['primary_or_secondary']).to_s == 'primary' %>
             <%= render partial: 'check_answers/primary_maths_english_grade4', locals: { link: Degree::LINK } %>
 
-            <% if session[:registration]['has_required_subjects'] == '222750000' %>
+            <% if session[:registration]['has_required_subjects'] == '222750001' %>
+              <%= render partial: 'check_answers/retake_english_maths', locals: { link: Degree::LINK } %>
+            <% end %>
+
               <%= render partial: 'check_answers/science_grade4', locals: { link: Degree::LINK } %>
 
-              <% if session[:registration]['have_science'] == '222750001' %>
-                <%= render partial: 'check_answers/retake_science', locals: { link: Degree::LINK } %>
-              <% end %>
-
-            <% else %>
-              <%= render partial: 'check_answers/retake_english_maths', locals: { link: Degree::LINK } %>
+            <% if session[:registration]['have_science'] == '222750001' %>
               <%= render partial: 'check_answers/retake_science', locals: { link: Degree::LINK } %>
-
             <% end %>
+
           <% end %>
 
           <!-- Secondary options -->
