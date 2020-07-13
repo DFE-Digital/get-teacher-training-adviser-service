@@ -1,5 +1,24 @@
 class UkCallback < Base
   attribute :telephone_number, :string
+  attribute :callback_slot, :string
+
+  validates :telephone_number, length: { minimum: 5, too_short: "Telephone number is too short (minimum is 5 characters)" }, format: { with: /\A[0-9\s+]+\z/, message: "Enter a telephone number in the correct format" }
+
+  validates :callback_slot, presence: { message: "Select a day and time for a callback" }
+
+  def self.options
+    quotas = ApiClient.get_callback_booking_quotas
+    grouped_quotas = quotas.group_by { |q| q.day }
+    options_hash = Hash.new { |hash, key| hash[key] = [] }
+    grouped_quotas.each do |day, data|
+      data.each do |x|
+        options_hash[day] << [x.time_slot, x.time_slot]
+      end
+    end
+    options_hash
+  end
+
+=begin
   attribute :callback_date, :date
   attribute "callback_date(3i)", :string
   attribute "callback_date(2i)", :string
@@ -37,7 +56,7 @@ class UkCallback < Base
       nil
     end
   end
-
+=end
   def next_step
     "uk_completion"
   end
