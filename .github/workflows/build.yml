@@ -208,7 +208,7 @@ jobs:
   accessibility:
     name: Accessibility Test
     runs-on: ubuntu-latest
-    if: always()
+    if: github.ref == 'refs/heads/master'
     needs: deploy
     steps:
       - name: Checkout
