@@ -1,9 +1,8 @@
 require "rails_helper"
 
-RSpec.describe Equivalent::UkCallback do
+RSpec.describe Equivalent::UkCallback, :vcr do
   let(:candidate_details) { build(:equivalent_uk_callback) }
-  let(:no_callback_time) { build(:equivalent_uk_callback, callback_time: "") }
-  let(:yesterday) { build(:equivalent_uk_callback, callback_date: Date.yesterday) }
+  let(:no_callback_time) { build(:equivalent_uk_callback, callback_slot: "") }
 
   describe "validation" do
     context "with required attributes" do
@@ -15,12 +14,6 @@ RSpec.describe Equivalent::UkCallback do
     context "without required attributes" do
       it "is invalid" do
         expect(no_callback_time).to_not be_valid
-      end
-    end
-
-    context "with date in the past" do
-      it "is invalid" do
-        expect(yesterday).to_not be_valid
       end
     end
 

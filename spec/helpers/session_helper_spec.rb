@@ -40,16 +40,22 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   end
 
   describe "#show_callback_date" do
-    it "returns the session callback_date value" do
-      session[:registration] = { "callback_date" => Date.new(2000, 10, 1) }
-      expect(show_callback_date).to eq("01 10 2000")
+    it "returns the session callback_date value as a string" do
+      session[:registration] = {
+        "callback_slot" => ApiClient.get_callback_booking_quotas.first.id
+      }
+      expect(show_callback_time).to be_instance_of(String)
+      expect(show_callback_time).not_to be_empty
     end
   end
 
   describe "#show_callback_time" do
-    it "returns the session callback_date value" do
-      session[:registration] = { "callback_time" => "9:00pm" }
-      expect(show_callback_time).to eq("9:00pm")
+    it "returns the session callback_date value as a string" do
+      session[:registration] = {
+        "callback_slot" => ApiClient.get_callback_booking_quotas.first.id
+      }
+      expect(show_callback_time).to be_instance_of(String)
+      expect(show_callback_time).not_to be_empty
     end
   end
 
