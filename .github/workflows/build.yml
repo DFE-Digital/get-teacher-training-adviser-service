@@ -217,7 +217,7 @@ jobs:
       - name: Scan image
         run: |-
              docker run -it --rm accessibility_crawler:latest  -U ${HTTP_USERNAME} -P ${HTTP_PASSWORD} \
-                        --sitemap 'https://${{ secrets.HTTPAUTH_USERNAME }}:${{ secrets.HTTPAUTH_PASSWORD }}@${{env.CONTAINER}}-dev.${{env.DOMAIN}}/sitemap.xml'
+                        --sitemap 'https://${{env.CONTAINER}}-dev.${{env.DOMAIN}}/sitemap.xml'
 
       - name:  Send Message to Sentry.io
         if: always()
