@@ -204,3 +204,30 @@ jobs:
              ENVIRON: "Development"
         env:
             SENTRY_DSN: ${{secrets.DEV_OPS_SENTRY_DSN}}
+
+  accessibility:
+    name: Accessibility Test
+    runs-on: ubuntu-latest
+    if: always()
+    needs: deploy
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: pull image
+        run: docker pull dfedigital/accessibility_crawler:v1
+
+      - name: Scan image
+        run: docker run -t --rm dfedigital/accessibility_crawler:v1 -U ${{ secrets.HTTPAUTH_USERNAME }} -P ${{ secrets.HTTPAUTH_PASSWORD }} \
+                        --sitemap 'https://${{env.CONTAINER}}-dev.${{env.DOMAIN}}/sitemap.xml'
+
+      - name:  Send Message to Sentry.io
+        if: always()
+        uses: sfawcett123/sentry-event@v1
+        with:
+             MESSAGE: "Accessibility Application - get-teacher-training-adviser-service"
+             STATE:  ${{job.status}}
+             ENVIRON: "Development"
+        env:
+            SENTRY_DSN: ${{secrets.DEV_OPS_SENTRY_DSN}}
+
