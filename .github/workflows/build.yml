@@ -219,7 +219,7 @@ jobs:
 
       - name: Scan image
         run: |-
-             docker run -it --rm dfedigital/accessibility_crawler:v1  -U ${{ secrets.HTTPAUTH_USERNAME }} -P ${{ secrets.HTTPAUTH_PASSWORD }} \
+             docker run -t --rm dfedigital/accessibility_crawler:v1 -U ${{ secrets.HTTPAUTH_USERNAME }} -P ${{ secrets.HTTPAUTH_PASSWORD }} \
                         --sitemap 'https://${{env.CONTAINER}}-dev.${{env.DOMAIN}}/sitemap.xml'
 
       - name:  Send Message to Sentry.io
