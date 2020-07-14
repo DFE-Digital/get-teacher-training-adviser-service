@@ -5,7 +5,6 @@ RSpec.describe ApiClient do # are these covered by the gem tests?
 
   describe "class methods" do
     it "calls the defined methods" do
-
       expect(subject).to receive(:get_teaching_subjects)
       subject.get_teaching_subjects
 
@@ -32,12 +31,12 @@ RSpec.describe ApiClient do # are these covered by the gem tests?
     end
   end
 
-  describe "ping test" do # just a healthcheck
-    it "returns a 200" do
+  describe "ping test" do # just a healthcheck for the dev api
+    xit "returns a 200" do
       uri = URI("https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/qualification/degree_status")
       req = Net::HTTP::Get.new(uri)
       req["Authorization"] = Rails.application.credentials.config[:api_key]
-      res = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https') { |http| http.request(req) }
+      res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") { |http| http.request(req) }
       expect(res.code).to eq("200")
     end
   end
