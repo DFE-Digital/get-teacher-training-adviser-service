@@ -5,9 +5,7 @@ class StartTeacherTraining < Base
   validate :date_cannot_be_in_the_past, unless: :dont_know
 
   def self.options
-    option_list = {}
-    ApiClient::get_candidate_initial_teacher_training_years.each { |type| option_list[type.value] = type.id }
-    option_list
+    ApiClient::get_candidate_initial_teacher_training_years.reduce({}) { |options, year| options.update(year.value => year.id) }
   end
 
   def year_range(number_of_years) # sets year range for view, this must be within api range!
