@@ -1,0 +1,7 @@
+<%= f.govuk_radio_buttons_fieldset(:degree_stage, legend: { text: 'Which stage are you at with your degree?'} ) do %>
+  <%= f.govuk_radio_button :degree_stage, '222750001', label: { text: 'Final year' } %>
+  <%= f.govuk_radio_button :degree_stage, '222750002', label: { text: 'Second year' } %>
+  <%= f.govuk_radio_button :degree_stage, '222750003', label: { text: "First year" } %>
+  <%= f.govuk_radio_button :degree_stage, '222750005', label: { text: 'Other' } %>
+<% end %>
+<%= f.govuk_submit%>

@@ -18,7 +18,6 @@ class UkCallback < Base
     options_hash
   end
 
-
   def next_step
     "uk_completion"
   end

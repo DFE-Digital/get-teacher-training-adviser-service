@@ -11,7 +11,7 @@ class HaveADegree < Base
     elsif degree == OPTIONS[:no]
       "no_degree"
     elsif degree == OPTIONS[:studying]
-      "studying/what_subject_degree"
+      "studying/stage_of_degree"
     elsif degree == OPTIONS[:equivalent]
       "equivalent/stage_interested_teaching"
     end
