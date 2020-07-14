@@ -9,7 +9,7 @@ RSpec.describe HaveADegree, :vcr do
 
   describe "validation" do
     context "with valid answers" do
-      HaveADegree::OPTIONS.each do |k, valid_answer|
+      HaveADegree::OPTIONS.each do |_k, valid_answer|
         it "is valid" do
           expect(build(:have_a_degree, degree: valid_answer)).to be_valid
         end

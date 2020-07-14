@@ -13,6 +13,5 @@ module Studying
     def next_step
       "studying/what_subject_degree"
     end
-
   end
 end

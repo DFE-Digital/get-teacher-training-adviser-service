@@ -84,4 +84,9 @@ module SessionHelper
     start_year = session[:registration]["year_of_entry"]
     StartTeacherTraining::options.key(start_year)
   end
+
+  def show_stage_of_degree
+    degree_stage = session[:registration]["degree_stage"]
+    Studying::StageOfDegree::OPTIONS.key(degree_stage).to_s.gsub("_", " ").capitalize
+  end
 end
