@@ -1,5 +1,4 @@
 module SessionHelper
-
   def show_session(question)
     answer = session[:registration][question]
     answer&.downcase == "uk" ? answer&.upcase : answer&.capitalize
