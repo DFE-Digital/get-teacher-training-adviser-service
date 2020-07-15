@@ -100,4 +100,6 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
   config.exceptions_app = routes
+
+  config.x.git_api_endpoint = "https://get-into-teaching-api-dev.london.cloudapps.digital"
 end

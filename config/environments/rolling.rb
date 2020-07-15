@@ -13,4 +13,6 @@ Rails.application.configure do
     # report errors
     },
   }
+
+  config.x.git_api_endpoint = "https://get-into-teaching-api-dev.london.cloudapps.digital"
 end
