@@ -1,7 +1,5 @@
 FactoryBot.define do
-  factory :overseas_candidate do
-    telephone_number { "12345678" }
-    callback_slot { ApiClient::get_callback_booking_quotas.first.id }
+  factory :overseas_candidate, class: OverseasCandidate, parent: :callback do
     time_zone { "Hawaii" }
   end
 end

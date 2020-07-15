@@ -1,4 +1,5 @@
 module SessionHelper
+
   def show_session(question)
     answer = session[:registration][question]
     answer&.downcase == "uk" ? answer&.upcase : answer&.capitalize
@@ -87,6 +88,6 @@ module SessionHelper
 
   def show_stage_of_degree
     degree_stage = session[:registration]["degree_stage"]
-    Studying::StageOfDegree::OPTIONS.key(degree_stage).to_s.gsub("_", " ").capitalize
+    Studying::StageOfDegree::options.key(degree_stage).to_s.gsub("_", " ").capitalize
   end
 end

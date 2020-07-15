@@ -30,7 +30,7 @@
           <% if StageInterestedTeaching::OPTIONS.key(session[:registration]['primary_or_secondary']).to_s == 'primary' %>
             <%= render partial: 'check_answers/primary_maths_english_grade4', locals: { link: Studying::LINK } %>
 
-            <% if session[:registration]['has_required_subjects'] == '222750000' %>
+            <% if session[:registration]['has_required_subjects'] == PrimaryMathsEnglishGrade4::OPTIONS[:no] %>
               <%= render partial: 'check_answers/science_grade4', locals: { link: Studying::LINK } %>
 
               <% if session[:registration]['have_science'] == '222750001' %>
@@ -46,7 +46,7 @@
           <!-- Secondary options -->
           <% if StageInterestedTeaching::OPTIONS.key(session[:registration]['primary_or_secondary']).to_s == 'secondary' %>
             <%= render partial: 'check_answers/secondary_maths_english_grade4', locals: { link: Studying::LINK } %>
-            <% if session[:registration]['has_required_subjects'] == '222750001' %>
+            <% if session[:registration]['has_required_subjects'] == SecondaryMathsEnglishGrade4::OPTIONS[:no] %>
               <%= render partial: 'check_answers/retake_english_maths', locals: { link: Studying::LINK } %>
             <% end %>
           <% end %>

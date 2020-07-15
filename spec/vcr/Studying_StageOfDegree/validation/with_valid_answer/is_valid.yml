@@ -37,7 +37,7 @@ http_interactions:
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Vcap-Request-Id:
-      - 480d5f78-f3a8-4368-5b97-5f74ca98f372
+      - b8ec38f8-bf37-4ad3-7f57-4e66f39524ce
     body:
       encoding: UTF-8
       string: '[{"id":"222750000","value":"Graduate or postgraduate"},{"id":"222750001","value":"Final
@@ -85,7 +85,7 @@ http_interactions:
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Vcap-Request-Id:
-      - 6dc538cb-b54f-4715-6a25-c84257e6880d
+      - 5353c498-3f71-4ddd-6b1b-e8f0e1ce04b8
     body:
       encoding: UTF-8
       string: '[{"id":"222750000","value":"Graduate or postgraduate"},{"id":"222750001","value":"Final

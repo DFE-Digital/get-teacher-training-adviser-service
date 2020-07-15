@@ -23,7 +23,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 08 Jul 2020 14:32:10 GMT
+      - Wed, 15 Jul 2020 15:31:00 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -31,21 +31,21 @@ http_interactions:
       Connection:
       - keep-alive
       Etag:
-      - E160DB01494F9615E44ADD0B764C57AF1FA7BF3BCB0A3D10ECB044846164D6B3
+      - E93CE0F0F6D76CB41D182297F3BFE168A6D3DD9EBECF1D318B7049BA2054E9B4
       Server:
       - Kestrel
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Vcap-Request-Id:
-      - 6b78322c-4ae1-41c8-674c-c9addd51d0c1
+      - 046ad362-5d50-493e-79d5-4c2f87244583
     body:
       encoding: UTF-8
-      string: '[{"id":"12907","value":"2009"},{"id":"12908","value":"2010"},{"id":"12909","value":"2011"},{"id":"12910","value":"2012"},{"id":"12911","value":"2013"},{"id":"12912","value":"2014"},{"id":"12913","value":"2015"},{"id":"12914","value":"2016"},{"id":"12917","value":"Not
-        sure"},{"id":"12918","value":"2017"},{"id":"22300","value":"2018"},{"id":"22301","value":"2019"},{"id":"22302","value":"2020"},{"id":"22303","value":"2021"},{"id":"22304","value":"2022"},{"id":"22305","value":"2023"},{"id":"22306","value":"2024"}]'
+      string: '[{"id":"12909","value":"2011"},{"id":"12910","value":"2012"},{"id":"12911","value":"2013"},{"id":"12912","value":"2014"},{"id":"12913","value":"2015"},{"id":"12914","value":"2016"},{"id":"12917","value":"Not
+        sure"},{"id":"12918","value":"2017"},{"id":"22300","value":"2018"},{"id":"22301","value":"2019"},{"id":"22302","value":"2020"},{"id":"22303","value":"2021"},{"id":"22304","value":"2022"},{"id":"12907","value":"2009"},{"id":"12908","value":"2010"},{"id":"22305","value":"2023"},{"id":"22306","value":"2024"}]'
     http_version: '1.1'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/candidate/initial_teacher_training_years
-  recorded_at: Wed, 08 Jul 2020 14:32:10 GMT
+  recorded_at: Wed, 15 Jul 2020 15:31:00 GMT
 - request:
     method: get
     uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/candidate/initial_teacher_training_years
@@ -69,7 +69,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 08 Jul 2020 14:32:10 GMT
+      - Wed, 15 Jul 2020 15:31:00 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -77,19 +77,19 @@ http_interactions:
       Connection:
       - keep-alive
       Etag:
-      - E160DB01494F9615E44ADD0B764C57AF1FA7BF3BCB0A3D10ECB044846164D6B3
+      - E93CE0F0F6D76CB41D182297F3BFE168A6D3DD9EBECF1D318B7049BA2054E9B4
       Server:
       - Kestrel
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Vcap-Request-Id:
-      - a8631ae3-64e4-407d-6eb4-44e6c1362d3a
+      - d91a6444-105a-4cee-6871-c67763ce23ee
     body:
       encoding: UTF-8
-      string: '[{"id":"12907","value":"2009"},{"id":"12908","value":"2010"},{"id":"12909","value":"2011"},{"id":"12910","value":"2012"},{"id":"12911","value":"2013"},{"id":"12912","value":"2014"},{"id":"12913","value":"2015"},{"id":"12914","value":"2016"},{"id":"12917","value":"Not
-        sure"},{"id":"12918","value":"2017"},{"id":"22300","value":"2018"},{"id":"22301","value":"2019"},{"id":"22302","value":"2020"},{"id":"22303","value":"2021"},{"id":"22304","value":"2022"},{"id":"22305","value":"2023"},{"id":"22306","value":"2024"}]'
+      string: '[{"id":"12909","value":"2011"},{"id":"12910","value":"2012"},{"id":"12911","value":"2013"},{"id":"12912","value":"2014"},{"id":"12913","value":"2015"},{"id":"12914","value":"2016"},{"id":"12917","value":"Not
+        sure"},{"id":"12918","value":"2017"},{"id":"22300","value":"2018"},{"id":"22301","value":"2019"},{"id":"22302","value":"2020"},{"id":"22303","value":"2021"},{"id":"22304","value":"2022"},{"id":"12907","value":"2009"},{"id":"12908","value":"2010"},{"id":"22305","value":"2023"},{"id":"22306","value":"2024"}]'
     http_version: '1.1'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/candidate/initial_teacher_training_years
-  recorded_at: Wed, 08 Jul 2020 14:32:10 GMT
+  recorded_at: Wed, 15 Jul 2020 15:31:00 GMT
 recorded_with: VCR 6.0.0

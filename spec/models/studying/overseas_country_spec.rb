@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Studying::OverseasCountry do
+RSpec.describe Studying::OverseasCountry, :vcr do
   let(:country) { build(:studying_overseas_country) }
 
   describe "#next_step" do
