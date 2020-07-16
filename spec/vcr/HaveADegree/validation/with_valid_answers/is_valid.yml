@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/qualification/degree_status
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swagger-Codegen/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Authorization:
+      - ENV[api_key]
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 15 Jul 2020 21:09:19 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '290'
+      Connection:
+      - keep-alive
+      Etag:
+      - 2377DEA4248007B76A15CE2A139448ECB559A30D07EA4351178809DF7E8E464A
+      Server:
+      - Kestrel
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Vcap-Request-Id:
+      - adb807c8-df44-40a5-41e5-74ed6e2a4356
+    body:
+      encoding: UTF-8
+      string: '[{"id":"222750000","value":"Graduate or postgraduate"},{"id":"222750001","value":"Final
+        year"},{"id":"222750002","value":"Second year"},{"id":"222750003","value":"First
+        year"},{"id":"222750005","value":"Other"},{"id":"222750004","value":"I don''t
+        have a degree and am not studying for one"}]'
+    http_version: '1.1'
+    adapter_metadata:
+      effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/qualification/degree_status
+  recorded_at: Wed, 15 Jul 2020 21:09:19 GMT
+recorded_with: VCR 6.0.0

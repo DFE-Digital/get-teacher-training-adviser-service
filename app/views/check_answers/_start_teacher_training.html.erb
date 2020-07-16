@@ -3,12 +3,12 @@
     When do you want to start teacher training?
   </dt>
   <dd class="govuk-summary-list__value">
-    <%= show_session('year_of_entry')%>
+    <%= show_start_teacher_training %>
   </dd>
   <dd class="govuk-summary-list__actions">
     <% if defined?(link) %>
       <%= show_link("#{link}" + 'start_teacher_training') %>
-    <% else %> 
+    <% else %>
       <%= show_link('start_teacher_training') %>
     <% end %>
   </dd>

@@ -3,12 +3,12 @@
     Do you have grade 4 (C) or above in maths and English GCSE, or equivalent?
   </dt>
   <dd class="govuk-summary-list__value">
-    <%= show_true_or_false('has_required_subjects') %>
+    <%= show_yes_or_no('has_required_subjects') %>
   </dd>
   <dd class="govuk-summary-list__actions">
     <% if defined?(link) %>
       <%= show_link("#{link}" + 'primary_maths_english_grade4') %>
-    <% else %> 
+    <% else %>
       <%= show_link('primary_maths_english_grade4') %>
     <% end %>
   </dd>

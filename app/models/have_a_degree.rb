@@ -1,16 +1,18 @@
 class HaveADegree < Base
   attribute :degree, :string
 
-  validates :degree, inclusion: { in: %w(yes no studying equivalent), message: "You must select an option" }
+  validates :degree, types: { method: :get_qualification_degree_status, message: "You must select an option" }
+  # may need updating
+  OPTIONS = { yes: "222750000", no: "222750004", studying: "222750001", equivalent: "222750005" }.freeze
 
   def next_step
-    if degree == "yes"
+    if degree == OPTIONS[:yes]
       "degree/what_subject_degree"
-    elsif degree == "no"
+    elsif degree == OPTIONS[:no]
       "no_degree"
-    elsif degree == "studying"
-      "studying/what_subject_degree"
-    elsif degree == "equivalent"
+    elsif degree == OPTIONS[:studying]
+      "studying/stage_of_degree"
+    elsif degree == OPTIONS[:equivalent]
       "equivalent/stage_interested_teaching"
     end
   end

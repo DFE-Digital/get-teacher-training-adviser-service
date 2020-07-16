@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SessionHelper, type: :helper do
+RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_session" do
     context "with a session value" do
       it "returns the value capitalized" do
@@ -40,16 +40,22 @@ RSpec.describe SessionHelper, type: :helper do
   end
 
   describe "#show_callback_date" do
-    it "returns the session callback_date value" do
-      session[:registration] = { "callback_date" => Date.new(2000, 10, 1) }
-      expect(show_callback_date).to eq("01 10 2000")
+    it "returns the session callback_date value as a string" do
+      session[:registration] = {
+        "callback_slot" => ApiClient.get_callback_booking_quotas.first.id,
+      }
+      expect(show_callback_time).to be_instance_of(String)
+      expect(show_callback_time).not_to be_empty
     end
   end
 
   describe "#show_callback_time" do
-    it "returns the session callback_date value" do
-      session[:registration] = { "callback_time" => "9:00pm" }
-      expect(show_callback_time).to eq("9:00pm")
+    it "returns the session callback_date value as a string" do
+      session[:registration] = {
+        "callback_slot" => ApiClient.get_callback_booking_quotas.first.id,
+      }
+      expect(show_callback_time).to be_instance_of(String)
+      expect(show_callback_time).not_to be_empty
     end
   end
 
@@ -92,9 +98,9 @@ RSpec.describe SessionHelper, type: :helper do
   describe "#show_country" do
     it "returns the session country_code name" do
       session[:registration] = {
-        "country_code" => "GB",
+        "country_code" => "0df4c2e6-74f9-e811-a97a-000d3a2760f2",
       }
-      expect(show_country).to eq("United Kingdom of Great Britain and Northern Ireland")
+      expect(show_country).to eq("Australia")
     end
   end
 
@@ -108,6 +114,60 @@ RSpec.describe SessionHelper, type: :helper do
         "retaking_science" => false,
       }
       expect(show_true_or_false("retaking_science")).to eq("No")
+    end
+  end
+
+  describe "#show_subject" do
+    it "returns the session 'question' name" do
+      session[:registration] = {
+        "prev_subject" => "6b793433-cd1f-e911-a979-000d3a20838a",
+      }
+      expect(show_subject("prev_subject")).to eq("Art")
+    end
+  end
+
+  describe "#show_have_a_degree" do
+    it "returns the session 'degree' value" do
+      session[:registration] = {
+        "degree" => "222750000",
+      }
+      expect(show_have_a_degree).to eq("Yes")
+    end
+  end
+
+  describe "#show_what_degree_class" do
+    it "returns the session 'degree_class' value" do
+      session[:registration] = {
+        "degree_class" => "222750001",
+      }
+      expect(show_what_degree_class).to eq("First class")
+    end
+  end
+
+  describe "#show_stage_interested_teaching" do
+    it "returns the session 'primary_or_secondary' value" do
+      session[:registration] = {
+        "primary_or_secondary" => "222750001",
+      }
+      expect(show_stage_interested_teaching).to eq("Secondary")
+    end
+  end
+
+  describe "#show_start_teacher_training" do
+    it "returns the session 'year_of_entry' value" do
+      session[:registration] = {
+        "year_of_entry" => "12917",
+      }
+      expect(show_start_teacher_training).to eq("Not sure")
+    end
+  end
+
+  describe "#show_stage_of_degree" do
+    it "returns the session 'stage_of_degree' value" do
+      session[:registration] = {
+        "degree_stage" => "222750001",
+      }
+      expect(show_stage_of_degree).to eq("Final year")
     end
   end
 end

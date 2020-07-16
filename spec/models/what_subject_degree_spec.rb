@@ -1,16 +1,26 @@
 require "rails_helper"
 
-RSpec.describe WhatSubjectDegree do
-  let(:what_subject_degree) { build(:what_subject_degree) }
-  let(:wrong_answer) { build(:what_subject_degree, degree_subject: "dont know") }
+RSpec.describe WhatSubjectDegree, :vcr do
+  subject { build(:what_subject_degree) }
 
   describe "validation" do
-    xit "will do something when we have the api"
+    context "with valid subject option" do
+      it "is valid" do
+        expect(subject).to be_valid
+      end
+    end
+
+    context "with invalid subject option" do
+      it "is not valid" do
+        subject.degree_subject = "invalid_id"
+        expect(subject).to_not be_valid
+      end
+    end
   end
 
   describe "#next_step" do
     it "returns the correct option" do
-      expect(what_subject_degree.next_step).to eq("stage_interested_teaching")
+      expect(subject.next_step).to eq("stage_interested_teaching")
     end
   end
 end

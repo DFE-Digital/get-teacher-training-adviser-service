@@ -1,26 +1,26 @@
 require "rails_helper"
 
-RSpec.describe Equivalent::UkCallback do
-  let(:candidate_details) { build(:equivalent_uk_callback) }
-  let(:no_callback_time) { build(:equivalent_uk_callback, callback_time: "") }
-  let(:yesterday) { build(:equivalent_uk_callback, callback_date: Date.yesterday) }
+RSpec.describe Equivalent::UkCallback, :vcr do
+  subject { build(:equivalent_uk_callback) }
+  let(:no_callback_slot) { build(:equivalent_uk_callback, callback_slot: "") }
 
   describe "validation" do
     context "with required attributes" do
       it "is valid" do
-        expect(candidate_details).to be_valid
+        expect(subject).to be_valid
       end
     end
 
     context "without required attributes" do
       it "is invalid" do
-        expect(no_callback_time).to_not be_valid
+        expect(no_callback_slot).to_not be_valid
       end
     end
 
-    context "with date in the past" do
+    context "with invalid callback id" do
       it "is invalid" do
-        expect(yesterday).to_not be_valid
+        subject.callback_slot = "invalid_id"
+        expect(subject).to_not be_valid
       end
     end
 
@@ -43,7 +43,7 @@ RSpec.describe Equivalent::UkCallback do
 
   describe "#next_step" do
     it "returns the next step" do
-      expect(candidate_details.next_step).to eq("equivalent/uk_completion")
+      expect(subject.next_step).to eq("equivalent/uk_completion")
     end
   end
 end

@@ -1,13 +1,7 @@
 class ScienceGrade4 < Base
   attribute :have_science, :string
 
-  validates :have_science, inclusion: { in: %w(yes no), message: "You must select an option" }
+  validates :have_science, types: { method: :get_candidate_retake_gcse_status, message: "You must select either yes or no" }
 
-  def next_step
-    if have_science == "yes"
-      "primary_maths_english_grade4"
-    else
-      "qualification_required"
-    end
-  end
+  OPTIONS = Crm::OPTIONS
 end

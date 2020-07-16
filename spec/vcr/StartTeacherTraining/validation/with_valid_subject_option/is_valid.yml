@@ -1,0 +1,141 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/candidate/initial_teacher_training_years
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swagger-Codegen/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Authorization:
+      - ENV[api_key]
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 15 Jul 2020 15:31:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '515'
+      Connection:
+      - keep-alive
+      Etag:
+      - E93CE0F0F6D76CB41D182297F3BFE168A6D3DD9EBECF1D318B7049BA2054E9B4
+      Server:
+      - Kestrel
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Vcap-Request-Id:
+      - 9f72e38d-2b55-4145-4e78-10ab476013a9
+    body:
+      encoding: UTF-8
+      string: '[{"id":"12909","value":"2011"},{"id":"12910","value":"2012"},{"id":"12911","value":"2013"},{"id":"12912","value":"2014"},{"id":"12913","value":"2015"},{"id":"12914","value":"2016"},{"id":"12917","value":"Not
+        sure"},{"id":"12918","value":"2017"},{"id":"22300","value":"2018"},{"id":"22301","value":"2019"},{"id":"22302","value":"2020"},{"id":"22303","value":"2021"},{"id":"22304","value":"2022"},{"id":"12907","value":"2009"},{"id":"12908","value":"2010"},{"id":"22305","value":"2023"},{"id":"22306","value":"2024"}]'
+    http_version: '1.1'
+    adapter_metadata:
+      effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/candidate/initial_teacher_training_years
+  recorded_at: Wed, 15 Jul 2020 15:31:00 GMT
+- request:
+    method: get
+    uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/candidate/initial_teacher_training_years
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swagger-Codegen/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Authorization:
+      - ENV[api_key]
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 15 Jul 2020 15:31:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '515'
+      Connection:
+      - keep-alive
+      Etag:
+      - E93CE0F0F6D76CB41D182297F3BFE168A6D3DD9EBECF1D318B7049BA2054E9B4
+      Server:
+      - Kestrel
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Vcap-Request-Id:
+      - 0b324044-a440-4606-4189-513f1a6899eb
+    body:
+      encoding: UTF-8
+      string: '[{"id":"12909","value":"2011"},{"id":"12910","value":"2012"},{"id":"12911","value":"2013"},{"id":"12912","value":"2014"},{"id":"12913","value":"2015"},{"id":"12914","value":"2016"},{"id":"12917","value":"Not
+        sure"},{"id":"12918","value":"2017"},{"id":"22300","value":"2018"},{"id":"22301","value":"2019"},{"id":"22302","value":"2020"},{"id":"22303","value":"2021"},{"id":"22304","value":"2022"},{"id":"12907","value":"2009"},{"id":"12908","value":"2010"},{"id":"22305","value":"2023"},{"id":"22306","value":"2024"}]'
+    http_version: '1.1'
+    adapter_metadata:
+      effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/candidate/initial_teacher_training_years
+  recorded_at: Wed, 15 Jul 2020 15:31:00 GMT
+- request:
+    method: get
+    uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/candidate/initial_teacher_training_years
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swagger-Codegen/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Authorization:
+      - ENV[api_key]
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 15 Jul 2020 15:31:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '515'
+      Connection:
+      - keep-alive
+      Etag:
+      - E93CE0F0F6D76CB41D182297F3BFE168A6D3DD9EBECF1D318B7049BA2054E9B4
+      Server:
+      - Kestrel
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Vcap-Request-Id:
+      - d21ba042-487b-4b4d-6273-6c4d2b95667e
+    body:
+      encoding: UTF-8
+      string: '[{"id":"12909","value":"2011"},{"id":"12910","value":"2012"},{"id":"12911","value":"2013"},{"id":"12912","value":"2014"},{"id":"12913","value":"2015"},{"id":"12914","value":"2016"},{"id":"12917","value":"Not
+        sure"},{"id":"12918","value":"2017"},{"id":"22300","value":"2018"},{"id":"22301","value":"2019"},{"id":"22302","value":"2020"},{"id":"22303","value":"2021"},{"id":"22304","value":"2022"},{"id":"12907","value":"2009"},{"id":"12908","value":"2010"},{"id":"22305","value":"2023"},{"id":"22306","value":"2024"}]'
+    http_version: '1.1'
+    adapter_metadata:
+      effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/candidate/initial_teacher_training_years
+  recorded_at: Wed, 15 Jul 2020 15:31:00 GMT
+recorded_with: VCR 6.0.0

@@ -1,15 +1,15 @@
 require "rails_helper"
 
-RSpec.describe HaveADegree do
+RSpec.describe HaveADegree, :vcr do
   let(:have_a_degree) { build(:have_a_degree) }
   let(:wrong_answer) { build(:have_a_degree, degree: "dont know") }
-  let(:no) { build(:have_a_degree, degree: "no") }
-  let(:studying) { build(:have_a_degree, degree: "studying") }
-  let(:equivalent) { build(:have_a_degree, degree: "equivalent") }
+  let(:no) { build(:have_a_degree, degree: "222750004") }
+  let(:studying) { build(:have_a_degree, degree: "222750001") }
+  let(:equivalent) { build(:have_a_degree, degree: "222750005") }
 
   describe "validation" do
     context "with valid answers" do
-      %w[yes no studying equivalent].each do |valid_answer|
+      HaveADegree::OPTIONS.each do |_k, valid_answer|
         it "is valid" do
           expect(build(:have_a_degree, degree: valid_answer)).to be_valid
         end
@@ -38,7 +38,7 @@ RSpec.describe HaveADegree do
 
     context "when answer is studying" do
       it "returns the correct option" do
-        expect(studying.next_step).to eq("studying/what_subject_degree")
+        expect(studying.next_step).to eq("studying/stage_of_degree")
       end
     end
 

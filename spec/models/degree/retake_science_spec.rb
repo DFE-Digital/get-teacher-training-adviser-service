@@ -1,13 +1,13 @@
 require "rails_helper"
 
-RSpec.describe Degree::RetakeScience do
-  let(:retake_science) { build(:degree_retake_science) }
-  let(:no) { build(:degree_retake_science, retaking_science: false) }
+RSpec.describe Degree::RetakeScience, :vcr do
+  let(:yes) { build(:degree_retake_science) }
+  let(:no) { build(:degree_retake_science, retaking_science: RetakeScience::OPTIONS[:no]) }
 
   describe "#next_step" do
     context "when answer is yes" do
       it "returns the correct option" do
-        expect(retake_science.next_step).to eq("degree/start_teacher_training")
+        expect(yes.next_step).to eq("degree/start_teacher_training")
       end
     end
 

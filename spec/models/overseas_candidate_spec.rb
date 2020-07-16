@@ -1,28 +1,28 @@
 require "rails_helper"
 
-RSpec.describe OverseasCandidate do
-  let(:candidate_details) { build(:overseas_candidate) }
-  let(:no_callback_time) { build(:overseas_candidate, callback_time: "") }
+RSpec.describe OverseasCandidate, :vcr do
+  subject { build(:overseas_candidate) }
+  let(:no_callback_slot) { build(:overseas_candidate, callback_slot: "") }
   let(:no_time_zone) { build(:overseas_candidate, time_zone: "") }
-  let(:yesterday) { build(:overseas_candidate, callback_date: Date.yesterday) }
 
   describe "validation" do
     context "with required attributes" do
       it "is valid" do
-        expect(candidate_details).to be_valid
+        expect(subject).to be_valid
+      end
+    end
+
+    context "with invalid callback id" do
+      it "is invalid" do
+        subject.callback_slot = "invalid_id"
+        expect(subject).to_not be_valid
       end
     end
 
     context "without required attributes" do
       it "is invalid" do
-        expect(no_callback_time).to_not be_valid
+        expect(no_callback_slot).to_not be_valid
         expect(no_time_zone).to_not be_valid
-      end
-    end
-
-    context "with date in the past" do
-      it "is invalid" do
-        expect(yesterday).to_not be_valid
       end
     end
 
@@ -45,7 +45,7 @@ RSpec.describe OverseasCandidate do
 
   describe "#next_step" do
     it "returns the next step" do
-      expect(candidate_details.next_step).to eq("overseas_completion")
+      expect(subject.next_step).to eq("overseas_completion")
     end
   end
 end

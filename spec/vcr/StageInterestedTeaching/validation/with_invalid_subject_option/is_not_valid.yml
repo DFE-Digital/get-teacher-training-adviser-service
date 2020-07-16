@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/candidate/preferred_education_phases
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swagger-Codegen/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Authorization:
+      - ENV[api_key]
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 07 Jul 2020 08:44:35 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '327'
+      Connection:
+      - keep-alive
+      Etag:
+      - B87620245BE62BC87B180FE5BEE9874EDE0B682A9E2DA5B3097DEFA1104D86BE
+      Server:
+      - Kestrel
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Vcap-Request-Id:
+      - d120de57-1de8-4e22-5b01-b692c8186495
+    body:
+      encoding: UTF-8
+      string: '[{"id":"222750003","value":"Other"},{"id":"222750004","value":"Middle"},{"id":"222750005","value":"Higher
+        Education"},{"id":"222750006","value":"Teaching adults"},{"id":"222750007","value":"Early
+        years"},{"id":"222750000","value":"Primary"},{"id":"222750001","value":"Secondary"},{"id":"222750002","value":"Further
+        Education"}]'
+    http_version: '1.1'
+    adapter_metadata:
+      effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/candidate/preferred_education_phases
+  recorded_at: Tue, 07 Jul 2020 08:44:35 GMT
+recorded_with: VCR 6.0.0

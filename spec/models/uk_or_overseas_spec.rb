@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe UkOrOverseas do
+RSpec.describe UkOrOverseas, :vcr do
   let(:uk) { build(:uk_or_overseas) }
   let(:wrong_answer) { build(:uk_or_overseas, uk_or_overseas: "dont know") }
   let(:overseas) { build(:uk_or_overseas, uk_or_overseas: "overseas") }

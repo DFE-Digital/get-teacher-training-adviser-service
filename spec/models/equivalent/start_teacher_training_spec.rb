@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Equivalent::StartTeacherTraining do
+RSpec.describe Equivalent::StartTeacherTraining, :vcr do
   let(:starter) { build(:equivalent_start_teacher_training) }
 
   describe "#next_step" do

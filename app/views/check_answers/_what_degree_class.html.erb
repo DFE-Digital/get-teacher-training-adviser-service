@@ -3,12 +3,12 @@
     Which class is your degree?
   </dt>
   <dd class="govuk-summary-list__value">
-    <p class="govuk-body"><%= show_session('degree_class') %></p>
+    <p class="govuk-body"><%= show_what_degree_class %></p>
   </dd>
   <dd class="govuk-summary-list__actions">
     <% if defined?(link) %>
       <%= show_link("#{link}" + 'what_degree_class') %>
-    <% else %> 
+    <% else %>
       <%= show_link('what_degree_class') %>
     <% end %>
   </dd>

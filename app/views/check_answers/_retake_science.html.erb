@@ -3,12 +3,12 @@
    Are you planning to retake your science GCSE?
   </dt>
   <dd class="govuk-summary-list__value">
-    <%= show_true_or_false('retaking_science') %>
+    <%= show_yes_or_no('retaking_science') %>
   </dd>
   <dd class="govuk-summary-list__actions">
     <% if defined?(link) %>
       <%= show_link("#{link}" + 'retake_science') %>
-    <% else %> 
+    <% else %>
       <%= show_link('retake_science') %>
     <% end %>
   </dd>

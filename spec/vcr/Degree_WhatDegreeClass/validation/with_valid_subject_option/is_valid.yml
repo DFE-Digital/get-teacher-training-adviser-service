@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/qualification/uk_degree_grades
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swagger-Codegen/1.0.0/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Authorization:
+      - ENV[api_key]
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 07 Jul 2020 08:44:33 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '252'
+      Connection:
+      - keep-alive
+      Etag:
+      - BD72A05312D2FA40501B584619AE52079A03EB719CB081142756F07772A1E4C6
+      Server:
+      - Kestrel
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Vcap-Request-Id:
+      - d57804e5-7e80-4e44-7ab5-2f339b751914
+    body:
+      encoding: UTF-8
+      string: '[{"id":"222750002","value":"2:1"},{"id":"222750000","value":"Not applicable"},{"id":"222750003","value":"2:2"},{"id":"222750004","value":"Third
+        class or below"},{"id":"222750005","value":"Pass (grade unknown)"},{"id":"222750001","value":"First
+        class"}]'
+    http_version: '1.1'
+    adapter_metadata:
+      effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/qualification/uk_degree_grades
+  recorded_at: Tue, 07 Jul 2020 08:44:33 GMT
+recorded_with: VCR 6.0.0
