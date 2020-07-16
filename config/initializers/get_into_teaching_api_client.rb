@@ -6,6 +6,6 @@ GetIntoTeachingApiClient.configure do |config|
  # end
 
  # config.api_key["Authorization"] = ENV["GIT_API_TOKEN"].presence || Rails.application.credentials.config[:api_key].presence
- config.host = "get-into-teaching-api-dev.london.cloudapps.digital"
- config.api_key["Authorization"] = Rails.application.credentials.config[:api_key]
+  config.host = "get-into-teaching-api-dev.london.cloudapps.digital"
+  config.api_key["Authorization"] = "Seeme" || Rails.application.credentials.config[:api_key]
 end
