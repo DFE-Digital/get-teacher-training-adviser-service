@@ -1,5 +1,5 @@
 module Equivalent
-  class UkCallback < UkCallback
+  class UkCallback < Callback
     def next_step
       "equivalent/uk_completion"
     end
