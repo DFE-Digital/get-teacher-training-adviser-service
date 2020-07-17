@@ -1,10 +1,10 @@
 module Studying
   class StageOfDegree < Base
     extend ApiOptions
+    # overwrites session[:registration]["degree"]
+    attribute :degree
 
-    attribute :degree_stage
-
-    validates :degree_stage, types: { method: :get_qualification_degree_status, message: "You must select an option" }
+    validates :degree, types: { method: :get_qualification_degree_status, message: "You must select an option" }
 
     def self.options
       generate_api_options(ApiClient::get_qualification_degree_status)
