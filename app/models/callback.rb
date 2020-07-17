@@ -12,9 +12,9 @@ class Callback < Base
     options_hash = Hash.new { |hash, key| hash[key] = [] }
     grouped_quotas.each do |day, data|
       data.each do |x|
-        gmt_start_slot = Time.parse(x.start_at.to_s).strftime("%I:%M %P")
-        gmt_end_slot = Time.parse(x.end_at.to_s).strftime("%I:%M %P")
-        options_hash[day] << ["#{gmt_start_slot}" + " - " + "#{gmt_end_slot}", x.id]
+        gmt_start_slot = Time.zone.parse(x.start_at.to_s).strftime("%I:%M %P")
+        gmt_end_slot = Time.zone.parse(x.end_at.to_s).strftime("%I:%M %P")
+        options_hash[day] << [gmt_start_slot.to_s + " - " + gmt_end_slot.to_s, x.id]
       end
     end
     options_hash

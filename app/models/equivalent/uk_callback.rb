@@ -1,6 +1,5 @@
 module Equivalent
   class UkCallback < Callback
-
     def self.options
       quotas = ApiClient.get_callback_booking_quotas
       grouped_quotas = quotas.group_by(&:day)
