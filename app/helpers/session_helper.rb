@@ -66,8 +66,17 @@ module SessionHelper
   end
 
   def show_have_a_degree
-    degree_option = session[:registration]["degree"]
-    HaveADegree::OPTIONS.key(degree_option).to_s.capitalize
+    degree = session[:registration]["degree"]
+    case degree
+    when HaveADegree::OPTIONS[:yes]
+      "Yes"
+    when HaveADegree::OPTIONS[:no]
+      "No"
+    when HaveADegree::OPTIONS[:equivalent]
+      "Equivalent"
+    else
+      "Studying"
+    end
   end
 
   def show_what_degree_class
@@ -86,7 +95,7 @@ module SessionHelper
   end
 
   def show_stage_of_degree
-    degree_stage = session[:registration]["degree_stage"]
-    Studying::StageOfDegree::options.key(degree_stage).to_s.gsub("_", " ").capitalize
+    degree = session[:registration]["degree"]
+    Studying::StageOfDegree::options.key(degree).to_s.gsub("_", " ").capitalize
   end
 end

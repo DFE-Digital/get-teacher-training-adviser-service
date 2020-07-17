@@ -165,7 +165,7 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_stage_of_degree" do
     it "returns the session 'stage_of_degree' value" do
       session[:registration] = {
-        "degree_stage" => "222750001",
+        "degree" => "222750001",
       }
       expect(show_stage_of_degree).to eq("Final year")
     end
