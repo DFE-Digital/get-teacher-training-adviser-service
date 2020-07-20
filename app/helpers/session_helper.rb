@@ -14,13 +14,13 @@ module SessionHelper
   end
 
   def show_callback_date
-    callback_date_id = session[:registration]["callback_slot"]
-    ApiClient::get_callback_booking_quotas.find { |callback| callback.id == callback_date_id }.day
+    callback_date_start_at = session[:registration]["callback_slot"]
+    ApiClient::get_callback_booking_quotas.find { |callback| callback.start_at == callback_date_start_at }.day
   end
 
   def show_callback_time
-    callback_time_id = session[:registration]["callback_slot"]
-    ApiClient::get_callback_booking_quotas.find { |callback| callback.id == callback_time_id }.time_slot
+    callback_time_start_at = session[:registration]["callback_slot"]
+    ApiClient::get_callback_booking_quotas.find { |callback| callback.start_at == callback_time_start_at }.time_slot
   end
 
   def show_uk_address

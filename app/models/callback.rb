@@ -4,7 +4,7 @@ class Callback < Base
 
   validates :telephone_number, length: { minimum: 5, too_short: "Telephone number is too short (minimum is 5 characters)" }, format: { with: /\A[0-9\s+]+\z/, message: "Enter a telephone number in the correct format" }
 
-  validates :callback_slot, types: { method: :get_callback_booking_quotas }
+  validates :callback_slot, callback: { method: :get_callback_booking_quotas }
 
   def self.options
     quotas = ApiClient.get_callback_booking_quotas
@@ -14,7 +14,7 @@ class Callback < Base
       data.each do |x|
         gmt_start_slot = Time.zone.parse(x.start_at.to_s).strftime("%I:%M %P")
         gmt_end_slot = Time.zone.parse(x.end_at.to_s).strftime("%I:%M %P")
-        options_hash[day] << [gmt_start_slot.to_s + " - " + gmt_end_slot.to_s, x.id]
+        options_hash[day] << [gmt_start_slot.to_s + " - " + gmt_end_slot.to_s, x.start_at]
       end
     end
     options_hash

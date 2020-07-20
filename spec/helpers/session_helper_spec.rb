@@ -42,7 +42,7 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_callback_date" do
     it "returns the session callback_date value as a string" do
       session[:registration] = {
-        "callback_slot" => ApiClient.get_callback_booking_quotas.first.id,
+        "callback_slot" => ApiClient.get_callback_booking_quotas.first.start_at,
       }
       expect(show_callback_date).to be_instance_of(String)
       expect(show_callback_date).not_to be_empty
@@ -50,12 +50,11 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   end
 
   describe "#show_callback_time" do
-    it "returns the session callback_time value as a string" do
+    it "returns the session callback_time value as a string separated with '-'" do
       session[:registration] = {
-        "callback_slot" => ApiClient.get_callback_booking_quotas.first.id,
+        "callback_slot" => ApiClient.get_callback_booking_quotas.first.start_at,
       }
-      expect(show_callback_time).to be_instance_of(String)
-      expect(show_callback_time).not_to be_empty
+      expect(show_callback_time).to include("-")
     end
   end
 

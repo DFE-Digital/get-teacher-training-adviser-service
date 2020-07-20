@@ -19,7 +19,7 @@ RSpec.describe Equivalent::UkCallback, :vcr do
 
     context "with invalid callback id" do
       it "is invalid" do
-        subject.callback_slot = "invalid_id"
+        subject.callback_slot = "invalid_date"
         expect(subject).to_not be_valid
       end
     end
