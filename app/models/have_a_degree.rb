@@ -4,11 +4,11 @@ class HaveADegree < Base
 
   before_validation :set_degree_type
 
-  validates :degree, types: { method: :get_qualification_degree_status, message: "You must select an option" }
+  OPTIONS = { yes: "222750000", no: "222750004", studying: "studying", equivalent: "222750005" }.freeze
+  DEGREE_TYPE = { degree: "222750000", equivalent: "222750005" }.freeze
+
+  validates :degree, inclusion: { in: OPTIONS.map{ |k,v| v }, message: "Select an option from the list" }
   validates :degree_type, types: { method: :get_qualification_degree_status }
-  # may need updating
-  OPTIONS = { yes: "222750000", no: "222750004", studying: "222750001", equivalent: "222750005" }.freeze
-  DEGREE_TYPE = { degree: "222750000", equivalent: "222750005" }
 
   def set_degree_type
     case degree
