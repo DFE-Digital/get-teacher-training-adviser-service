@@ -12,7 +12,7 @@ RSpec.describe Studying::StageOfDegree, :vcr do
 
     context "with invalid answer" do
       it "is invalid" do
-        subject.degree_stage = "invalid_id"
+        subject.degree = "invalid_id"
         expect(subject).not_to be_valid
       end
     end

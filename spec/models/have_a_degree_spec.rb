@@ -3,9 +3,9 @@ require "rails_helper"
 RSpec.describe HaveADegree, :vcr do
   let(:have_a_degree) { build(:have_a_degree) }
   let(:wrong_answer) { build(:have_a_degree, degree: "dont know") }
-  let(:no) { build(:have_a_degree, degree: "222750004") }
-  let(:studying) { build(:have_a_degree, degree: "222750001") }
-  let(:equivalent) { build(:have_a_degree, degree: "222750005") }
+  let(:no) { build(:have_a_degree, degree: HaveADegree::OPTIONS[:no]) }
+  let(:studying) { build(:have_a_degree, degree: "studying") }
+  let(:equivalent) { build(:have_a_degree, degree: HaveADegree::OPTIONS[:equivalent]) }
 
   describe "validation" do
     context "with valid answers" do

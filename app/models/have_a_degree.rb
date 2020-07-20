@@ -1,18 +1,33 @@
 class HaveADegree < Base
   attribute :degree, :string
+  attribute :degree_type, :string
 
-  validates :degree, types: { method: :get_qualification_degree_status, message: "You must select an option" }
-  # may need updating
-  OPTIONS = { yes: "222750000", no: "222750004", studying: "222750001", equivalent: "222750005" }.freeze
+  before_validation :set_degree_type
+
+  OPTIONS = { yes: "222750000", no: "222750004", studying: "studying", equivalent: "222750005" }.freeze
+  DEGREE_TYPE = { degree: "222750000", equivalent: "222750005" }.freeze
+
+  validates :degree, inclusion: { in: OPTIONS.map { |_k, v| v }, message: "Select an option from the list" }
+  validates :degree_type, types: { method: :get_qualification_degree_status }
+
+  def set_degree_type
+    self.degree_type = case degree
+                       when OPTIONS[:equivalent]
+                         DEGREE_TYPE[:equivalent]
+                       else
+                         DEGREE_TYPE[:degree]
+                       end
+  end
 
   def next_step
-    if degree == OPTIONS[:yes]
+    case degree
+    when OPTIONS[:yes]
       "degree/what_subject_degree"
-    elsif degree == OPTIONS[:no]
+    when OPTIONS[:no]
       "no_degree"
-    elsif degree == OPTIONS[:studying]
+    when OPTIONS[:studying]
       "studying/stage_of_degree"
-    elsif degree == OPTIONS[:equivalent]
+    else
       "equivalent/stage_interested_teaching"
     end
   end
