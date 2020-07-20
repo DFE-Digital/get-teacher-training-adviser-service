@@ -27,7 +27,7 @@ class Store
       "email" => x["email_address"],
       "first_name" => x["first_name"],
       "last_name" => x["last_name"],
-      "date_of_birth" => x["date_of_birth"],
+      "date_of_birth" => x["date_of_birth"], # DateTime
       "teacher_id" => x["prev_id"],
       "degree_subject" => x["degree_subject"],
       "telephone" => x["telephone"],
@@ -36,8 +36,8 @@ class Store
       "address_city" => x["town_city"],
       "address_postcode" => x["postcode"],
       "phone_call_scheduled_at" => x["callback_slot"], # DateTime
-      "already_subscribed_to_teacher_training_adviser" => x["subscribed"] # Boolean
+      "already_subscribed_to_teacher_training_adviser" => x["subscribed"], # Boolean
     }
-    body.transform_keys{ |k| k.camelize(:lower).to_sym }.to_json
+    body.transform_keys { |k| k.camelize(:lower).to_sym }.to_json
   end
 end

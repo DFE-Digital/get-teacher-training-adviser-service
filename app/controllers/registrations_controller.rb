@@ -14,7 +14,6 @@ class RegistrationsController < ApplicationController
 
     if @registration.valid?
       update_session_registration_hash
-      byebug
       redirect_to new_registration_path(step_name: @registration.next_step)
     else
       render :new
