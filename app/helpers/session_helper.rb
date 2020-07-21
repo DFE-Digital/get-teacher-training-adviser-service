@@ -85,7 +85,7 @@ module SessionHelper
   end
 
   def show_stage_interested_teaching
-    stage = session[:registration]["primary_or_secondary"]
+    stage = session[:registration]["preferred_education_phase_id"]
     StageInterestedTeaching::OPTIONS.key(stage).to_s.capitalize
   end
 

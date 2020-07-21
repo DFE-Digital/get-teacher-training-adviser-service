@@ -12,7 +12,7 @@ RSpec.describe StageInterestedTeaching, :vcr do
 
     context "with invalid subject option" do
       it "is not valid" do
-        subject.primary_or_secondary = "invalid_id"
+        subject.preferred_education_phase_id = "invalid_id"
         expect(subject).to_not be_valid
       end
     end

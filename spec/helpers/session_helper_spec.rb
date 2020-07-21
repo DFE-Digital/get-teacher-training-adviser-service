@@ -144,9 +144,9 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   end
 
   describe "#show_stage_interested_teaching" do
-    it "returns the session 'primary_or_secondary' value" do
+    it "returns the session 'preferred_education_phase_id' value" do
       session[:registration] = {
-        "primary_or_secondary" => "222750001",
+        "preferred_education_phase_id" => "222750001",
       }
       expect(show_stage_interested_teaching).to eq("Secondary")
     end
