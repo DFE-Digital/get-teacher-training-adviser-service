@@ -33,7 +33,7 @@
             <% if session[:registration]['has_required_subjects'] == PrimaryMathsEnglishGrade4::OPTIONS[:no] %>
               <%= render partial: 'check_answers/science_grade4', locals: { link: Studying::LINK } %>
 
-              <% if session[:registration]['have_science'] == ScienceGrade4::OPTIONS[:no] %>
+              <% if session[:registration]['has_gcse_science_id'] == ScienceGrade4::OPTIONS[:no] %>
                 <%= render partial: 'check_answers/retake_science', locals: { link: Studying::LINK } %>
               <% end %>
 
