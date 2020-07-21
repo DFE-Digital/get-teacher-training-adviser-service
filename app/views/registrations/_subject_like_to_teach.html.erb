@@ -1,7 +1,7 @@
-<%= f.govuk_radio_buttons_fieldset(:like_to_teach, legend: { text: 'Which subject would you like to teach if you return to teaching?' } ) do %>
-  <%= f.govuk_radio_button :like_to_teach, SubjectLikeToTeach::options["Maths"], label: { text: 'Maths' } %>
-  <%= f.govuk_radio_button :like_to_teach, SubjectLikeToTeach::options["Physics"], label: { text: 'Physics' } %>
-   <%= f.govuk_radio_button :like_to_teach, SubjectLikeToTeach::options["Languages (other)"], label: { text: 'Modern foreign language' } %>
+<%= f.govuk_radio_buttons_fieldset(:preferred_teaching_subject_id, legend: { text: 'Which subject would you like to teach if you return to teaching?' } ) do %>
+  <%= f.govuk_radio_button :preferred_teaching_subject_id, SubjectLikeToTeach::options["Maths"], label: { text: 'Maths' } %>
+  <%= f.govuk_radio_button :preferred_teaching_subject_id, SubjectLikeToTeach::options["Physics"], label: { text: 'Physics' } %>
+   <%= f.govuk_radio_button :preferred_teaching_subject_id, SubjectLikeToTeach::options["Languages (other)"], label: { text: 'Modern foreign language' } %>
 <% end %>
 
 <details class="govuk-details" data-module="govuk-details">

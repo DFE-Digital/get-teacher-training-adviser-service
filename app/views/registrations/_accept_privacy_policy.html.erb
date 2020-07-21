@@ -1,5 +1,5 @@
-<%= f.govuk_check_boxes_fieldset :accepted, legend: { text: "Read and accept the privacy policy"} do %>
-  <%= f.hidden_field :accepted, value: false %>
+<%= f.govuk_check_boxes_fieldset :accepted_policy_id, legend: { text: "Read and accept the privacy policy"} do %>
+  <%= f.hidden_field :accepted_policy_id, value: false %>
 
   <p class="govuk-body">Our privacy notice explains how we use your personal data. It is important that you have read this notice before continuing.</p>
 
@@ -7,7 +7,7 @@
     <a href='https://www.gov.uk/help/privacy-notice'>Privacy policy</a>
   </div>
 
-  <%= f.govuk_check_box :accepted, true, multiple: false, label: { text: "Accept the privacy policy"} %>
+  <%= f.govuk_check_box :accepted_policy_id, true, multiple: false, label: { text: "Accept the privacy policy"} %>
 
  <% end %>
 

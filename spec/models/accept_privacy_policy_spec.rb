@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe AcceptPrivacyPolicy do
   let(:confirmed) { build(:accept_privacy_policy) }
-  let(:unconfirmed) { build(:accept_privacy_policy, accepted: false) }
-  let(:wrong_answer) { build(:accept_privacy_policy, accepted: nil) }
+  let(:unconfirmed) { build(:accept_privacy_policy, accepted_policy_id: false) }
+  let(:wrong_answer) { build(:accept_privacy_policy, accepted_policy_id: nil) }
 
   describe "validation" do
     it "only accepts true values" do
