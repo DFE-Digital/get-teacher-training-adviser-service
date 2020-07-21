@@ -63,7 +63,7 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
       session[:registration] = { "address_line_1" => "22",
         "address_line_2" => "acacia avenue",
         "address_city" => "bradford",
-        "postcode" => "tr1 1uf"  }
+        "address_postcode" => "tr1 1uf"  }
       expect(show_uk_address).to eq("22<br />acacia avenue<br />bradford<br />tr1 1uf")
     end
   end

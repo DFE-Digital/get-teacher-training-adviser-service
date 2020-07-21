@@ -3,6 +3,6 @@ FactoryBot.define do
     address_line_1 { "144" }
     address_line_2 { "Johnson Avenue" }
     address_city { "Liverpool" }
-    postcode { "tr1 1uf" }
+    address_postcode { "tr1 1uf" }
   end
 end

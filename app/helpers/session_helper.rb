@@ -27,9 +27,9 @@ module SessionHelper
     addr1 = session[:registration]["address_line_1"]
     addr2 = session[:registration]["address_line_2"]
     city = session[:registration]["address_city"]
-    postcode = session[:registration]["postcode"]
+    address_postcode = session[:registration]["address_postcode"]
     #do we need these capitalized etc?
-    address = [addr1, addr2, city, postcode]
+    address = [addr1, addr2, city, address_postcode]
     address.join("<br />").html_safe
   end
 

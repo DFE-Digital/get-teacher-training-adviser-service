@@ -34,7 +34,7 @@ class Store
       "address_line1" => x["address_line1"],
       "address_line2" => x["address_line2"],
       "address_city" => x["address_city"],
-      "address_postcode" => x["postcode"],
+      "address_postcode" => x["address_postcode"],
       "phone_call_scheduled_at" => x["callback_slot"], # DateTime
       "already_subscribed_to_teacher_training_adviser" => x["subscribed"], # Boolean
     }

@@ -14,7 +14,7 @@ RSpec.describe UkCandidate do
     context "with invalid postcodes" do
       ["giib", "tr111 1uf", "FFFF", "blahblah", "p3000 xxx"].each do |invalid_postcode|
         it "is not valid" do
-          expect(build(:uk_candidate, postcode: invalid_postcode)).to_not be_valid
+          expect(build(:uk_candidate, address_postcode: invalid_postcode)).to_not be_valid
         end
       end
     end
@@ -22,7 +22,7 @@ RSpec.describe UkCandidate do
     context "with valid postcodes" do
       ["eh3 9eh", "tr1 1xy", "hs1 3eq"].each do |valid_postcode|
         it "is valid" do
-          expect(build(:uk_candidate, postcode: valid_postcode)).to be_valid
+          expect(build(:uk_candidate, address_postcode: valid_postcode)).to be_valid
         end
       end
     end
