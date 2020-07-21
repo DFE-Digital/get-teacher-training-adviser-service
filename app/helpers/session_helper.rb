@@ -38,7 +38,7 @@ module SessionHelper
   end
 
   def show_email
-    session[:registration]["email_address"]
+    session[:registration]["email"]
   end
 
   def show_phone

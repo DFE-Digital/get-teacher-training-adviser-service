@@ -24,7 +24,7 @@ class Store
       "planning_to_retake_gcse_english_id" => x["retaking_english_maths"],
       "planning_to_retake_gcse_maths_id" => x["retaking_english_maths"],
       "planning_to_retake_cgse_science_id" => x["planning_to_retake_cgse_science_id"],
-      "email" => x["email_address"],
+      "email" => x["email"],
       "first_name" => x["first_name"],
       "last_name" => x["last_name"],
       "date_of_birth" => x["date_of_birth"], # DateTime

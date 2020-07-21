@@ -79,7 +79,7 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_email" do
     it "returns the session email value" do
       session[:registration] = {
-        "email_address" => "jo@bloggs.com",
+        "email" => "jo@bloggs.com",
       }
       expect(show_email).to eq("jo@bloggs.com")
     end
