@@ -46,7 +46,7 @@ module SessionHelper
   end
 
   def show_country
-    country_id = session[:registration]["country_code"]
+    country_id = session[:registration]["country_id"]
     ApiClient::get_country_types.find { |country| country.id == country_id }.value
   end
 

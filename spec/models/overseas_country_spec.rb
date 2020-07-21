@@ -12,7 +12,7 @@ RSpec.describe OverseasCountry, :vcr do
 
     context "without correct attribute" do
       it "is invalid" do
-        subject.country_code = "ABC"
+        subject.country_id = "ABC"
         expect(subject).not_to be_valid
       end
     end

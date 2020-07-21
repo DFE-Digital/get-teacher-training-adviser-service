@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :overseas_country do
-    country_code { OverseasCountry::options["Togo"] }
+    country_id { OverseasCountry::options["Togo"] }
   end
 end

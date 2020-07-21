@@ -11,7 +11,7 @@ class Store
       "subject_taught_id" => x["subject_taught_id"],
       "past_teaching_position_id" => x["past_teaching_position_id"],
       "preferred_teaching_subject_id" => x["preferred_teaching_subject_id"],
-      "country_id" => x["country_code"],
+      "country_id" => x["country_id"],
       "accepted_policy_id" => x["accepted_policy_id"].to_s,
       "uk_degree_grade_id" => x["uk_degree_grade_id"],
       "degree_status_id" => x["degree"],
