@@ -2,16 +2,16 @@ require "rails_helper"
 
 RSpec.describe HaveADegree, :vcr do
   let(:have_a_degree) { build(:have_a_degree) }
-  let(:wrong_answer) { build(:have_a_degree, degree: "dont know") }
-  let(:no) { build(:have_a_degree, degree: HaveADegree::OPTIONS[:no]) }
-  let(:studying) { build(:have_a_degree, degree: "studying") }
-  let(:equivalent) { build(:have_a_degree, degree: HaveADegree::OPTIONS[:equivalent]) }
+  let(:wrong_answer) { build(:have_a_degree, degree_status_id: "dont know") }
+  let(:no) { build(:have_a_degree, degree_status_id: HaveADegree::OPTIONS[:no]) }
+  let(:studying) { build(:have_a_degree, degree_status_id: HaveADegree::OPTIONS[:studying]) }
+  let(:equivalent) { build(:have_a_degree, degree_status_id: HaveADegree::OPTIONS[:equivalent]) }
 
   describe "validation" do
     context "with valid answers" do
       HaveADegree::OPTIONS.each do |_k, valid_answer|
         it "is valid" do
-          expect(build(:have_a_degree, degree: valid_answer)).to be_valid
+          expect(build(:have_a_degree, degree_status_id: valid_answer)).to be_valid
         end
       end
     end

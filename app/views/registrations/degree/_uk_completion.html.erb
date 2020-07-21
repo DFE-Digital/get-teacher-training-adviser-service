@@ -49,8 +49,11 @@
             <% end %>
           <% end %>
 
-            <%= render partial: 'check_answers/start_teacher_training', locals: { link: Degree::LINK } %>
-            <%= render partial: 'check_answers/uk_or_overseas', locals: { link: Degree::LINK } %>
+          <% ['subject_interested_teaching',
+              'start_teacher_training',
+              'uk_or_overseas'].each do |url| %>
+            <%= render partial: 'check_answers/' + "#{url}", locals: { link: Degree::LINK } %>
+          <% end %>
         </dl>
 
         <%= f.hidden_field :confirmed, value: true %>

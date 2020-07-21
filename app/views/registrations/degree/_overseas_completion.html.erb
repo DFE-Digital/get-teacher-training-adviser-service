@@ -25,8 +25,18 @@
 
           <!-- Primary options -->
           <% if StageInterestedTeaching::OPTIONS.key(session[:registration]['preferred_education_phase_id']).to_s == 'primary' %>
-            <%= render partial: 'check_answers/science_grade4', locals: { link: Degree::LINK } %>
             <%= render partial: 'check_answers/primary_maths_english_grade4', locals: { link: Degree::LINK } %>
+
+            <% if session[:registration]['has_gcse_maths_and_english_id'] == PrimaryMathsEnglishGrade4::OPTIONS[:no] %>
+              <%= render partial: 'check_answers/retake_english_maths', locals: { link: Degree::LINK } %>
+            <% end %>
+
+              <%= render partial: 'check_answers/science_grade4', locals: { link: Degree::LINK } %>
+
+            <% if session[:registration]['has_gcse_science_id'] == ScienceGrade4::OPTIONS[:no] %>
+              <%= render partial: 'check_answers/retake_science', locals: { link: Degree::LINK } %>
+            <% end %>
+
           <% end %>
 
           <!-- Secondary options -->
