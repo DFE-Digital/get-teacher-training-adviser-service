@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe ApiClient do # are these covered by the gem tests?
   subject { described_class }
+  let(:body) { { "customer_info" => "hi there" } }
 
   describe "class methods" do
     it "calls the defined methods" do
@@ -28,6 +29,9 @@ RSpec.describe ApiClient do # are these covered by the gem tests?
 
       expect(subject).to receive(:get_callback_booking_quotas)
       subject.get_callback_booking_quotas
+
+      expect(subject).to receive(:sign_up_teacher_training_advisor_candidate).with(body)
+      subject.sign_up_teacher_training_advisor_candidate(body)
     end
   end
 end

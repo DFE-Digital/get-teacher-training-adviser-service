@@ -1,6 +1,6 @@
 require "rails_helper"
 
-class Validatable
+class TypeValidatable
   include ActiveModel::Model
 
   attr_accessor :type
@@ -9,7 +9,7 @@ class Validatable
 end
 
 RSpec.describe TypesValidator, type: :validator do
-  subject { Validatable.new }
+  subject { TypeValidatable.new }
 
   before do
     expect(ApiClient).to receive(:get_teaching_subjects)

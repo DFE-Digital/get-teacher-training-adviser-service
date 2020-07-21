@@ -4,7 +4,7 @@ class Callback < Base
 
   validates :telephone_number, length: { minimum: 5, too_short: "Telephone number is too short (minimum is 5 characters)" }, format: { with: /\A[0-9\s+]+\z/, message: "Enter a telephone number in the correct format" }
 
-  validates :callback_slot, callback: { method: :get_callback_booking_quotas }
+  validates :callback_slot, callbacks: { method: :get_callback_booking_quotas }
 
   def self.options
     quotas = ApiClient.get_callback_booking_quotas

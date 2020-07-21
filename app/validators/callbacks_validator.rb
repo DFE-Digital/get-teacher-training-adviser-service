@@ -1,4 +1,4 @@
-class CallbackValidator < ActiveModel::EachValidator
+class CallbacksValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     callbacks = ApiClient.send(options[:method])
 
