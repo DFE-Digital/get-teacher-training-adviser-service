@@ -27,7 +27,7 @@ RSpec.describe Callback, :vcr do
     context "with invalid phone number" do
       ["", "12345uh", "123-123-123"].each do |invalid_phone|
         it "is not valid" do
-          expect(build(:equivalent_uk_callback, telephone_number: invalid_phone)).to_not be_valid
+          expect(build(:equivalent_uk_callback, telephone: invalid_phone)).to_not be_valid
         end
       end
     end
@@ -35,7 +35,7 @@ RSpec.describe Callback, :vcr do
     context "with valid phone numbers" do
       ["123456", "123456 90"].each do |valid_phone|
         it "is valid" do
-          expect(build(:equivalent_uk_callback, telephone_number: valid_phone)).to be_valid
+          expect(build(:equivalent_uk_callback, telephone: valid_phone)).to be_valid
         end
       end
     end

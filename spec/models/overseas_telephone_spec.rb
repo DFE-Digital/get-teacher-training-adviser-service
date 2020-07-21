@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe OverseasTelephone do
   let(:phone) { build(:overseas_telephone) }
-  let(:blank_number) { build(:overseas_telephone, telephone_number: "") }
-  let(:nan) { build(:overseas_telephone, telephone_number: "xaseaqewe123") }
+  let(:blank_number) { build(:overseas_telephone, telephone: "") }
+  let(:nan) { build(:overseas_telephone, telephone: "xaseaqewe123") }
 
   describe "validation" do
     context "with valid input" do

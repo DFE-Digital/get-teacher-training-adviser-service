@@ -29,7 +29,7 @@ RSpec.describe OverseasCandidate, :vcr do
     context "with invalid phone number" do
       ["", "12345uh", "123-123-123"].each do |invalid_phone|
         it "is not valid" do
-          expect(build(:overseas_candidate, telephone_number: invalid_phone)).to_not be_valid
+          expect(build(:overseas_candidate, telephone: invalid_phone)).to_not be_valid
         end
       end
     end
@@ -37,7 +37,7 @@ RSpec.describe OverseasCandidate, :vcr do
     context "with valid phone numbers" do
       ["123456", "123456 90"].each do |valid_phone|
         it "is valid" do
-          expect(build(:overseas_candidate, telephone_number: valid_phone)).to be_valid
+          expect(build(:overseas_candidate, telephone: valid_phone)).to be_valid
         end
       end
     end

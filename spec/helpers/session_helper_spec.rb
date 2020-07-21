@@ -88,7 +88,7 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_phone" do
     it "returns the session telephone value" do
       session[:registration] = {
-        "telephone_number" => "1234567",
+        "telephone" => "1234567",
       }
       expect(show_phone).to eq("1234567")
     end
@@ -126,9 +126,9 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   end
 
   describe "#show_have_a_degree" do
-    it "returns the session 'degree' value" do
+    it "returns the session 'degree_status_id' value" do
       session[:registration] = {
-        "degree" => "222750000",
+        "degree_status_id" => HaveADegree::OPTIONS[:yes],
       }
       expect(show_have_a_degree).to eq("Yes")
     end

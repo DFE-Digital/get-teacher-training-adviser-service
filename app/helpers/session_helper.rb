@@ -42,7 +42,7 @@ module SessionHelper
   end
 
   def show_phone
-    session[:registration]["telephone_number"]
+    session[:registration]["telephone"]
   end
 
   def show_country
@@ -66,7 +66,7 @@ module SessionHelper
   end
 
   def show_have_a_degree
-    degree = session[:registration]["degree"]
+    degree = session[:registration]["degree_status_id"]
     case degree
     when HaveADegree::OPTIONS[:yes]
       "Yes"
