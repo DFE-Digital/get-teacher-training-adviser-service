@@ -43,10 +43,6 @@ RSpec.describe Callback, :vcr do
 
   describe "#self.options" do
     let(:options_hash) { Callback.options }
-    it "returns a Hash of Arrays with DateTimes", :vcr do
-      expect(options_hash).to be_a(Hash)
-      expect(options_hash.first[1][0][1]).to be_a(DateTime)
-    end
+    include_examples "callback_options"
   end
-
 end
