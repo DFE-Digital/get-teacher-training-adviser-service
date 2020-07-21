@@ -135,9 +135,9 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   end
 
   describe "#show_what_degree_class" do
-    it "returns the session 'degree_class' value" do
+    it "returns the session 'uk_degree_grade_id' value" do
       session[:registration] = {
-        "degree_class" => "222750001",
+        "uk_degree_grade_id" => "222750001",
       }
       expect(show_what_degree_class).to eq("First class")
     end

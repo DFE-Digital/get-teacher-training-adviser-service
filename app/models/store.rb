@@ -13,7 +13,7 @@ class Store
       "preferred_teaching_subject_id" => x["preferred_teaching_subject_id"],
       "country_id" => x["country_code"],
       "accepted_policy_id" => x["accepted_policy_id"].to_s,
-      "uk_degree_grade_id" => x["degree_class"],
+      "uk_degree_grade_id" => x["uk_degree_grade_id"],
       "degree_status_id" => x["degree"],
       "degree_type_id" => x["degree_type"],
       "intital_teacher_training_year_id" => x["year_of_entry"],

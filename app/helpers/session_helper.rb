@@ -80,8 +80,8 @@ module SessionHelper
   end
 
   def show_what_degree_class
-    degree_class = session[:registration]["degree_class"]
-    WhatDegreeClass::options.key(degree_class)
+    uk_degree_grade_id = session[:registration]["uk_degree_grade_id"]
+    WhatDegreeClass::options.key(uk_degree_grade_id)
   end
 
   def show_stage_interested_teaching
