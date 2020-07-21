@@ -28,7 +28,7 @@ class Store
       "first_name" => x["first_name"],
       "last_name" => x["last_name"],
       "date_of_birth" => x["date_of_birth"], # DateTime
-      "teacher_id" => x["prev_id"],
+      "teacher_id" => x["teacher_id"],
       "degree_subject" => x["degree_subject"],
       "telephone" => x["telephone"],
       "address_line1" => x["address_line1"],
