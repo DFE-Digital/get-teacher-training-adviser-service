@@ -26,7 +26,7 @@ module SessionHelper
   def show_uk_address
     addr1 = session[:registration]["address_line_1"]
     addr2 = session[:registration]["address_line_2"]
-    city = session[:registration]["town_city"]
+    city = session[:registration]["address_city"]
     postcode = session[:registration]["postcode"]
     #do we need these capitalized etc?
     address = [addr1, addr2, city, postcode]
