@@ -12,7 +12,7 @@ RSpec.describe PreviousSubject, :vcr do
 
     context "with invalid subject option" do
       it "is not valid" do
-        subject.prev_subject = "invalid_id"
+        subject.subject_taught_id = "invalid_id"
         expect(subject).to_not be_valid
       end
     end

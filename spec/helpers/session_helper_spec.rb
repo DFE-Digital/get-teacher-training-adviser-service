@@ -119,9 +119,9 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_subject" do
     it "returns the session 'question' name" do
       session[:registration] = {
-        "prev_subject" => "6b793433-cd1f-e911-a979-000d3a20838a",
+        "subject_taught_id" => "6b793433-cd1f-e911-a979-000d3a20838a",
       }
-      expect(show_subject("prev_subject")).to eq("Art")
+      expect(show_subject("subject_taught_id")).to eq("Art")
     end
   end
 

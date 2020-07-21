@@ -8,7 +8,7 @@ class Store
     body = {
       "candidate_id" => x["candidate_id"],
       "qualification_id" => x["qualification_id"],
-      "subject_taught_id" => x["prev_subject"],
+      "subject_taught_id" => x["subject_taught_id"],
       "past_teaching_position_id" => x["past_teaching_position_id"],
       "preferred_teaching_subject" => x["like_to_teach"],
       "country_id" => x["country_code"],
