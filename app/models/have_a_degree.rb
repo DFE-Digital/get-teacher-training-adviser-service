@@ -12,10 +12,10 @@ class HaveADegree < Base
 
   def set_degree_type
     self.degree_type_id = case degree
-                       when OPTIONS[:equivalent]
-                         DEGREE_TYPE[:equivalent]
-                       else
-                         DEGREE_TYPE[:degree]
+                          when OPTIONS[:equivalent]
+                            DEGREE_TYPE[:equivalent]
+                          else
+                            DEGREE_TYPE[:degree]
                        end
   end
 

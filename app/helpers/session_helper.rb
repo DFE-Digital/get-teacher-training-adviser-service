@@ -90,7 +90,7 @@ module SessionHelper
   end
 
   def show_start_teacher_training
-    start_year = session[:registration]["year_of_entry"]
+    start_year = session[:registration]["intital_teacher_training_year_id"]
     StartTeacherTraining::options.key(start_year)
   end
 
