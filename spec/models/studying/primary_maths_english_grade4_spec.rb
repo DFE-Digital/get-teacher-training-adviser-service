@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Studying::PrimaryMathsEnglishGrade4 do
   let(:yes) { build(:studying_primary_maths_english_grade4) }
-  let(:no) { build(:studying_primary_maths_english_grade4, has_required_subjects: PrimaryMathsEnglishGrade4::OPTIONS[:no]) }
+  let(:no) { build(:studying_primary_maths_english_grade4, has_gcse_maths_and_english_id: PrimaryMathsEnglishGrade4::OPTIONS[:no]) }
 
   describe "#next_step" do
     context "when answer is true" do

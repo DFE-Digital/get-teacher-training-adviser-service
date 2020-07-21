@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :primary_retake_english_maths do
-    retaking_english_maths { PrimaryRetakeEnglishMaths::OPTIONS[:yes] }
+    planning_to_retake_gcse_maths_and_english_id { PrimaryRetakeEnglishMaths::OPTIONS[:yes] }
   end
 end

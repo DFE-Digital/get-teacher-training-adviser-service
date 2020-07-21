@@ -1,7 +1,7 @@
 module Studying
   class PrimaryMathsEnglishGrade4 < PrimaryMathsEnglishGrade4
     def next_step
-      if has_required_subjects == OPTIONS[:yes]
+      if has_gcse_maths_and_english_id == OPTIONS[:yes]
         "studying/science_grade4"
       else
         "studying/primary_retake_english_maths"

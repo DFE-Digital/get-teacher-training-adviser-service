@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Studying::SecondaryMathsEnglishGrade4, :vcr do
   let(:yes) { build(:studying_secondary_maths_english_grade4) }
-  let(:no) { build(:studying_secondary_maths_english_grade4, has_required_subjects: SecondaryMathsEnglishGrade4::OPTIONS[:no]) }
+  let(:no) { build(:studying_secondary_maths_english_grade4, has_gcse_maths_and_english_id: SecondaryMathsEnglishGrade4::OPTIONS[:no]) }
 
   describe "#next_step" do
     context "when answer is yes" do
