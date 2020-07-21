@@ -15,7 +15,7 @@ class Store
       "accepted_policy_id" => x["accepted_policy_id"].to_s,
       "uk_degree_grade_id" => x["uk_degree_grade_id"],
       "degree_status_id" => x["degree"],
-      "degree_type_id" => x["degree_type"],
+      "degree_type_id" => x["degree_type_id"],
       "intital_teacher_training_year_id" => x["year_of_entry"],
       "preferred_education_phase_id" => x["primary_or_secondary"],
       "has_gcse_english_id" => x["has_required_subjects"],

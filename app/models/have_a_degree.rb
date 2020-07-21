@@ -1,6 +1,6 @@
 class HaveADegree < Base
   attribute :degree, :string
-  attribute :degree_type, :string
+  attribute :degree_type_id, :string
 
   before_validation :set_degree_type
 
@@ -8,10 +8,10 @@ class HaveADegree < Base
   DEGREE_TYPE = { degree: "222750000", equivalent: "222750005" }.freeze
 
   validates :degree, inclusion: { in: OPTIONS.map { |_k, v| v }, message: "Select an option from the list" }
-  validates :degree_type, types: { method: :get_qualification_degree_status }
+  validates :degree_type_id, types: { method: :get_qualification_degree_status }
 
   def set_degree_type
-    self.degree_type = case degree
+    self.degree_type_id = case degree
                        when OPTIONS[:equivalent]
                          DEGREE_TYPE[:equivalent]
                        else
