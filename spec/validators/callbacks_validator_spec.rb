@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe CallbacksValidator, :vcr, type: :validator do
-  subject { build (:callback) }
+  subject { build :callback }
 
   it "is valid when callback_slot returned by API" do
     expect(subject).to be_valid
