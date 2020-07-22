@@ -106,13 +106,13 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_true_or_false" do
     it "converts bools to yes or no" do
       session[:registration] = {
-        "planning_to_retake_cgse_science_id" => true,
+        "planning_to_retake_gcse_science_id" => true,
       }
-      expect(show_true_or_false("planning_to_retake_cgse_science_id")).to eq("Yes")
+      expect(show_true_or_false("planning_to_retake_gcse_science_id")).to eq("Yes")
       session[:registration] = {
-        "planning_to_retake_cgse_science_id" => false,
+        "planning_to_retake_gcse_science_id" => false,
       }
-      expect(show_true_or_false("planning_to_retake_cgse_science_id")).to eq("No")
+      expect(show_true_or_false("planning_to_retake_gcse_science_id")).to eq("No")
     end
   end
 

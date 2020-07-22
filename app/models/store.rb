@@ -21,7 +21,7 @@ class Store
       "has_gcse_maths_and_english_id" => x["has_gcse_maths_and_english_id"],
       "has_gcse_science_id" => x["has_gcse_science_id"],
       "planning_to_retake_gcse_maths_and_english_id" => x["planning_to_retake_gcse_maths_and_english_id"],
-      "planning_to_retake_cgse_science_id" => x["planning_to_retake_cgse_science_id"],
+      "planning_to_retake_gcse_science_id" => x["planning_to_retake_gcse_science_id"],
       "email" => x["email"],
       "first_name" => x["first_name"],
       "last_name" => x["last_name"],
