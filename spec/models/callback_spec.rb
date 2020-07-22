@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Callback, :vcr do
   subject { build(:callback) }
-  let(:no_callback_slot) { build(:callback, callback_slot: "") }
+  let(:no_callback_slot) { build(:callback, phone_call_scheduled_at: "") }
 
   describe "validation" do
     context "with required attributes" do
@@ -17,9 +17,9 @@ RSpec.describe Callback, :vcr do
       end
     end
 
-    context "with invalid callback_slot" do
+    context "with invalid phone_call_scheduled_at" do
       it "is invalid" do
-        subject.callback_slot = "invalid_date"
+        subject.phone_call_scheduled_at = "invalid_date"
         expect(subject).to_not be_valid
       end
     end

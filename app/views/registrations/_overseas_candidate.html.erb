@@ -12,8 +12,8 @@
 </div>
 
 <div class="govuk-form-group">
-  <%= f.label :callback_slot, "Select your preferred day and time for a callback", class: "govuk-label" %>
-  <%= f.select :callback_slot, grouped_options_for_select(Callback::options), {}, { class: "govuk-select" } %>
+  <%= f.label :phone_call_scheduled_at, "Select your preferred day and time for a callback", class: "govuk-label" %>
+  <%= f.select :phone_call_scheduled_at, grouped_options_for_select(Callback::options), {}, { class: "govuk-select" } %>
 </div>
 
 <%= f.govuk_submit %>

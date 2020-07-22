@@ -33,7 +33,7 @@ class Store
       "address_line2" => x["address_line2"],
       "address_city" => x["address_city"],
       "address_postcode" => x["address_postcode"],
-      "phone_call_scheduled_at" => x["callback_slot"], # DateTime check this
+      "phone_call_scheduled_at" => x["phone_call_scheduled_at"], # DateTime check this
       "already_subscribed_to_teacher_training_adviser" => x["subscribed"], # Boolean
     }
     body.transform_keys { |k| k.camelize(:lower).to_sym }.to_json

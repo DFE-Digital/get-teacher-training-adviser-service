@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe OverseasCandidate, :vcr do
   subject { build(:overseas_candidate) }
-  let(:no_callback_slot) { build(:overseas_candidate, callback_slot: "") }
+  let(:no_callback_slot) { build(:overseas_candidate, phone_call_scheduled_at: "") }
   let(:no_time_zone) { build(:overseas_candidate, time_zone: "") }
 
   describe "validation" do
@@ -14,7 +14,7 @@ RSpec.describe OverseasCandidate, :vcr do
 
     context "with invalid callback id" do
       it "is invalid" do
-        subject.callback_slot = "invalid_id"
+        subject.phone_call_scheduled_at = "invalid_id"
         expect(subject).to_not be_valid
       end
     end

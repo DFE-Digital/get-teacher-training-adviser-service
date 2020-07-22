@@ -14,12 +14,12 @@ module SessionHelper
   end
 
   def show_callback_date
-    callback_date_start_at = session[:registration]["callback_slot"]
+    callback_date_start_at = session[:registration]["phone_call_scheduled_at"]
     ApiClient::get_callback_booking_quotas.find { |callback| callback.start_at == callback_date_start_at }.day
   end
 
   def show_callback_time
-    callback_time_start_at = session[:registration]["callback_slot"]
+    callback_time_start_at = session[:registration]["phone_call_scheduled_at"]
     ApiClient::get_callback_booking_quotas.find { |callback| callback.start_at == callback_time_start_at }.time_slot
   end
 
