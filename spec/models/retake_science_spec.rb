@@ -12,7 +12,7 @@ RSpec.describe RetakeScience, :vcr do
 
     context "with invalid subject option" do
       it "is not valid" do
-        subject.retaking_science = "invalid_id"
+        subject.planning_to_retake_gcse_science_id = "invalid_id"
         expect(subject).to_not be_valid
       end
     end

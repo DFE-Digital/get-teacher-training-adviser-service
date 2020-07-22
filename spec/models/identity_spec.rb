@@ -14,7 +14,7 @@ RSpec.describe Identity do
     context "with invalid email addresses" do
       ["test.com", "FFFF", "test@test."].each do |invalid_email_address|
         it "is not valid" do
-          expect(build(:identity, email_address: invalid_email_address)).to_not be_valid
+          expect(build(:identity, email: invalid_email_address)).to_not be_valid
         end
       end
     end
@@ -22,7 +22,7 @@ RSpec.describe Identity do
     context "with valid email addresses" do
       ["test@example.com", "testymctest@gmail.com", "test%.mctest@domain.co.uk"].each do |valid_email_address|
         it "is valid" do
-          expect(build(:identity, email_address: valid_email_address)).to be_valid
+          expect(build(:identity, email: valid_email_address)).to be_valid
         end
       end
     end

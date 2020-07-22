@@ -26,31 +26,34 @@
           <%= render partial: 'check_answers/stage_interested_teaching', locals: { link: Degree::LINK } %>
 
           <!-- Primary options -->
-          <% if StageInterestedTeaching::OPTIONS.key(session[:registration]['primary_or_secondary']).to_s == 'primary' %>
+          <% if StageInterestedTeaching::OPTIONS.key(session[:registration]['preferred_education_phase_id']).to_s == 'primary' %>
             <%= render partial: 'check_answers/primary_maths_english_grade4', locals: { link: Degree::LINK } %>
 
-            <% if session[:registration]['has_required_subjects'] == PrimaryMathsEnglishGrade4::OPTIONS[:no] %>
+            <% if session[:registration]['has_gcse_maths_and_english_id'] == PrimaryMathsEnglishGrade4::OPTIONS[:no] %>
               <%= render partial: 'check_answers/retake_english_maths', locals: { link: Degree::LINK } %>
             <% end %>
 
               <%= render partial: 'check_answers/science_grade4', locals: { link: Degree::LINK } %>
 
-            <% if session[:registration]['have_science'] == ScienceGrade4::OPTIONS[:no] %>
+            <% if session[:registration]['has_gcse_science_id'] == ScienceGrade4::OPTIONS[:no] %>
               <%= render partial: 'check_answers/retake_science', locals: { link: Degree::LINK } %>
             <% end %>
 
           <% end %>
 
           <!-- Secondary options -->
-          <% if StageInterestedTeaching::OPTIONS.key(session[:registration]['primary_or_secondary']).to_s == 'secondary' %>
+          <% if StageInterestedTeaching::OPTIONS.key(session[:registration]['preferred_education_phase_id']).to_s == 'secondary' %>
             <%= render partial: 'check_answers/secondary_maths_english_grade4', locals: { link: Degree::LINK } %>
-            <% if session[:registration]['has_required_subjects'] == SecondaryMathsEnglishGrade4::OPTIONS[:no] %>
+            <% if session[:registration]['has_gcse_maths_and_english_id'] == SecondaryMathsEnglishGrade4::OPTIONS[:no] %>
               <%= render partial: 'check_answers/retake_english_maths', locals: { link: Degree::LINK } %>
             <% end %>
           <% end %>
 
-            <%= render partial: 'check_answers/start_teacher_training', locals: { link: Degree::LINK } %>
-            <%= render partial: 'check_answers/uk_or_overseas', locals: { link: Degree::LINK } %>
+          <% ['subject_interested_teaching',
+              'start_teacher_training',
+              'uk_or_overseas'].each do |url| %>
+            <%= render partial: 'check_answers/' + "#{url}", locals: { link: Degree::LINK } %>
+          <% end %>
         </dl>
 
         <%= f.hidden_field :confirmed, value: true %>

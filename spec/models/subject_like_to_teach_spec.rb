@@ -7,7 +7,7 @@ RSpec.describe SubjectLikeToTeach, :vcr do
     context "with invalid subject options" do
       %w[skiing fishing golfing surfing].each do |invalid_subject|
         it "is not valid" do
-          expect(build(:subject_like_to_teach, like_to_teach: invalid_subject)).to_not be_valid
+          expect(build(:subject_like_to_teach, preferred_teaching_subject_id: invalid_subject)).to_not be_valid
         end
       end
     end

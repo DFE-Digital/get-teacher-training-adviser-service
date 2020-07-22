@@ -46,5 +46,10 @@ class ApiClient
       api_instance = GetIntoTeachingApiClient::CallbackBookingQuotasApi.new
       api_instance.get_callback_booking_quotas
     end
+
+    def sign_up_teacher_training_advisor_candidate(body)
+      api_instance = GetIntoTeachingApiClient::TeacherTrainingAdviserApi.new
+      api_instance.sign_up_teacher_training_advisor_candidate(body)
+    end
   end
 end

@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Degree::PrimaryRetakeEnglishMaths, :vcr do
   let(:retake_english_maths) { build(:degree_primary_retake_english_maths) }
-  let(:no) { build(:degree_primary_retake_english_maths, retaking_english_maths: PrimaryRetakeEnglishMaths::OPTIONS[:no]) }
+  let(:no) { build(:degree_primary_retake_english_maths, planning_to_retake_gcse_maths_and_english_id: PrimaryRetakeEnglishMaths::OPTIONS[:no]) }
 
   describe "#next_step" do
     context "when answer is yes" do

@@ -12,7 +12,7 @@ RSpec.describe Degree::WhatDegreeClass, :vcr do
 
     context "with invalid subject option" do
       it "is not valid" do
-        subject.degree_class = "invalid_id"
+        subject.uk_degree_grade_id = "invalid_id"
         expect(subject).to_not be_valid
       end
     end

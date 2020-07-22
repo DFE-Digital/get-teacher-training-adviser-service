@@ -34,7 +34,7 @@ gem "redis"
 gem "country_select", "~> 4.0"
 
 # api client
-gem "get_into_teaching_api_client", "1.0.1", git: "https://github.com/DFE-Digital/get-into-teaching-api-ruby-client.git"
+gem "get_into_teaching_api_client", "1.0.5", git: "https://github.com/DFE-Digital/get-into-teaching-api-ruby-client.git"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

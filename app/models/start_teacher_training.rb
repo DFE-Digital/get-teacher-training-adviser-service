@@ -1,9 +1,9 @@
 class StartTeacherTraining < Base
   extend ApiOptions
 
-  attribute :year_of_entry, :string
+  attribute :intital_teacher_training_year_id, :string
 
-  validates :year_of_entry, types: { method: :get_candidate_initial_teacher_training_years, message: "You must select an option from the list" }
+  validates :intital_teacher_training_year_id, types: { method: :get_candidate_initial_teacher_training_years, message: "You must select an option from the list" }
   validate :date_cannot_be_in_the_past, unless: :dont_know
 
   def self.options
@@ -16,13 +16,13 @@ class StartTeacherTraining < Base
   end
 
   def date_cannot_be_in_the_past
-    if year_of_entry.present? && year_of_entry.to_i < Date.today.year
-      errors.add(:year_of_entry, "Date can't be in the past")
+    if intital_teacher_training_year_id.present? && intital_teacher_training_year_id.to_i < Date.today.year
+      errors.add(:intital_teacher_training_year_id, "Date can't be in the past")
     end
   end
 
   def dont_know
-    year_of_entry == StartTeacherTraining::options["Not sure"]
+    intital_teacher_training_year_id == StartTeacherTraining::options["Not sure"]
   end
 
   def next_step

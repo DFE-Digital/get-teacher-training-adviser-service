@@ -1,7 +1,7 @@
 class ScienceGrade4 < Base
-  attribute :have_science, :string
+  attribute :has_gcse_science_id, :string
 
-  validates :have_science, types: { method: :get_candidate_retake_gcse_status, message: "You must select either yes or no" }
+  validates :has_gcse_science_id, types: { method: :get_candidate_retake_gcse_status, message: "You must select either yes or no" }
 
   OPTIONS = Crm::OPTIONS
 end

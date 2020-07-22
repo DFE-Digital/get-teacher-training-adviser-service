@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Degree::StageInterestedTeaching, :vcr do
   subject { build(:degree_stage_interested_teaching) }
-  let(:secondary) { build(:degree_stage_interested_teaching, primary_or_secondary: "222750001") }
+  let(:secondary) { build(:degree_stage_interested_teaching, preferred_education_phase_id: "222750001") }
 
   describe "#next_step" do
     context "when answer is primary with maths" do

@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe PreviousId do
   let(:previous) { build(:previous_id) }
-  let(:no_previous) { build(:previous_id, prev_id: "") }
+  let(:no_previous) { build(:previous_id, teacher_id: "") }
 
   describe "validation" do
     context "with some input" do

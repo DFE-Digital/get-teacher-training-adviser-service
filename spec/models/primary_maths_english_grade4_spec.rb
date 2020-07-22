@@ -12,7 +12,7 @@ RSpec.describe PrimaryMathsEnglishGrade4, :vcr do
 
     context "with invalid subject option" do
       it "is not valid" do
-        subject.has_required_subjects = "invalid_id"
+        subject.has_gcse_maths_and_english_id = "invalid_id"
         expect(subject).to_not be_valid
       end
     end

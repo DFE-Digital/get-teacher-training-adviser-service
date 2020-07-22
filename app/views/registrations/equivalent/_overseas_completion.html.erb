@@ -20,7 +20,7 @@
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
           <%= render 'check_answers/returning_teacher' %>
           <%= render 'check_answers/have_a_degree' %>
-          <% ['stage_interested_teaching', 
+          <% ['stage_interested_teaching',
               'subject_interested_teaching',
               'start_teacher_training',
               'uk_or_overseas',
@@ -31,7 +31,7 @@
             <%= render partial: 'check_answers/' + "#{url}", locals: { link: Equivalent::LINK }%>
           <% end %>
         </dl>
-        
+
         <%= f.hidden_field :confirmed, value: true %>
 
         <div class="govuk-form-group">

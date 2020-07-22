@@ -3,12 +3,12 @@
 <p class="govuk-body">You need to speak to a teacher training adviser. You will have to book a call in advance.</p>
 <p class="govuk-body">For this, you must have the details of your overseas qualifications when they contact you.</p>
 
-<%= f.govuk_phone_field :telephone_number, width: 20,
+<%= f.govuk_phone_field :telephone, width: 20,
   label: { text: 'Contact telephone number *' } %>
 
 <div class="govuk-form-group">
-  <%= f.label :callback_slot, "Select your preferred day and time for a callback", class: "govuk-label" %>
-  <%= f.select :callback_slot, grouped_options_for_select(Equivalent::UkCallback::options), {}, { class: "govuk-select" } %>
+  <%= f.label :phone_call_scheduled_at, "Select your preferred day and time for a callback", class: "govuk-label" %>
+  <%= f.select :phone_call_scheduled_at, grouped_options_for_select(Equivalent::UkCallback::options), {}, { class: "govuk-select" } %>
 </div>
 
 <%= f.govuk_submit %>

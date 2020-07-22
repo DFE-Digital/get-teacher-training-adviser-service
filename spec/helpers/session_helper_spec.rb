@@ -42,7 +42,7 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_callback_date" do
     it "returns the session callback_date value as a string" do
       session[:registration] = {
-        "callback_slot" => ApiClient.get_callback_booking_quotas.first.id,
+        "phone_call_scheduled_at" => ApiClient.get_callback_booking_quotas.first.start_at,
       }
       expect(show_callback_date).to be_instance_of(String)
       expect(show_callback_date).not_to be_empty
@@ -50,12 +50,11 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   end
 
   describe "#show_callback_time" do
-    it "returns the session callback_time value as a string" do
+    it "returns the session callback_time value as a string separated with '-'" do
       session[:registration] = {
-        "callback_slot" => ApiClient.get_callback_booking_quotas.first.id,
+        "phone_call_scheduled_at" => ApiClient.get_callback_booking_quotas.first.start_at,
       }
-      expect(show_callback_time).to be_instance_of(String)
-      expect(show_callback_time).not_to be_empty
+      expect(show_callback_time).to include("-")
     end
   end
 
@@ -63,8 +62,8 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
     it "returns the session address values" do
       session[:registration] = { "address_line_1" => "22",
         "address_line_2" => "acacia avenue",
-        "town_city" => "bradford",
-        "postcode" => "tr1 1uf"  }
+        "address_city" => "bradford",
+        "address_postcode" => "tr1 1uf" }
       expect(show_uk_address).to eq("22<br />acacia avenue<br />bradford<br />tr1 1uf")
     end
   end
@@ -80,7 +79,7 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_email" do
     it "returns the session email value" do
       session[:registration] = {
-        "email_address" => "jo@bloggs.com",
+        "email" => "jo@bloggs.com",
       }
       expect(show_email).to eq("jo@bloggs.com")
     end
@@ -89,16 +88,16 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_phone" do
     it "returns the session telephone value" do
       session[:registration] = {
-        "telephone_number" => "1234567",
+        "telephone" => "1234567",
       }
       expect(show_phone).to eq("1234567")
     end
   end
 
   describe "#show_country" do
-    it "returns the session country_code name" do
+    it "returns the session country_id name" do
       session[:registration] = {
-        "country_code" => "0df4c2e6-74f9-e811-a97a-000d3a2760f2",
+        "country_id" => "0df4c2e6-74f9-e811-a97a-000d3a2760f2",
       }
       expect(show_country).to eq("Australia")
     end
@@ -107,56 +106,56 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_true_or_false" do
     it "converts bools to yes or no" do
       session[:registration] = {
-        "retaking_science" => true,
+        "planning_to_retake_gcse_science_id" => true,
       }
-      expect(show_true_or_false("retaking_science")).to eq("Yes")
+      expect(show_true_or_false("planning_to_retake_gcse_science_id")).to eq("Yes")
       session[:registration] = {
-        "retaking_science" => false,
+        "planning_to_retake_gcse_science_id" => false,
       }
-      expect(show_true_or_false("retaking_science")).to eq("No")
+      expect(show_true_or_false("planning_to_retake_gcse_science_id")).to eq("No")
     end
   end
 
   describe "#show_subject" do
     it "returns the session 'question' name" do
       session[:registration] = {
-        "prev_subject" => "6b793433-cd1f-e911-a979-000d3a20838a",
+        "subject_taught_id" => "6b793433-cd1f-e911-a979-000d3a20838a",
       }
-      expect(show_subject("prev_subject")).to eq("Art")
+      expect(show_subject("subject_taught_id")).to eq("Art")
     end
   end
 
   describe "#show_have_a_degree" do
-    it "returns the session 'degree' value" do
+    it "returns the session 'degree_status_id' value" do
       session[:registration] = {
-        "degree" => "222750000",
+        "degree_status_id" => HaveADegree::OPTIONS[:yes],
       }
       expect(show_have_a_degree).to eq("Yes")
     end
   end
 
   describe "#show_what_degree_class" do
-    it "returns the session 'degree_class' value" do
+    it "returns the session 'uk_degree_grade_id' value" do
       session[:registration] = {
-        "degree_class" => "222750001",
+        "uk_degree_grade_id" => "222750001",
       }
       expect(show_what_degree_class).to eq("First class")
     end
   end
 
   describe "#show_stage_interested_teaching" do
-    it "returns the session 'primary_or_secondary' value" do
+    it "returns the session 'preferred_education_phase_id' value" do
       session[:registration] = {
-        "primary_or_secondary" => "222750001",
+        "preferred_education_phase_id" => StageInterestedTeaching::OPTIONS[:primary],
       }
-      expect(show_stage_interested_teaching).to eq("Secondary")
+      expect(show_stage_interested_teaching).to eq("Primary")
     end
   end
 
   describe "#show_start_teacher_training" do
-    it "returns the session 'year_of_entry' value" do
+    it "returns the session 'intital_teacher_training_year_id' value" do
       session[:registration] = {
-        "year_of_entry" => "12917",
+        "intital_teacher_training_year_id" => "12917",
       }
       expect(show_start_teacher_training).to eq("Not sure")
     end
@@ -165,7 +164,7 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_stage_of_degree" do
     it "returns the session 'stage_of_degree' value" do
       session[:registration] = {
-        "degree" => "222750001",
+        "degree_status_id" => "222750001",
       }
       expect(show_stage_of_degree).to eq("Final year")
     end

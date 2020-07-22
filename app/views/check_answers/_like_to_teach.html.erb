@@ -2,12 +2,12 @@
   <dt class="govuk-summary-list__key">
     Which subject would you like to teach if you return to teaching?
   <dd class="govuk-summary-list__value">
-    <p class="govuk-body"><%= show_subject('like_to_teach') %></p>
+    <p class="govuk-body"><%= show_subject('preferred_teaching_subject_id') %></p>
   </dd>
   <dd class="govuk-summary-list__actions">
     <% if defined?(link) %>
       <%= show_link("#{link}" + 'subject_like_to_teach') %>
-    <% else %> 
+    <% else %>
       <%= show_link('subject_like_to_teach') %>
     <% end %>
   </dd>
