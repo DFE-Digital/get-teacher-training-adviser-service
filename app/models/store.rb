@@ -14,10 +14,10 @@ class Store
       "country_id" => x["country_id"],
       "accepted_policy_id" => x["accepted_policy_id"].to_s,
       "uk_degree_grade_id" => x["uk_degree_grade_id"],
-      "degree_status_id" => x["degree"],
+      "degree_status_id" => x["degree_status_id"],
       "degree_type_id" => x["degree_type_id"],
       "intital_teacher_training_year_id" => x["intital_teacher_training_year_id"],
-      "preferred_education_phase_id" => x[""],
+      "preferred_education_phase_id" => x["preferred_education_phase_id"],
       "has_gcse_maths_and_english_id" => x["has_gcse_maths_and_english_id"],
       "has_gcse_science_id" => x["has_gcse_science_id"],
       "planning_to_retake_gcse_maths_and_english_id" => x["planning_to_retake_gcse_maths_and_english_id"],
@@ -33,7 +33,7 @@ class Store
       "address_line2" => x["address_line2"],
       "address_city" => x["address_city"],
       "address_postcode" => x["address_postcode"],
-      "phone_call_scheduled_at" => x["callback_slot"], # DateTime
+      "phone_call_scheduled_at" => x["callback_slot"], # DateTime check this
       "already_subscribed_to_teacher_training_adviser" => x["subscribed"], # Boolean
     }
     body.transform_keys { |k| k.camelize(:lower).to_sym }.to_json

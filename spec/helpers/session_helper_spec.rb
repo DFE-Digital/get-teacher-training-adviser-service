@@ -146,9 +146,9 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_stage_interested_teaching" do
     it "returns the session 'preferred_education_phase_id' value" do
       session[:registration] = {
-        "preferred_education_phase_id" => "222750001",
+        "preferred_education_phase_id" => StageInterestedTeaching::OPTIONS[:primary],
       }
-      expect(show_stage_interested_teaching).to eq("Secondary")
+      expect(show_stage_interested_teaching).to eq("Primary")
     end
   end
 
@@ -164,7 +164,7 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_stage_of_degree" do
     it "returns the session 'stage_of_degree' value" do
       session[:registration] = {
-        "degree" => "222750001",
+        "degree_status_id" => "222750001",
       }
       expect(show_stage_of_degree).to eq("Final year")
     end

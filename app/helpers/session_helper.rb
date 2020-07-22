@@ -95,7 +95,7 @@ module SessionHelper
   end
 
   def show_stage_of_degree
-    degree = session[:registration]["degree"]
+    degree = session[:registration]["degree_status_id"]
     Studying::StageOfDegree::options.key(degree).to_s.gsub("_", " ").capitalize
   end
 end
