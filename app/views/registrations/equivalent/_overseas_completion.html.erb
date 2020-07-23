@@ -20,9 +20,14 @@
         <dl class="govuk-summary-list govuk-!-margin-bottom-9">
           <%= render 'check_answers/returning_teacher' %>
           <%= render 'check_answers/have_a_degree' %>
-          <% ['stage_interested_teaching',
-              'subject_interested_teaching',
-              'start_teacher_training',
+          <%= render partial: 'check_answers/stage_interested_teaching', locals: { link: Equivalent::LINK }%>
+
+          <!-- Secondary options -->
+          <% if StageInterestedTeaching::OPTIONS.key(session[:registration]['preferred_education_phase_id']).to_s == 'secondary' %>
+            <%= render partial: 'check_answers/subject_interested_teaching', locals: { link: Equivalent::LINK }%>
+          <% end %>
+
+          <% ['start_teacher_training',
               'uk_or_overseas',
               'country_code',
               'callback_date',
