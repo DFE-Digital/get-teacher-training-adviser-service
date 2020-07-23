@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read(".ruby-version").chomp
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.0.2"
+gem 'rails', '~> 6.0', '>= 6.0.3.2'
 
 # Use Puma as the app server
 gem "puma", "~> 4.3"
@@ -34,7 +34,7 @@ gem "redis"
 gem "country_select", "~> 4.0"
 
 # api client
-gem "get_into_teaching_api_client", "1.0.5", git: "https://github.com/DFE-Digital/get-into-teaching-api-ruby-client.git"
+gem "get_into_teaching_api_client", "1.0.6", git: "https://github.com/DFE-Digital/get-into-teaching-api-ruby-client.git"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
