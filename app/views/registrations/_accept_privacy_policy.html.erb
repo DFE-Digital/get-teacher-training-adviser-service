@@ -7,7 +7,7 @@
     <a href='https://www.gov.uk/help/privacy-notice'>Privacy policy</a>
   </div>
 
-  <%= f.govuk_check_box :accepted_policy_id, true, multiple: false, label: { text: "Accept the privacy policy"} %>
+  <%= f.govuk_check_box :accepted_policy_id, ApiClient.get_latest_privacy_policy.id, multiple: false, label: { text: "Accept the privacy policy"} %>
 
  <% end %>
 
