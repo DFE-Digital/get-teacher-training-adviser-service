@@ -13,6 +13,22 @@ RSpec.describe UkOrOverseas, :vcr do
     end
   end
 
+  describe "#set_country_id " do
+    context "when answer is uk" do
+      it "sets country_id to the UK id" do
+        uk.valid?
+        expect(uk.country_id).to eq(ApiClient.get_country_types.find { |v| v.value = "United Kingdom" }.id)
+      end
+    end
+
+    context "when the answer is overseas" do
+      it "does not alter the country_id" do
+        overseas.valid?
+        expect(overseas.country_id).to be(nil)
+      end
+    end
+  end
+
   describe "#next_step" do
     context "when answer is uk" do
       it "returns the correct option" do
