@@ -1,0 +1,8 @@
+<!-- Is this rendering correctly? -->
+<div class="content__left">
+  <%= link_to 'Back', 'javascript:history.go(-1);', class: "govuk-back-link hidden", id: "backlink" %>
+  <h2>Privacy Policy</h2>
+  <h3>Legal information</h3>
+  <%= @privacy_policy.text.html_safe %>
+</div>
+<%= javascript_pack_tag 'back_link'%>
