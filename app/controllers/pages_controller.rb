@@ -7,7 +7,7 @@ class PagesController < ApplicationController
     policy_id = params[:id]
 
     @privacy_policy = if policy_id
-                        ApiClient.get_privacy_policy(policy_id) #what if we can't find the policy?
+                        ApiClient.get_privacy_policy(policy_id) # what if we can't find the policy?
                       else
                         ApiClient.get_latest_privacy_policy
                       end

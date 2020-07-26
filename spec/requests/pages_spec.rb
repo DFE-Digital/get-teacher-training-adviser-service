@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe PagesController, :vcr, type: :request do
+RSpec.describe PagesController, type: :request do
   let(:policy) { GetIntoTeachingApiClient::PrivacyPolicy.new(id: "123", text: "Latest privacy policy") }
 
   describe "get/privacy_policy" do
@@ -30,5 +30,4 @@ RSpec.describe PagesController, :vcr, type: :request do
       include_examples "privacy_policy"
     end
   end
-
 end
