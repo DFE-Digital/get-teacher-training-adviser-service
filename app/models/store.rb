@@ -7,6 +7,13 @@ class Store
     ApiClient.sign_up_teacher_training_adviser_candidate(body)
   end
 
+  def filter_returner_candidate
+    data = session[:registration].select{ |key,_| Candidate::RETURNER.include? key.to_sym }
+    # set default as secondary
+    data.merge!({"preferred_education_phase_id"=>StageInterestedTeaching::OPTIONS[:secondary].to_i})
+    data.transform_keys { |k| k.camelize(:lower).to_sym }.to_json
+  end
+
   def candidate_info
     x = @session[:registration]
     body = {

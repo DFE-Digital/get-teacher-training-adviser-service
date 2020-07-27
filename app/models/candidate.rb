@@ -13,5 +13,6 @@ class Candidate
     country_id
     accepted_policy_id
     preferred_education_phase_id
+    accepted_policy_id
   ].freeze
 end

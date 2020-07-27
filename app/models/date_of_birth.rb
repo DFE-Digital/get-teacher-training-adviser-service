@@ -1,5 +1,5 @@
 class DateOfBirth < Base
-  attribute :date_of_birth, :date
+  attribute :date_of_birth, :datetime
   attribute "date_of_birth(3i)", :string
   attribute "date_of_birth(2i)", :string
   attribute "date_of_birth(1i)", :string
@@ -33,7 +33,7 @@ class DateOfBirth < Base
     day = self.send("date_of_birth(3i)").to_i
 
     begin # catch invalid dates, e.g. 31 Feb
-      self.date_of_birth = Date.new(year, month, day)
+      self.date_of_birth = DateTime.new(year, month, day)
     rescue ArgumentError
       nil
     end
