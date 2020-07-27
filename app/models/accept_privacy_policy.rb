@@ -5,7 +5,7 @@ class AcceptPrivacyPolicy < Base
 
   # test api privacy policy when availible
   def next_step
-    return "complete_application" if self.valid?
+    return "complete_application" if valid?
 
     nil
   end
