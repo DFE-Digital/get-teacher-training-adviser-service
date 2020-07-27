@@ -14,20 +14,13 @@ RSpec.describe PagesController, type: :request do
         response
       end
 
-      include_examples "privacy_policy"
-    end
-
-    context "viewing a specified privacy policy" do
-      before do
-        allow_any_instance_of(GetIntoTeachingApiClient::PrivacyPoliciesApi).to receive(:get_privacy_policy).with(policy.id).and_return(policy)
+      it "returns a success response" do
+        expect(subject).to have_http_status(200)
       end
 
-      subject do
-        get privacy_policy_path(id: policy.id)
-        response
+      it "includes the policy text" do
+        expect(subject.body).to include(policy.text)
       end
-
-      include_examples "privacy_policy"
     end
   end
 end
