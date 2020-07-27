@@ -23,7 +23,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 27 Jul 2020 11:04:08 GMT
+      - Mon, 27 Jul 2020 11:04:07 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -37,7 +37,7 @@ http_interactions:
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Vcap-Request-Id:
-      - fa9c62da-eaa0-4d6d-7e8a-d1a8dac22bfa
+      - 224b603d-12b7-45d0-5239-8684cefc615f
     body:
       encoding: ASCII-8BIT
       string: !binary |-
@@ -45,7 +45,7 @@ http_interactions:
     http_version: '1.1'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/privacy_policies/latest
-  recorded_at: Mon, 27 Jul 2020 11:04:08 GMT
+  recorded_at: Mon, 27 Jul 2020 11:04:07 GMT
 - request:
     method: get
     uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/privacy_policies/latest
@@ -69,7 +69,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 27 Jul 2020 11:04:08 GMT
+      - Mon, 27 Jul 2020 11:04:07 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -83,7 +83,7 @@ http_interactions:
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Vcap-Request-Id:
-      - a8bf0407-d456-449b-741c-0102a94af06c
+      - 29619fee-b926-4404-4f7f-7fb01938ad99
     body:
       encoding: ASCII-8BIT
       string: !binary |-
@@ -91,5 +91,5 @@ http_interactions:
     http_version: '1.1'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/privacy_policies/latest
-  recorded_at: Mon, 27 Jul 2020 11:04:08 GMT
+  recorded_at: Mon, 27 Jul 2020 11:04:07 GMT
 recorded_with: VCR 6.0.0

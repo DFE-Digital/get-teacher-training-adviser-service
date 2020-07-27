@@ -19,9 +19,16 @@ RSpec.describe AcceptPrivacyPolicy, :vcr do
   end
 
   describe "#next_step" do
-    context "when confirmed is true" do
+    context "with required attribute" do
       it "returns the correct option" do
         expect(subject.next_step).to eq("complete_application")
+      end
+    end
+
+    context "without required attributes" do
+      it "returns nil" do
+        subject.accepted_policy_id = "invalid_id"
+        expect(subject.next_step).to be(nil)
       end
     end
   end
