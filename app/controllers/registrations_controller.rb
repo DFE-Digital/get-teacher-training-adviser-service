@@ -25,7 +25,7 @@ private
   def update_session_registration_hash
     session[:registration] ||= {}
     session[:registration].merge!(@registration.attributes)
-    #byebug
+    # byebug
   end
 
   # def post_candidate

@@ -8,9 +8,9 @@ class Store
   end
 
   def filter_returner_candidate
-    data = session[:registration].select{ |key,_| Candidate::RETURNER.include? key.to_sym }
+    data = session[:registration].select { |key, _| Candidate::RETURNER.include? key.to_sym }
     # set default as secondary
-    data.merge!({"preferred_education_phase_id"=>StageInterestedTeaching::OPTIONS[:secondary].to_i})
+    data.merge!({ "preferred_education_phase_id" => StageInterestedTeaching::OPTIONS[:secondary].to_i })
     data.transform_keys { |k| k.camelize(:lower).to_sym }.to_json
   end
 

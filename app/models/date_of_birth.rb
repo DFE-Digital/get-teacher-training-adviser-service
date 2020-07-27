@@ -28,9 +28,9 @@ class DateOfBirth < Base
   end
 
   def make_a_date
-    year = self.send("date_of_birth(1i)").to_i
-    month = self.send("date_of_birth(2i)").to_i
-    day = self.send("date_of_birth(3i)").to_i
+    year = send("date_of_birth(1i)").to_i
+    month = send("date_of_birth(2i)").to_i
+    day = send("date_of_birth(3i)").to_i
 
     begin # catch invalid dates, e.g. 31 Feb
       self.date_of_birth = DateTime.new(year, month, day)
