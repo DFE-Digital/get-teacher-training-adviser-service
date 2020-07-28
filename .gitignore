@@ -39,12 +39,3 @@ dump.rdb
 
 /config/credentials/*.key
 
-/config/credentials/production.key
-
-/config/credentials/development.key
-
-/config/credentials/test.key
-
-/config/credentials/rolling.key
-
-/config/credentials/preprod.key
