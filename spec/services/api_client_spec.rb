@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe ApiClient do # are these covered by the gem tests?
   subject { described_class }
   let(:body) { { "customer_info" => "hi there" } }
+  let(:policy_id) { 123456 }
 
   describe "class methods" do
     it "calls the defined methods" do
@@ -35,6 +36,9 @@ RSpec.describe ApiClient do # are these covered by the gem tests?
 
       expect(subject).to receive(:get_latest_privacy_policy)
       subject.get_latest_privacy_policy
+
+      expect(subject).to receive(:get_privacy_policy).with(policy_id)
+      subject.get_privacy_policy(policy_id)
     end
   end
 end

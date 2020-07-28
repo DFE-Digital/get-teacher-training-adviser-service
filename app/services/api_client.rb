@@ -56,5 +56,10 @@ class ApiClient
       api_instance = GetIntoTeachingApiClient::PrivacyPoliciesApi.new
       api_instance.get_latest_privacy_policy
     end
+
+    def get_privacy_policy(policy_id)
+      api_instance = GetIntoTeachingApiClient::PrivacyPoliciesApi.new
+      api_instance.get_privacy_policy(policy_id)
+    end
   end
 end
