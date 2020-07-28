@@ -28,9 +28,6 @@ private
     # byebug
   end
 
-  # def post_candidate
-  # end
-
   def entity_name
     # check for namespaces
     @registration.step_name.gsub("/", "_").to_sym

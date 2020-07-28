@@ -52,14 +52,14 @@ class ApiClient
       api_instance.sign_up_teacher_training_adviser_candidate(body)
     end
 
-    def get_privacy_policy(policy_id)
-      api_instance = GetIntoTeachingApiClient::PrivacyPoliciesApi.new
-      api_instance.get_privacy_policy(policy_id)
-    end
-
     def get_latest_privacy_policy
       api_instance = GetIntoTeachingApiClient::PrivacyPoliciesApi.new
       api_instance.get_latest_privacy_policy
+    end
+
+    def get_privacy_policy(policy_id)
+      api_instance = GetIntoTeachingApiClient::PrivacyPoliciesApi.new
+      api_instance.get_privacy_policy(policy_id)
     end
   end
 end
