@@ -12,7 +12,7 @@ class PagesController < ApplicationController
                       else
                         # this should be removed when we have url checking
                         ApiClient.get_latest_privacy_policy
-    end
+                      end
 
     render template: "pages/privacy_policy"
   end

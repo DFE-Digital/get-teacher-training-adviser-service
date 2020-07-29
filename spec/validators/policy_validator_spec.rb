@@ -14,7 +14,6 @@ RSpec.describe PolicyValidator, :vcr, type: :validator do
 
   it "raises invalid error when accepted_policy_id not returned by Api" do
     subject.accepted_policy_id = "hello"
-    byebug
     expect(subject).to be_invalid
   end
 end

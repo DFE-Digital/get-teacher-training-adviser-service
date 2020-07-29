@@ -3,7 +3,7 @@ class PolicyValidator < ActiveModel::EachValidator
     begin
       policy = ApiClient.send(options[:method], value)
     rescue GetIntoTeachingApiClient::ApiError => e
-      puts e # how do we handle a Bad Request ?
+      Rails.logger.error e # how do we handle a Bad Request ?
     end
 
     unless policy
