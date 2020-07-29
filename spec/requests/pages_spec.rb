@@ -24,7 +24,7 @@ RSpec.describe PagesController, type: :request do
       end
 
       subject do
-        get privacy_policy_path(:id => policy_id)
+        get privacy_policy_path(id: policy_id)
         response
       end
 
