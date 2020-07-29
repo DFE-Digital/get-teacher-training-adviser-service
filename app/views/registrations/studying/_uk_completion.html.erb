@@ -48,6 +48,7 @@
             <% if session[:registration]['has_gcse_maths_and_english_id'] == SecondaryMathsEnglishGrade4::OPTIONS[:no] %>
               <%= render partial: 'check_answers/retake_english_maths', locals: { link: Studying::LINK } %>
             <% end %>
+            <%= render partial: 'check_answers/subject_interested_teaching', locals: { link: Degree::LINK } %>
           <% end %>
 
             <%= render partial: 'check_answers/start_teacher_training', locals: { link: Studying::LINK } %>
