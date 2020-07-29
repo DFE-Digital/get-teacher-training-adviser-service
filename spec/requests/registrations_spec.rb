@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe RegistrationsController, type: :request do
   let(:identity) { build(:identity) }
   let(:invalid_step) { "invalid_entity" }
-  subject(:get_invalid_step_url) { get new_registration_path(invalid_step) }
+  let(:get_invalid_step_url) { get new_registration_path(invalid_step) }
 
   describe "get /registrations/:step_name" do
     context "with a valid step name" do

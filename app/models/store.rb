@@ -3,13 +3,17 @@ class Store
     @session = session
   end
 
+  def sign_up_candidate(body)
+    ApiClient.sign_up_teacher_training_adviser_candidate(body)
+  end
+
   def candidate_info
     x = @session[:registration]
     body = {
       "candidate_id" => x["candidate_id"],
-      "qualification_id" => x["qualification_id"],
+      "qualification_id" => x["qualification_id"], # not set
       "subject_taught_id" => x["subject_taught_id"],
-      "past_teaching_position_id" => x["past_teaching_position_id"],
+      "past_teaching_position_id" => x["past_teaching_position_id"], # not set
       "preferred_teaching_subject_id" => x["preferred_teaching_subject_id"],
       "country_id" => x["country_id"],
       "accepted_policy_id" => x["accepted_policy_id"].to_s,

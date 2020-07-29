@@ -1,28 +1,34 @@
 require "rails_helper"
 
-RSpec.describe AcceptPrivacyPolicy do
-  let(:confirmed) { build(:accept_privacy_policy) }
-  let(:unconfirmed) { build(:accept_privacy_policy, accepted_policy_id: false) }
-  let(:wrong_answer) { build(:accept_privacy_policy, accepted_policy_id: nil) }
+RSpec.describe AcceptPrivacyPolicy, :vcr do
+  subject { build(:accept_privacy_policy) }
 
   describe "validation" do
-    it "only accepts true values" do
-      expect(wrong_answer).not_to be_valid
-      expect(unconfirmed).not_to be_valid
-      expect(confirmed).to be_valid
+    context "with required attributes" do
+      it "is valid" do
+        expect(subject).to be_valid
+      end
+    end
+
+    context "without required attributes" do
+      it "is invalid" do
+        subject.accepted_policy_id = "invalid_id"
+        expect(subject).not_to be_valid
+      end
     end
   end
 
   describe "#next_step" do
-    context "when confirmed is true" do
+    context "with required attribute" do
       it "returns the correct option" do
-        expect(confirmed.next_step).to eq("complete_application")
+        expect(subject.next_step).to eq("complete_application")
       end
     end
 
-    context "when unconfirmed" do
-      it "returns the correct option" do
-        expect(unconfirmed.next_step).to be(nil)
+    context "without required attributes" do
+      it "returns nil" do
+        subject.accepted_policy_id = "invalid_id"
+        expect(subject.next_step).to be(nil)
       end
     end
   end

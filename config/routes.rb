@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root "pages#home"
   get "/sitemap", to: "sitemaps#index"
   get "/healthcheck.json", to: "healthchecks#show", as: :healthcheck
+  get "/privacy-policy", to: "pages#privacy_policy", as: :privacy_policy
   get "/:page", to: "pages#show"
 
   get "/404", to: "errors#not_found", via: :all
