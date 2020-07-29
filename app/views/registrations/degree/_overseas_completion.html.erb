@@ -45,10 +45,10 @@
             <% if session[:registration]['has_gcse_maths_and_english_id'] == SecondaryMathsEnglishGrade4::OPTIONS[:no] %>
               <%= render partial: 'check_answers/retake_english_maths', locals: { link: Degree::LINK } %>
             <% end %>
+            <%= render partial: 'check_answers/subject_interested_teaching', locals: { link: Degree::LINK } %>
           <% end %>
 
-          <% ['subject_interested_teaching',
-              'start_teacher_training',
+          <% ['start_teacher_training',
               'uk_or_overseas',
               'country_code'].each do |url| %>
             <%= render partial: 'check_answers/' + "#{url}", locals: { link: Degree::LINK } %>
