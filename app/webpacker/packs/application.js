@@ -1,6 +1,6 @@
 require.context("govuk-frontend/govuk/assets");
-require("packs/back_link");
-require("packs/google_analytics");
+require("scripts/back_link");
+require("scripts/google_analytics");
 
 import "../styles/application.scss";
 import Rails from "rails-ujs";
