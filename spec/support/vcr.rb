@@ -3,7 +3,7 @@ VCR.configure do |config|
   config.hook_into :typhoeus
   config.configure_rspec_metadata!
   config.before_record do |i|
-    i.response.body.force_encoding('UTF-8')
+    i.response.body.force_encoding("UTF-8")
   end
   Rails.application.credentials.config.each do |k, v|
     config.filter_sensitive_data("ENV[#{k}]") { v }
