@@ -23,7 +23,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 28 Jul 2020 14:43:03 GMT
+      - Fri, 31 Jul 2020 10:28:50 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -31,21 +31,119 @@ http_interactions:
       Connection:
       - keep-alive
       Etag:
-      - CB4135149C0072CEA9B55CB62A4BD48B772B2F2ECE26482523F60C24EBD4644A
+      - 4D9211D33FB1AEC8702D548E642372258534A6E901B4EF3C79AC39FEA321C431
       Server:
       - Kestrel
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Vcap-Request-Id:
-      - 12a547da-f866-4306-5436-625a81dc8ac1
+      - 2d5f69b4-af1c-46e1-7d19-82ad7aab29e3
     body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        eyJ0ZXh0IjoiUHJpdmFjeSBOb3RpY2U6IEdldCBJbnRvIFRlYWNoaW5nIEluZm9ybWF0aW9uIFNlcnZpY2VcbldobyB3ZSBhcmVcblRoaXMgd29yayBpcyBiZWluZyBjYXJyaWVkIG91dCBieSB0aGUgRGVwYXJ0bWVudCBmb3IgRWR1Y2F0aW9uIChEZkUpLiBGb3IgdGhlIHB1cnBvc2Ugb2YgZGF0YSBwcm90ZWN0aW9uIGxlZ2lzbGF0aW9uLCB0aGUgRGZFIGlzIHRoZSBkYXRhIGNvbnRyb2xsZXIgZm9yIHRoZSBwZXJzb25hbCBkYXRhIHByb2Nlc3NlZCBhcyBwYXJ0IG9mIFRoZSBHZXQgSW50byBUZWFjaGluZyBJbmZvcm1hdGlvbiBTZXJ2aWNlLCBpbmNsdWRpbmcgdGhlIEdldCBTY2hvb2wgRXhwZXJpZW5jZSBzZXJ2aWNlLlxuSG93IHdlIHdpbGwgdXNlIHlvdXIgaW5mb3JtYXRpb25cbldlIHJlY2VpdmUgYW5kIHByb2Nlc3MgdGhlIHBlcnNvbmFsIGRhdGEgeW91IHByb3ZpZGVkIHdoZW4gY29tcGxldGluZyBlaXRoZXIgdGhlIEdldCBJbnRvIFRlYWNoaW5nIHJlZ2lzdHJhdGlvbiBmb3JtIG9yIHRoZSBHZXQgU2Nob29sIEV4cGVyaWVuY2Ugc2VydmljZSByZWdpc3RyYXRpb24gZm9ybSwgYmVjYXVzZSB5b3UgaGF2ZSByZXF1ZXN0ZWQgdGhhdCB3ZSBwcm92aWRlIHlvdSB3aXRoIHRhaWxvcmVkIGFkdmljZSBhbmQgaW5mb3JtYXRpb24gYWJvdXQgdGVhY2hlciB0cmFpbmluZyBhbmQgYSBjYXJlZXIgYXMgYSB0ZWFjaGVyLCBvciBoYXZlIHJlcXVlc3RlZCBzY2hvb2wgZXhwZXJpZW5jZS4gVGhlc2Ugc2VydmljZXMgd2lsbCBoZWxwIHlvdSB0byBtYWtlIGFuIGluZm9ybWVkIGRlY2lzaW9uIGFib3V0IG1ha2luZyBhbiBhcHBsaWNhdGlvbi5cblxuU3BlY2lmaWNhbGx5IHdlIHdpbGwgdXNlIHlvdXIgZGF0YSBpbiB0aGUgZm9sbG93aW5nIHdheXM6XG7igKJcdFRoZSBpbmZvcm1hdGlvbiB5b3UgcHJvdmlkZSBpbiB0aGUgcmVnaXN0cmF0aW9uIGZvcm1zIChhbmQgYW55IHN1YnNlcXVlbnQgdXBkYXRlcyBtYWRlIHZpYSBvdXIgaGVscGxpbmUsIGluY2x1ZGluZyByZWdpc3RyYXRpb24gdG8gZXZlbnRzKSBpcyBzaGFyZWQgd2l0aCBvdXIgR2V0IEludG8gVGVhY2hpbmcgdGVsZXBob25lIGhlbHBsaW5lIGFuZCB3ZWIgY2hhdCBzZXJ2aWNlIHRvIGVuc3VyZSB0aGF0IHRoZXkgaGF2ZSBhbiBhY2N1cmF0ZSBwaWN0dXJlIG9mIHlvdXIgY2lyY3Vtc3RhbmNlcyBpbiBvcmRlciB0byBwcm92aWRlIGEgdGFpbG9yZWQgc2VydmljZSBhbmQgaW5mb3JtYXRpb24gdG8geW91LiBBbnkgc3Vic2VxdWVudCBpbmZvcm1hdGlvbiB5b3UgcHJvdmlkZSB0byB0aGUgaGVscGxpbmUgd2lsbCBhbHNvIGJlIHJlY29yZGVkIGluIG9yZGVyIHRvIGNvbnRpbnVlIHRvIHByb3ZpZGUgeW91IHdpdGggYSB0YWlsb3JlZCBzZXJ2aWNlLlxu4oCiXHRXZSB1c2UgeW91ciBjb250YWN0IGRldGFpbHMgdG8gY29tbXVuaWNhdGUgd2l0aCB5b3UgYnkgdGVsZXBob25lIGFuZCB0byBzZW5kIHlvdSBlbWFpbCwgU01TIGFuZCBwb3N0YWwgbWVzc2FnZXMsIHByb3ZpZGluZyB5b3Ugd2l0aCBpbmZvcm1hdGlvbiBhYm91dCBhIGNhcmVlciBpbiB0ZWFjaGluZy4gV2UgbWF5IGFsc28gY29udGFjdCB5b3UgdG8gZ2F1Z2UgeW91ciBpbnRlcmVzdCBpbiB0YWtpbmcgcGFydCBpbiBtYXJrZXQgcmVzZWFyY2guIEluIGVhY2ggbWVzc2FnZSwgeW91IHdpbGwgYmUgZ2l2ZW4gdGhlIG9wcG9ydHVuaXR5IHRvIHVuc3Vic2NyaWJlIGZyb20gZnVydGhlciBjb21tdW5pY2F0aW9ucy5cbuKAolx0VGhlIGluZm9ybWF0aW9uIHdlIGNvbGxlY3QgZnJvbSB5b3UgKHN1Y2ggYXMgeW91ciBuYW1lLCBjb250YWN0IGRldGFpbHMgYW5kIHN1YmplY3QgcHJlZmVyZW5jZXMpIGlzIHVzZWQgZm9yIGlkZW50aWZpY2F0aW9uLCBhZG1pbmlzdHJhdGlvbiwgYW5hbHlzaXMgYW5kIHRhcmdldGluZyBwdXJwb3Nlcy4gVGhpcyBhbGxvd3MgdXMgdG8gZW5zdXJlIHRoYXQgcHVibGljIGZ1bmRzIGFyZSBiZWluZyBzcGVudCBlZmZlY3RpdmVseS5cbuKAolx0V2Ugd2lsbCB1c2UgYW5vbnltaXNlZCBkYXRhIGFib3V0IHlvdSB0byBkZWxpdmVyIHRhaWxvcmVkIG1lc3NhZ2VzIG9uIHRoaXJkIHBhcnR5IHBsYXRmb3JtcywgaW5jbHVkaW5nIHNvY2lhbCBtZWRpYSAtIGxpa2UgRmFjZWJvb2ssIEluc3RhZ3JhbSwgVHdpdHRlciwgU25hcGNoYXQgYW5kIEdvb2dsZSBzZWFyY2guIFN1Y2ggYW5vbnltaXNlZCBkYXRhIHdpbGwgYWxzbyBiZSB1c2VkIHRvIGlkZW50aWZ5IGFuZCBhZHZlcnRpc2UgdG8gcGVvcGxlIHRoYXQgYXJlIHNpbWlsYXIgdG8geW91LCB3aG8gbWF5IGFsc28gYmUgaW50ZXJlc3RlZCBpbiBvdXIgc2VydmljZS5cbuKAolx0SWYgeW91IGFyZSB1c2luZyB0aGUgR2V0IFNjaG9vbCBFeHBlcmllbmNlIHNlcnZpY2UsIHlvdXIgZGF0YSB3aWxsIGJlIHVzZWQgdG8gcHJvY2VzcyB5b3VyIHJlcXVlc3QgZm9yIHNjaG9vbCBleHBlcmllbmNlIHdpdGggdGhlIHNjaG9vbChzKSBpbiBxdWVzdGlvbi4gV2Ugd2lsbCBhbHNvIHVzZSBpdCB0byBzZW5kIG91dCBub3RpZmljYXRpb25zLCByZW1pbmRlcnMgYW5kIGZlZWRiYWNrIHF1ZXN0aW9ubmFpcmVzLiBXZSB0cmFjayB5b3VyIHByb2dyZXNzIHRocm91Z2ggdGhpcyBzZXJ2aWNlIHRvIGltcHJvdmUgaXQgZm9yIHlvdSBhbmQgZnV0dXJlIGFwcGxpY2FudHMgYW5kIHRvIGVuc3VyZSBwdWJsaWMgZnVuZHMgYXJlIGJlaW5nIHNwZW50IGVmZmVjdGl2ZWx5LlxuWW91ciBwZXJzb25hbCBkYXRhLCBzdXBwbGllZCBmb3IgdGhlIHB1cnBvc2VzIG9mIHRoaXMgc2VydmljZSwgd2lsbCBiZSBzdG9yZWQgZm9yIDUgeWVhcnMuXG5JZiB5b3UgZG8gbm90IHN1cHBseSB1cyB3aXRoIHlvdXIgcGVyc29uYWwgaW5mb3JtYXRpb24gdGhlbiB3ZSBjYW5ub3QgcHJvdmlkZSBhIHRhaWxvcmVkIGFkdmljZSBhbmQgaW5mb3JtYXRpb24gc2VydmljZSBvciBvZmZlciB5b3UgYWNjZXNzIHRvIHRoZSBzZXJ2aWNlcyBhdmFpbGFibGUgdmlhIG91ciB3ZWJzaXRlIHN1Y2ggYXMgYm9va2luZyBhIFRyYWluIHRvIFRlYWNoIGV2ZW50LiBIb3dldmVyLCB3aXRob3V0IHJlZ2lzdGVyaW5nLCB5b3UgY2FuIHN0aWxsIGFjY2VzcyBnZW5lcmFsIGluZm9ybWF0aW9uIHZpYSB0aGUgR2V0IGludG8gVGVhY2hpbmcgaGVscGxpbmUgYW5kIHdlYnNpdGUgYW5kIGNhbiBjb21wbGV0ZSBhbiBhcHBsaWNhdGlvbiBmb3IgSW5pdGlhbCBUZWFjaGVyIFRyYWluaW5nIHRocm91Z2ggVUNBUyBUZWFjaGVyIFRyYWluaW5nLlxuXG5UaGUgbmF0dXJlIG9mIHlvdXIgcGVyc29uYWwgZGF0YSB3ZSB3aWxsIGJlIHVzaW5nXG5UaGUgY2F0ZWdvcmllcyBvZiB5b3VyIGRhdGEsIHN1cHBsaWVkIGJ5IHlvdSB0aHJvdWdoIHRoZSByZWdpc3RyYXRpb24gZm9ybXMgYW5kIG90aGVyIGludGVyYWN0aW9ucyB3aXRoIHVzLCB0aGF0IHdlIHdpbGwgYmUgdXNpbmcgZm9yIHRoaXMgc2VydmljZSBhcmUgcGVyc29uYWwgZGF0YSBzdWNoIGFzOlxu4oCiXHROYW1lXG7igKJcdEVtYWlsIGFkZHJlc3NcbuKAolx0QWRkcmVzc1xu4oCiXHRDb250YWN0IHRlbGVwaG9uZSBudW1iZXJcbuKAolx0RGF0ZSBvZiBiaXJ0aFxu4oCiXHRJUCBBZGRyZXNzXG5XZSB3aWxsIGFsc28gYmUgY29sbGVjdGluZyBub24tcGVyc29uYWwgaW5mb3JtYXRpb24gc3VjaCBhczpcbuKAolx0WW91ciB0ZWFjaGluZyBwcmVmZXJlbmNlc1xu4oCiXHRZb3VyIGludGVuZGVkIHRyYWluaW5nIGNvbW1lbmNlbWVudCB5ZWFyXG7igKJcdFlvdXIgcXVhbGlmaWNhdGlvbnNcbuKAolx0QW55IGFkZGl0aW9uYWwgc3VwcGxlbWVudGFyeSBpbmZvcm1hdGlvbiB5b3UgcHJvdmlkZSBkdXJpbmcgY29tbXVuaWNhdGlvbiB3aXRoIHRoZSBoZWxwbGluZSBhbmQvb3IgcGVyc29uYWwgYWR2aXNlcnMgdGhhdCB3aWxsIGhlbHAgdXMgdG8gYWlkIHlvdSBpbiBwcm9ncmVzc2luZyB5b3VyIGFwcGxpY2F0aW9uIGFuZCBjb250aW51ZSB0byBpbXByb3ZlIG91ciBzZXJ2aWNlLlxuXG5XaHkgb3VyIHVzZSBvZiB5b3VyIHBlcnNvbmFsIGRhdGEgaXMgbGF3ZnVsXG5JbiBvcmRlciBmb3Igb3VyIHVzZSBvZiB5b3VyIHBlcnNvbmFsIGRhdGEgdG8gYmUgbGF3ZnVsLCB3ZSBuZWVkIHRvIG1lZXQgb25lIChvciBtb3JlKSBjb25kaXRpb25zIGluIHRoZSBkYXRhIHByb3RlY3Rpb24gbGVnaXNsYXRpb24uIFlvdSBoYXZlIHJlcXVlc3RlZCB0byByZWNlaXZlIHRoaXMgc2VydmljZSBhbmQgdGhlcmVmb3JlLCB0b2dldGhlciB3aXRoIHRoaXMgcHJpdmFjeSBub3RpY2UgKGFib3V0IHRoZSB1c2Ugb2YgeW91ciBwZXJzb25hbCBkYXRhKSwgeW91IGhhdmUgYWdyZWVkIHRvIHlvdXIgZGF0YSBiZWluZyB1c2VkIHRvIGRlbGl2ZXIgdGhlIHNlcnZpY2UuIEhvd2V2ZXIsIHRoZSBjb25kaXRpb24gdGhhdCB3ZSBhcmUgcmVseWluZyBvbiAob25jZSB5b3UgaGF2ZSBhZ3JlZWQgdG8gcmVjZWl2aW5nIHRoZSBzZXJ2aWNlKSBpcyB0aGF0IHVuZGVyIEFydGljbGUgNiAoMSkoZSkgb2YgdGhlIEdlbmVyYWwgRGF0YSBQcm90ZWN0aW9uIFJlZ3VsYXRpb25zIChHRFBSKSBEZkUgaXMgcHJvY2Vzc2luZyB5b3VyIHBlcnNvbmFsIGRhdGEgaW4gdGhlIHBlcmZvcm1hbmNlIG9mIGEgdGFzayBjYXJyaWVkIG91dCBpbiB0aGUgcHVibGljIGludGVyZXN0LlxuV2hvIHdlIHdpbGwgbWFrZSB5b3VyIHBlcnNvbmFsIGRhdGEgYXZhaWxhYmxlIHRvXG5XZSBzaGFyZSB5b3VyIGluZm9ybWF0aW9uIHdpdGggdHJ1c3RlZCBwYXJ0bmVycyB3b3JraW5nIHRvIGRlbGl2ZXIgdGhlIHNlcnZpY2UgdW5kZXIgYSBsZWdhbCBjb250cmFjdCBvbiBvdXIgYmVoYWxmIGluIG9yZGVyIGZvciB1cyB0byBjb250aW51ZSB0byBwcm92aWRlIHlvdSB3aXRoIHJlbGV2YW50IGluZm9ybWF0aW9uIGFib3V0IGEgY2FyZWVyIGluIHRlYWNoaW5nIGFuZCB0ZWFjaGVyIHRyYWluaW5nIG9yICd0aGUgc2VydmljZScuIFRoZXNlIHBhcnRuZXJzIGFyZSByZXF1aXJlZCB0byBzdHJpY3RseSBjb21wbHkgd2l0aCBvdXIgcHJpdmFjeSBwb2xpY2llcyB0aGF0IHByb2hpYml0IHRoZW0gdXNpbmcgeW91ciBwZXJzb25hbCBkYXRhIGZvciBhbnkgb3RoZXIgcHVycG9zZS5cblxuV2Ugc2hhcmUgY2VydGFpbiBwZXJzb25hbCBkYXRhIHdpdGggVUNBUyBUZWFjaGVyIFRyYWluaW5nLCB3aG8gbWFuYWdlIHRoZSBhcHBsaWNhdGlvbiBzeXN0ZW0gZm9yIHRlYWNoZXIgdHJhaW5pbmcuIFNoYXJpbmcgcGVyc29uYWwgaW5mb3JtYXRpb24gd2l0aCBVQ0FTIFRlYWNoZXIgVHJhaW5pbmcgZW5hYmxlcyB1cyB0byBpZGVudGlmeSB0aG9zZSB3aG8gaGF2ZSBhcHBsaWVkIGZvciB0ZWFjaGVyIHRyYWluaW5nLCB0aHVzIGVuYWJsaW5nIHVzIHRvIHJlbW92ZSB0aGUgbmFtZXMgb2YgdGhlc2UgYXBwbGljYW50cyBmcm9tIG91ciBtYWlsaW5nIGxpc3RzLiBXZSBhbHNvIHNoYXJlIGRhdGEgdG8gdHJhY2sgeW91ciBhcHBsaWNhdGlvbiBpbiBvcmRlciB0byBkZXRlcm1pbmUgdGhlIGVmZmVjdGl2ZW5lc3Mgb2Ygb3VyIHNlcnZpY2UsIG1vbml0b3Igb3ZlcmFsbCBsZXZlbHMgb2YgdGVhY2hlciB0cmFpbmluZyBhcHBsaWNhbnRzIGFuZCBpbXByb3ZlIGl0IGZvciB5b3UgYW5kIGZ1dHVyZSBhcHBsaWNhbnRzLiBcbklmIHlvdSBhcmUgdXNpbmcgdGhlIEdldCBTY2hvb2wgRXhwZXJpZW5jZSBzZXJ2aWNlLCB3ZSB3aWxsIHNoYXJlIHNvbWUgb2YgeW91ciBwZXJzb25hbCBkYXRhIHRvIHRoZSBzdGFmZiB3aG8gbWFuYWdlIHNjaG9vbCBleHBlcmllbmNlIGF0IHRoZSBzY2hvb2wgd2hlcmUgeW91J3ZlIHJlcXVlc3RlZCBzY2hvb2wgZXhwZXJpZW5jZS4gVGhpcyBhbGxvd3MgdGhlbSB0byBwcm9jZXNzIHlvdXIgYXBwbGljYXRpb24gYW5kIGdldCBiYWNrIHRvIHlvdSBhYm91dCB5b3VyIHNjaG9vbCBleHBlcmllbmNlLiBcbkhvdyBsb25nIHdlIHdpbGwga2VlcCB5b3VyIHBlcnNvbmFsIGRhdGFcbllvdXIgcGVyc29uYWwgZGF0YSwgc3VwcGxpZWQgZm9yIHRoZSBwdXJwb3NlcyBvZiB0aGlzIHNlcnZpY2UsIHdpbGwgYmUgc3RvcmVkIGZvciA1IHllYXJzLiBXZSB3aWxsIGRlbGV0ZSB0aGlzIGluZm9ybWF0aW9uIGlmIHlvdSByZXF1ZXN0IHVzIHRvIGRvIHNvLlxuWW91ciBkYXRhIHByb3RlY3Rpb24gcmlnaHRzXG5Zb3UgaGF2ZSB0aGUgcmlnaHQ6XG7igKJcdHRvIGFzayB1cyBmb3IgYWNjZXNzIHRvIGluZm9ybWF0aW9uIGFib3V0IHlvdSB0aGF0IHdlIGhvbGRcbuKAolx0dG8gaGF2ZSB5b3VyIHBlcnNvbmFsIGRhdGEgcmVjdGlmaWVkIGlmIGl0IGlzIGluYWNjdXJhdGUgb3IgaW5jb21wbGV0ZVxu4oCiXHR0byByZXF1ZXN0IHRoZSBkZWxldGlvbiBvciByZW1vdmFsIG9mIHBlcnNvbmFsIGRhdGEgd2hlcmUgdGhlcmUgaXMgbm8gY29tcGVsbGluZyByZWFzb24gZm9yIGl0cyBjb250aW51ZWQgcHJvY2Vzc2luZ1xu4oCiXHR0byByZXN0cmljdCBvdXIgcHJvY2Vzc2luZyBvZiB5b3VyIHBlcnNvbmFsIGRhdGEgKGkuZS4gcGVybWl0dGluZyBpdHMgc3RvcmFnZSBidXQgbm8gZnVydGhlciBwcm9jZXNzaW5nKVxu4oCiXHR0byBvYmplY3QgdG8gZGlyZWN0IG1hcmtldGluZyAoaW5jbHVkaW5nIHByb2ZpbGluZykgYW5kIHByb2Nlc3NpbmcgZm9yIHRoZSBwdXJwb3NlcyBvZiBzY2llbnRpZmljL2hpc3RvcmljYWwgcmVzZWFyY2ggYW5kIHN0YXRpc3RpY3MgLSBidXQgdGhpcyB3aWxsIG1lYW4geW91IG5vIGxvbmdlciBjYW4gcmVjZWl2ZSB0aGUgc2VydmljZVxuXG5QbGVhc2UgY29udGFjdCB1cyBhdCBnZXRpbnRvdGVhY2hpbmcuaGVscGRlc2tAZWR1Y2F0aW9uLmdvdi51ayBhbmQgZW50ZXIgRGF0YSBQcm90ZWN0aW9uIGFzIGEgcmVmZXJlbmNlIHJlZ2FyZGluZyBhbnkgb2YgdGhlIHJpZ2h0cyBsaXN0ZWQgYWJvdmUuIEZvciB0aGUgRGF0YSBQcm90ZWN0aW9uIE9mZmljZXIgKERQTykgcGxlYXNlIGNvbnRhY3QgdXMgdmlhIGdvdi51ayBhbmQgbWFyayBpdCBmb3IgdGhlIGF0dGVudGlvbiBvZiB0aGUg4oCYRFBP4oCZLlxuSWYgeW91IG5lZWQgdG8gY29udGFjdCB1cyByZWdhcmRpbmcgYW55IG9mIHRoZSBhYm92ZSByaWdodHMsIHBsZWFzZSBkbyBzbyB2aWEgdGhlIEdldCBpbnRvIFRlYWNoaW5nIHNpdGVcbkZ1cnRoZXIgaW5mb3JtYXRpb24gYWJvdXQgeW91ciBkYXRhIHByb3RlY3Rpb24gcmlnaHRzIGFwcGVhcnMgb24gdGhlIEluZm9ybWF0aW9uIENvbW1pc3Npb25lcidzIHdlYnNpdGVcblJpZ2h0IHRvIGxvZGdlIGEgY29tcGxhaW50XG5JZiB5b3UgYXJlIHVuaGFwcHkgd2l0aCBvdXIgdXNlIG9mIHlvdXIgcGVyc29uYWwgZGF0YSwgcGxlYXNlIGxldCB1cyBrbm93IGJ5IGNvbnRhY3RpbmcgZ2V0aW50b3RlYWNoaW5nLmhlbHBkZXNrQGVkdWNhdGlvbi5nb3YudWtcbkFsdGVybmF0aXZlbHksIHlvdSBoYXZlIHRoZSByaWdodCB0byByYWlzZSBhbnkgY29uY2VybnMgd2l0aCB0aGUgSW5mb3JtYXRpb24gQ29tbWlzc2lvbmVyJ3MgT2ZmaWNlIChJQ08pIHZpYSB0aGVpciB3ZWJzaXRlLlxuTGFzdCB1cGRhdGVkXG5XZSBtYXkgbmVlZCB0byB1cGRhdGUgdGhpcyBwcml2YWN5IG5vdGljZSBwZXJpb2RpY2FsbHksIHNvIHdlIHJlY29tbWVuZCB0aGF0IHlvdSByZXZpc2l0IHRoaXMgaW5mb3JtYXRpb24gZnJvbSB0aW1lIHRvIHRpbWUuIFRoaXMgdmVyc2lvbiB3YXMgbGFzdCB1cGRhdGVkIG9uIDE0IEphbnVhcnkgMjAyMC5cbldlIHVzZSBjb29raWVzIHRvIG1ha2Ugb3VyIHNlcnZpY2VzIGVhc3ksIHVzZWZ1bCBhbmQgcmVsaWFibGUuIEZpbmQgb3V0IG1vcmUgb24gaG93IHdlIHVzZSBjb29raWVzLiIsImNyZWF0ZWRBdCI6IjIwMjAtMDEtMTNUMDk6NDQ6NTAiLCJpZCI6IjBhMjAzOTU2LWU5MzUtZWExMS1hODEzLTAwMGQzYTQ0YThlOSJ9
+      encoding: UTF-8
+      string: '{"text":"Privacy Notice: Get Into Teaching Information Service\nWho
+        we are\nThis work is being carried out by the Department for Education (DfE).
+        For the purpose of data protection legislation, the DfE is the data controller
+        for the personal data processed as part of The Get Into Teaching Information
+        Service, including the Get School Experience service.\nHow we will use your
+        information\nWe receive and process the personal data you provided when completing
+        either the Get Into Teaching registration form or the Get School Experience
+        service registration form, because you have requested that we provide you
+        with tailored advice and information about teacher training and a career as
+        a teacher, or have requested school experience. These services will help you
+        to make an informed decision about making an application.\n\nSpecifically
+        we will use your data in the following ways:\n•\tThe information you provide
+        in the registration forms (and any subsequent updates made via our helpline,
+        including registration to events) is shared with our Get Into Teaching telephone
+        helpline and web chat service to ensure that they have an accurate picture
+        of your circumstances in order to provide a tailored service and information
+        to you. Any subsequent information you provide to the helpline will also be
+        recorded in order to continue to provide you with a tailored service.\n•\tWe
+        use your contact details to communicate with you by telephone and to send
+        you email, SMS and postal messages, providing you with information about a
+        career in teaching. We may also contact you to gauge your interest in taking
+        part in market research. In each message, you will be given the opportunity
+        to unsubscribe from further communications.\n•\tThe information we collect
+        from you (such as your name, contact details and subject preferences) is used
+        for identification, administration, analysis and targeting purposes. This
+        allows us to ensure that public funds are being spent effectively.\n•\tWe
+        will use anonymised data about you to deliver tailored messages on third party
+        platforms, including social media - like Facebook, Instagram, Twitter, Snapchat
+        and Google search. Such anonymised data will also be used to identify and
+        advertise to people that are similar to you, who may also be interested in
+        our service.\n•\tIf you are using the Get School Experience service, your
+        data will be used to process your request for school experience with the school(s)
+        in question. We will also use it to send out notifications, reminders and
+        feedback questionnaires. We track your progress through this service to improve
+        it for you and future applicants and to ensure public funds are being spent
+        effectively.\nYour personal data, supplied for the purposes of this service,
+        will be stored for 5 years.\nIf you do not supply us with your personal information
+        then we cannot provide a tailored advice and information service or offer
+        you access to the services available via our website such as booking a Train
+        to Teach event. However, without registering, you can still access general
+        information via the Get into Teaching helpline and website and can complete
+        an application for Initial Teacher Training through UCAS Teacher Training.\n\nThe
+        nature of your personal data we will be using\nThe categories of your data,
+        supplied by you through the registration forms and other interactions with
+        us, that we will be using for this service are personal data such as:\n•\tName\n•\tEmail
+        address\n•\tAddress\n•\tContact telephone number\n•\tDate of birth\n•\tIP
+        Address\nWe will also be collecting non-personal information such as:\n•\tYour
+        teaching preferences\n•\tYour intended training commencement year\n•\tYour
+        qualifications\n•\tAny additional supplementary information you provide during
+        communication with the helpline and/or personal advisers that will help us
+        to aid you in progressing your application and continue to improve our service.\n\nWhy
+        our use of your personal data is lawful\nIn order for our use of your personal
+        data to be lawful, we need to meet one (or more) conditions in the data protection
+        legislation. You have requested to receive this service and therefore, together
+        with this privacy notice (about the use of your personal data), you have agreed
+        to your data being used to deliver the service. However, the condition that
+        we are relying on (once you have agreed to receiving the service) is that
+        under Article 6 (1)(e) of the General Data Protection Regulations (GDPR) DfE
+        is processing your personal data in the performance of a task carried out
+        in the public interest.\nWho we will make your personal data available to\nWe
+        share your information with trusted partners working to deliver the service
+        under a legal contract on our behalf in order for us to continue to provide
+        you with relevant information about a career in teaching and teacher training
+        or ''the service''. These partners are required to strictly comply with our
+        privacy policies that prohibit them using your personal data for any other
+        purpose.\n\nWe share certain personal data with UCAS Teacher Training, who
+        manage the application system for teacher training. Sharing personal information
+        with UCAS Teacher Training enables us to identify those who have applied for
+        teacher training, thus enabling us to remove the names of these applicants
+        from our mailing lists. We also share data to track your application in order
+        to determine the effectiveness of our service, monitor overall levels of teacher
+        training applicants and improve it for you and future applicants. \nIf you
+        are using the Get School Experience service, we will share some of your personal
+        data to the staff who manage school experience at the school where you''ve
+        requested school experience. This allows them to process your application
+        and get back to you about your school experience. \nHow long we will keep
+        your personal data\nYour personal data, supplied for the purposes of this
+        service, will be stored for 5 years. We will delete this information if you
+        request us to do so.\nYour data protection rights\nYou have the right:\n•\tto
+        ask us for access to information about you that we hold\n•\tto have your personal
+        data rectified if it is inaccurate or incomplete\n•\tto request the deletion
+        or removal of personal data where there is no compelling reason for its continued
+        processing\n•\tto restrict our processing of your personal data (i.e. permitting
+        its storage but no further processing)\n•\tto object to direct marketing (including
+        profiling) and processing for the purposes of scientific/historical research
+        and statistics - but this will mean you no longer can receive the service\n\nPlease
+        contact us at getintoteaching.helpdesk@education.gov.uk and enter Data Protection
+        as a reference regarding any of the rights listed above. For the Data Protection
+        Officer (DPO) please contact us via gov.uk and mark it for the attention of
+        the ‘DPO’.\nIf you need to contact us regarding any of the above rights, please
+        do so via the Get into Teaching site\nFurther information about your data
+        protection rights appears on the Information Commissioner''s website\nRight
+        to lodge a complaint\nIf you are unhappy with our use of your personal data,
+        please let us know by contacting getintoteaching.helpdesk@education.gov.uk\nAlternatively,
+        you have the right to raise any concerns with the Information Commissioner''s
+        Office (ICO) via their website.\nLast updated\nWe may need to update this
+        privacy notice periodically, so we recommend that you revisit this information
+        from time to time. This version was last updated on 14 January 2020.\nWe use
+        cookies to make our services easy, useful and reliable. Find out more on how
+        we use cookies.","createdAt":"2020-01-13T09:44:50","id":"0a203956-e935-ea11-a813-000d3a44a8e9"}'
     http_version: '1.1'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/privacy_policies/latest
-  recorded_at: Tue, 28 Jul 2020 14:43:03 GMT
+  recorded_at: Fri, 31 Jul 2020 10:28:50 GMT
 - request:
     method: get
     uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/privacy_policies/0a203956-e935-ea11-a813-000d3a44a8e9
@@ -69,7 +167,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 28 Jul 2020 14:43:03 GMT
+      - Fri, 31 Jul 2020 10:28:50 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -77,19 +175,117 @@ http_interactions:
       Connection:
       - keep-alive
       Etag:
-      - EE16F914E2958573365D87121BA9A51AA42C9521FDCF2AD43816875B6A75C938
+      - 9EB5F3143672051A70FD35526FB6E5AF186496634793D2CBF14D006E000E7B1C
       Server:
       - Kestrel
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Vcap-Request-Id:
-      - 329e1ae4-e676-4954-6541-1fc6b60e4ced
+      - 4430100b-a1fc-4ac5-4cd3-81abba9ebd5f
     body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        eyJ0ZXh0IjoiUHJpdmFjeSBOb3RpY2U6IEdldCBJbnRvIFRlYWNoaW5nIEluZm9ybWF0aW9uIFNlcnZpY2VcbldobyB3ZSBhcmVcblRoaXMgd29yayBpcyBiZWluZyBjYXJyaWVkIG91dCBieSB0aGUgRGVwYXJ0bWVudCBmb3IgRWR1Y2F0aW9uIChEZkUpLiBGb3IgdGhlIHB1cnBvc2Ugb2YgZGF0YSBwcm90ZWN0aW9uIGxlZ2lzbGF0aW9uLCB0aGUgRGZFIGlzIHRoZSBkYXRhIGNvbnRyb2xsZXIgZm9yIHRoZSBwZXJzb25hbCBkYXRhIHByb2Nlc3NlZCBhcyBwYXJ0IG9mIFRoZSBHZXQgSW50byBUZWFjaGluZyBJbmZvcm1hdGlvbiBTZXJ2aWNlLCBpbmNsdWRpbmcgdGhlIEdldCBTY2hvb2wgRXhwZXJpZW5jZSBzZXJ2aWNlLlxuSG93IHdlIHdpbGwgdXNlIHlvdXIgaW5mb3JtYXRpb25cbldlIHJlY2VpdmUgYW5kIHByb2Nlc3MgdGhlIHBlcnNvbmFsIGRhdGEgeW91IHByb3ZpZGVkIHdoZW4gY29tcGxldGluZyBlaXRoZXIgdGhlIEdldCBJbnRvIFRlYWNoaW5nIHJlZ2lzdHJhdGlvbiBmb3JtIG9yIHRoZSBHZXQgU2Nob29sIEV4cGVyaWVuY2Ugc2VydmljZSByZWdpc3RyYXRpb24gZm9ybSwgYmVjYXVzZSB5b3UgaGF2ZSByZXF1ZXN0ZWQgdGhhdCB3ZSBwcm92aWRlIHlvdSB3aXRoIHRhaWxvcmVkIGFkdmljZSBhbmQgaW5mb3JtYXRpb24gYWJvdXQgdGVhY2hlciB0cmFpbmluZyBhbmQgYSBjYXJlZXIgYXMgYSB0ZWFjaGVyLCBvciBoYXZlIHJlcXVlc3RlZCBzY2hvb2wgZXhwZXJpZW5jZS4gVGhlc2Ugc2VydmljZXMgd2lsbCBoZWxwIHlvdSB0byBtYWtlIGFuIGluZm9ybWVkIGRlY2lzaW9uIGFib3V0IG1ha2luZyBhbiBhcHBsaWNhdGlvbi5cblxuU3BlY2lmaWNhbGx5IHdlIHdpbGwgdXNlIHlvdXIgZGF0YSBpbiB0aGUgZm9sbG93aW5nIHdheXM6XG7igKJcdFRoZSBpbmZvcm1hdGlvbiB5b3UgcHJvdmlkZSBpbiB0aGUgcmVnaXN0cmF0aW9uIGZvcm1zIChhbmQgYW55IHN1YnNlcXVlbnQgdXBkYXRlcyBtYWRlIHZpYSBvdXIgaGVscGxpbmUsIGluY2x1ZGluZyByZWdpc3RyYXRpb24gdG8gZXZlbnRzKSBpcyBzaGFyZWQgd2l0aCBvdXIgR2V0IEludG8gVGVhY2hpbmcgdGVsZXBob25lIGhlbHBsaW5lIGFuZCB3ZWIgY2hhdCBzZXJ2aWNlIHRvIGVuc3VyZSB0aGF0IHRoZXkgaGF2ZSBhbiBhY2N1cmF0ZSBwaWN0dXJlIG9mIHlvdXIgY2lyY3Vtc3RhbmNlcyBpbiBvcmRlciB0byBwcm92aWRlIGEgdGFpbG9yZWQgc2VydmljZSBhbmQgaW5mb3JtYXRpb24gdG8geW91LiBBbnkgc3Vic2VxdWVudCBpbmZvcm1hdGlvbiB5b3UgcHJvdmlkZSB0byB0aGUgaGVscGxpbmUgd2lsbCBhbHNvIGJlIHJlY29yZGVkIGluIG9yZGVyIHRvIGNvbnRpbnVlIHRvIHByb3ZpZGUgeW91IHdpdGggYSB0YWlsb3JlZCBzZXJ2aWNlLlxu4oCiXHRXZSB1c2UgeW91ciBjb250YWN0IGRldGFpbHMgdG8gY29tbXVuaWNhdGUgd2l0aCB5b3UgYnkgdGVsZXBob25lIGFuZCB0byBzZW5kIHlvdSBlbWFpbCwgU01TIGFuZCBwb3N0YWwgbWVzc2FnZXMsIHByb3ZpZGluZyB5b3Ugd2l0aCBpbmZvcm1hdGlvbiBhYm91dCBhIGNhcmVlciBpbiB0ZWFjaGluZy4gV2UgbWF5IGFsc28gY29udGFjdCB5b3UgdG8gZ2F1Z2UgeW91ciBpbnRlcmVzdCBpbiB0YWtpbmcgcGFydCBpbiBtYXJrZXQgcmVzZWFyY2guIEluIGVhY2ggbWVzc2FnZSwgeW91IHdpbGwgYmUgZ2l2ZW4gdGhlIG9wcG9ydHVuaXR5IHRvIHVuc3Vic2NyaWJlIGZyb20gZnVydGhlciBjb21tdW5pY2F0aW9ucy5cbuKAolx0VGhlIGluZm9ybWF0aW9uIHdlIGNvbGxlY3QgZnJvbSB5b3UgKHN1Y2ggYXMgeW91ciBuYW1lLCBjb250YWN0IGRldGFpbHMgYW5kIHN1YmplY3QgcHJlZmVyZW5jZXMpIGlzIHVzZWQgZm9yIGlkZW50aWZpY2F0aW9uLCBhZG1pbmlzdHJhdGlvbiwgYW5hbHlzaXMgYW5kIHRhcmdldGluZyBwdXJwb3Nlcy4gVGhpcyBhbGxvd3MgdXMgdG8gZW5zdXJlIHRoYXQgcHVibGljIGZ1bmRzIGFyZSBiZWluZyBzcGVudCBlZmZlY3RpdmVseS5cbuKAolx0V2Ugd2lsbCB1c2UgYW5vbnltaXNlZCBkYXRhIGFib3V0IHlvdSB0byBkZWxpdmVyIHRhaWxvcmVkIG1lc3NhZ2VzIG9uIHRoaXJkIHBhcnR5IHBsYXRmb3JtcywgaW5jbHVkaW5nIHNvY2lhbCBtZWRpYSAtIGxpa2UgRmFjZWJvb2ssIEluc3RhZ3JhbSwgVHdpdHRlciwgU25hcGNoYXQgYW5kIEdvb2dsZSBzZWFyY2guIFN1Y2ggYW5vbnltaXNlZCBkYXRhIHdpbGwgYWxzbyBiZSB1c2VkIHRvIGlkZW50aWZ5IGFuZCBhZHZlcnRpc2UgdG8gcGVvcGxlIHRoYXQgYXJlIHNpbWlsYXIgdG8geW91LCB3aG8gbWF5IGFsc28gYmUgaW50ZXJlc3RlZCBpbiBvdXIgc2VydmljZS5cbuKAolx0SWYgeW91IGFyZSB1c2luZyB0aGUgR2V0IFNjaG9vbCBFeHBlcmllbmNlIHNlcnZpY2UsIHlvdXIgZGF0YSB3aWxsIGJlIHVzZWQgdG8gcHJvY2VzcyB5b3VyIHJlcXVlc3QgZm9yIHNjaG9vbCBleHBlcmllbmNlIHdpdGggdGhlIHNjaG9vbChzKSBpbiBxdWVzdGlvbi4gV2Ugd2lsbCBhbHNvIHVzZSBpdCB0byBzZW5kIG91dCBub3RpZmljYXRpb25zLCByZW1pbmRlcnMgYW5kIGZlZWRiYWNrIHF1ZXN0aW9ubmFpcmVzLiBXZSB0cmFjayB5b3VyIHByb2dyZXNzIHRocm91Z2ggdGhpcyBzZXJ2aWNlIHRvIGltcHJvdmUgaXQgZm9yIHlvdSBhbmQgZnV0dXJlIGFwcGxpY2FudHMgYW5kIHRvIGVuc3VyZSBwdWJsaWMgZnVuZHMgYXJlIGJlaW5nIHNwZW50IGVmZmVjdGl2ZWx5LlxuWW91ciBwZXJzb25hbCBkYXRhLCBzdXBwbGllZCBmb3IgdGhlIHB1cnBvc2VzIG9mIHRoaXMgc2VydmljZSwgd2lsbCBiZSBzdG9yZWQgZm9yIDUgeWVhcnMuXG5JZiB5b3UgZG8gbm90IHN1cHBseSB1cyB3aXRoIHlvdXIgcGVyc29uYWwgaW5mb3JtYXRpb24gdGhlbiB3ZSBjYW5ub3QgcHJvdmlkZSBhIHRhaWxvcmVkIGFkdmljZSBhbmQgaW5mb3JtYXRpb24gc2VydmljZSBvciBvZmZlciB5b3UgYWNjZXNzIHRvIHRoZSBzZXJ2aWNlcyBhdmFpbGFibGUgdmlhIG91ciB3ZWJzaXRlIHN1Y2ggYXMgYm9va2luZyBhIFRyYWluIHRvIFRlYWNoIGV2ZW50LiBIb3dldmVyLCB3aXRob3V0IHJlZ2lzdGVyaW5nLCB5b3UgY2FuIHN0aWxsIGFjY2VzcyBnZW5lcmFsIGluZm9ybWF0aW9uIHZpYSB0aGUgR2V0IGludG8gVGVhY2hpbmcgaGVscGxpbmUgYW5kIHdlYnNpdGUgYW5kIGNhbiBjb21wbGV0ZSBhbiBhcHBsaWNhdGlvbiBmb3IgSW5pdGlhbCBUZWFjaGVyIFRyYWluaW5nIHRocm91Z2ggVUNBUyBUZWFjaGVyIFRyYWluaW5nLlxuXG5UaGUgbmF0dXJlIG9mIHlvdXIgcGVyc29uYWwgZGF0YSB3ZSB3aWxsIGJlIHVzaW5nXG5UaGUgY2F0ZWdvcmllcyBvZiB5b3VyIGRhdGEsIHN1cHBsaWVkIGJ5IHlvdSB0aHJvdWdoIHRoZSByZWdpc3RyYXRpb24gZm9ybXMgYW5kIG90aGVyIGludGVyYWN0aW9ucyB3aXRoIHVzLCB0aGF0IHdlIHdpbGwgYmUgdXNpbmcgZm9yIHRoaXMgc2VydmljZSBhcmUgcGVyc29uYWwgZGF0YSBzdWNoIGFzOlxu4oCiXHROYW1lXG7igKJcdEVtYWlsIGFkZHJlc3NcbuKAolx0QWRkcmVzc1xu4oCiXHRDb250YWN0IHRlbGVwaG9uZSBudW1iZXJcbuKAolx0RGF0ZSBvZiBiaXJ0aFxu4oCiXHRJUCBBZGRyZXNzXG5XZSB3aWxsIGFsc28gYmUgY29sbGVjdGluZyBub24tcGVyc29uYWwgaW5mb3JtYXRpb24gc3VjaCBhczpcbuKAolx0WW91ciB0ZWFjaGluZyBwcmVmZXJlbmNlc1xu4oCiXHRZb3VyIGludGVuZGVkIHRyYWluaW5nIGNvbW1lbmNlbWVudCB5ZWFyXG7igKJcdFlvdXIgcXVhbGlmaWNhdGlvbnNcbuKAolx0QW55IGFkZGl0aW9uYWwgc3VwcGxlbWVudGFyeSBpbmZvcm1hdGlvbiB5b3UgcHJvdmlkZSBkdXJpbmcgY29tbXVuaWNhdGlvbiB3aXRoIHRoZSBoZWxwbGluZSBhbmQvb3IgcGVyc29uYWwgYWR2aXNlcnMgdGhhdCB3aWxsIGhlbHAgdXMgdG8gYWlkIHlvdSBpbiBwcm9ncmVzc2luZyB5b3VyIGFwcGxpY2F0aW9uIGFuZCBjb250aW51ZSB0byBpbXByb3ZlIG91ciBzZXJ2aWNlLlxuXG5XaHkgb3VyIHVzZSBvZiB5b3VyIHBlcnNvbmFsIGRhdGEgaXMgbGF3ZnVsXG5JbiBvcmRlciBmb3Igb3VyIHVzZSBvZiB5b3VyIHBlcnNvbmFsIGRhdGEgdG8gYmUgbGF3ZnVsLCB3ZSBuZWVkIHRvIG1lZXQgb25lIChvciBtb3JlKSBjb25kaXRpb25zIGluIHRoZSBkYXRhIHByb3RlY3Rpb24gbGVnaXNsYXRpb24uIFlvdSBoYXZlIHJlcXVlc3RlZCB0byByZWNlaXZlIHRoaXMgc2VydmljZSBhbmQgdGhlcmVmb3JlLCB0b2dldGhlciB3aXRoIHRoaXMgcHJpdmFjeSBub3RpY2UgKGFib3V0IHRoZSB1c2Ugb2YgeW91ciBwZXJzb25hbCBkYXRhKSwgeW91IGhhdmUgYWdyZWVkIHRvIHlvdXIgZGF0YSBiZWluZyB1c2VkIHRvIGRlbGl2ZXIgdGhlIHNlcnZpY2UuIEhvd2V2ZXIsIHRoZSBjb25kaXRpb24gdGhhdCB3ZSBhcmUgcmVseWluZyBvbiAob25jZSB5b3UgaGF2ZSBhZ3JlZWQgdG8gcmVjZWl2aW5nIHRoZSBzZXJ2aWNlKSBpcyB0aGF0IHVuZGVyIEFydGljbGUgNiAoMSkoZSkgb2YgdGhlIEdlbmVyYWwgRGF0YSBQcm90ZWN0aW9uIFJlZ3VsYXRpb25zIChHRFBSKSBEZkUgaXMgcHJvY2Vzc2luZyB5b3VyIHBlcnNvbmFsIGRhdGEgaW4gdGhlIHBlcmZvcm1hbmNlIG9mIGEgdGFzayBjYXJyaWVkIG91dCBpbiB0aGUgcHVibGljIGludGVyZXN0LlxuV2hvIHdlIHdpbGwgbWFrZSB5b3VyIHBlcnNvbmFsIGRhdGEgYXZhaWxhYmxlIHRvXG5XZSBzaGFyZSB5b3VyIGluZm9ybWF0aW9uIHdpdGggdHJ1c3RlZCBwYXJ0bmVycyB3b3JraW5nIHRvIGRlbGl2ZXIgdGhlIHNlcnZpY2UgdW5kZXIgYSBsZWdhbCBjb250cmFjdCBvbiBvdXIgYmVoYWxmIGluIG9yZGVyIGZvciB1cyB0byBjb250aW51ZSB0byBwcm92aWRlIHlvdSB3aXRoIHJlbGV2YW50IGluZm9ybWF0aW9uIGFib3V0IGEgY2FyZWVyIGluIHRlYWNoaW5nIGFuZCB0ZWFjaGVyIHRyYWluaW5nIG9yICd0aGUgc2VydmljZScuIFRoZXNlIHBhcnRuZXJzIGFyZSByZXF1aXJlZCB0byBzdHJpY3RseSBjb21wbHkgd2l0aCBvdXIgcHJpdmFjeSBwb2xpY2llcyB0aGF0IHByb2hpYml0IHRoZW0gdXNpbmcgeW91ciBwZXJzb25hbCBkYXRhIGZvciBhbnkgb3RoZXIgcHVycG9zZS5cblxuV2Ugc2hhcmUgY2VydGFpbiBwZXJzb25hbCBkYXRhIHdpdGggVUNBUyBUZWFjaGVyIFRyYWluaW5nLCB3aG8gbWFuYWdlIHRoZSBhcHBsaWNhdGlvbiBzeXN0ZW0gZm9yIHRlYWNoZXIgdHJhaW5pbmcuIFNoYXJpbmcgcGVyc29uYWwgaW5mb3JtYXRpb24gd2l0aCBVQ0FTIFRlYWNoZXIgVHJhaW5pbmcgZW5hYmxlcyB1cyB0byBpZGVudGlmeSB0aG9zZSB3aG8gaGF2ZSBhcHBsaWVkIGZvciB0ZWFjaGVyIHRyYWluaW5nLCB0aHVzIGVuYWJsaW5nIHVzIHRvIHJlbW92ZSB0aGUgbmFtZXMgb2YgdGhlc2UgYXBwbGljYW50cyBmcm9tIG91ciBtYWlsaW5nIGxpc3RzLiBXZSBhbHNvIHNoYXJlIGRhdGEgdG8gdHJhY2sgeW91ciBhcHBsaWNhdGlvbiBpbiBvcmRlciB0byBkZXRlcm1pbmUgdGhlIGVmZmVjdGl2ZW5lc3Mgb2Ygb3VyIHNlcnZpY2UsIG1vbml0b3Igb3ZlcmFsbCBsZXZlbHMgb2YgdGVhY2hlciB0cmFpbmluZyBhcHBsaWNhbnRzIGFuZCBpbXByb3ZlIGl0IGZvciB5b3UgYW5kIGZ1dHVyZSBhcHBsaWNhbnRzLiBcbklmIHlvdSBhcmUgdXNpbmcgdGhlIEdldCBTY2hvb2wgRXhwZXJpZW5jZSBzZXJ2aWNlLCB3ZSB3aWxsIHNoYXJlIHNvbWUgb2YgeW91ciBwZXJzb25hbCBkYXRhIHRvIHRoZSBzdGFmZiB3aG8gbWFuYWdlIHNjaG9vbCBleHBlcmllbmNlIGF0IHRoZSBzY2hvb2wgd2hlcmUgeW91J3ZlIHJlcXVlc3RlZCBzY2hvb2wgZXhwZXJpZW5jZS4gVGhpcyBhbGxvd3MgdGhlbSB0byBwcm9jZXNzIHlvdXIgYXBwbGljYXRpb24gYW5kIGdldCBiYWNrIHRvIHlvdSBhYm91dCB5b3VyIHNjaG9vbCBleHBlcmllbmNlLiBcbkhvdyBsb25nIHdlIHdpbGwga2VlcCB5b3VyIHBlcnNvbmFsIGRhdGFcbllvdXIgcGVyc29uYWwgZGF0YSwgc3VwcGxpZWQgZm9yIHRoZSBwdXJwb3NlcyBvZiB0aGlzIHNlcnZpY2UsIHdpbGwgYmUgc3RvcmVkIGZvciA1IHllYXJzLiBXZSB3aWxsIGRlbGV0ZSB0aGlzIGluZm9ybWF0aW9uIGlmIHlvdSByZXF1ZXN0IHVzIHRvIGRvIHNvLlxuWW91ciBkYXRhIHByb3RlY3Rpb24gcmlnaHRzXG5Zb3UgaGF2ZSB0aGUgcmlnaHQ6XG7igKJcdHRvIGFzayB1cyBmb3IgYWNjZXNzIHRvIGluZm9ybWF0aW9uIGFib3V0IHlvdSB0aGF0IHdlIGhvbGRcbuKAolx0dG8gaGF2ZSB5b3VyIHBlcnNvbmFsIGRhdGEgcmVjdGlmaWVkIGlmIGl0IGlzIGluYWNjdXJhdGUgb3IgaW5jb21wbGV0ZVxu4oCiXHR0byByZXF1ZXN0IHRoZSBkZWxldGlvbiBvciByZW1vdmFsIG9mIHBlcnNvbmFsIGRhdGEgd2hlcmUgdGhlcmUgaXMgbm8gY29tcGVsbGluZyByZWFzb24gZm9yIGl0cyBjb250aW51ZWQgcHJvY2Vzc2luZ1xu4oCiXHR0byByZXN0cmljdCBvdXIgcHJvY2Vzc2luZyBvZiB5b3VyIHBlcnNvbmFsIGRhdGEgKGkuZS4gcGVybWl0dGluZyBpdHMgc3RvcmFnZSBidXQgbm8gZnVydGhlciBwcm9jZXNzaW5nKVxu4oCiXHR0byBvYmplY3QgdG8gZGlyZWN0IG1hcmtldGluZyAoaW5jbHVkaW5nIHByb2ZpbGluZykgYW5kIHByb2Nlc3NpbmcgZm9yIHRoZSBwdXJwb3NlcyBvZiBzY2llbnRpZmljL2hpc3RvcmljYWwgcmVzZWFyY2ggYW5kIHN0YXRpc3RpY3MgLSBidXQgdGhpcyB3aWxsIG1lYW4geW91IG5vIGxvbmdlciBjYW4gcmVjZWl2ZSB0aGUgc2VydmljZVxuXG5QbGVhc2UgY29udGFjdCB1cyBhdCBnZXRpbnRvdGVhY2hpbmcuaGVscGRlc2tAZWR1Y2F0aW9uLmdvdi51ayBhbmQgZW50ZXIgRGF0YSBQcm90ZWN0aW9uIGFzIGEgcmVmZXJlbmNlIHJlZ2FyZGluZyBhbnkgb2YgdGhlIHJpZ2h0cyBsaXN0ZWQgYWJvdmUuIEZvciB0aGUgRGF0YSBQcm90ZWN0aW9uIE9mZmljZXIgKERQTykgcGxlYXNlIGNvbnRhY3QgdXMgdmlhIGdvdi51ayBhbmQgbWFyayBpdCBmb3IgdGhlIGF0dGVudGlvbiBvZiB0aGUg4oCYRFBP4oCZLlxuSWYgeW91IG5lZWQgdG8gY29udGFjdCB1cyByZWdhcmRpbmcgYW55IG9mIHRoZSBhYm92ZSByaWdodHMsIHBsZWFzZSBkbyBzbyB2aWEgdGhlIEdldCBpbnRvIFRlYWNoaW5nIHNpdGVcbkZ1cnRoZXIgaW5mb3JtYXRpb24gYWJvdXQgeW91ciBkYXRhIHByb3RlY3Rpb24gcmlnaHRzIGFwcGVhcnMgb24gdGhlIEluZm9ybWF0aW9uIENvbW1pc3Npb25lcidzIHdlYnNpdGVcblJpZ2h0IHRvIGxvZGdlIGEgY29tcGxhaW50XG5JZiB5b3UgYXJlIHVuaGFwcHkgd2l0aCBvdXIgdXNlIG9mIHlvdXIgcGVyc29uYWwgZGF0YSwgcGxlYXNlIGxldCB1cyBrbm93IGJ5IGNvbnRhY3RpbmcgZ2V0aW50b3RlYWNoaW5nLmhlbHBkZXNrQGVkdWNhdGlvbi5nb3YudWtcbkFsdGVybmF0aXZlbHksIHlvdSBoYXZlIHRoZSByaWdodCB0byByYWlzZSBhbnkgY29uY2VybnMgd2l0aCB0aGUgSW5mb3JtYXRpb24gQ29tbWlzc2lvbmVyJ3MgT2ZmaWNlIChJQ08pIHZpYSB0aGVpciB3ZWJzaXRlLlxuTGFzdCB1cGRhdGVkXG5XZSBtYXkgbmVlZCB0byB1cGRhdGUgdGhpcyBwcml2YWN5IG5vdGljZSBwZXJpb2RpY2FsbHksIHNvIHdlIHJlY29tbWVuZCB0aGF0IHlvdSByZXZpc2l0IHRoaXMgaW5mb3JtYXRpb24gZnJvbSB0aW1lIHRvIHRpbWUuIFRoaXMgdmVyc2lvbiB3YXMgbGFzdCB1cGRhdGVkIG9uIDE0IEphbnVhcnkgMjAyMC5cbldlIHVzZSBjb29raWVzIHRvIG1ha2Ugb3VyIHNlcnZpY2VzIGVhc3ksIHVzZWZ1bCBhbmQgcmVsaWFibGUuIEZpbmQgb3V0IG1vcmUgb24gaG93IHdlIHVzZSBjb29raWVzLiIsImNyZWF0ZWRBdCI6IjIwMjAtMDEtMTNUMDk6NDQ6NTAiLCJpZCI6IjBhMjAzOTU2LWU5MzUtZWExMS1hODEzLTAwMGQzYTQ0YThlOSJ9
+      encoding: UTF-8
+      string: '{"text":"Privacy Notice: Get Into Teaching Information Service\nWho
+        we are\nThis work is being carried out by the Department for Education (DfE).
+        For the purpose of data protection legislation, the DfE is the data controller
+        for the personal data processed as part of The Get Into Teaching Information
+        Service, including the Get School Experience service.\nHow we will use your
+        information\nWe receive and process the personal data you provided when completing
+        either the Get Into Teaching registration form or the Get School Experience
+        service registration form, because you have requested that we provide you
+        with tailored advice and information about teacher training and a career as
+        a teacher, or have requested school experience. These services will help you
+        to make an informed decision about making an application.\n\nSpecifically
+        we will use your data in the following ways:\n•\tThe information you provide
+        in the registration forms (and any subsequent updates made via our helpline,
+        including registration to events) is shared with our Get Into Teaching telephone
+        helpline and web chat service to ensure that they have an accurate picture
+        of your circumstances in order to provide a tailored service and information
+        to you. Any subsequent information you provide to the helpline will also be
+        recorded in order to continue to provide you with a tailored service.\n•\tWe
+        use your contact details to communicate with you by telephone and to send
+        you email, SMS and postal messages, providing you with information about a
+        career in teaching. We may also contact you to gauge your interest in taking
+        part in market research. In each message, you will be given the opportunity
+        to unsubscribe from further communications.\n•\tThe information we collect
+        from you (such as your name, contact details and subject preferences) is used
+        for identification, administration, analysis and targeting purposes. This
+        allows us to ensure that public funds are being spent effectively.\n•\tWe
+        will use anonymised data about you to deliver tailored messages on third party
+        platforms, including social media - like Facebook, Instagram, Twitter, Snapchat
+        and Google search. Such anonymised data will also be used to identify and
+        advertise to people that are similar to you, who may also be interested in
+        our service.\n•\tIf you are using the Get School Experience service, your
+        data will be used to process your request for school experience with the school(s)
+        in question. We will also use it to send out notifications, reminders and
+        feedback questionnaires. We track your progress through this service to improve
+        it for you and future applicants and to ensure public funds are being spent
+        effectively.\nYour personal data, supplied for the purposes of this service,
+        will be stored for 5 years.\nIf you do not supply us with your personal information
+        then we cannot provide a tailored advice and information service or offer
+        you access to the services available via our website such as booking a Train
+        to Teach event. However, without registering, you can still access general
+        information via the Get into Teaching helpline and website and can complete
+        an application for Initial Teacher Training through UCAS Teacher Training.\n\nThe
+        nature of your personal data we will be using\nThe categories of your data,
+        supplied by you through the registration forms and other interactions with
+        us, that we will be using for this service are personal data such as:\n•\tName\n•\tEmail
+        address\n•\tAddress\n•\tContact telephone number\n•\tDate of birth\n•\tIP
+        Address\nWe will also be collecting non-personal information such as:\n•\tYour
+        teaching preferences\n•\tYour intended training commencement year\n•\tYour
+        qualifications\n•\tAny additional supplementary information you provide during
+        communication with the helpline and/or personal advisers that will help us
+        to aid you in progressing your application and continue to improve our service.\n\nWhy
+        our use of your personal data is lawful\nIn order for our use of your personal
+        data to be lawful, we need to meet one (or more) conditions in the data protection
+        legislation. You have requested to receive this service and therefore, together
+        with this privacy notice (about the use of your personal data), you have agreed
+        to your data being used to deliver the service. However, the condition that
+        we are relying on (once you have agreed to receiving the service) is that
+        under Article 6 (1)(e) of the General Data Protection Regulations (GDPR) DfE
+        is processing your personal data in the performance of a task carried out
+        in the public interest.\nWho we will make your personal data available to\nWe
+        share your information with trusted partners working to deliver the service
+        under a legal contract on our behalf in order for us to continue to provide
+        you with relevant information about a career in teaching and teacher training
+        or ''the service''. These partners are required to strictly comply with our
+        privacy policies that prohibit them using your personal data for any other
+        purpose.\n\nWe share certain personal data with UCAS Teacher Training, who
+        manage the application system for teacher training. Sharing personal information
+        with UCAS Teacher Training enables us to identify those who have applied for
+        teacher training, thus enabling us to remove the names of these applicants
+        from our mailing lists. We also share data to track your application in order
+        to determine the effectiveness of our service, monitor overall levels of teacher
+        training applicants and improve it for you and future applicants. \nIf you
+        are using the Get School Experience service, we will share some of your personal
+        data to the staff who manage school experience at the school where you''ve
+        requested school experience. This allows them to process your application
+        and get back to you about your school experience. \nHow long we will keep
+        your personal data\nYour personal data, supplied for the purposes of this
+        service, will be stored for 5 years. We will delete this information if you
+        request us to do so.\nYour data protection rights\nYou have the right:\n•\tto
+        ask us for access to information about you that we hold\n•\tto have your personal
+        data rectified if it is inaccurate or incomplete\n•\tto request the deletion
+        or removal of personal data where there is no compelling reason for its continued
+        processing\n•\tto restrict our processing of your personal data (i.e. permitting
+        its storage but no further processing)\n•\tto object to direct marketing (including
+        profiling) and processing for the purposes of scientific/historical research
+        and statistics - but this will mean you no longer can receive the service\n\nPlease
+        contact us at getintoteaching.helpdesk@education.gov.uk and enter Data Protection
+        as a reference regarding any of the rights listed above. For the Data Protection
+        Officer (DPO) please contact us via gov.uk and mark it for the attention of
+        the ‘DPO’.\nIf you need to contact us regarding any of the above rights, please
+        do so via the Get into Teaching site\nFurther information about your data
+        protection rights appears on the Information Commissioner''s website\nRight
+        to lodge a complaint\nIf you are unhappy with our use of your personal data,
+        please let us know by contacting getintoteaching.helpdesk@education.gov.uk\nAlternatively,
+        you have the right to raise any concerns with the Information Commissioner''s
+        Office (ICO) via their website.\nLast updated\nWe may need to update this
+        privacy notice periodically, so we recommend that you revisit this information
+        from time to time. This version was last updated on 14 January 2020.\nWe use
+        cookies to make our services easy, useful and reliable. Find out more on how
+        we use cookies.","createdAt":"2020-01-13T09:44:50","id":"0a203956-e935-ea11-a813-000d3a44a8e9"}'
     http_version: '1.1'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/privacy_policies/0a203956-e935-ea11-a813-000d3a44a8e9
-  recorded_at: Tue, 28 Jul 2020 14:43:03 GMT
+  recorded_at: Fri, 31 Jul 2020 10:28:50 GMT
 recorded_with: VCR 6.0.0

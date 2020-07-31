@@ -4,10 +4,10 @@
   <p class="govuk-body">Our privacy notice explains how we use your personal data. It is important that you have read this notice before continuing.</p>
 
   <div class="govuk-form-group">
-    <%= link_to "Privacy policy", privacy_policy_path(:id => ApiClient.get_latest_privacy_policy.id) %>
+    <%= link_to "Privacy policy", privacy_policy_path(:id => session[:privacy_policy_id].presence || ApiClient.get_latest_privacy_policy.id) %>
   </div>
 
-  <%= f.govuk_check_box :accepted_policy_id, session[:privacy_policy_id] || ApiClient.get_latest_privacy_policy.id, multiple: false, label: { text: "Accept the privacy policy"} %>
+  <%= f.govuk_check_box :accepted_policy_id, session[:privacy_policy_id].presence || ApiClient.get_latest_privacy_policy.id, multiple: false, label: { text: "Accept the privacy policy"} %>
 
  <% end %>
 
