@@ -31,7 +31,7 @@ class Candidate
     planning_to_retake_gcse_maths_and_english_id
     has_gcse_science_id
     planning_to_retake_gcse_science_id
-    intital_teacher_training_year_id
+    initial_teacher_training_year_id
     date_of_birth
     country_id
     address_line1
