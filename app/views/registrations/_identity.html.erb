@@ -9,6 +9,7 @@
     label: { text: 'Email address' } %>
   <%= f.govuk_submit %>
 
-  <p class="govuk-body">Your details are protected under the terms of our <a href="www.gov.uk/help/privacy-notice">privacy notice</a>.</p>
+  <p class="govuk-body">Your details are protected under the terms of our <%= link_to "privacy notice", privacy_policy_path(:id => session[:privacy_policy_id].presence || ApiClient.get_latest_privacy_policy.id) %>.</p>
+
   <p class="govuk-body">Our privacy notice explains how we use your personal data. It is important you have read this notice before signing up to get help from a teacher training advisor.</p>
 <% end %>

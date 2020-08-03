@@ -1,3 +1,2 @@
-Typhoeus::Config.cache = Typhoeus::Cache::Rails.new
-# temporarily allow updated requests as not respondng to etags
-Typhoeus::Config.cache.instance_variable_set(:@default_ttl, 5)
+# Typhoeus::Config.cache = Typhoeus::Cache::Rails.new
+# this is temporarily disabled until we resolve the etag issue

@@ -97,9 +97,6 @@ jobs:
            -Dsonar.host.url=https://sonarcloud.io/
            -Dsonar.projectKey=get-teacher-training-adviser-service
            -Dsonar.testExecutionReportPaths=${PWD}/out/test-report.xml
-           -Dsonar.sources='app,lib,db,config' 
-           -Dsonar.tests='./spec' 
-           -Dsonar.exclusions='app/assets/**/*'
            -Dsonar.ruby.coverage.reportPaths=${PWD}/coverage/.resultset.json
 
       - name:  Send Message to Sentry.io
@@ -166,6 +163,13 @@ jobs:
              TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
              TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
              ARM_ACCESS_KEY:           "${{ secrets.DEV_ARM_ACCESS_KEY  }}"
+
+       - name: Smoke tests
+         run: |
+             tests/confidence/healthcheck.sh  "get-teacher-training-adviser-service-dev"  "${{ steps.sha.outputs.short }}"
+         env:
+             HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
+             HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
 
        - name:  Send Message to Sentry.io
          if: always() 

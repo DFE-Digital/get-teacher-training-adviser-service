@@ -1,6 +1,7 @@
 class Store
-  def initialize(session)
+  def initialize(session, step_name)
     @session = session
+    @step_name = step_name
   end
 
   def sign_up_candidate(body)
@@ -8,9 +9,14 @@ class Store
   end
 
   def filter_returner_candidate
-    data = session[:registration].select { |key, _| Candidate::RETURNER.include? key.to_sym }
+    data = @session[:registration].select { |key, _| Candidate::RETURNER.include? key.to_sym }
     # set default as secondary
     data.merge!({ "preferred_education_phase_id" => StageInterestedTeaching::OPTIONS[:secondary].to_i })
+    data.transform_keys { |k| k.camelize(:lower).to_sym }.to_json
+  end
+
+  def filter_degree_candidate
+    data = @session[:registration].select { |key, _| Candidate::DEGREE.include? key.to_sym }
     data.transform_keys { |k| k.camelize(:lower).to_sym }.to_json
   end
 

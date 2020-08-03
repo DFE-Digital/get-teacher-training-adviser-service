@@ -23,7 +23,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 31 Jul 2020 10:13:30 GMT
+      - Fri, 31 Jul 2020 13:53:52 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -31,13 +31,13 @@ http_interactions:
       Connection:
       - keep-alive
       Etag:
-      - 4D9211D33FB1AEC8702D548E642372258534A6E901B4EF3C79AC39FEA321C431
+      - 29DBC666EFB57719B92822F141CE2F60F36ACAA42524BC42B8F80D4D31372067
       Server:
       - Kestrel
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Vcap-Request-Id:
-      - de165cb5-1b55-4ff3-6e1a-fa9e2b9bea17
+      - b78def9c-4803-4cba-48af-eee1d3dd9ad4
     body:
       encoding: UTF-8
       string: '{"text":"Privacy Notice: Get Into Teaching Information Service\nWho
@@ -143,10 +143,10 @@ http_interactions:
     http_version: '1.1'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/privacy_policies/latest
-  recorded_at: Fri, 31 Jul 2020 10:13:30 GMT
+  recorded_at: Fri, 31 Jul 2020 13:53:52 GMT
 - request:
     method: get
-    uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/privacy_policies/latest
+    uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/privacy_policies/0a203956-e935-ea11-a813-000d3a44a8e9
     body:
       encoding: US-ASCII
       string: ''
@@ -167,7 +167,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 31 Jul 2020 10:13:30 GMT
+      - Fri, 31 Jul 2020 13:53:52 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -175,13 +175,13 @@ http_interactions:
       Connection:
       - keep-alive
       Etag:
-      - 4D9211D33FB1AEC8702D548E642372258534A6E901B4EF3C79AC39FEA321C431
+      - E547BBBAB3A57F27990B53035764FD28F7DD02E7ED0FEE15423F643BE0446DD6
       Server:
       - Kestrel
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Vcap-Request-Id:
-      - 65ddb3e8-34ab-43fc-79f9-1132df36cbd2
+      - 06b64d51-955a-4246-4a7b-f2bac9fc8f95
     body:
       encoding: UTF-8
       string: '{"text":"Privacy Notice: Get Into Teaching Information Service\nWho
@@ -286,6 +286,6 @@ http_interactions:
         we use cookies.","createdAt":"2020-01-13T09:44:50","id":"0a203956-e935-ea11-a813-000d3a44a8e9"}'
     http_version: '1.1'
     adapter_metadata:
-      effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/privacy_policies/latest
-  recorded_at: Fri, 31 Jul 2020 10:13:30 GMT
+      effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/privacy_policies/0a203956-e935-ea11-a813-000d3a44a8e9
+  recorded_at: Fri, 31 Jul 2020 13:53:52 GMT
 recorded_with: VCR 6.0.0

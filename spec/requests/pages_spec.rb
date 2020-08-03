@@ -1,7 +1,8 @@
 require "rails_helper"
 
 RSpec.describe PagesController, type: :request do
-  let(:policy) { GetIntoTeachingApiClient::PrivacyPolicy.new(id: "123", text: "Latest privacy policy") }
+  let(:policy_id) { SecureRandom.uuid }
+  let(:policy) { GetIntoTeachingApiClient::PrivacyPolicy.new(id: policy_id, text: "Latest privacy policy") }
 
   describe "get /privacy_policy" do
     context "viewing the latest privacy policy" do
@@ -14,13 +15,20 @@ RSpec.describe PagesController, type: :request do
         response
       end
 
-      it "returns a success response" do
-        expect(subject).to have_http_status(200)
+      include_examples "policy_views"
+    end
+
+    context "viewing a specific privacy policy" do
+      before do
+        allow_any_instance_of(GetIntoTeachingApiClient::PrivacyPoliciesApi).to receive(:get_privacy_policy).and_return(policy)
       end
 
-      it "includes the policy text" do
-        expect(subject.body).to include(policy.text)
+      subject do
+        get privacy_policy_path(id: policy_id)
+        response
       end
+
+      include_examples "policy_views"
     end
 
     context "viewing a specific privacy policy" do

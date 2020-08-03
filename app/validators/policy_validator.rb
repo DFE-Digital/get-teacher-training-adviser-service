@@ -1,8 +1,12 @@
 class PolicyValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    policy = ApiClient.send(options[:method])
+    begin
+      policy = ApiClient.send(options[:method], value)
+    rescue GetIntoTeachingApiClient::ApiError => e
+      Rails.logger.error e # how do we handle a Bad Request ?
+    end
 
-    unless policy.id == value
+    unless policy
       record.errors[attribute] << (options[:message] || "is not included in the list")
     end
   end
