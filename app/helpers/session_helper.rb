@@ -34,7 +34,7 @@ module SessionHelper
   end
 
   def show_name
-    session[:registration]["first_name"].capitalize.to_s + " " + session[:registration]["last_name"].capitalize.to_s
+    session[:registration]["first_name"].to_s + " " + session[:registration]["last_name"].to_s
   end
 
   def show_email
