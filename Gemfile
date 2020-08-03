@@ -80,6 +80,7 @@ group :test do
   gem "shoulda-matchers"
   gem "vcr"
   gem "webdrivers", "~> 4.3"
+  gem 'capybara-screenshot'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
