@@ -7,7 +7,7 @@ class StartTeacherTraining < Base
   validate :date_cannot_be_in_the_past, unless: :dont_know
 
   def self.options
-    generate_api_options(ApiClient::get_candidate_initial_teacher_training_years)
+    generate_api_options(ApiClient.get_candidate_initial_teacher_training_years)
   end
 
   def year_range(number_of_years) # sets year range for view, this must be within api range!
@@ -22,7 +22,7 @@ class StartTeacherTraining < Base
   end
 
   def dont_know
-    initial_teacher_training_year_id == StartTeacherTraining::options["Not sure"]
+    initial_teacher_training_year_id == StartTeacherTraining.options["Not sure"]
   end
 
   def next_step

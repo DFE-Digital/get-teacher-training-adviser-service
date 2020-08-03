@@ -20,6 +20,10 @@ class Store
     merge_integers(data)
   end
 
+  def filter_studying_candidate
+
+  end
+
   def merge_integers(body)
     str_values = %w[
       uk_degree_grade_id
@@ -33,11 +37,10 @@ class Store
       planning_to_retake_gcse_science_id
     ]
     str_values.each do |str|
-      body.merge!({ str => body[str].to_i})
+      body.merge!({ str => body[str].to_i }) if body.key?(str)
     end
     body.transform_keys { |k| k.camelize(:lower).to_sym }.to_json
   end
-
 
   def candidate_info
     x = @session[:registration]
