@@ -20,9 +20,7 @@ class Store
     merge_integers(data)
   end
 
-  def filter_studying_candidate
-
-  end
+  def filter_studying_candidate; end
 
   def merge_integers(body)
     str_values = %w[

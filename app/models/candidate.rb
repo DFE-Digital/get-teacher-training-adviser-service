@@ -41,4 +41,27 @@ class Candidate
     telephone
     accepted_policy_id
   ].freeze
+
+  STUDYING = DEGREE.dup << "preferred_teaching_subject_id"
+  STUDYING.freeze
+
+  EQUIVALENT = %i[
+    first_name
+    last_name
+    email
+    degree_status_id
+    degree_type_id
+    preferred_education_phase_id
+    preferred_teaching_subject_id
+    initial_teacher_training_year_id
+    date_of_birth
+    country_id
+    address_line1
+    address_line2
+    address_city
+    address_postcode
+    telephone
+    phone_call_scheduled_at
+    accepted_policy_id
+  ].freeze
 end
