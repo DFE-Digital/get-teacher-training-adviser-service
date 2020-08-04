@@ -16,12 +16,12 @@ class HaveADegree < Base
 
   def set_degree_status
     self.degree_status_id = case degree_options
-    when DEGREE_OPTIONS[:no]
-      DEGREE_STATUS_OPTIONS[:no]
-    when DEGREE_OPTIONS[:studying]
-      DEGREE_STATUS_OPTIONS[:studying]
-    else
-      DEGREE_STATUS_OPTIONS[:yes]
+                            when DEGREE_OPTIONS[:no]
+                              DEGREE_STATUS_OPTIONS[:no]
+                            when DEGREE_OPTIONS[:studying]
+                              DEGREE_STATUS_OPTIONS[:studying]
+                            else
+                              DEGREE_STATUS_OPTIONS[:yes]
     end
   end
 
