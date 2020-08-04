@@ -3,8 +3,7 @@ require "rails_helper"
 RSpec.feature "Sign up for a Teacher Training Advisor", :vcr, type: :feature do
   # group by Persona
   personas = {}
-
-  Dir.glob(".tmp/contracts/*_html.json") do |filename|
+  Dir.glob("tmp/contracts/*_html.json") do |filename|
     data = JSON.parse(File.read(filename))
     data["filename"] = File.basename(filename)
 
@@ -108,10 +107,10 @@ RSpec.feature "Sign up for a Teacher Training Advisor", :vcr, type: :feature do
     click_button "Continue"
   end
 
-  def enter_subject_to_teach(subject_id)
+  def enter_subject_to_teach(subject_name)
     expect(page).to have_text "Which subject would you like to teach if you return to teaching?"
 
-    choose subject_id
+    choose subject_name
 
     click_button "Continue"
   end
@@ -164,6 +163,10 @@ RSpec.feature "Sign up for a Teacher Training Advisor", :vcr, type: :feature do
 
   def enter_gcse_maths_english_details(candidate)
     answer_gcse_maths_english_query candidate["Grade 4 English and Maths"]
+
+    if candidate["Grade 4 English and Maths"] == "No"
+      answer_retake_gcse_maths_english_query candidate["Retake maths or english"]
+    end
   end
 
   def answer_gcse_maths_english_query(has_maths_english)
@@ -174,14 +177,34 @@ RSpec.feature "Sign up for a Teacher Training Advisor", :vcr, type: :feature do
     click_button "Continue"
   end
 
+  def answer_retake_gcse_maths_english_query(will_retake)
+    expect(page).to have_text "Are you planning to retake your English or maths GCSEs?"
+
+    choose will_retake
+
+    click_button "Continue"
+  end
+
   def enter_gcse_science_details(candidate)
     answer_gcse_science_query candidate["Grade 4 Science"]
+
+    if candidate["Grade 4 Science"] == "No"
+      answer_retake_gcse_science_query candidate["Retake science"]
+    end
   end
 
   def answer_gcse_science_query(has_science)
     expect(page).to have_text "Do you have grade 4 (C) or above in GCSE science, or equivalent?"
 
     choose has_science
+
+    click_button "Continue"
+  end
+
+  def answer_retake_gcse_science_query(will_retake)
+    expect(page).to have_text "Are you planning to retake your science GCSE?"
+
+    choose will_retake
 
     click_button "Continue"
   end
