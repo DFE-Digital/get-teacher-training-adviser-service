@@ -16,7 +16,7 @@ class Store
       filter_degree_candidate
     when "studying/accept_privacy_policy"
       filter_studying_candidate
-    when "equivalent/accept_privacy_policy"
+    when "equivalent/bodyaccept_privacy_policy"
       filter_equivalent_candidate
     else
       nil
