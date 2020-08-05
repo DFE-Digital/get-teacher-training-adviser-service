@@ -75,6 +75,7 @@ class StepFactory
     "Equivalent::OverseasCompletion",
     "Equivalent::UkCallback",
     "Equivalent::OverseasCountry",
+    "Equivalent::AcceptPrivacyPolicy",
   ].freeze
 
   class NameNotFoundError < StandardError
