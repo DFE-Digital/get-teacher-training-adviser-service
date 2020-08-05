@@ -7,10 +7,10 @@ class CandidateSubmission
   end
 
   def call
-   sign_up_candidate(select_candidate)
+    sign_up_candidate(select_candidate)
   end
 
-  private
+private
 
   def sign_up_candidate(body)
     ApiClient.sign_up_teacher_training_adviser_candidate(body)
@@ -68,5 +68,4 @@ class CandidateSubmission
     end
     body.transform_keys { |k| k.camelize(:lower).to_sym }.to_json
   end
-
 end
