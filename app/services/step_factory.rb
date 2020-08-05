@@ -8,7 +8,7 @@ class StepFactory
     "NoDegree", "HaveADegree", "QualificationRequired", "CompleteApplication",
 
     "Degree::WhatSubjectDegree", "Degree::WhatDegreeClass", "Degree::StageInterestedTeaching", "Degree::ScienceGrade4",
-    "Degree::PrimaryMathsEnglishGrade4", "Degree::SubjectInterestedTeaching", "Degree::StartTeacherTraining", "Degree::DateOfBirth", "Degree::UkOrOverseas", "Degree::UkCandidate", "Degree::UkCompletion", "Degree::SecondaryMathsEnglishGrade4", "Degree::RetakeEnglishMaths", "Degree::OverseasTelephone", "Degree::OverseasCompletion", "Degree::UkTelephone", "Degree::PrimaryRetakeEnglishMaths", "Degree::RetakeScience", "Degree::OverseasCountry",
+    "Degree::PrimaryMathsEnglishGrade4", "Degree::SubjectInterestedTeaching", "Degree::StartTeacherTraining", "Degree::DateOfBirth", "Degree::UkOrOverseas", "Degree::UkCandidate", "Degree::UkCompletion", "Degree::SecondaryMathsEnglishGrade4", "Degree::RetakeEnglishMaths", "Degree::OverseasTelephone", "Degree::OverseasCompletion", "Degree::UkTelephone", "Degree::PrimaryRetakeEnglishMaths", "Degree::RetakeScience", "Degree::OverseasCountry", "Degree::AcceptPrivacyPolicy",
 
     "Studying::StageOfDegree", "Studying::WhatSubjectDegree", "Studying::StageInterestedTeaching", "Studying::ScienceGrade4",
     "Studying::PrimaryMathsEnglishGrade4", "Studying::SubjectInterestedTeaching", "Studying::StartTeacherTraining", "Studying::DateOfBirth", "Studying::UkOrOverseas", "Studying::UkCandidate", "Studying::UkCompletion", "Studying::SecondaryMathsEnglishGrade4", "Studying::RetakeEnglishMaths", "Studying::OverseasTelephone", "Studying::OverseasCompletion", "Studying::WhatDegreeClass", "Studying::UkTelephone", "Studying::PrimaryRetakeEnglishMaths", "Studying::RetakeScience", "Studying::OverseasCountry",
