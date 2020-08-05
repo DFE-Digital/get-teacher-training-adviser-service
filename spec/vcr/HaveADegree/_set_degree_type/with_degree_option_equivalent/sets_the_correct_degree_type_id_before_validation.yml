@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/qualification/types
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Swagger-Codegen/1.0.6/ruby
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Authorization:
+      - ENV[api_key]
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 05 Aug 2020 08:08:59 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '408'
+      Connection:
+      - keep-alive
+      Etag:
+      - 7171B94D3C4E1505E76E9677B47C9ED79350BA8762C7FBF143C90C2A4A70ED62
+      Server:
+      - Kestrel
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Vcap-Request-Id:
+      - 0f03513c-9431-43f7-6eee-76f3ac8f57c2
+    body:
+      encoding: UTF-8
+      string: '[{"id":"222750000","value":"Degree"},{"id":"222750001","value":"Professional/vocational"},{"id":"222750002","value":"Teaching
+        qualification"},{"id":"222750003","value":"Undergraduate"},{"id":"222750004","value":"Other"},{"id":"222750005","value":"Degree
+        Equivalent"},{"id":"222750006","value":"Postgraduate"},{"id":"222750007","value":"A
+        level or equivalent"},{"id":"222750008","value":"GCSE or equivalent"}]'
+    http_version: '1.1'
+    adapter_metadata:
+      effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/qualification/types
+  recorded_at: Wed, 05 Aug 2020 08:08:59 GMT
+recorded_with: VCR 6.0.0
