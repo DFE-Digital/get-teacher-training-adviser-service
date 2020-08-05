@@ -1,4 +1,4 @@
-module Degree
+module Studying
   class AcceptPrivacyPolicy < AcceptPrivacyPolicy
     def next_step
       return "complete_application" if valid?
