@@ -58,7 +58,7 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem "capybara", "~> 3.32"
   gem "capybara-screenshot"
-
+  
   # Factory builder
   gem "factory_bot_rails"
 end
@@ -76,6 +76,8 @@ end
 group :test do
   gem "vcr"
   gem "webdrivers", "~> 4.3"
+
+  gem "webmock"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
