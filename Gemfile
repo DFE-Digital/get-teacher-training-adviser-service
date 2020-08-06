@@ -62,6 +62,8 @@ group :development, :test do
   gem "simplecov", "<= 0.17"
   # Adds support for Capybara system testing and selenium driver
   gem "capybara", "~> 3.32"
+  gem 'capybara-screenshot'
+  gem "webmock"
   # Factory builder
   gem "factory_bot_rails"
 end
@@ -80,7 +82,6 @@ group :test do
   gem "shoulda-matchers"
   gem "vcr"
   gem "webdrivers", "~> 4.3"
-  gem 'capybara-screenshot'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
