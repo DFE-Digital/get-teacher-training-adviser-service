@@ -1,62 +1,23 @@
 require "rails_helper"
 
 RSpec.feature "Sign up for a Teacher Training Advisor", :vcr, type: :feature do
-  # group by Persona
-  personas = {}
-  Dir.glob("tmp/contracts/*_html.json") do |filename|
-    data = JSON.parse(File.read(filename))
-    data["filename"] = File.basename(filename)
-
-    # add the candidate to the correct Persona list
-    personas[data["Persona"]] = personas[data["Persona"]] || []
-    personas[data["Persona"]].push data
-  end
-
-  personas.each do |persona, candidates|
-    feature "as a #{persona}" do
-      candidates.each do |candidate|
-
-        scenario "can complete the process with details defined in [#{candidate['filename']}]" do
-          start_sign_up_wizard
-
-          enter_personal_information candidate["First Name"], candidate["Surname"], candidate["Email"]
-
-          enter_returner_details candidate
-
-          unless candidate["Returner"] == "Yes"
-            enter_degree_details candidate
-            enter_teaching_stage_details candidate["Stage of Interest"]
-            enter_gcse_qualification_details candidate
-            enter_training_start_details candidate
-          end
-
-          enter_date_of_birth candidate["DOB (Year)"], candidate["DOB (Month)"], candidate["DOB (Date)"]
-
-          enter_where_lives candidate
-
-          check_answers candidate
-
-          accept_the_privacy_policy
-        end
-      end
-    end
-  end
-
   # step definitions
 
   def start_sign_up_wizard
     visit "/"
 
-    expect(page).to have_text "Sign up to talk to a teacher training adviser"
-
+    expect(page).to have_text "Start now"
     click_link "Start now"
   end
 
   def enter_personal_information(first_name, surname, email)
-    expect(page).to have_text "About you"
-
+    expect(page).to have_text "First name"
     fill_in "First name", with: first_name
+
+    expect(page).to have_text "Surname"
     fill_in "Surname", with: surname
+
+    expect(page).to have_text "Email address"
     fill_in "Email address", with: email
 
     click_button "Continue"
@@ -115,8 +76,22 @@ RSpec.feature "Sign up for a Teacher Training Advisor", :vcr, type: :feature do
     click_button "Continue"
   end
 
+  def enter_subject_interested_to_teach(subject_name)
+    expect(page).to have_text "Which subject are you interested in teaching?"
+
+    select subject_name, from: "Which subject are you interested in teaching?"
+
+    click_button "Continue"
+  end
+
   def enter_degree_details(candidate)
     answer_has_degree_query candidate["Degree"]
+
+    if candidate["Degree"] == "I'm studying for a degree"
+      enter_study_year candidate["Study year"]
+      enter_degree_subject candidate["Degree subject"]
+      enter_predicted_degree_class candidate["Degree class"]
+    end
 
     if candidate["Degree"] == "Yes"
       enter_degree_subject candidate["Degree subject"]
@@ -148,6 +123,22 @@ RSpec.feature "Sign up for a Teacher Training Advisor", :vcr, type: :feature do
     click_button "Continue"
   end
 
+  def enter_predicted_degree_class(degree_class)
+    expect(page).to have_text "What degree class are you predicted to get?"
+
+    select degree_class, from: "What degree class are you predicted to get?"
+
+    click_button "Continue"
+  end
+
+  def enter_study_year(study_year)
+    expect(page).to have_text "In which year are you studying?"
+
+    choose study_year
+
+    click_button "Continue"
+  end
+
   def enter_teaching_stage_details(teaching_stage)
     expect(page).to have_text "Which stage are you interested in teaching?"
 
@@ -158,7 +149,7 @@ RSpec.feature "Sign up for a Teacher Training Advisor", :vcr, type: :feature do
 
   def enter_gcse_qualification_details(candidate)
     enter_gcse_maths_english_details candidate
-    enter_gcse_science_details candidate
+    enter_gcse_science_details candidate unless candidate["Stage of Interest"] == "Secondary"
   end
 
   def enter_gcse_maths_english_details(candidate)
@@ -178,7 +169,7 @@ RSpec.feature "Sign up for a Teacher Training Advisor", :vcr, type: :feature do
   end
 
   def answer_retake_gcse_maths_english_query(will_retake)
-    expect(page).to have_text "Are you planning to retake your English or maths GCSEs?"
+    expect(page).to have_text "Are you planning to retake either English or maths (or both) GCSEs, or equivalent?"
 
     choose will_retake
 
@@ -217,12 +208,14 @@ RSpec.feature "Sign up for a Teacher Training Advisor", :vcr, type: :feature do
     click_button "Continue"
   end
 
-  def enter_date_of_birth(year, month, date)
+  def enter_date_of_birth(dob)
     expect(page).to have_text "Enter your date of birth"
 
-    fill_in "Day", with: date
-    fill_in "Month", with: month
-    fill_in "Year", with: year
+    date_of_birth = Date.parse(dob)
+
+    fill_in "Day", with: date_of_birth.day.to_s.rjust(2, "0")
+    fill_in "Month", with: date_of_birth.month.to_s.rjust(2, "0")
+    fill_in "Year", with: date_of_birth.year.to_s.rjust(4, "0")
 
     click_button "Continue"
   end
@@ -290,7 +283,9 @@ RSpec.feature "Sign up for a Teacher Training Advisor", :vcr, type: :feature do
     expect(page).to have_text "Check your answers before you continue"
 
     expect(page).to have_text "Name #{candidate['First Name']} #{candidate['Surname']}"
-    expect(page).to have_text "Date of birth #{candidate['DOB (Date)']} #{candidate['DOB (Month)']} #{candidate['DOB (Year)']}"
+
+    date_of_birth = Date.parse(candidate['Date of Birth'])
+    expect(page).to have_text "Date of birth #{date_of_birth.day.to_s.rjust(2, "0")} #{date_of_birth.month.to_s.rjust(2, "0")} #{date_of_birth.year.to_s.rjust(4, "0")}"
     expect(page).to have_text "Email\n#{candidate['Email']}"
     expect(page).to have_text "Are you returning to teaching? #{candidate['Returner']}"
 
@@ -318,5 +313,56 @@ RSpec.feature "Sign up for a Teacher Training Advisor", :vcr, type: :feature do
     check "Accept the privacy policy"
 
     # click_button "Continue"
+  end
+
+  # contract tests
+
+  # group by Persona
+  personas = {}
+  Dir.glob("tmp/contracts/*_html.json") do |filename|
+    data = JSON.parse(File.read(filename))
+    data["filename"] = File.basename(filename)
+
+    next if data["Persona"] == "--" || data["Final Journey Status"] != "COMPLETE"
+
+    # add the candidate to the correct Persona list
+    personas[data["Persona"]] = personas[data["Persona"]] || []
+    personas[data["Persona"]].push data
+  end
+
+  personas.each do |persona, candidates|
+    feature "as a #{persona}" do
+      candidates.each do |candidate|
+        scenario "can complete the process with details defined in [#{candidate['filename']}]" do
+          start_sign_up_wizard
+
+          enter_personal_information candidate["First Name"], candidate["Surname"], candidate["Email"]
+
+          enter_returner_details candidate
+
+          if candidate["Returner"] == "No"
+            enter_degree_details candidate
+            enter_teaching_stage_details candidate["Stage of Interest"]
+            enter_gcse_qualification_details candidate
+
+            enter_subject_interested_to_teach candidate["Interested subject"] if candidate["Stage of Interest"] == "Secondary"
+
+            if page.has_content?("Which subject are you interested in teaching?")
+              click_button "Continue"
+            end
+
+            enter_training_start_details candidate
+          end
+
+          enter_date_of_birth candidate["Date of Birth"]
+
+          enter_where_lives candidate
+
+          check_answers candidate
+
+          accept_the_privacy_policy
+        end
+      end
+    end
   end
 end
