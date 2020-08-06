@@ -7,7 +7,7 @@ RSpec.describe Studying::ScienceGrade4, :vcr do
   describe "#next_step" do
     context "when answer is yes" do
       it "returns the correct option" do
-        expect(yes.next_step).to eq("studying/subject_interested_teaching")
+        expect(yes.next_step).to eq("studying/start_teacher_training")
       end
     end
 
