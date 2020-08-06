@@ -307,6 +307,12 @@ RSpec.feature "Dependency contracts", :vcr, type: :feature do
     click_button "Continue"
   end
 
+  def skip_check_answers(candidate)
+    expect(page).to have_text "Check your answers before you continue"
+
+    click_button "Continue"
+  end
+
   def accept_the_privacy_policy
     expect(page).to have_text "Read and accept the privacy policy"
 
@@ -315,101 +321,148 @@ RSpec.feature "Dependency contracts", :vcr, type: :feature do
     click_button "Continue"
   end
 
-  # mocked reference data APIs
-  latest_privacy_policy_api = "#{Rails.application.config.x.git_api_endpoint}/api/privacy_policies/latest"
-  latest_privacy_policy_body = {
-    text: "Privacy Notice: Get Into Teaching Information Service",
-    createdAt: "2020-01-13T09:44:50",
-    id: "0a203956-e935-ea11-a813-000d3a44a8e9",
-  }
+  before do
+    # mocked reference data APIs
+    latest_privacy_policy_api = "#{Rails.application.config.x.git_api_endpoint}/api/privacy_policies/latest"
+    latest_privacy_policy_body = {
+      text: "Privacy Notice: Get Into Teaching Information Service",
+      createdAt: "2020-01-13T09:44:50",
+      id: "0a203956-e935-ea11-a813-000d3a44a8e9",
+    }
 
-  specific_privacy_policy_api = "#{Rails.application.config.x.git_api_endpoint}/api/privacy_policies/0a203956-e935-ea11-a813-000d3a44a8e9"
-  specific_privacy_policy_body = {
-    text: "Privacy Notice: Get Into Teaching Information Service",
-    createdAt: "2020-01-13T09:44:50",
-    id: "0a203956-e935-ea11-a813-000d3a44a8e9",
-  }
+    specific_privacy_policy_api = "#{Rails.application.config.x.git_api_endpoint}/api/privacy_policies/0a203956-e935-ea11-a813-000d3a44a8e9"
+    specific_privacy_policy_body = {
+      text: "Privacy Notice: Get Into Teaching Information Service",
+      createdAt: "2020-01-13T09:44:50",
+      id: "0a203956-e935-ea11-a813-000d3a44a8e9",
+    }
 
-  degree_status_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/qualification/degree_status"
-  degree_status_body = [
-    { id: "222750000", value: "Graduate or postgraduate" },
-    { id: "222750001", value: "Final year" },
-    { id: "222750002", value: "Second year" },
-    { id: "222750003", value: "First year" },
-    { id: "222750004", value: "I don''t have a degree and am not studying for one" },
-    { id: "222750005", value: "Other" },
-  ]
+    degree_status_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/qualification/degree_status"
+    degree_status_body = [
+      { id: "222750000", value: "Graduate or postgraduate" },
+      { id: "222750001", value: "Final year" },
+      { id: "222750002", value: "Second year" },
+      { id: "222750003", value: "First year" },
+      { id: "222750004", value: "I don''t have a degree and am not studying for one" },
+      { id: "222750005", value: "Other" },
+    ]
 
-  teaching_subjects_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/teaching_subjects"
-  teaching_subjects_body = [
-    { id: "802655a1-2afa-e811-a981-000d3a276620", value: "Biology" },
-    { id: "842655a1-2afa-e811-a981-000d3a276620", value: "Chemistry" },
-    { id: "942655a1-2afa-e811-a981-000d3a276620", value: "English" },
-    { id: "a42655a1-2afa-e811-a981-000d3a276620", value: "Maths" },
-    { id: "ac2655a1-2afa-e811-a981-000d3a276620", value: "Physics" },
-  ]
+    teaching_subjects_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/teaching_subjects"
+    teaching_subjects_body = [
+      { id: "802655a1-2afa-e811-a981-000d3a276620", value: "Biology" },
+      { id: "842655a1-2afa-e811-a981-000d3a276620", value: "Chemistry" },
+      { id: "942655a1-2afa-e811-a981-000d3a276620", value: "English" },
+      { id: "a42655a1-2afa-e811-a981-000d3a276620", value: "Maths" },
+      { id: "ac2655a1-2afa-e811-a981-000d3a276620", value: "Physics" },
+    ]
 
-  countries_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/countries"
-  countries_body = [
-    { id: "0df4c2e6-74f9-e811-a97a-000d3a2760f2", value: "Australia" },
-    { id: "19f4c2e6-74f9-e811-a97a-000d3a2760f2", value: "Barbados" },
-    { id: "47f4c2e6-74f9-e811-a97a-000d3a2760f2", value: "China" },
-    { id: "5df4c2e6-74f9-e811-a97a-000d3a2760f2", value: "Denmark" },
-    { id: "83f4c2e6-74f9-e811-a97a-000d3a2760f2", value: "Germany" },
-    { id: "85f4c2e6-74f9-e811-a97a-000d3a2760f2", value: "Ghana" },
-    { id: "9ff4c2e6-74f9-e811-a97a-000d3a2760f2", value: "India" },
-    { id: "0cf5c2e6-74f9-e811-a97a-000d3a2760f2", value: "Pakistan" },
-    { id: "1cf5c2e6-74f9-e811-a97a-000d3a2760f2", value: "Poland" },
-  ]
+    countries_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/countries"
+    countries_body = [
+      { id: "0df4c2e6-74f9-e811-a97a-000d3a2760f2", value: "Australia" },
+      { id: "19f4c2e6-74f9-e811-a97a-000d3a2760f2", value: "Barbados" },
+      { id: "47f4c2e6-74f9-e811-a97a-000d3a2760f2", value: "China" },
+      { id: "5df4c2e6-74f9-e811-a97a-000d3a2760f2", value: "Denmark" },
+      { id: "83f4c2e6-74f9-e811-a97a-000d3a2760f2", value: "Germany" },
+      { id: "85f4c2e6-74f9-e811-a97a-000d3a2760f2", value: "Ghana" },
+      { id: "9ff4c2e6-74f9-e811-a97a-000d3a2760f2", value: "India" },
+      { id: "0cf5c2e6-74f9-e811-a97a-000d3a2760f2", value: "Pakistan" },
+      { id: "1cf5c2e6-74f9-e811-a97a-000d3a2760f2", value: "Poland" },
+    ]
 
-  uk_degree_grades_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/qualification/uk_degree_grades"
-  uk_degree_grades_body = [
-    { id: "222750000", value: "Not applicable" },
-    { id: "222750001", value: "First class" },
-    { id: "222750002", value: "2:1" },
-    { id: "222750003", value: "2:2" },
-    { id: "222750004", value: "Third class or below" },
-    { id: "222750005", value: "Pass (grade unknown)" },
-  ]
+    uk_degree_grades_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/qualification/uk_degree_grades"
+    uk_degree_grades_body = [
+      { id: "222750000", value: "Not applicable" },
+      { id: "222750001", value: "First class" },
+      { id: "222750002", value: "2:1" },
+      { id: "222750003", value: "2:2" },
+      { id: "222750004", value: "Third class or below" },
+      { id: "222750005", value: "Pass (grade unknown)" },
+    ]
 
-  education_phases_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/preferred_education_phases"
-  education_phases_body = [
-    { id: "222750000", value: "Primary" },
-    { id: "222750001", value: "Secondary" },
-    { id: "222750002", value: "Further Education" },
-    { id: "222750003", value: "Other" },
-    { id: "222750004", value: "Middle" },
-    { id: "222750005", value: "Higher Education" },
-    { id: "222750006", value: "Teaching adults" },
-    { id: "222750007", value: "Early years" },
-  ]
+    education_phases_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/preferred_education_phases"
+    education_phases_body = [
+      { id: "222750000", value: "Primary" },
+      { id: "222750001", value: "Secondary" },
+      { id: "222750002", value: "Further Education" },
+      { id: "222750003", value: "Other" },
+      { id: "222750004", value: "Middle" },
+      { id: "222750005", value: "Higher Education" },
+      { id: "222750006", value: "Teaching adults" },
+      { id: "222750007", value: "Early years" },
+    ]
 
-  retake_gcse_status_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/retake_gcse_status"
-  retake_gcse_status_body = [
-    { id: "222750000", value: "Planning on Retaking GCSE" },
-    { id: "222750001", value: "Not Answered" },
-  ]
+    retake_gcse_status_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/retake_gcse_status"
+    retake_gcse_status_body = [
+      { id: "222750000", value: "Planning on Retaking GCSE" },
+      { id: "222750001", value: "Not Answered" },
+    ]
 
-  initial_teacher_training_years_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/initial_teacher_training_years"
-  initial_teacher_training_years_body = [
-    { id: "12907", value: "2009" },
-    { id: "12908", value: "2010" },
-    { id: "12909", value: "2011" },
-    { id: "12910", value: "2012" },
-    { id: "12911", value: "2013" },
-    { id: "12912", value: "2014" },
-    { id: "12913", value: "2015" },
-    { id: "12914", value: "2016" },
-    { id: "12917", value: "Not sure" },
-    { id: "12918", value: "2017" },
-    { id: "22300", value: "2018" },
-    { id: "22301", value: "2019" },
-    { id: "22302", value: "2020" },
-    { id: "22303", value: "2021" },
-    { id: "22304", value: "2022" },
-    { id: "22305", value: "2023" },
-    { id: "22306", value: "2024" },
-  ]
+    initial_teacher_training_years_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/initial_teacher_training_years"
+    initial_teacher_training_years_body = [
+      { id: "12907", value: "2009" },
+      { id: "12908", value: "2010" },
+      { id: "12909", value: "2011" },
+      { id: "12910", value: "2012" },
+      { id: "12911", value: "2013" },
+      { id: "12912", value: "2014" },
+      { id: "12913", value: "2015" },
+      { id: "12914", value: "2016" },
+      { id: "12917", value: "Not sure" },
+      { id: "12918", value: "2017" },
+      { id: "22300", value: "2018" },
+      { id: "22301", value: "2019" },
+      { id: "22302", value: "2020" },
+      { id: "22303", value: "2021" },
+      { id: "22304", value: "2022" },
+      { id: "22305", value: "2023" },
+      { id: "22306", value: "2024" },
+    ]
+
+    stub_request(:get, latest_privacy_policy_api)
+      .to_return(body: JSON.generate(latest_privacy_policy_body), headers: {
+        "content-type": "application/json; charset=utf-8",
+      })
+
+    stub_request(:get, specific_privacy_policy_api)
+      .to_return(body: JSON.generate(specific_privacy_policy_body), headers: {
+        "content-type": "application/json; charset=utf-8",
+      })
+
+    stub_request(:get, degree_status_api)
+    .to_return(body: JSON.generate(degree_status_body), headers: {
+      "content-type": "application/json; charset=utf-8",
+    })
+
+    stub_request(:get, teaching_subjects_api)
+      .to_return(body: JSON.generate(teaching_subjects_body), headers: {
+        "content-type": "application/json; charset=utf-8",
+      })
+
+    stub_request(:get, countries_api)
+      .to_return(body: JSON.generate(countries_body), headers: {
+        "content-type": "application/json; charset=utf-8",
+      })
+
+    stub_request(:get, uk_degree_grades_api)
+      .to_return(body: JSON.generate(uk_degree_grades_body), headers: {
+        "content-type": "application/json; charset=utf-8",
+      })
+
+    stub_request(:get, education_phases_api)
+      .to_return(body: JSON.generate(education_phases_body), headers: {
+        "content-type": "application/json; charset=utf-8",
+      })
+
+    stub_request(:get, retake_gcse_status_api)
+      .to_return(body: JSON.generate(retake_gcse_status_body), headers: {
+        "content-type": "application/json; charset=utf-8",
+      })
+
+    stub_request(:get, initial_teacher_training_years_api)
+      .to_return(body: JSON.generate(initial_teacher_training_years_body), headers: {
+        "content-type": "application/json; charset=utf-8",
+      })
+  end
 
   # create fixture data grouped by Persona
   personas = {}
@@ -428,51 +481,6 @@ RSpec.feature "Dependency contracts", :vcr, type: :feature do
     feature "As a #{persona}" do
       candidates.each do |candidate|
         scenario "Someone can sign up for a Teacher Training Advisor with profile defined by [#{candidate['filename']}]" do
-          stub_request(:get, latest_privacy_policy_api)
-            .to_return(body: JSON.generate(latest_privacy_policy_body), headers: {
-              "content-type": "application/json; charset=utf-8",
-            })
-
-          stub_request(:get, specific_privacy_policy_api)
-            .to_return(body: JSON.generate(specific_privacy_policy_body), headers: {
-              "content-type": "application/json; charset=utf-8",
-            })
-
-          stub_request(:get, degree_status_api)
-          .to_return(body: JSON.generate(degree_status_body), headers: {
-            "content-type": "application/json; charset=utf-8",
-          })
-
-          stub_request(:get, teaching_subjects_api)
-            .to_return(body: JSON.generate(teaching_subjects_body), headers: {
-              "content-type": "application/json; charset=utf-8",
-            })
-
-          stub_request(:get, countries_api)
-            .to_return(body: JSON.generate(countries_body), headers: {
-              "content-type": "application/json; charset=utf-8",
-            })
-
-          stub_request(:get, uk_degree_grades_api)
-            .to_return(body: JSON.generate(uk_degree_grades_body), headers: {
-              "content-type": "application/json; charset=utf-8",
-            })
-
-          stub_request(:get, education_phases_api)
-            .to_return(body: JSON.generate(education_phases_body), headers: {
-              "content-type": "application/json; charset=utf-8",
-            })
-
-          stub_request(:get, retake_gcse_status_api)
-            .to_return(body: JSON.generate(retake_gcse_status_body), headers: {
-              "content-type": "application/json; charset=utf-8",
-            })
-
-          stub_request(:get, initial_teacher_training_years_api)
-            .to_return(body: JSON.generate(initial_teacher_training_years_body), headers: {
-              "content-type": "application/json; charset=utf-8",
-            })
-
           start_sign_up_wizard
 
           enter_personal_information candidate["First Name"], candidate["Surname"], candidate["Email"]
@@ -497,11 +505,9 @@ RSpec.feature "Dependency contracts", :vcr, type: :feature do
 
           enter_where_lives candidate
 
-          check_answers candidate
+          skip_check_answers candidate
 
           accept_the_privacy_policy
-
-          expect(page).to have_text "never going to find this"
         end
       end
     end
