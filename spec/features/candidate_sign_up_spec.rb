@@ -312,12 +312,19 @@ RSpec.feature "Dependency contracts", :vcr, type: :feature do
 
     check "Accept the privacy policy"
 
-    # click_button "Continue"
+    click_button "Continue"
   end
 
   # mocked reference data APIs
   latest_privacy_policy_api = "#{Rails.application.config.x.git_api_endpoint}/api/privacy_policies/latest"
   latest_privacy_policy_body = {
+    text: "Privacy Notice: Get Into Teaching Information Service",
+    createdAt: "2020-01-13T09:44:50",
+    id: "0a203956-e935-ea11-a813-000d3a44a8e9",
+  }
+
+  specific_privacy_policy_api = "#{Rails.application.config.x.git_api_endpoint}/api/privacy_policies/0a203956-e935-ea11-a813-000d3a44a8e9"
+  specific_privacy_policy_body = {
     text: "Privacy Notice: Get Into Teaching Information Service",
     createdAt: "2020-01-13T09:44:50",
     id: "0a203956-e935-ea11-a813-000d3a44a8e9",
@@ -426,10 +433,15 @@ RSpec.feature "Dependency contracts", :vcr, type: :feature do
               "content-type": "application/json; charset=utf-8",
             })
 
-          stub_request(:get, degree_status_api)
-            .to_return(body: JSON.generate(degree_status_body), headers: {
+          stub_request(:get, specific_privacy_policy_api)
+            .to_return(body: JSON.generate(specific_privacy_policy_body), headers: {
               "content-type": "application/json; charset=utf-8",
             })
+
+          stub_request(:get, degree_status_api)
+          .to_return(body: JSON.generate(degree_status_body), headers: {
+            "content-type": "application/json; charset=utf-8",
+          })
 
           stub_request(:get, teaching_subjects_api)
             .to_return(body: JSON.generate(teaching_subjects_body), headers: {
@@ -488,6 +500,8 @@ RSpec.feature "Dependency contracts", :vcr, type: :feature do
           check_answers candidate
 
           accept_the_privacy_policy
+
+          expect(page).to have_text "never going to find this"
         end
       end
     end
