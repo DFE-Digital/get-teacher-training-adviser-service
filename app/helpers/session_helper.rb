@@ -5,7 +5,7 @@ module SessionHelper
   end
 
   def show_link(step)
-    "<a href='#{new_registration_path(step)}'>Change</a>".html_safe
+    "<a href='#{new_registration_path(step)}' style='color:#551A8B'>Change</a>".html_safe
   end
 
   def show_dob
