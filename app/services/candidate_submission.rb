@@ -25,8 +25,6 @@ private
       filter_candidate(STUDYING)
     when "equivalent"
       filter_candidate(EQUIVALENT)
-    else
-      nil
     end
   end
 
