@@ -284,8 +284,8 @@ RSpec.feature "Dependency contracts", :vcr, type: :feature do
 
     expect(page).to have_text "Name #{candidate['First Name']} #{candidate['Surname']}"
 
-    date_of_birth = Date.parse(candidate['Date of Birth'])
-    expect(page).to have_text "Date of birth #{date_of_birth.day.to_s.rjust(2, "0")} #{date_of_birth.month.to_s.rjust(2, "0")} #{date_of_birth.year.to_s.rjust(4, "0")}"
+    date_of_birth = Date.parse(candidate["Date of Birth"])
+    expect(page).to have_text "Date of birth #{date_of_birth.day.to_s.rjust(2, '0')} #{date_of_birth.month.to_s.rjust(2, '0')} #{date_of_birth.year.to_s.rjust(4, '0')}"
     expect(page).to have_text "Email\n#{candidate['Email']}"
     expect(page).to have_text "Are you returning to teaching? #{candidate['Returner']}"
 
@@ -366,17 +366,43 @@ RSpec.feature "Dependency contracts", :vcr, type: :feature do
   ]
 
   education_phases_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/preferred_education_phases"
-  education_phases_body = [{"id":"222750000","value":"Primary"},{"id":"222750001","value":"Secondary"},{"id":"222750002","value":"Further
-    Education"},{"id":"222750003","value":"Other"},{"id":"222750004","value":"Middle"},{"id":"222750005","value":"Higher
-    Education"},{"id":"222750006","value":"Teaching adults"},{"id":"222750007","value":"Early
-    years"}]
+  education_phases_body = [
+    { id: "222750000", value: "Primary" },
+    { id: "222750001", value: "Secondary" },
+    { id: "222750002", value: "Further Education" },
+    { id: "222750003", value: "Other" },
+    { id: "222750004", value: "Middle" },
+    { id: "222750005", value: "Higher Education" },
+    { id: "222750006", value: "Teaching adults" },
+    { id: "222750007", value: "Early years" },
+  ]
 
   retake_gcse_status_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/retake_gcse_status"
-  retake_gcse_status_body = [{"id":"222750000","value":"Planning on Retaking GCSE"},{"id":"222750001","value":"Not
-    Answered"}]
+  retake_gcse_status_body = [
+    { id: "222750000", value: "Planning on Retaking GCSE" },
+    { id: "222750001", value: "Not Answered" },
+  ]
 
-    initial_teacher_training_years_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/initial_teacher_training_years"
-    initial_teacher_training_years_body = [{"id":"12907","value":"2009"},{"id":"12908","value":"2010"},{"id":"12909","value":"2011"},{"id":"12910","value":"2012"},{"id":"12911","value":"2013"},{"id":"12912","value":"2014"},{"id":"12913","value":"2015"},{"id":"12914","value":"2016"},{"id":"12917","value":"Not sure"},{"id":"12918","value":"2017"},{"id":"22300","value":"2018"},{"id":"22301","value":"2019"},{"id":"22302","value":"2020"},{"id":"22303","value":"2021"},{"id":"22304","value":"2022"},{"id":"22305","value":"2023"},{"id":"22306","value":"2024"}]
+  initial_teacher_training_years_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/initial_teacher_training_years"
+  initial_teacher_training_years_body = [
+    { id: "12907", value: "2009" },
+    { id: "12908", value: "2010" },
+    { id: "12909", value: "2011" },
+    { id: "12910", value: "2012" },
+    { id: "12911", value: "2013" },
+    { id: "12912", value: "2014" },
+    { id: "12913", value: "2015" },
+    { id: "12914", value: "2016" },
+    { id: "12917", value: "Not sure" },
+    { id: "12918", value: "2017" },
+    { id: "22300", value: "2018" },
+    { id: "22301", value: "2019" },
+    { id: "22302", value: "2020" },
+    { id: "22303", value: "2021" },
+    { id: "22304", value: "2022" },
+    { id: "22305", value: "2023" },
+    { id: "22306", value: "2024" },
+  ]
 
   # create fixture data grouped by Persona
   personas = {}
@@ -434,8 +460,6 @@ RSpec.feature "Dependency contracts", :vcr, type: :feature do
             .to_return(body: JSON.generate(initial_teacher_training_years_body), headers: {
               "content-type": "application/json; charset=utf-8",
             })
-
-
 
           start_sign_up_wizard
 
