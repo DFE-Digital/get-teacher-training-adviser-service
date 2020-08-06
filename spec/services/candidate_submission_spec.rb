@@ -5,7 +5,7 @@ RSpec.describe CandidateSubmission, :vcr do
     { registration: {
       "first_name" => "joe",
       "last_name" => "blogs",
-      "email" => "jo@example.com",
+      "email" => "jo@com",
       "subject_taught_id" => "6b793433-cd1f-e911-a979-000d3a20838a",
       "degree_status_id" => "222750000",
       "degree_type_id" => "222750000",
@@ -32,7 +32,7 @@ RSpec.describe CandidateSubmission, :vcr do
     { registration: {
       "first_name" => "joe",
       "last_name" => "blogs",
-      "email" => "jo@example.com",
+      "email" => "jo@com",
       "degree_status_id" => "222750000",
       "degree_type_id" => "222750005",
       "preferred_teaching_subject_id" => "6b793433-cd1f-e911-a979-000d3a20838a",
@@ -49,33 +49,35 @@ RSpec.describe CandidateSubmission, :vcr do
       "phone_call_scheduled_at" => DateTime.now + 1.hour,
     } }
   end
-  let(:returner) { described_class.new(session, "accept_privacy_policy") }
-  let(:degree) { described_class.new(session, "degree/accept_privacy_policy") }
-  let(:studying) { described_class.new(session, "studying/accept_privacy_policy") }
-  let(:equivalent) { described_class.new(equivalent_session, "equivalent/accept_privacy_policy") }
+  let(:candidate_submission) { described_class.new(session) }
+  let(:equivalent_candidate_submission) { described_class.new(equivalent_session) }
 
   describe "#call" do
     context "as a returner" do
       it "submits the candidate info to the api" do
-        expect { returner.call }.to_not raise_error
+        session[:registration]["degree_options"] = "returner"
+        expect { candidate_submission.call }.to_not raise_error
       end
     end
 
     context "as a degree candidate" do
       it "submits the candidate info to the api" do
-        expect { degree.call }.to_not raise_error
+        session[:registration]["degree_options"] = "yes"
+        expect { candidate_submission.call }.to_not raise_error
       end
     end
 
     context "as a studying candidate" do
       it "submits the candidate info to the api" do
-        expect { studying.call }.to_not raise_error
+        session[:registration]["degree_options"] = "studying"
+        expect { candidate_submission.call }.to_not raise_error
       end
     end
 
     context "as an equivalent candidate" do
       it "submits the candidate info to the api" do
-        expect { equivalent.call }.to_not raise_error
+        equivalent_session[:registration]["degree_options"] = "returner"
+        expect { equivalent_candidate_submission.call }.to_not raise_error
       end
     end
   end

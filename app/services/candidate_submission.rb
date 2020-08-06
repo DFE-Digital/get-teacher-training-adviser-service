@@ -1,9 +1,8 @@
 class CandidateSubmission
   include Candidate
 
-  def initialize(session, step_name)
+  def initialize(session)
     @session = session
-    @step_name = step_name
   end
 
   def call
@@ -17,14 +16,14 @@ private
   end
 
   def select_candidate
-    case @step_name
-    when "accept_privacy_policy"
+    case @session[:registration]["degree_options"]
+    when "returner"
       filter_candidate(RETURNER)
-    when "degree/accept_privacy_policy"
+    when "yes"
       filter_candidate(DEGREE)
-    when "studying/accept_privacy_policy"
+    when "studying"
       filter_candidate(STUDYING)
-    when "equivalent/accept_privacy_policy"
+    when "equivalent"
       filter_candidate(EQUIVALENT)
     end
   end
