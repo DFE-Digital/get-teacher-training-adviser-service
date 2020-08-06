@@ -53,34 +53,29 @@ RSpec.describe CandidateSubmission, :vcr do
   let(:degree) { described_class.new(session, "degree/accept_privacy_policy") }
   let(:studying) { described_class.new(session, "studying/accept_privacy_policy") }
   let(:equivalent) { described_class.new(equivalent_session, "equivalent/accept_privacy_policy") }
-  let(:response_status) { YAML.load_file(VCR.current_cassette.file)["http_interactions"].last["response"]["status"]["code"] }
 
   describe "#call" do
     context "as a returner" do
       it "submits the candidate info to the api" do
-        expect(returner.call).to be(nil)
-        expect(response_status).to eq(204)
+        expect{ returner.call }.to_not raise_error
       end
     end
 
     context "as a degree candidate" do
       it "submits the candidate info to the api" do
-        expect(degree.call).to be(nil)
-        expect(response_status).to eq(204)
+        expect{ degree.call }.to_not raise_error
       end
     end
 
     context "as a studying candidate" do
       it "submits the candidate info to the api" do
-        expect(studying.call).to be(nil)
-        expect(response_status).to eq(204)
+        expect{ studying.call }.to_not raise_error
       end
     end
 
     context "as an equivalent candidate" do
       it "submits the candidate info to the api" do
-        expect(equivalent.call).to be(nil)
-        expect(response_status).to eq(204)
+        expect{ equivalent.call }.to_not raise_error
       end
     end
   end

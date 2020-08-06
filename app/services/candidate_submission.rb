@@ -19,35 +19,19 @@ private
   def select_candidate
     case @step_name
     when "accept_privacy_policy"
-      filter_returner_candidate
+      filter_candidate(RETURNER)
     when "degree/accept_privacy_policy"
-      filter_degree_candidate
+      filter_candidate(DEGREE)
     when "studying/accept_privacy_policy"
-      filter_studying_candidate
+      filter_candidate(STUDYING)
     when "equivalent/accept_privacy_policy"
-      filter_equivalent_candidate
+      filter_candidate(EQUIVALENT)
     end
   end
 
-  def filter_returner_candidate
-    data = @session[:registration].select { |key, _| RETURNER.include? key.to_sym }
-    # set default as secondary
-    data.merge!({ "preferred_education_phase_id" => StageInterestedTeaching::OPTIONS[:secondary].to_i })
-    merge_integers(data)
-  end
-
-  def filter_degree_candidate
-    data = @session[:registration].select { |key, _| DEGREE.include? key.to_sym }
-    merge_integers(data)
-  end
-
-  def filter_studying_candidate
-    data = @session[:registration].select { |key, _| STUDYING.include? key.to_sym }
-    merge_integers(data)
-  end
-
-  def filter_equivalent_candidate
-    data = @session[:registration].select { |key, _| EQUIVALENT.include? key.to_sym }
+  def filter_candidate(path)
+    data = @session[:registration].select { |key, _| path.include? key.to_sym }
+    data.merge!({ "preferred_education_phase_id" => StageInterestedTeaching::OPTIONS[:secondary].to_i }) if path == RETURNER
     merge_integers(data)
   end
 

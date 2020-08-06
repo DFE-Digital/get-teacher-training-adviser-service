@@ -14,7 +14,7 @@ class RegistrationsController < ApplicationController
 
     if @registration.valid?
       update_session_registration_hash
-      candidate_submission if step_name.include?("accept_privacy_policy")
+      perform_candidate_submission if last_step?
       redirect_to new_registration_path(step_name: @registration.next_step)
     else
       render :new
@@ -23,7 +23,11 @@ class RegistrationsController < ApplicationController
 
 private
 
-  def candidate_submission
+  def last_step?
+    params[:step_name].include?("accept_privacy_policy")
+  end
+
+  def perform_candidate_submission
     # handle errors here?
     CandidateSubmission.new(session, @registration.step_name).call
   end
