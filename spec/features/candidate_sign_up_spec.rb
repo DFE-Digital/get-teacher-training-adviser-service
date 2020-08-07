@@ -1,48 +1,54 @@
 require "rails_helper"
+require "webmock"
 
-contract_fixture_files = "tmp/contracts/candidate_*.json"
+contract_fixture_files = []
+Dir.glob("tmp/contracts/candidate_*.json") do |filename|
+  contract_fixture_files.push filename
+end
 
-privacy_policy_reponse_file = "tmp/contracts/privacy_policy.json"
-degree_status_reponse_file = "tmp/contracts/degree_status.json"
-teaching_subjects_reponse_file = "tmp/contracts/teaching_subjects.json"
-countries_reponse_file = "tmp/contracts/countries.json"
-uk_degree_grades_reponse_file = "tmp/contracts/uk_degree_grades.json"
-initial_teacher_training_years_reponse_file = "tmp/contracts/initial_teacher_training_years.json"
-retake_gcse_status_reponse_file = "tmp/contracts/retake_gcse_status.json"
-qualification_types_reponse_file = "tmp/contracts/qualification_types.json"
-education_phases_reponse_file = "tmp/contracts/education_phases.json"
+unless contract_fixture_files.empty?
+  privacy_policy_reponse_file = "tmp/contracts/privacy_policy.json"
+  degree_status_reponse_file = "tmp/contracts/degree_status.json"
+  teaching_subjects_reponse_file = "tmp/contracts/teaching_subjects.json"
+  countries_reponse_file = "tmp/contracts/countries.json"
+  uk_degree_grades_reponse_file = "tmp/contracts/uk_degree_grades.json"
+  initial_teacher_training_years_reponse_file = "tmp/contracts/initial_teacher_training_years.json"
+  retake_gcse_status_reponse_file = "tmp/contracts/retake_gcse_status.json"
+  qualification_types_reponse_file = "tmp/contracts/qualification_types.json"
+  education_phases_reponse_file = "tmp/contracts/education_phases.json"
 
-# mocked reference data API definitions
-latest_privacy_policy_api = "#{Rails.application.config.x.git_api_endpoint}/api/privacy_policies/latest"
-specific_privacy_policy_api = "#{Rails.application.config.x.git_api_endpoint}/api/privacy_policies/0a203956-e935-ea11-a813-000d3a44a8e9"
-privacy_policy_body = JSON.parse(File.read(privacy_policy_reponse_file))
+  # mocked reference data API definitions
+  latest_privacy_policy_api = "#{Rails.application.config.x.git_api_endpoint}/api/privacy_policies/latest"
+  specific_privacy_policy_api = "#{Rails.application.config.x.git_api_endpoint}/api/privacy_policies/0a203956-e935-ea11-a813-000d3a44a8e9"
+  privacy_policy_body = JSON.parse(File.read(privacy_policy_reponse_file))
 
-degree_status_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/qualification/degree_status"
-degree_status_body = JSON.parse(File.read(degree_status_reponse_file))
+  degree_status_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/qualification/degree_status"
+  degree_status_body = JSON.parse(File.read(degree_status_reponse_file))
 
-teaching_subjects_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/teaching_subjects"
-teaching_subjects_body = JSON.parse(File.read(teaching_subjects_reponse_file))
+  teaching_subjects_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/teaching_subjects"
+  teaching_subjects_body = JSON.parse(File.read(teaching_subjects_reponse_file))
 
-countries_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/countries"
-countries_body = JSON.parse(File.read(countries_reponse_file))
+  countries_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/countries"
+  countries_body = JSON.parse(File.read(countries_reponse_file))
 
-uk_degree_grades_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/qualification/uk_degree_grades"
-uk_degree_grades_body = JSON.parse(File.read(uk_degree_grades_reponse_file))
+  uk_degree_grades_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/qualification/uk_degree_grades"
+  uk_degree_grades_body = JSON.parse(File.read(uk_degree_grades_reponse_file))
 
-education_phases_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/preferred_education_phases"
-education_phases_body = JSON.parse(File.read(education_phases_reponse_file))
+  education_phases_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/preferred_education_phases"
+  education_phases_body = JSON.parse(File.read(education_phases_reponse_file))
 
-retake_gcse_status_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/retake_gcse_status"
-retake_gcse_status_body = JSON.parse(File.read(retake_gcse_status_reponse_file))
+  retake_gcse_status_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/retake_gcse_status"
+  retake_gcse_status_body = JSON.parse(File.read(retake_gcse_status_reponse_file))
 
-initial_teacher_training_years_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/initial_teacher_training_years"
-initial_teacher_training_years_body = JSON.parse(File.read(initial_teacher_training_years_reponse_file))
+  initial_teacher_training_years_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/initial_teacher_training_years"
+  initial_teacher_training_years_body = JSON.parse(File.read(initial_teacher_training_years_reponse_file))
 
-qualification_types_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/qualification/types"
-qualification_types_body = JSON.parse(File.read(qualification_types_reponse_file))
+  qualification_types_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/qualification/types"
+  qualification_types_body = JSON.parse(File.read(qualification_types_reponse_file))
 
-signup_for_teacher_training_adviser_api_uri = "/api/teacher_training_adviser/candidates"
-signup_for_teacher_training_adviser_api = "#{Rails.application.config.x.git_api_endpoint}#{signup_for_teacher_training_adviser_api_uri}"
+  signup_for_teacher_training_adviser_api_uri = "/api/teacher_training_adviser/candidates"
+  signup_for_teacher_training_adviser_api = "#{Rails.application.config.x.git_api_endpoint}#{signup_for_teacher_training_adviser_api_uri}"
+end
 
 def yes_no_options(option)
   case option
@@ -387,7 +393,11 @@ def accept_the_privacy_policy
 end
 
 RSpec.feature "Dependency contracts", :vcr, type: :feature do
+  include WebMock::API
+
   before do
+    WebMock.enable!
+
     stub_request(:get, latest_privacy_policy_api)
       .to_return(body: JSON.generate(privacy_policy_body), headers: {
         "content-type": "application/json; charset=utf-8",
@@ -444,9 +454,13 @@ RSpec.feature "Dependency contracts", :vcr, type: :feature do
       })
   end
 
+  after do
+    WebMock.disable!
+  end
+
   # create fixture data grouped by Persona
   personas = {}
-  Dir.glob(contract_fixture_files) do |filename|
+  contract_fixture_files.each do |filename|
     data = JSON.parse(File.read(filename))
     data["filename"] = File.basename(filename)
 
