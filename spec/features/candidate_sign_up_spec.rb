@@ -6,48 +6,41 @@ Dir.glob("tmp/contracts/candidate_*.json") do |filename|
   contract_fixture_files.push filename
 end
 
+privacy_policy_reponse_file = "tmp/contracts/privacy_policy.json"
+degree_status_reponse_file = "tmp/contracts/degree_status.json"
+teaching_subjects_reponse_file = "tmp/contracts/teaching_subjects.json"
+countries_reponse_file = "tmp/contracts/countries.json"
+uk_degree_grades_reponse_file = "tmp/contracts/uk_degree_grades.json"
+initial_teacher_training_years_reponse_file = "tmp/contracts/initial_teacher_training_years.json"
+retake_gcse_status_reponse_file = "tmp/contracts/retake_gcse_status.json"
+qualification_types_reponse_file = "tmp/contracts/qualification_types.json"
+education_phases_reponse_file = "tmp/contracts/education_phases.json"
+
+# mocked reference data API definitions
+latest_privacy_policy_api = "#{Rails.application.config.x.git_api_endpoint}/api/privacy_policies/latest"
+specific_privacy_policy_api = "#{Rails.application.config.x.git_api_endpoint}/api/privacy_policies/0a203956-e935-ea11-a813-000d3a44a8e9"
+degree_status_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/qualification/degree_status"
+teaching_subjects_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/teaching_subjects"
+countries_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/countries"
+uk_degree_grades_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/qualification/uk_degree_grades"
+education_phases_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/preferred_education_phases"
+retake_gcse_status_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/retake_gcse_status"
+initial_teacher_training_years_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/initial_teacher_training_years"
+qualification_types_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/qualification/types"
+signup_for_teacher_training_adviser_api_uri = "/api/teacher_training_adviser/candidates"
+signup_for_teacher_training_adviser_api = "#{Rails.application.config.x.git_api_endpoint}#{signup_for_teacher_training_adviser_api_uri}"
+
 unless contract_fixture_files.empty?
-  privacy_policy_reponse_file = "tmp/contracts/privacy_policy.json"
-  degree_status_reponse_file = "tmp/contracts/degree_status.json"
-  teaching_subjects_reponse_file = "tmp/contracts/teaching_subjects.json"
-  countries_reponse_file = "tmp/contracts/countries.json"
-  uk_degree_grades_reponse_file = "tmp/contracts/uk_degree_grades.json"
-  initial_teacher_training_years_reponse_file = "tmp/contracts/initial_teacher_training_years.json"
-  retake_gcse_status_reponse_file = "tmp/contracts/retake_gcse_status.json"
-  qualification_types_reponse_file = "tmp/contracts/qualification_types.json"
-  education_phases_reponse_file = "tmp/contracts/education_phases.json"
-
-  # mocked reference data API definitions
-  latest_privacy_policy_api = "#{Rails.application.config.x.git_api_endpoint}/api/privacy_policies/latest"
-  specific_privacy_policy_api = "#{Rails.application.config.x.git_api_endpoint}/api/privacy_policies/0a203956-e935-ea11-a813-000d3a44a8e9"
+  # load the reference data files for the API responses
   privacy_policy_body = JSON.parse(File.read(privacy_policy_reponse_file))
-
-  degree_status_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/qualification/degree_status"
   degree_status_body = JSON.parse(File.read(degree_status_reponse_file))
-
-  teaching_subjects_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/teaching_subjects"
   teaching_subjects_body = JSON.parse(File.read(teaching_subjects_reponse_file))
-
-  countries_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/countries"
   countries_body = JSON.parse(File.read(countries_reponse_file))
-
-  uk_degree_grades_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/qualification/uk_degree_grades"
   uk_degree_grades_body = JSON.parse(File.read(uk_degree_grades_reponse_file))
-
-  education_phases_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/preferred_education_phases"
   education_phases_body = JSON.parse(File.read(education_phases_reponse_file))
-
-  retake_gcse_status_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/retake_gcse_status"
   retake_gcse_status_body = JSON.parse(File.read(retake_gcse_status_reponse_file))
-
-  initial_teacher_training_years_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/initial_teacher_training_years"
   initial_teacher_training_years_body = JSON.parse(File.read(initial_teacher_training_years_reponse_file))
-
-  qualification_types_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/qualification/types"
   qualification_types_body = JSON.parse(File.read(qualification_types_reponse_file))
-
-  signup_for_teacher_training_adviser_api_uri = "/api/teacher_training_adviser/candidates"
-  signup_for_teacher_training_adviser_api = "#{Rails.application.config.x.git_api_endpoint}#{signup_for_teacher_training_adviser_api_uri}"
 end
 
 def yes_no_options(option)
