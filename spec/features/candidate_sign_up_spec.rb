@@ -477,12 +477,15 @@ RSpec.feature "Dependency contracts", :vcr, type: :feature do
           if candidate["Returner"] == "No"
             enter_degree_details candidate
             enter_teaching_stage_details candidate["Stage of Interest"]
-            enter_gcse_qualification_details candidate
+            unless candidate["Degree"] == "I have an equivalent qualification from another country"
+              enter_gcse_qualification_details candidate
 
-            enter_subject_interested_to_teach candidate["Interested subject"] if candidate["Stage of Interest"] == "Secondary"
+              enter_subject_interested_to_teach candidate["Interested subject"] if candidate["Stage of Interest"] == "Secondary"
 
-            if page.has_content?("Which subject are you interested in teaching?")
-              click_button "Continue"
+              # this should be removed as its not supposed to happen
+              if page.has_content?("Which subject are you interested in teaching?")
+                click_button "Continue"
+              end
             end
 
             enter_training_start_details candidate
