@@ -70,9 +70,15 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
 
   describe "#show_name" do
     it "returns the session name value" do
-      session[:registration] = { "first_name" => "joe",
-                                 "last_name" => "bloggs" }
+      session[:registration] = { "first_name" => "Joe",
+                                 "last_name" => "Bloggs" }
       expect(show_name).to eq("Joe Bloggs")
+    end
+
+    it "returns the session name value as entered" do
+      session[:registration] = { "first_name" => "joE",
+                                 "last_name" => "McBloggyFace" }
+      expect(show_name).to eq("joE McBloggyFace")
     end
   end
 

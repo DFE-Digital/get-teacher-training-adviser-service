@@ -29,7 +29,7 @@ private
 
   def perform_candidate_submission
     # handle errors here?
-    CandidateSubmission.new(session, @registration.step_name).call
+    CandidateSubmission.new(session).call
   end
 
   def update_session_registration_hash
