@@ -27,6 +27,7 @@ module Candidate
     degree_subject
     uk_degree_grade_id
     preferred_education_phase_id
+    preferred_teaching_subject_id
     has_gcse_maths_and_english_id
     planning_to_retake_gcse_maths_and_english_id
     has_gcse_science_id
@@ -42,7 +43,7 @@ module Candidate
     accepted_policy_id
   ].freeze
 
-  STUDYING = DEGREE.dup << "preferred_teaching_subject_id"
+  STUDYING = DEGREE.dup
   STUDYING.freeze
 
   EQUIVALENT = %i[
