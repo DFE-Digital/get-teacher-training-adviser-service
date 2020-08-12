@@ -2,7 +2,7 @@ class ReturningTeacher < Base
   attribute :returning_to_teaching, :boolean
   attribute :degree_options, :string
 
-  before_validation :set_degree_options # this needs a test
+  before_validation :set_degree_options
 
   validates :returning_to_teaching, inclusion: { in: [true, false], message: "You must select either yes or no" }
 
