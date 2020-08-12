@@ -3,8 +3,8 @@ module Candidate
     first_name
     last_name
     date_of_birth
-    address_line1
-    address_line2
+    address_line_1
+    address_line_2
     address_city
     address_postcode
     email
@@ -34,8 +34,8 @@ module Candidate
     initial_teacher_training_year_id
     date_of_birth
     country_id
-    address_line1
-    address_line2
+    address_line_1
+    address_line_2
     address_city
     address_postcode
     telephone
@@ -56,8 +56,8 @@ module Candidate
     initial_teacher_training_year_id
     date_of_birth
     country_id
-    address_line1
-    address_line2
+    address_line_1
+    address_line_2
     address_city
     address_postcode
     telephone
