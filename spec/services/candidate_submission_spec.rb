@@ -76,7 +76,7 @@ RSpec.describe CandidateSubmission, :vcr do
 
     context "as an equivalent candidate" do
       it "submits the candidate info to the api" do
-        equivalent_session[:registration]["degree_options"] = "returner"
+        equivalent_session[:registration]["degree_options"] = "equivalent"
         expect { equivalent_candidate_submission.call }.to_not raise_error
       end
     end
