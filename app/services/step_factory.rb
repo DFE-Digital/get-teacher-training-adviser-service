@@ -40,7 +40,6 @@ class StepFactory
     "Degree::PrimaryRetakeEnglishMaths",
     "Degree::RetakeScience",
     "Degree::OverseasCountry",
-    "Degree::AcceptPrivacyPolicy",
 
     "Studying::StageOfDegree",
     "Studying::WhatSubjectDegree",
@@ -62,7 +61,6 @@ class StepFactory
     "Studying::PrimaryRetakeEnglishMaths",
     "Studying::RetakeScience",
     "Studying::OverseasCountry",
-    "Studying::AcceptPrivacyPolicy",
 
     "Equivalent::StageInterestedTeaching",
     "Equivalent::SubjectInterestedTeaching",
@@ -75,7 +73,6 @@ class StepFactory
     "Equivalent::OverseasCompletion",
     "Equivalent::UkCallback",
     "Equivalent::OverseasCountry",
-    "Equivalent::AcceptPrivacyPolicy",
   ].freeze
 
   class NameNotFoundError < StandardError

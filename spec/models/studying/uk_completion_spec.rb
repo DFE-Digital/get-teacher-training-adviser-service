@@ -7,7 +7,7 @@ RSpec.describe Studying::UkCompletion do
   describe "#next_step" do
     context "when confirmed is true" do
       it "returns the correct option" do
-        expect(confirmed.next_step).to eq("studying/accept_privacy_policy")
+        expect(confirmed.next_step).to eq("accept_privacy_policy")
       end
     end
 

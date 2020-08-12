@@ -13,6 +13,13 @@ RSpec.describe ReturningTeacher do
     end
   end
 
+  describe "#set_degree_options" do
+    it "sets the degree option before validation" do
+      returning_teacher.valid?
+      expect(returning_teacher.degree_options).to eq("returner")
+    end
+  end
+
   describe "#next_step" do
     context "when answer is true" do
       it "returns the correct option" do
