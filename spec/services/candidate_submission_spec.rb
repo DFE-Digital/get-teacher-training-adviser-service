@@ -62,21 +62,21 @@ RSpec.describe CandidateSubmission, :vcr do
 
     context "as a degree candidate" do
       it "submits the candidate info to the api" do
-        session[:registration]["degree_options"] = "yes"
+        session[:registration]["degree_options"] = HaveADegree::DEGREE_OPTIONS[:degree]
         expect { candidate_submission.call }.to_not raise_error
       end
     end
 
     context "as a studying candidate" do
       it "submits the candidate info to the api" do
-        session[:registration]["degree_options"] = "studying"
+        session[:registration]["degree_options"] = HaveADegree::DEGREE_OPTIONS[:studying]
         expect { candidate_submission.call }.to_not raise_error
       end
     end
 
     context "as an equivalent candidate" do
       it "submits the candidate info to the api" do
-        equivalent_session[:registration]["degree_options"] = "equivalent"
+        equivalent_session[:registration]["degree_options"] = HaveADegree::DEGREE_OPTIONS[:equivalent]
         expect { equivalent_candidate_submission.call }.to_not raise_error
       end
     end

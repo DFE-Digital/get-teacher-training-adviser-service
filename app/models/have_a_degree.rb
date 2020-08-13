@@ -2,11 +2,11 @@ class HaveADegree < Base
   attribute :degree_options, :string
   attribute :degree_status_id, :string
   attribute :degree_type_id, :string
-# change this again d
+
   before_validation :set_degree_status
   before_validation :set_degree_type
 
-  DEGREE_OPTIONS = { yes: "yes", no: "no", studying: "studying", equivalent: "equivalent" }.freeze
+  DEGREE_OPTIONS = { degree: "degree", no: "no", studying: "studying", equivalent: "equivalent" }.freeze
   DEGREE_STATUS_OPTIONS = { yes: "222750000", no: "222750004", studying: "studying" }.freeze
   DEGREE_TYPE = { degree: "222750000", equivalent: "222750005" }.freeze
 
@@ -36,7 +36,7 @@ class HaveADegree < Base
 
   def next_step
     case degree_options
-    when DEGREE_OPTIONS[:yes]
+    when DEGREE_OPTIONS[:degree]
       "degree/what_subject_degree"
     when DEGREE_OPTIONS[:no]
       "no_degree"

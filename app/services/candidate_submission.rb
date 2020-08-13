@@ -19,7 +19,7 @@ private
     case @session[:registration]["degree_options"]
     when ReturningTeacher::DEGREE_OPTIONS[:returner]
       filter_candidate(RETURNER)
-    when HaveADegree::DEGREE_OPTIONS[:yes]
+    when HaveADegree::DEGREE_OPTIONS[:degree]
       filter_candidate(DEGREE)
     when HaveADegree::DEGREE_OPTIONS[:studying]
       filter_candidate(STUDYING)

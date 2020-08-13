@@ -24,7 +24,7 @@ RSpec.describe HaveADegree, :vcr do
   end
 
   describe "#set_degree_status" do
-    context "with degree_option yes" do
+    context "with degree_option degree" do
       it "sets the correct degree_status_id before validation" do
         have_a_degree.valid?
         expect(have_a_degree.degree_status_id).to eq(HaveADegree::DEGREE_STATUS_OPTIONS[:yes])
@@ -54,7 +54,7 @@ RSpec.describe HaveADegree, :vcr do
   end
 
   describe "#set degree type" do
-    context "with degree_option yes" do
+    context "with degree_option degree" do
       it "sets the correct degree_type_id before validation" do
         have_a_degree.valid?
         expect(have_a_degree.degree_type_id).to eq(HaveADegree::DEGREE_TYPE[:degree])
@@ -84,7 +84,7 @@ RSpec.describe HaveADegree, :vcr do
   end
 
   describe "#next_step" do
-    context "when answer is yes" do
+    context "when answer is degree" do
       it "returns the correct option" do
         expect(have_a_degree.next_step).to eq("degree/what_subject_degree")
       end
