@@ -2,7 +2,7 @@ class HaveADegree < Base
   attribute :degree_options, :string
   attribute :degree_status_id, :string
   attribute :degree_type_id, :string
-# change
+# change this
   before_validation :set_degree_status
   before_validation :set_degree_type
 
