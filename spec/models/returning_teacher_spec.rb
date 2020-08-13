@@ -20,6 +20,13 @@ RSpec.describe ReturningTeacher do
     end
   end
 
+  describe "#set_education_phase" do
+    it "sets the preferred_education_phase_id before validation" do
+      returning_teacher.valid?
+      expect(returning_teacher.preferred_education_phase_id).to eq(StageInterestedTeaching::OPTIONS[:secondary].to_i)
+    end
+  end
+
   describe "#next_step" do
     context "when answer is true" do
       it "returns the correct option" do
