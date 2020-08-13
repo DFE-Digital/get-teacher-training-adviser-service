@@ -55,7 +55,7 @@ RSpec.describe CandidateSubmission, :vcr do
   describe "#call" do
     context "as a returner" do
       it "submits the candidate info to the api" do
-        session[:registration]["degree_options"] = "returner"
+        session[:registration]["degree_options"] = ReturningTeacher::DEGREE_OPTIONS[:returner]
         expect { candidate_submission.call }.to_not raise_error
       end
     end

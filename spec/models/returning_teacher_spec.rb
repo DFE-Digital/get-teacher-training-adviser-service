@@ -16,7 +16,7 @@ RSpec.describe ReturningTeacher do
   describe "#set_degree_options" do
     it "sets the degree option before validation" do
       returning_teacher.valid?
-      expect(returning_teacher.degree_options).to eq("returner")
+      expect(returning_teacher.degree_options).to eq(ReturningTeacher::DEGREE_OPTIONS[:returner])
     end
   end
 

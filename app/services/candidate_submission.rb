@@ -17,13 +17,13 @@ private
 
   def select_candidate
     case @session[:registration]["degree_options"]
-    when "returner"
+    when ReturningTeacher::DEGREE_OPTIONS[:returner]
       filter_candidate(RETURNER)
-    when "yes"
+    when HaveADegree::DEGREE_OPTIONS[:yes]
       filter_candidate(DEGREE)
-    when "studying"
+    when HaveADegree::DEGREE_OPTIONS[:studying]
       filter_candidate(STUDYING)
-    when "equivalent"
+    when HaveADegree::DEGREE_OPTIONS[:equivalent]
       filter_candidate(EQUIVALENT)
     end
   end
