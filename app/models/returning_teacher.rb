@@ -2,7 +2,7 @@ class ReturningTeacher < Base
   attribute :returning_to_teaching, :boolean
   attribute :degree_options, :string
 
-  DEGREE_OPTIONS = { returner: "returner" }
+  DEGREE_OPTIONS = { returner: "returner" }.freeze
 
   before_validation :set_degree_options
 
