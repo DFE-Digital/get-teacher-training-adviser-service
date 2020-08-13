@@ -30,7 +30,6 @@ private
 
   def filter_candidate(path)
     data = @session[:registration].select { |key, _| path.include? key.to_sym }
-    #data.merge!({ "preferred_education_phase_id" => StageInterestedTeaching::OPTIONS[:secondary].to_i }) if path == RETURNER
     merge_integers(data)
   end
 
