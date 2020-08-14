@@ -19,19 +19,6 @@ RSpec.describe PagesController, type: :request do
     end
 
     context "viewing a specific privacy policy" do
-      before do
-        allow_any_instance_of(GetIntoTeachingApiClient::PrivacyPoliciesApi).to receive(:get_privacy_policy).and_return(policy)
-      end
-
-      subject do
-        get privacy_policy_path(id: policy_id)
-        response
-      end
-
-      include_examples "policy_views"
-    end
-
-    context "viewing a specific privacy policy" do
       subject do
         get privacy_policy_path(id: policy.id)
         response
@@ -41,12 +28,9 @@ RSpec.describe PagesController, type: :request do
         allow_any_instance_of(GetIntoTeachingApiClient::PrivacyPoliciesApi).to receive(:get_privacy_policy).with(policy.id).and_return(policy)
       end
 
-      it "returns a success response" do
-        expect(subject).to have_http_status(200)
-      end
-
-      it "includes the policy text" do
-        expect(subject.body).to include(policy.text)
+      include_examples "policy_views"
+      it "sets the session var" do
+        expect(subject.request.session["privacy_policy_id"]).to eq(policy_id)
       end
     end
   end
