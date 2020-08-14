@@ -40,10 +40,10 @@ module Candidate
     address_postcode
     telephone
     accepted_policy_id
+    preferred_teaching_subject_id
   ].freeze
 
-  STUDYING = DEGREE.dup << "preferred_teaching_subject_id"
-  STUDYING.freeze
+  STUDYING = DEGREE
 
   EQUIVALENT = %i[
     first_name

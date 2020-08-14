@@ -23,7 +23,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 12 Aug 2020 12:43:52 GMT
+      - Fri, 14 Aug 2020 15:07:54 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -31,13 +31,13 @@ http_interactions:
       Connection:
       - keep-alive
       Etag:
-      - CDC93C8CFF6435836C8B38215DB1309228155F9BD4DF579236F9149F232848AE
+      - 2CFA56E319D92E3948FB9176BDC5EE503EA47300A9696ACDB95E3DC446D29167
       Server:
       - Kestrel
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Vcap-Request-Id:
-      - 3c5e5e04-3248-4c65-6ab3-22057f93aa61
+      - a21a99e8-f01a-4e5a-65ba-9946b2299ff7
     body:
       encoding: UTF-8
       string: '{"text":"Privacy Notice: Get Into Teaching Information Service\nWho
@@ -143,14 +143,14 @@ http_interactions:
     http_version: '1.1'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/privacy_policies/latest
-  recorded_at: Wed, 12 Aug 2020 12:43:52 GMT
+  recorded_at: Fri, 14 Aug 2020 15:07:54 GMT
 - request:
     method: post
     uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/teacher_training_adviser/candidates
     body:
       encoding: UTF-8
-      string: '{"firstName":"joe","lastName":"blogs","email":"jo@com","degreeStatusId":222750000,"degreeTypeId":222750000,"degreeSubject":"6b793433-cd1f-e911-a979-000d3a20838a","ukDegreeGradeId":222750001,"preferredEducationPhaseId":222750000,"hasGcseMathsAndEnglishId":222750000,"planningToRetakeGcseMathsAndEnglishId":222750000,"hasGcseScienceId":222750000,"planningToRetakeGcseScienceId":222750000,"initialTeacherTrainingYearId":12917,"dateOfBirth":"1980-01-01T00:00:00.000+00:00","countryId":"00f5c2e6-74f9-e811-a97a-000d3a2760f2","addressLine1":"163","addressLine2":"hobbit
-        hill","addressCity":"baggistown","addressPostcode":"SW1A 2ET","telephone":"123456","acceptedPolicyId":"0a203956-e935-ea11-a813-000d3a44a8e9"}'
+      string: '{"firstName":"joe","lastName":"blogs","email":"jo@com","degreeStatusId":222750000,"degreeTypeId":222750000,"degreeSubject":"6b793433-cd1f-e911-a979-000d3a20838a","ukDegreeGradeId":222750001,"preferredEducationPhaseId":222750001,"hasGcseMathsAndEnglishId":222750000,"planningToRetakeGcseMathsAndEnglishId":222750000,"hasGcseScienceId":222750000,"planningToRetakeGcseScienceId":222750000,"initialTeacherTrainingYearId":12917,"dateOfBirth":"1980-01-01T00:00:00.000+00:00","countryId":"00f5c2e6-74f9-e811-a97a-000d3a2760f2","addressLine1":"163","addressLine2":"hobbit
+        hill","addressCity":"baggistown","addressPostcode":"SW1A 2ET","telephone":"123456","acceptedPolicyId":"0a203956-e935-ea11-a813-000d3a44a8e9","preferredTeachingSubjectId":"6b793433-cd1f-e911-a979-000d3a20838a"}'
     headers:
       User-Agent:
       - Swagger-Codegen/1.0.6/ruby
@@ -168,7 +168,7 @@ http_interactions:
       message: No Content
     headers:
       Date:
-      - Wed, 12 Aug 2020 12:43:52 GMT
+      - Fri, 14 Aug 2020 15:07:55 GMT
       Connection:
       - keep-alive
       Server:
@@ -176,12 +176,12 @@ http_interactions:
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       X-Vcap-Request-Id:
-      - 5927df13-5271-4477-652d-dfdc4e1ada16
+      - c53413f5-5e19-4bc9-75a4-923812f10bc1
     body:
       encoding: UTF-8
       string: ''
     http_version: '1.1'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/teacher_training_adviser/candidates
-  recorded_at: Wed, 12 Aug 2020 12:43:52 GMT
+  recorded_at: Fri, 14 Aug 2020 15:07:55 GMT
 recorded_with: VCR 6.0.0

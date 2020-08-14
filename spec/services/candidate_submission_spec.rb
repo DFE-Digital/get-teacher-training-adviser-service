@@ -11,7 +11,7 @@ RSpec.describe CandidateSubmission, :vcr do
       "degree_type_id" => "222750000",
       "degree_subject" => "6b793433-cd1f-e911-a979-000d3a20838a",
       "uk_degree_grade_id" => "222750001",
-      "preferred_education_phase_id" => "222750000",
+      "preferred_education_phase_id" => StageInterestedTeaching::OPTIONS[:secondary],
       "has_gcse_maths_and_english_id" => "222750000",
       "planning_to_retake_gcse_maths_and_english_id" => "222750000",
       "has_gcse_science_id" => "222750000",
