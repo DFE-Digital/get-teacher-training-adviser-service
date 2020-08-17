@@ -1,4 +1,6 @@
 class Callback < Base
+  extend NextDayFilter
+
   attribute :telephone, :string
   attribute :phone_call_scheduled_at, :string
 
@@ -18,11 +20,6 @@ class Callback < Base
         end
       end
       next_day_check(options_hash)
-    end
-
-    def next_day_check(options)
-      options.shift if Date.parse(options.keys.first) == Date.today
-      options
     end
   end
 end
