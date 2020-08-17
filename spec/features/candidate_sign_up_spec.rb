@@ -27,6 +27,7 @@ education_phases_api = "#{Rails.application.config.x.git_api_endpoint}/api/types
 retake_gcse_status_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/retake_gcse_status"
 initial_teacher_training_years_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/candidate/initial_teacher_training_years"
 qualification_types_api = "#{Rails.application.config.x.git_api_endpoint}/api/types/qualification/types"
+booking_quotas_api = "#{Rails.application.config.x.git_api_endpoint}/api/callback_booking_quotas"
 signup_for_teacher_training_adviser_api_uri = "/api/teacher_training_adviser/candidates"
 signup_for_teacher_training_adviser_api = "#{Rails.application.config.x.git_api_endpoint}#{signup_for_teacher_training_adviser_api_uri}"
 
@@ -42,6 +43,39 @@ unless contract_fixture_files.empty?
   initial_teacher_training_years_body = JSON.parse(File.read(initial_teacher_training_years_reponse_file))
   qualification_types_body = JSON.parse(File.read(qualification_types_reponse_file))
 end
+
+booking_quotas_body = [
+  {
+    "timeSlot": "10am - 10:30am",
+    "day": "Tuesday 21 July",
+    "startAt": "2020-07-21T09:00:00Z",
+    "endAt": "2020-07-21T09:30:00Z",
+    "numberOfBookings": 0,
+    "quota": 12,
+    "isAvailable": true,
+    "id": "d828803b-1c83-ea11-a811-000d3a44a94a",
+  },
+  {
+    "timeSlot": "10:30am - 11am",
+    "day": "Tuesday 21 July",
+    "startAt": "2020-07-21T09:30:00Z",
+    "endAt": "2020-07-21T10:00:00Z",
+    "numberOfBookings": 0,
+    "quota": 12,
+    "isAvailable": true,
+    "id": "da28803b-1c83-ea11-a811-000d3a44a94a",
+  },
+  {
+    "timeSlot": "11am - 11:30am",
+    "day": "Tuesday 21 July",
+    "startAt": "2020-07-21T10:00:00Z",
+    "endAt": "2020-07-21T10:30:00Z",
+    "numberOfBookings": 0,
+    "quota": 12,
+    "isAvailable": true,
+    "id": "dc28803b-1c83-ea11-a811-000d3a44a94a",
+  },
+]
 
 def yes_no_options(option)
   case option
@@ -311,6 +345,14 @@ def enter_uk_telephone(telephone)
   click_button "Continue"
 end
 
+def enter_uk_callback_telephone(telephone)
+  expect(page).to have_text "You told us you live in the United Kingdom"
+
+  fill_in "Contact telephone number *", with: telephone
+
+  click_button "Continue"
+end
+
 def choose_country(country)
   expect(page).to have_text "Which country do you live in?"
 
@@ -327,14 +369,32 @@ def enter_overseas_telephone(telephone)
   click_button "Continue"
 end
 
+def enter_overseas_callback_telephone(telephone)
+  expect(page).to have_text "You told us you live overseas"
+
+  fill_in "Contact telephone number *", with: telephone
+
+  click_button "Continue"
+end
+
 def enter_uk_address(candidate)
   enter_address candidate["Address line 1"], candidate["Address line 2"], candidate["Town or city"], candidate["Postcode"]
-  enter_uk_telephone candidate["Telephone"]
+
+  if candidate["Degree"] == "I have an equivalent qualification from another country"
+    enter_uk_callback_telephone candidate["Telephone"]
+  else
+    enter_uk_telephone candidate["Telephone"]
+  end
 end
 
 def enter_overseas_address(candidate)
   choose_country candidate["Country"]
-  enter_overseas_telephone candidate["Telephone"]
+
+  if candidate["Degree"] == "I have an equivalent qualification from another country"
+    enter_overseas_callback_telephone candidate["Telephone"]
+  else
+    enter_overseas_telephone candidate["Telephone"]
+  end
 end
 
 def enter_where_lives(candidate)
@@ -441,6 +501,11 @@ RSpec.feature "Dependency contracts", :vcr, type: :feature do
         "content-type": "application/json; charset=utf-8",
       })
 
+    stub_request(:get, booking_quotas_api)
+      .to_return(body: JSON.generate(booking_quotas_body), headers: {
+        "content-type": "application/json; charset=utf-8",
+      })
+
     stub_request(:post, signup_for_teacher_training_adviser_api)
       .to_return(headers: {
         "content-type": "application/json; charset=utf-8",
@@ -479,13 +544,13 @@ RSpec.feature "Dependency contracts", :vcr, type: :feature do
             enter_teaching_stage_details candidate["Stage of Interest"]
             unless candidate["Degree"] == "I have an equivalent qualification from another country"
               enter_gcse_qualification_details candidate
+            end
 
-              enter_subject_interested_to_teach candidate["Interested subject"] if candidate["Stage of Interest"] == "Secondary"
+            enter_subject_interested_to_teach candidate["Interested subject"] if candidate["Stage of Interest"] == "Secondary"
 
-              # this should be removed as its not supposed to happen
-              if page.has_content?("Which subject are you interested in teaching?")
-                click_button "Continue"
-              end
+            # this should be removed as its not supposed to happen
+            if page.has_content?("Which subject are you interested in teaching?")
+              click_button "Continue"
             end
 
             enter_training_start_details candidate
