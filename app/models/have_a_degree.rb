@@ -16,7 +16,7 @@ class HaveADegree < Base
                             DEGREE_TYPE[:equivalent]
                           else
                             DEGREE_TYPE[:degree]
-                       end
+                          end
   end
 
   def next_step
