@@ -6,16 +6,12 @@
     <p class="govuk-body"><%= show_phone %></p>
   </dd>
   <dd class="govuk-summary-list__actions">
-<<<<<<< HEAD
     <% if defined?(link) %>
-      <%= show_link("#{link}" + 'overseas_telephone') %>
-=======
-    <% if defined?(link) && link == Equivalent::LINK %>
+      <% if link == Equivalent::LINK %>
         <%= show_link("#{link}" + 'overseas_candidate') %>
       <% else %>
         <%= show_link("#{link}" + 'overseas_telephone') %>
       <% end %>
->>>>>>> eb901b4... refactor
     <% else %>
       <%= show_link('overseas_telephone') %>
     <% end %>
