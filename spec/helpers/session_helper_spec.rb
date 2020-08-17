@@ -153,9 +153,9 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   end
 
   describe "#show_start_teacher_training" do
-    it "returns the session 'intital_teacher_training_year_id' value" do
+    it "returns the session 'initial_teacher_training_year_id' value" do
       session[:registration] = {
-        "intital_teacher_training_year_id" => "12917",
+        "initial_teacher_training_year_id" => "12917",
       }
       expect(show_start_teacher_training).to eq("Not sure")
     end
