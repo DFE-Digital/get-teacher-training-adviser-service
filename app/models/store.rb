@@ -7,6 +7,21 @@ class Store
     ApiClient.sign_up_teacher_training_adviser_candidate(body)
   end
 
+  def select_candidate
+    case step_name
+    when "accept_privacy_policy"
+      filter_returner_candidate
+    when "degree/accept_privacy_policy"
+      filter_degree_candidate
+    when "studying/accept_privacy_policy"
+      filter_studying_candidate
+    when "equivalent/accept_privacy_policy"
+      filter_equivalent_candidate
+    else
+      nil
+    end
+  end
+
   def filter_returner_candidate
     data = session[:registration].select { |key, _| Candidate::RETURNER.include? key.to_sym }
     # set default as secondary
