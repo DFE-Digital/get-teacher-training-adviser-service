@@ -42,7 +42,24 @@ RSpec.describe Callback, :vcr do
   end
 
   describe "#self.options" do
-    let(:options_hash) { Callback.options }
+    let(:options_hash) { described_class.options }
     include_examples "callback_options"
+  end
+
+  describe "#self.next_day_check" do
+    let(:options) do
+      { Date.today.strftime("%a %d %B") => [
+          ["todays times and dates"],["some more todays times and dates"]
+        ],
+        Date.tomorrow.strftime("%a %d %B") => [
+          ["tomorrows times and dates"],["some more tomorrows times and dates"]
+        ]
+      }
+    end
+    let(:options_hash) { described_class.next_day_check(options) }
+    it "removes todays data" do
+      expect(options_hash.size).to eq(1)
+      expect(options_hash.keys).to eq([Date.tomorrow.strftime("%a %d %B")])
+    end
   end
 end
