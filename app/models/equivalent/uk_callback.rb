@@ -12,11 +12,6 @@ module Equivalent
         end
         next_day_check(options_hash)
       end
-
-      def next_day_check(options)
-        options.shift if Date.parse(options.keys.first) == Date.today
-        options
-      end
     end
 
     def next_step
