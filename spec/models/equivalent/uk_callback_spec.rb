@@ -10,7 +10,12 @@ RSpec.describe Equivalent::UkCallback, :vcr do
   end
 
   describe "#self.options" do
-    let(:options_hash) { Equivalent::UkCallback.options }
+    include_context "callback_options_hash"
     include_examples "callback_options"
+  end
+
+  describe "#self.next_day_check" do
+    include_context "callback_next_day_check"
+    include_examples "callback_options_next_day_check"
   end
 end
