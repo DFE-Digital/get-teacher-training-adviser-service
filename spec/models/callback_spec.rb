@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Callback, :vcr do
   subject { build(:callback) }
   let(:no_callback_slot) { build(:callback, phone_call_scheduled_at: "") }
+  let(:blank_phone) { build(:callback, telephone: "") }
 
   describe "validation" do
     context "with required attributes" do
@@ -29,6 +30,13 @@ RSpec.describe Callback, :vcr do
         it "is not valid" do
           expect(build(:equivalent_uk_callback, telephone: invalid_phone)).to_not be_valid
         end
+      end
+    end
+
+    context "with blank phone number" do
+      it "returns a specific error message" do
+        blank_phone.valid?
+        expect(blank_phone.errors.messages[:telephone]).to eq(["Telephone number can't be blank"])
       end
     end
 
