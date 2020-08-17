@@ -28,7 +28,7 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
 
   describe "#show_link" do
     it "returns a link to the registration step" do
-      expect(show_link("identity")).to eq("<a href='#{new_registration_path('identity')}'>Change</a>".html_safe)
+      expect(show_link("identity")).to eq("<a href=\"/registrations/identity\">Change</a>")
     end
   end
 
