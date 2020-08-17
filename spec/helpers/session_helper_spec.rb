@@ -61,9 +61,9 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_uk_address" do
     it "returns the session address values" do
       session[:registration] = { "address_line1" => "22",
-        "address_line2" => "acacia avenue",
-        "address_city" => "bradford",
-        "address_postcode" => "tr1 1uf" }
+                                 "address_line2" => "acacia avenue",
+                                 "address_city" => "bradford",
+                                 "address_postcode" => "tr1 1uf" }
       expect(show_uk_address).to eq("22<br />acacia avenue<br />bradford<br />tr1 1uf")
     end
   end
@@ -71,7 +71,7 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_name" do
     it "returns the session name value" do
       session[:registration] = { "first_name" => "joe",
-        "last_name" => "bloggs"  }
+                                 "last_name" => "bloggs" }
       expect(show_name).to eq("Joe Bloggs")
     end
   end
