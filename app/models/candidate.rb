@@ -1,4 +1,4 @@
-class Candidate
+module Candidate
   RETURNER = %i[
     first_name
     last_name
