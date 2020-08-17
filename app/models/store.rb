@@ -17,8 +17,6 @@ class Store
       filter_studying_candidate
     when "equivalent/accept_privacy_policy"
       filter_equivalent_candidate
-    else
-      nil
     end
   end
 
