@@ -107,6 +107,8 @@ GEM
     factory_bot_rails (6.1.0)
       factory_bot (~> 6.1.0)
       railties (>= 5.0.0)
+    faraday (1.0.1)
+      multipart-post (>= 1.2, < 3)
     ffi (1.13.1)
     foreman (0.87.1)
     globalid (0.4.2)
@@ -136,6 +138,7 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.14.1)
     msgpack (1.3.3)
+    multipart-post (2.1.1)
     nio4r (2.5.2)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
@@ -253,6 +256,8 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (2.3.0)
+    sentry-raven (3.0.0)
+      faraday (>= 1.0)
     simplecov (0.17.0)
       docile (~> 1.1)
       json (>= 1.8, < 3)
@@ -325,6 +330,7 @@ DEPENDENCIES
   rspec-sonarqube-formatter (~> 1.3)
   rubocop-govuk
   scss_lint-govuk
+  sentry-raven
   simplecov (<= 0.17)
   spring
   spring-watcher-listen (~> 2.0.0)
