@@ -54,7 +54,19 @@ RSpec.describe Callback, :vcr do
   end
 
   describe "#self.remove_current_day" do
-    include_context "callback_remove_current_day"
-    include_examples "callback_options_remove_current_day"
+    let(:options) do
+      { Time.zone.today.strftime("%a %d %B") => [
+        ["todays times and dates"], ["some more todays times and dates"]
+      ],
+        Time.zone.tomorrow.strftime("%a %d %B") => [
+          ["tomorrows times and dates"], ["some more tomorrows times and dates"]
+        ] }
+    end
+    let(:options_hash) { described_class.remove_current_day(options) }
+
+    it "removes todays data" do
+      expect(options_hash.size).to eq(1)
+      expect(options_hash.keys).to eq([Date.tomorrow.strftime("%a %d %B")])
+    end
   end
 end
