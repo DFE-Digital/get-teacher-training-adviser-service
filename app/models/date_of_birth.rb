@@ -10,30 +10,31 @@ class DateOfBirth < Base
   validate :date_cannot_be_in_the_future, :age_limit, :upper_age_limit
 
   def date_cannot_be_in_the_future
-    if date_of_birth.present? && date_of_birth > Date.today
+    if date_of_birth.present? && date_of_birth > Time.zone.today
       errors.add(:date_of_birth, "Date can't be in the future")
     end
   end
 
   def age_limit
-    if date_of_birth.present? && date_of_birth > Date.today.years_ago(18)
+    if date_of_birth.present? && date_of_birth > Time.zone.today.years_ago(18)
       errors.add(:date_of_birth, "You must be 18 years or older to use this service")
     end
   end
 
   def upper_age_limit
-    if date_of_birth.present? && date_of_birth < Date.today.years_ago(70)
+    if date_of_birth.present? && date_of_birth < Time.zone.today.years_ago(70)
       errors.add(:date_of_birth, "You must be less than 70 years old")
     end
   end
 
   def make_a_date
-    year = self.send("date_of_birth(1i)").to_i
-    month = self.send("date_of_birth(2i)").to_i
-    day = self.send("date_of_birth(3i)").to_i
+    year = send("date_of_birth(1i)").to_i
+    month = send("date_of_birth(2i)").to_i
+    day = send("date_of_birth(3i)").to_i
 
-    begin # catch invalid dates, e.g. 31 Feb
+    begin
       self.date_of_birth = Date.new(year, month, day)
+    # catch invalid dates, e.g. 31 Feb
     rescue ArgumentError
       nil
     end
