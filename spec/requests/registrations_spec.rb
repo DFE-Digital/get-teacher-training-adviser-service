@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe RegistrationsController, :vcr, type: :request do
+RSpec.describe RegistrationsController, type: :request do
   let(:identity) { build(:identity) }
   let(:invalid_step) { "invalid_entity" }
   let(:get_invalid_step_url) { get new_registration_path(invalid_step) }

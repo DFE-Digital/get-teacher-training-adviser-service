@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe PolicyValidator, :vcr, type: :validator do
+RSpec.describe PolicyValidator, type: :validator do
   subject { build :accept_privacy_policy }
 
   it "passes when accepted_policy_id exists" do

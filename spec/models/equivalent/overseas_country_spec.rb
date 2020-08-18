@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Degree::OverseasCountry, :vcr do
+RSpec.describe Degree::OverseasCountry do
   let(:country) { build(:equivalent_overseas_country) }
 
   describe "#next_step" do

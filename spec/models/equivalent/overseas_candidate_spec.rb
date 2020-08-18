@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Equivalent::OverseasCandidate, :vcr do
+RSpec.describe Equivalent::OverseasCandidate do
   let(:candidate_details) { build(:equivalent_overseas_candidate) }
 
   describe "#next_step" do

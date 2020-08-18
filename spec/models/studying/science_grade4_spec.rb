@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Studying::ScienceGrade4, :vcr do
+RSpec.describe Studying::ScienceGrade4 do
   let(:yes) { build(:studying_science_grade4) }
   let(:no) { build(:studying_science_grade4, has_gcse_science_id: ScienceGrade4::OPTIONS[:no]) }
 

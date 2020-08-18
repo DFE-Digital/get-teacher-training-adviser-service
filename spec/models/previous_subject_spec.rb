@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe PreviousSubject, :vcr do
+RSpec.describe PreviousSubject do
   subject { build(:previous_subject) }
 
   describe "validation" do
