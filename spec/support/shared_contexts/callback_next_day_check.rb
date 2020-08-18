@@ -1,4 +1,4 @@
-RSpec.shared_context "callback_next_day_check" do
+RSpec.shared_context "callback_remove_current_day" do
   let(:options) do
     { Date.today.strftime("%a %d %B") => [
       ["todays times and dates"], ["some more todays times and dates"]
@@ -7,5 +7,5 @@ RSpec.shared_context "callback_next_day_check" do
         ["tomorrows times and dates"], ["some more tomorrows times and dates"]
       ] }
   end
-  let(:options_hash) { described_class.next_day_check(options) }
+  let(:options_hash) { described_class.remove_current_day(options) }
 end

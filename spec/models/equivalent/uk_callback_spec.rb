@@ -14,8 +14,8 @@ RSpec.describe Equivalent::UkCallback, :vcr do
     include_examples "callback_options"
   end
 
-  describe "#self.next_day_check" do
-    include_context "callback_next_day_check"
-    include_examples "callback_options_next_day_check"
+  describe "#self.remove_current_day" do
+    include_context "callback_remove_current_day"
+    include_examples "callback_options_remove_current_day"
   end
 end

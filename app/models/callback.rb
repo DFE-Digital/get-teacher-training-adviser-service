@@ -7,8 +7,7 @@ class Callback < Base
 
   class << self
     def options
-      quotas = ApiClient.get_callback_booking_quotas
-      grouped_quotas = quotas.group_by(&:day)
+      grouped_quotas = ApiClient.get_callback_booking_quotas.group_by(&:day)
       options_hash = Hash.new { |hash, key| hash[key] = [] }
       grouped_quotas.each do |day, data|
         data.each do |x|
@@ -17,10 +16,10 @@ class Callback < Base
           options_hash[day] << [gmt_start_slot.to_s + " - " + gmt_end_slot.to_s, x.start_at]
         end
       end
-      next_day_check(options_hash)
+      remove_current_day(options_hash)
     end
 
-    def next_day_check(options)
+    def remove_current_day(options)
       options.shift if Date.parse(options.keys.first) == Date.today
       options
     end

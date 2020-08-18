@@ -10,7 +10,7 @@ module Equivalent
             options_hash[day] << [x.time_slot, x.start_at]
           end
         end
-        next_day_check(options_hash)
+        remove_current_day(options_hash)
       end
     end
 
