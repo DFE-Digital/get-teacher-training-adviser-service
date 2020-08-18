@@ -101,5 +101,7 @@ Rails.application.configure do
 
   config.exceptions_app = routes
 
+  config.cache_store = :redis_cache_store
+
   config.x.git_api_endpoint = "https://get-into-teaching-api-dev.london.cloudapps.digital"
 end
