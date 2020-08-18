@@ -15,12 +15,12 @@ module SessionHelper
 
   def show_callback_date
     callback_date_start_at = session[:registration]["phone_call_scheduled_at"]
-    ApiClient::get_callback_booking_quotas.find { |callback| callback.start_at == callback_date_start_at }.day
+    ApiClient.get_callback_booking_quotas.find { |callback| callback.start_at == callback_date_start_at }.day
   end
 
   def show_callback_time
     callback_time_start_at = session[:registration]["phone_call_scheduled_at"]
-    ApiClient::get_callback_booking_quotas.find { |callback| callback.start_at == callback_time_start_at }.time_slot
+    ApiClient.get_callback_booking_quotas.find { |callback| callback.start_at == callback_time_start_at }.time_slot
   end
 
   def show_uk_address
@@ -28,7 +28,7 @@ module SessionHelper
     addr2 = session[:registration]["address_line_2"]
     city = session[:registration]["address_city"]
     address_postcode = session[:registration]["address_postcode"]
-    #do we need these capitalized etc?
+    # do we need these capitalized etc?
     address = [addr1, addr2, city, address_postcode]
     address.join("<br />").html_safe
   end
@@ -47,7 +47,7 @@ module SessionHelper
 
   def show_country
     country_id = session[:registration]["country_id"]
-    ApiClient::get_country_types.find { |country| country.id == country_id }.value
+    ApiClient.get_country_types.find { |country| country.id == country_id }.value
   end
 
   def show_true_or_false(question)
@@ -62,7 +62,7 @@ module SessionHelper
 
   def show_subject(question)
     subject_id = session[:registration][question]
-    ApiClient::get_teaching_subjects.find { |subject| subject.id == subject_id }.value
+    ApiClient.get_teaching_subjects.find { |subject| subject.id == subject_id }.value
   end
 
   def show_have_a_degree
@@ -81,7 +81,7 @@ module SessionHelper
 
   def show_what_degree_class
     uk_degree_grade_id = session[:registration]["uk_degree_grade_id"]
-    WhatDegreeClass::options.key(uk_degree_grade_id)
+    WhatDegreeClass.options.key(uk_degree_grade_id)
   end
 
   def show_stage_interested_teaching
@@ -91,11 +91,11 @@ module SessionHelper
 
   def show_start_teacher_training
     start_year = session[:registration]["intital_teacher_training_year_id"]
-    StartTeacherTraining::options.key(start_year)
+    StartTeacherTraining.options.key(start_year)
   end
 
   def show_stage_of_degree
     degree = session[:registration]["degree_status_id"]
-    Studying::StageOfDegree::options.key(degree).to_s.gsub("_", " ").capitalize
+    Studying::StageOfDegree.options.key(degree).to_s.gsub("_", " ").capitalize
   end
 end

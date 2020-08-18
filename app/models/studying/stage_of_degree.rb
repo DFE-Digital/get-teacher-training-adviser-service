@@ -7,7 +7,7 @@ module Studying
     validates :degree_status_id, types: { method: :get_qualification_degree_status, message: "You must select an option" }
 
     def self.options
-      generate_api_options(ApiClient::get_qualification_degree_status)
+      generate_api_options(ApiClient.get_qualification_degree_status)
     end
 
     #  final_year: "222750001"
