@@ -5,7 +5,7 @@ module SessionHelper
   end
 
   def show_link(step)
-    "<a href='#{new_registration_path(step)}'>Change</a>".html_safe
+    link_to "Change", new_registration_path(step)
   end
 
   def show_dob
