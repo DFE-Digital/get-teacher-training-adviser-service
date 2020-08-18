@@ -86,7 +86,8 @@ jobs:
 
       - name: Lint Ruby
         run: |-
-          docker run -t --rm -e RAILS_ENV=test $DOCKER_IMAGE bundle exec rubocop app config db lib spec Gemfile --format clang || true
+          docker run -t --rm -e RAILS_ENV=test $DOCKER_IMAGE \
+            bundle exec rubocop app config db lib spec Gemfile --format clang
 
       - name: Run sonarqube
         env:
@@ -190,6 +191,7 @@ jobs:
            SLACK_TITLE: 'Failure: ${{ github.workflow }}'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
+
   owasp:
     name: OWASP Test
     runs-on: ubuntu-latest
@@ -218,4 +220,5 @@ jobs:
            SLACK_MESSAGE: ':disappointed_relieved: Pipeline Failure carrying out job ${{github.job}} :disappointed_relieved:'
            SLACK_TITLE: 'Failure: ${{ github.workflow }}'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
 

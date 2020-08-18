@@ -73,7 +73,17 @@ jobs:
          env:
              HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
              HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
-
+   
+       - name: Create Sentry release
+         if: success()
+         uses: getsentry/action-release@v1.0.0
+         env:
+           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+         with:
+           environment: qa
+           
        - name: Slack Notification
          if: failure()
          uses: rtCamp/action-slack-notify@master
