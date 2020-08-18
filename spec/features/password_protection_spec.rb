@@ -7,7 +7,10 @@ RSpec.feature "Password protection", type: :feature do
     allow(ENV).to receive(:[]).with("HTTPAUTH_PASSWORD") { password }
   end
 
-  subject { visit root_path; page }
+  subject do
+    visit root_path
+    page
+  end
 
   context "when password protection is not set" do
     let(:username) { "" }
