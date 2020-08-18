@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Studying::StageInterestedTeaching do
   let(:primary) { build(:studying_stage_interested_teaching) }
-  let(:secondary) { build(:studying_stage_interested_teaching, preferred_education_phase_id: "222750001") }
+  let(:secondary) { build(:studying_stage_interested_teaching, preferred_education_phase_id: 222_750_001) }
 
   describe "#next_step" do
     context "when answer is primary" do

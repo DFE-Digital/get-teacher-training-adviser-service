@@ -25,7 +25,7 @@
           <%= render partial: 'check_answers/stage_interested_teaching', locals: { link: Studying::LINK } %>
 
           <!-- Primary options -->
-         <% if StageInterestedTeaching::OPTIONS.key(session[:registration]['preferred_education_phase_id']).to_s == 'primary' %>
+          <% if session[:registration]['preferred_education_phase_id'] == StageInterestedTeaching::OPTIONS[:primary] %>
             <%= render partial: 'check_answers/primary_maths_english_grade4', locals: { link: Studying::LINK } %>
 
             <% if session[:registration]['has_gcse_maths_and_english_id'] == PrimaryMathsEnglishGrade4::OPTIONS[:no] %>
@@ -41,7 +41,7 @@
           <% end %>
 
           <!-- Secondary options -->
-          <% if StageInterestedTeaching::OPTIONS.key(session[:registration]['preferred_education_phase_id']).to_s == 'secondary' %>
+          <% if session[:registration]['preferred_education_phase_id'] == StageInterestedTeaching::OPTIONS[:secondary] %>
             <%= render partial: 'check_answers/secondary_maths_english_grade4', locals: { link: Studying::LINK } %>
             <% if session[:registration]['has_gcse_maths_and_english_id'] == SecondaryMathsEnglishGrade4::OPTIONS[:no] %>
               <%= render partial: 'check_answers/retake_english_maths', locals: { link: Studying::LINK } %>

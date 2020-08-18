@@ -57,7 +57,7 @@ module SessionHelper
 
   def show_yes_or_no(question)
     answer = session[:registration][question]
-    answer == "222750000" ? "Yes" : "No"
+    answer == 222_750_000 ? "Yes" : "No"
   end
 
   def show_subject(question)
@@ -81,21 +81,21 @@ module SessionHelper
 
   def show_what_degree_class
     uk_degree_grade_id = session[:registration]["uk_degree_grade_id"]
-    WhatDegreeClass.options.key(uk_degree_grade_id)
+    WhatDegreeClass.options.key(uk_degree_grade_id.to_s)
   end
 
   def show_stage_interested_teaching
     stage = session[:registration]["preferred_education_phase_id"]
-    StageInterestedTeaching::OPTIONS.key(stage).to_s.capitalize
+    StageInterestedTeaching.options.key(stage.to_s).to_s.capitalize
   end
 
   def show_start_teacher_training
     start_year = session[:registration]["initial_teacher_training_year_id"]
-    StartTeacherTraining.options.key(start_year)
+    StartTeacherTraining.options.key(start_year.to_s)
   end
 
   def show_stage_of_degree
     degree = session[:registration]["degree_status_id"]
-    Studying::StageOfDegree.options.key(degree).to_s.gsub("_", " ").capitalize
+    Studying::StageOfDegree.options.key(degree.to_s).to_s.gsub("_", " ").capitalize
   end
 end
