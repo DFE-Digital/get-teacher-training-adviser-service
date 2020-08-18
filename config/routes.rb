@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   get "/sitemap", to: "sitemaps#index"
   get "/healthcheck.json", to: "healthchecks#show", as: :healthcheck
   get "/privacy-policy", to: "pages#privacy_policy", as: :privacy_policy
-  get "/:page", to: "pages#show"
 
   get "/404", to: "errors#not_found", via: :all
   get "/422", to: "errors#unprocessable_entity", via: :all
@@ -11,4 +10,7 @@ Rails.application.routes.draw do
 
   get "/registrations/*step_name", to: "registrations#new", as: :new_registration
   post "/registrations/*step_name", to: "registrations#create", as: :registrations
+
+  # This route should remain at the bottom to avoid overriding the above routes
+  get "/:page", to: "pages#show"
 end

@@ -2,12 +2,12 @@ require "rails_helper"
 
 RSpec.describe UkCandidate do
   let(:address) { build(:uk_candidate) }
-  let(:no_address_line_1) { build(:uk_candidate, address_line_1: "") }
+  let(:no_address_line1) { build(:uk_candidate, address_line1: "") }
 
   describe "validation" do
     context "without required attributes" do
       it "is invalid" do
-        expect(no_address_line_1).to_not be_valid
+        expect(no_address_line1).to_not be_valid
       end
     end
 

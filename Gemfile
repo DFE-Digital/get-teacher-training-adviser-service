@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read(".ruby-version").chomp
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.3'
+gem "rails", "~> 6.0.3"
 
 # Use Puma as the app server
 gem "puma", "~> 4.3"
@@ -35,6 +35,8 @@ gem "country_select", "~> 4.0"
 
 # api client
 gem "get_into_teaching_api_client", "1.0.6", git: "https://github.com/DFE-Digital/get-into-teaching-api-ruby-client.git"
+
+gem "sentry-raven"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -69,8 +71,8 @@ group :development do
 end
 
 group :test do
-  gem "webdrivers", "~> 4.3"
   gem "vcr"
+  gem "webdrivers", "~> 4.3"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
