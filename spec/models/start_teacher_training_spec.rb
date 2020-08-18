@@ -12,7 +12,7 @@ RSpec.describe StartTeacherTraining, :vcr do
 
     context "with invalid subject option" do
       it "is not valid" do
-        subject.intital_teacher_training_year_id = "invalid_id"
+        subject.initial_teacher_training_year_id = "invalid_id"
         expect(subject).to_not be_valid
       end
     end

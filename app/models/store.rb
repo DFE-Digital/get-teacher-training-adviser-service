@@ -20,7 +20,7 @@ class Store
       "uk_degree_grade_id" => x["uk_degree_grade_id"],
       "degree_status_id" => x["degree_status_id"],
       "degree_type_id" => x["degree_type_id"],
-      "intital_teacher_training_year_id" => x["intital_teacher_training_year_id"],
+      "initial_teacher_training_year_id" => x["initial_teacher_training_year_id"],
       "preferred_education_phase_id" => x["preferred_education_phase_id"],
       "has_gcse_maths_and_english_id" => x["has_gcse_maths_and_english_id"],
       "has_gcse_science_id" => x["has_gcse_science_id"],
