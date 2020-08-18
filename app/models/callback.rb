@@ -6,8 +6,11 @@ class Callback < Base
   validates :phone_call_scheduled_at, callbacks: { method: :get_callback_booking_quotas }
 
   class << self
+    def grouped_quotas
+      ApiClient.get_callback_booking_quotas.group_by(&:day)
+    end
+
     def options
-      grouped_quotas = ApiClient.get_callback_booking_quotas.group_by(&:day)
       options_hash = Hash.new { |hash, key| hash[key] = [] }
       grouped_quotas.each do |day, data|
         data.each do |x|
