@@ -43,7 +43,7 @@ RSpec.describe Callback, :vcr do
 
   describe "#self.grouped_quotas" do
     it "makes a success api call and returns a Hash" do
-      expect{ described_class.grouped_quotas }.to_not raise_error
+      expect { described_class.grouped_quotas }.to_not raise_error
       expect(described_class.grouped_quotas).to be_a(Hash)
     end
   end
