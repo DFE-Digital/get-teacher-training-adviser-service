@@ -23,7 +23,7 @@ class Callback < Base
     end
 
     def remove_current_day(options)
-      options.shift if Date.parse(options.keys.first) == Date.today
+      options.shift if Date.parse(options.keys.first) == Time.zone.today
       options
     end
   end
