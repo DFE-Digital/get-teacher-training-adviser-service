@@ -23,7 +23,7 @@
           <%= render partial: 'check_answers/stage_interested_teaching', locals: { link: Equivalent::LINK }%>
 
           <!-- Secondary options -->
-          <% if StageInterestedTeaching::OPTIONS.key(session[:registration]['preferred_education_phase_id']).to_s == 'secondary' %>
+          <% if session[:registration]['preferred_education_phase_id'] == StageInterestedTeaching::OPTIONS[:secondary] %>
             <%= render partial: 'check_answers/subject_interested_teaching', locals: { link: Equivalent::LINK }%>
           <% end %>
 
