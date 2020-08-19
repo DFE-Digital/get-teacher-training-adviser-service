@@ -3,8 +3,14 @@ class HaveADegree < Base
   attribute :degree_status_id, :integer
   attribute :degree_type_id, :integer
 
-  before_validation :set_degree_status
-  before_validation :set_degree_type
+  def degree_options=(value)
+    super
+    set_degree_status
+    set_degree_type
+  end
+
+  #before_validation :set_degree_status
+  #before_validation :set_degree_type
 
   DEGREE_OPTIONS = { degree: "degree", no: "no", studying: "studying", equivalent: "equivalent" }.freeze
   STUDYING = -1 # degree_status_id will be overriden on subsequent step.

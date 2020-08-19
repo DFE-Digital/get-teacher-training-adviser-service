@@ -51,29 +51,25 @@ RSpec.describe HaveADegree do
 
   describe "#set_degree_status" do
     context "with degree_option degree" do
-      it "sets the correct degree_status_id before validation" do
-        have_a_degree.valid?
+      it "sets the correct degree_status_id" do
         expect(have_a_degree.degree_status_id).to eq(HaveADegree::DEGREE_STATUS_OPTIONS[:yes])
       end
     end
 
     context "with degree_option no" do
-      it "sets the correct degree_status_id before validation" do
-        no.valid?
+      it "sets the correct degree_status_id" do
         expect(no.degree_status_id).to eq(HaveADegree::DEGREE_STATUS_OPTIONS[:no])
       end
     end
 
     context "with degree_option studying" do
-      it "sets the correct degree_status_id before validation" do
-        studying.valid?
+      it "sets the correct degree_status_id" do
         expect(studying.degree_status_id).to eq(HaveADegree::DEGREE_STATUS_OPTIONS[:studying])
       end
     end
 
     context "with degree_option equivalent" do
-      it "sets the correct degree_status_id before validation" do
-        equivalent.valid?
+      it "sets the correct degree_status_id" do
         expect(equivalent.degree_status_id).to eq(HaveADegree::DEGREE_STATUS_OPTIONS[:yes])
       end
     end
@@ -81,29 +77,25 @@ RSpec.describe HaveADegree do
 
   describe "#set degree type" do
     context "with degree_option degree" do
-      it "sets the correct degree_type_id before validation" do
-        have_a_degree.valid?
+      it "sets the correct degree_type_id" do
         expect(have_a_degree.degree_type_id).to eq(HaveADegree::DEGREE_TYPE[:degree])
       end
     end
 
     context "with degree_option no" do
-      it "sets the correct degree_type_id before validation" do
-        no.valid?
+      it "sets the correct degree_type_id" do
         expect(no.degree_type_id).to eq(HaveADegree::DEGREE_TYPE[:degree])
       end
     end
 
     context "with degree_option studying" do
-      it "sets the correct degree_type_id before validation" do
-        studying.valid?
+      it "sets the correct degree_type_id" do
         expect(studying.degree_type_id).to eq(HaveADegree::DEGREE_TYPE[:degree])
       end
     end
 
     context "with degree_option equivalent" do
-      it "sets the correct degree_type_id before validation" do
-        equivalent.valid?
+      it "sets the correct degree_type_id" do
         expect(equivalent.degree_type_id).to eq(HaveADegree::DEGREE_TYPE[:equivalent])
       end
     end
