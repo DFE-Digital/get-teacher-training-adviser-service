@@ -8,6 +8,7 @@ RSpec.describe DateOfBirth do
   let(:impossible_date) { described_class.new({ "date_of_birth(3i)" => "31", "date_of_birth(2i)" => "2", "date_of_birth(1i)" => Time.zone.now.year }) }
   let(:too_young) { described_class.new({ "date_of_birth(3i)" => "1", "date_of_birth(2i)" => "2", "date_of_birth(1i)" => Time.zone.now.years_ago(15) }) }
   let(:upper_limit) { described_class.new({ "date_of_birth(3i)" => "1", "date_of_birth(2i)" => "2", "date_of_birth(1i)" => Time.zone.now.years_ago(71) }) }
+  let(:in_future) { described_class.new({ "date_of_birth(3i)" => "1", "date_of_birth(2i)" => "2", "date_of_birth(1i)" => Time.zone.now.year - 1 }) }
 
   describe "validation" do
     context "with required attributes" do
@@ -22,6 +23,7 @@ RSpec.describe DateOfBirth do
         expect(invalid_month).not_to be_valid
         expect(invalid_year).not_to be_valid
         expect(impossible_date).not_to be_valid
+        expect(in_future).not_to be_valid
       end
     end
 
