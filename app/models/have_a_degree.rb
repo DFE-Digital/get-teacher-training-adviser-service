@@ -23,7 +23,7 @@ class HaveADegree < Base
                               DEGREE_STATUS_OPTIONS[:studying]
                             else
                               DEGREE_STATUS_OPTIONS[:yes]
-    end
+                            end
   end
 
   def set_degree_type
