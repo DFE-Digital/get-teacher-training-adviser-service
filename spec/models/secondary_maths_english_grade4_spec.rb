@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SecondaryMathsEnglishGrade4, :vcr do
+RSpec.describe SecondaryMathsEnglishGrade4 do
   subject { build(:secondary_maths_english_grade4) }
 
   describe "validation" do

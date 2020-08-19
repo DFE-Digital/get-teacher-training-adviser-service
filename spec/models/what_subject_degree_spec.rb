@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe WhatSubjectDegree, :vcr do
+RSpec.describe WhatSubjectDegree do
   subject { build(:what_subject_degree) }
 
   describe "validation" do

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SessionHelper, :vcr, type: :helper do
+RSpec.describe SessionHelper, type: :helper do
   describe "#show_session" do
     context "with a session value" do
       it "returns the value capitalized" do

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Studying::RetakeScience, :vcr do
+RSpec.describe Studying::RetakeScience do
   let(:yes) { build(:studying_retake_science) }
   let(:no) { build(:studying_retake_science, planning_to_retake_gcse_science_id: RetakeScience::OPTIONS[:no]) }
 

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Degree::PrimaryMathsEnglishGrade4, :vcr do
+RSpec.describe Degree::PrimaryMathsEnglishGrade4 do
   let(:yes) { build(:degree_primary_maths_english_grade4) }
   let(:no) { build(:degree_primary_maths_english_grade4, has_gcse_maths_and_english_id: PrimaryMathsEnglishGrade4::OPTIONS[:no]) }
 
