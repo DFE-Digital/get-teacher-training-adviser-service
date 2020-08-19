@@ -9,8 +9,8 @@ class HaveADegree < Base
     set_degree_type
   end
 
-  #before_validation :set_degree_status
-  #before_validation :set_degree_type
+  # before_validation :set_degree_status
+  # before_validation :set_degree_type
 
   DEGREE_OPTIONS = { degree: "degree", no: "no", studying: "studying", equivalent: "equivalent" }.freeze
   STUDYING = -1 # degree_status_id will be overriden on subsequent step.
