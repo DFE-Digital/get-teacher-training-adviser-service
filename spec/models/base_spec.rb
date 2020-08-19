@@ -7,7 +7,8 @@ module StepSection
 end
 
 RSpec.describe Base do
-  let(:step) { StepSection::StubStep.new }
+  let(:store) { { "name" => "Josh", "age" => 10 } }
+  let(:step) { StepSection::StubStep.new(store) }
 
   describe "#step_name" do
     subject { step.step_name }
@@ -23,9 +24,8 @@ RSpec.describe Base do
 
   describe "save" do
     it "merges the store with the model attributes" do
-      store = { "name" => "Josh", "age" => 10 }
       step.name = "James"
-      step.save!(store)
+      step.save!
       expect(store).to eq({ "name" => "James", "age" => 10 })
     end
   end

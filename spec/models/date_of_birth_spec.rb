@@ -1,14 +1,15 @@
 require "rails_helper"
 
 RSpec.describe DateOfBirth do
-  let(:date_of_birth) { described_class.new({ "date_of_birth(3i)" => "1", "date_of_birth(2i)" => "12", "date_of_birth(1i)" => "2001" }) }
-  let(:invalid_month) { described_class.new({ "date_of_birth(3i)" => "1", "date_of_birth(2i)" => "13", "date_of_birth(1i)" => "2001" }) }
-  let(:invalid_day) { described_class.new({ "date_of_birth(3i)" => "32", "date_of_birth(2i)" => "12", "date_of_birth(1i)" => "2001" }) }
-  let(:invalid_year) { described_class.new({ "date_of_birth(3i)" => "32", "date_of_birth(2i)" => "12", "date_of_birth(1i)" => Time.zone.now.year + 1 }) }
-  let(:impossible_date) { described_class.new({ "date_of_birth(3i)" => "31", "date_of_birth(2i)" => "2", "date_of_birth(1i)" => Time.zone.now.year }) }
-  let(:too_young) { described_class.new({ "date_of_birth(3i)" => "1", "date_of_birth(2i)" => "2", "date_of_birth(1i)" => Time.zone.now.years_ago(15) }) }
-  let(:upper_limit) { described_class.new({ "date_of_birth(3i)" => "1", "date_of_birth(2i)" => "2", "date_of_birth(1i)" => Time.zone.now.years_ago(71) }) }
-  let(:in_future) { described_class.new({ "date_of_birth(3i)" => "1", "date_of_birth(2i)" => "2", "date_of_birth(1i)" => Time.zone.now.year - 1 }) }
+  let(:store) { {} }
+  let(:date_of_birth) { described_class.new(store, { "date_of_birth(3i)" => "1", "date_of_birth(2i)" => "12", "date_of_birth(1i)" => "2001" }) }
+  let(:invalid_month) { described_class.new(store, { "date_of_birth(3i)" => "1", "date_of_birth(2i)" => "13", "date_of_birth(1i)" => "2001" }) }
+  let(:invalid_day) { described_class.new(store, { "date_of_birth(3i)" => "32", "date_of_birth(2i)" => "12", "date_of_birth(1i)" => "2001" }) }
+  let(:invalid_year) { described_class.new(store, { "date_of_birth(3i)" => "32", "date_of_birth(2i)" => "12", "date_of_birth(1i)" => Time.zone.now.year + 1 }) }
+  let(:impossible_date) { described_class.new(store, { "date_of_birth(3i)" => "31", "date_of_birth(2i)" => "2", "date_of_birth(1i)" => Time.zone.now.year }) }
+  let(:too_young) { described_class.new(store, { "date_of_birth(3i)" => "1", "date_of_birth(2i)" => "2", "date_of_birth(1i)" => Time.zone.now.years_ago(15) }) }
+  let(:upper_limit) { described_class.new(store, { "date_of_birth(3i)" => "1", "date_of_birth(2i)" => "2", "date_of_birth(1i)" => Time.zone.now.years_ago(71) }) }
+  let(:in_future) { described_class.new(store, { "date_of_birth(3i)" => "1", "date_of_birth(2i)" => "2", "date_of_birth(1i)" => Time.zone.now.year - 1 }) }
 
   describe "validation" do
     context "with required attributes" do

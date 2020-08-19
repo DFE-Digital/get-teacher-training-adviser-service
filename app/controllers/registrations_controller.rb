@@ -1,7 +1,7 @@
 class RegistrationsController < ApplicationController
   def new
     step_name = params[:step_name]
-    @step = StepFactory.create!(step_name)
+    @step = StepFactory.create!(step_name, store)
   rescue StepFactory::NameNotFoundError => e
     # needs to redirect to root or last valid step
     redirect_to :root, alert: "Error: #{e.message}"
@@ -9,11 +9,11 @@ class RegistrationsController < ApplicationController
 
   def create
     step_name = params[:step_name]
-    @step = StepFactory.create!(step_name)
+    @step = StepFactory.create!(step_name, store)
     @step.assign_attributes(registration_params)
 
     if @step.valid?
-      @step.save!(store)
+      @step.save!
       redirect_to new_registration_path(step_name: @step.next_step)
     else
       render :new

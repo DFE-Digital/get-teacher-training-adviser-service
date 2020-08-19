@@ -1,10 +1,11 @@
 require "rails_helper"
 
 RSpec.describe Equivalent::DateOfBirth do
-  let(:date_of_birth) { described_class.new({ "date_of_birth(3i)" => "1", "date_of_birth(2i)" => "12", "date_of_birth(1i)" => "2001" }) }
-  let(:invalid_month) { described_class.new({ "date_of_birth(3i)" => "1", "date_of_birth(2i)" => "13", "date_of_birth(1i)" => "2001" }) }
-  let(:invalid_day) { described_class.new({ "date_of_birth(3i)" => "32", "date_of_birth(2i)" => "12", "date_of_birth(1i)" => "2001" }) }
-  let(:invalid_year) { described_class.new({ "date_of_birth(3i)" => "32", "date_of_birth(2i)" => "12", "date_of_birth(1i)" => Time.zone.now.year + 1 }) }
+  let(:store) { {} }
+  let(:date_of_birth) { described_class.new(store, { "date_of_birth(3i)" => "1", "date_of_birth(2i)" => "12", "date_of_birth(1i)" => "2001" }) }
+  let(:invalid_month) { described_class.new(store, { "date_of_birth(3i)" => "1", "date_of_birth(2i)" => "13", "date_of_birth(1i)" => "2001" }) }
+  let(:invalid_day) { described_class.new(store, { "date_of_birth(3i)" => "32", "date_of_birth(2i)" => "12", "date_of_birth(1i)" => "2001" }) }
+  let(:invalid_year) { described_class.new(store, { "date_of_birth(3i)" => "32", "date_of_birth(2i)" => "12", "date_of_birth(1i)" => Time.zone.now.year + 1 }) }
 
   describe "validation" do
     context "with required attributes" do

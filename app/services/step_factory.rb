@@ -88,12 +88,12 @@ class StepFactory
   end
 
   class << self
-    def create(name)
+    def create(name, store)
       classified_name = name.camelize
       # need to redirect to root or last valid step.
       raise NameNotFoundError, classified_name unless STEP_NAMES.include?(classified_name)
 
-      Object.const_get(classified_name).new
+      Object.const_get(classified_name).new(store)
     end
     alias_method :create!, :create
   end
