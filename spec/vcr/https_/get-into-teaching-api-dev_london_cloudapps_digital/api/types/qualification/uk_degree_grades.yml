@@ -20,29 +20,31 @@ http_interactions:
   response:
     status:
       code: 200
-      message: ''
+      message: OK
     headers:
-      date:
-      - Wed, 19 Aug 2020 06:28:35 GMT
-      content-type:
+      Date:
+      - Wed, 19 Aug 2020 09:04:35 GMT
+      Content-Type:
       - application/json; charset=utf-8
-      content-length:
+      Content-Length:
       - '252'
-      etag:
-      - 465FD8DE55F069BC1323C076F0D10F3ACCE535616501E62EB17BEF9DEA94DE67
-      server:
+      Connection:
+      - keep-alive
+      Etag:
+      - F990D2E9FA4DEB4EA675FE2867C90159EC95B33A118FDC573F5C8A2665408A75
+      Server:
       - Kestrel
-      strict-transport-security:
+      Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
-      x-vcap-request-id:
-      - a2fe04a4-87b8-4d43-4e99-fdcc04df6905
+      X-Vcap-Request-Id:
+      - 4efe5673-7429-4648-4b99-8e9f3dc438aa
     body:
       encoding: UTF-8
       string: '[{"id":"222750000","value":"Not applicable"},{"id":"222750001","value":"First
         class"},{"id":"222750002","value":"2:1"},{"id":"222750003","value":"2:2"},{"id":"222750004","value":"Third
         class or below"},{"id":"222750005","value":"Pass (grade unknown)"}]'
-    http_version: '2'
+    http_version: '1.1'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/qualification/uk_degree_grades
-  recorded_at: Wed, 19 Aug 2020 06:28:35 GMT
+  recorded_at: Wed, 19 Aug 2020 09:04:35 GMT
 recorded_with: VCR 6.0.0

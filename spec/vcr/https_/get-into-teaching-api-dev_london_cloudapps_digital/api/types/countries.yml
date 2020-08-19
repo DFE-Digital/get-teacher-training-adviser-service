@@ -20,20 +20,24 @@ http_interactions:
   response:
     status:
       code: 200
-      message: ''
+      message: OK
     headers:
-      date:
-      - Wed, 19 Aug 2020 06:28:35 GMT
-      content-type:
+      Date:
+      - Wed, 19 Aug 2020 09:04:33 GMT
+      Content-Type:
       - application/json; charset=utf-8
-      etag:
-      - 3B20AECC86803D85CB5B859EEA099D09AB2CED8488C2B61369E4922C3BBC1212
-      server:
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Etag:
+      - 1569DA7AE2192CCC0BF7FE4AAA8AB3E6AE7A510FFB490D9151268D5A741F4FB3
+      Server:
       - Kestrel
-      strict-transport-security:
+      Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
-      x-vcap-request-id:
-      - e90dd86d-8c8c-40cb-6556-5a005bc35441
+      X-Vcap-Request-Id:
+      - 0523e30c-4b35-4d15-4288-0e29c01fd9dd
     body:
       encoding: UTF-8
       string: '[{"id":"00f5c2e6-74f9-e811-a97a-000d3a2760f2","value":"Nicaragua"},{"id":"01f4c2e6-74f9-e811-a97a-000d3a2760f2","value":"Algeria"},{"id":"02f5c2e6-74f9-e811-a97a-000d3a2760f2","value":"Niger"},{"id":"03f4c2e6-74f9-e811-a97a-000d3a2760f2","value":"Andorra"},{"id":"04f5c2e6-74f9-e811-a97a-000d3a2760f2","value":"Nigeria"},{"id":"05f4c2e6-74f9-e811-a97a-000d3a2760f2","value":"Angola"},{"id":"06f5c2e6-74f9-e811-a97a-000d3a2760f2","value":"North
@@ -81,8 +85,8 @@ http_interactions:
         Republic of"},{"id":"eaf4c2e6-74f9-e811-a97a-000d3a2760f2","value":"Monaco"},{"id":"ecf4c2e6-74f9-e811-a97a-000d3a2760f2","value":"Mongolia"},{"id":"eef4c2e6-74f9-e811-a97a-000d3a2760f2","value":"Montenegro"},{"id":"f0f4c2e6-74f9-e811-a97a-000d3a2760f2","value":"Morocco"},{"id":"f2f4c2e6-74f9-e811-a97a-000d3a2760f2","value":"Mozambique"},{"id":"f4f4c2e6-74f9-e811-a97a-000d3a2760f2","value":"Myanmar"},{"id":"f6f4c2e6-74f9-e811-a97a-000d3a2760f2","value":"Namibia"},{"id":"f8f4c2e6-74f9-e811-a97a-000d3a2760f2","value":"Nepal"},{"id":"faf4c2e6-74f9-e811-a97a-000d3a2760f2","value":"Netherlands"},{"id":"fcf4c2e6-74f9-e811-a97a-000d3a2760f2","value":"Netherlands
         Antilles"},{"id":"fdf3c2e6-74f9-e811-a97a-000d3a2760f2","value":"Afghanistan"},{"id":"fef4c2e6-74f9-e811-a97a-000d3a2760f2","value":"New
         Zealand"},{"id":"fff3c2e6-74f9-e811-a97a-000d3a2760f2","value":"Albania"}]'
-    http_version: '2'
+    http_version: '1.1'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/countries
-  recorded_at: Wed, 19 Aug 2020 06:28:35 GMT
+  recorded_at: Wed, 19 Aug 2020 09:04:33 GMT
 recorded_with: VCR 6.0.0

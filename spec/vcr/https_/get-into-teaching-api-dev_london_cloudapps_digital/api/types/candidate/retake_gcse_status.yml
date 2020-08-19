@@ -20,28 +20,30 @@ http_interactions:
   response:
     status:
       code: 200
-      message: ''
+      message: OK
     headers:
-      date:
-      - Wed, 19 Aug 2020 06:28:35 GMT
-      content-type:
+      Date:
+      - Wed, 19 Aug 2020 09:04:34 GMT
+      Content-Type:
       - application/json; charset=utf-8
-      content-length:
+      Content-Length:
       - '98'
-      etag:
-      - EF3EEA0FD3C0884EAAF307C028D51996F776DBE9370E95111EA82EEFC6089051
-      server:
+      Connection:
+      - keep-alive
+      Etag:
+      - 15692B63DEFCB077EF2A84950CA1993DFF1CF4D2CE7FAFC2C7D6CCC0EA0A65AF
+      Server:
       - Kestrel
-      strict-transport-security:
+      Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
-      x-vcap-request-id:
-      - 8709aa09-afa1-4be9-4f4c-a915a0f26b4a
+      X-Vcap-Request-Id:
+      - 0532cde6-73b0-4048-78c9-c5b0fc637c06
     body:
       encoding: UTF-8
       string: '[{"id":"222750000","value":"Planning on Retaking GCSE"},{"id":"222750001","value":"Not
         Answered"}]'
-    http_version: '2'
+    http_version: '1.1'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/candidate/retake_gcse_status
-  recorded_at: Wed, 19 Aug 2020 06:28:35 GMT
+  recorded_at: Wed, 19 Aug 2020 09:04:34 GMT
 recorded_with: VCR 6.0.0

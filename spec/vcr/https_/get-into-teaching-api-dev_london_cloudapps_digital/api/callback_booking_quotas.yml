@@ -20,24 +20,25 @@ http_interactions:
   response:
     status:
       code: 200
-      message: ''
+      message: OK
     headers:
-      date:
-      - Wed, 19 Aug 2020 06:30:15 GMT
-      content-type:
+      Date:
+      - Wed, 19 Aug 2020 09:04:35 GMT
+      Content-Type:
       - application/json; charset=utf-8
-      server:
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Server:
       - Kestrel
-      strict-transport-security:
+      Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
-      x-vcap-request-id:
-      - c0a3fb0b-b879-4691-64d3-c92870430b2a
+      X-Vcap-Request-Id:
+      - 757ec795-6f09-4666-45b1-b98737c327d1
     body:
       encoding: UTF-8
-      string: '[{"timeSlot":"9am - 9:30am","day":"Wednesday 19 August","startAt":"2020-08-19T08:00:00Z","endAt":"2020-08-19T08:30:00Z","numberOfBookings":0,"quota":3,"isAvailable":true,"id":"3d543378-dfcc-ea11-a812-000d3a44ad35"},{"timeSlot":"9:30am
-        - 10am","day":"Wednesday 19 August","startAt":"2020-08-19T08:30:00Z","endAt":"2020-08-19T09:00:00Z","numberOfBookings":0,"quota":3,"isAvailable":true,"id":"3f543378-dfcc-ea11-a812-000d3a44ad35"},{"timeSlot":"10am
-        - 10:30am","day":"Wednesday 19 August","startAt":"2020-08-19T09:00:00Z","endAt":"2020-08-19T09:30:00Z","numberOfBookings":0,"quota":3,"isAvailable":true,"id":"41543378-dfcc-ea11-a812-000d3a44ad35"},{"timeSlot":"10:30am
-        - 11am","day":"Wednesday 19 August","startAt":"2020-08-19T09:30:00Z","endAt":"2020-08-19T10:00:59Z","numberOfBookings":0,"quota":3,"isAvailable":true,"id":"43543378-dfcc-ea11-a812-000d3a44ad35"},{"timeSlot":"11am
+      string: '[{"timeSlot":"10:30am - 11am","day":"Wednesday 19 August","startAt":"2020-08-19T09:30:00Z","endAt":"2020-08-19T10:00:59Z","numberOfBookings":0,"quota":3,"isAvailable":true,"id":"43543378-dfcc-ea11-a812-000d3a44ad35"},{"timeSlot":"11am
         - 11:30am","day":"Wednesday 19 August","startAt":"2020-08-19T10:00:00Z","endAt":"2020-08-19T10:30:00Z","numberOfBookings":0,"quota":3,"isAvailable":true,"id":"45543378-dfcc-ea11-a812-000d3a44ad35"},{"timeSlot":"11:30am
         - Midday","day":"Wednesday 19 August","startAt":"2020-08-19T10:30:00Z","endAt":"2020-08-19T11:00:59Z","numberOfBookings":0,"quota":3,"isAvailable":true,"id":"47543378-dfcc-ea11-a812-000d3a44ad35"},{"timeSlot":"Midday
         - 12:30pm","day":"Wednesday 19 August","startAt":"2020-08-19T11:00:00Z","endAt":"2020-08-19T11:30:00Z","numberOfBookings":0,"quota":3,"isAvailable":true,"id":"49543378-dfcc-ea11-a812-000d3a44ad35"},{"timeSlot":"12:30pm
@@ -213,9 +214,12 @@ http_interactions:
         - 5:30pm","day":"Tuesday 1 September","startAt":"2020-09-01T16:00:00Z","endAt":"2020-09-01T16:30:00Z","numberOfBookings":0,"quota":3,"isAvailable":true,"id":"9d553378-dfcc-ea11-a812-000d3a44ad35"},{"timeSlot":"5:30pm
         - 6pm","day":"Tuesday 1 September","startAt":"2020-09-01T16:30:00Z","endAt":"2020-09-01T17:00:59Z","numberOfBookings":0,"quota":0,"isAvailable":false,"id":"9f553378-dfcc-ea11-a812-000d3a44ad35"},{"timeSlot":"6pm
         - 6:30pm","day":"Tuesday 1 September","startAt":"2020-09-01T17:00:00Z","endAt":"2020-09-01T17:30:00Z","numberOfBookings":0,"quota":0,"isAvailable":false,"id":"a1553378-dfcc-ea11-a812-000d3a44ad35"},{"timeSlot":"6:30pm
-        - 7pm","day":"Tuesday 1 September","startAt":"2020-09-01T17:30:00Z","endAt":"2020-09-01T18:00:59Z","numberOfBookings":0,"quota":0,"isAvailable":false,"id":"a3553378-dfcc-ea11-a812-000d3a44ad35"}]'
-    http_version: '2'
+        - 7pm","day":"Tuesday 1 September","startAt":"2020-09-01T17:30:00Z","endAt":"2020-09-01T18:00:59Z","numberOfBookings":0,"quota":0,"isAvailable":false,"id":"a3553378-dfcc-ea11-a812-000d3a44ad35"},{"timeSlot":"9am
+        - 9:30am","day":"Wednesday 2 September","startAt":"2020-09-02T08:00:00Z","endAt":"2020-09-02T08:30:00Z","numberOfBookings":0,"quota":3,"isAvailable":true,"id":"a5553378-dfcc-ea11-a812-000d3a44ad35"},{"timeSlot":"9:30am
+        - 10am","day":"Wednesday 2 September","startAt":"2020-09-02T08:30:00Z","endAt":"2020-09-02T09:00:00Z","numberOfBookings":0,"quota":3,"isAvailable":true,"id":"a7553378-dfcc-ea11-a812-000d3a44ad35"},{"timeSlot":"10am
+        - 10:30am","day":"Wednesday 2 September","startAt":"2020-09-02T09:00:00Z","endAt":"2020-09-02T09:30:00Z","numberOfBookings":0,"quota":3,"isAvailable":true,"id":"a9553378-dfcc-ea11-a812-000d3a44ad35"}]'
+    http_version: '1.1'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/callback_booking_quotas
-  recorded_at: Wed, 19 Aug 2020 06:30:15 GMT
+  recorded_at: Wed, 19 Aug 2020 09:04:35 GMT
 recorded_with: VCR 6.0.0
