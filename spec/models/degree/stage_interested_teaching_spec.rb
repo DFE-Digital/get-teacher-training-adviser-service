@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Degree::StageInterestedTeaching, :vcr do
+RSpec.describe Degree::StageInterestedTeaching do
   subject { build(:degree_stage_interested_teaching) }
   let(:secondary) { build(:degree_stage_interested_teaching, preferred_education_phase_id: 222_750_001) }
 

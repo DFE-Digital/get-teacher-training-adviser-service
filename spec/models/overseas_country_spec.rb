@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe OverseasCountry, :vcr do
+RSpec.describe OverseasCountry do
   subject { build(:overseas_country) }
 
   describe "validation" do

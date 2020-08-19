@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe CallbacksValidator, :vcr, type: :validator do
+RSpec.describe CallbacksValidator, type: :validator do
   subject { build :callback }
 
   it "is valid when phone_call_scheduled_at returned by API" do

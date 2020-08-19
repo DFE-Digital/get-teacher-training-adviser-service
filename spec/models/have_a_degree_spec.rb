@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe HaveADegree, :vcr do
+RSpec.describe HaveADegree do
   let(:have_a_degree) { build(:have_a_degree) }
   let(:wrong_answer) { build(:have_a_degree, degree_status_id: "dont know") }
   let(:no) { build(:have_a_degree, degree_status_id: HaveADegree::OPTIONS[:no]) }

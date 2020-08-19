@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Studying::PrimaryRetakeEnglishMaths, :vcr do
+RSpec.describe Studying::PrimaryRetakeEnglishMaths do
   let(:retake_english_maths) { build(:studying_primary_retake_english_maths) }
   let(:no) { build(:degree_primary_retake_english_maths, planning_to_retake_gcse_maths_and_english_id: PrimaryRetakeEnglishMaths::OPTIONS[:no]) }
 

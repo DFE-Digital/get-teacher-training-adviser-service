@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Equivalent::StageInterestedTeaching, :vcr do
+RSpec.describe Equivalent::StageInterestedTeaching do
   subject { build(:equivalent_stage_interested_teaching) }
   let(:secondary) { build(:equivalent_stage_interested_teaching, preferred_education_phase_id: StageInterestedTeaching::OPTIONS[:secondary]) }
 
