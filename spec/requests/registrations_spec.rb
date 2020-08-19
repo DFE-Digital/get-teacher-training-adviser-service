@@ -23,6 +23,9 @@ RSpec.describe RegistrationsController, type: :request do
   describe "post /registrations/:step_name" do
     context "with a valid step name and payload" do
       it "returns a success response" do
+        # Emulate an unsuccessful matchback response from the API.
+        expect_any_instance_of(GetIntoTeachingApiClient::CandidatesApi).to \
+          receive(:create_candidate_access_token).and_raise(GetIntoTeachingApiClient::ApiError)
         params = { identity: { email: "email@address.com", first_name: "first", last_name: "last" } }
         post registrations_path(identity.step_name), params: params
         expect(response).to redirect_to(new_registration_path(identity.next_step))

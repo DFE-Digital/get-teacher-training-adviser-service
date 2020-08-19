@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe Identity do
+  include_context "wizard step"
+  it_behaves_like "a wizard step"
+  it_behaves_like "an issue verification code wizard step"
+
   let(:identity) { build(:identity) }
   let(:no_name) { build(:identity, first_name: "") }
 
