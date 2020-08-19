@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Callback, :vcr do
+RSpec.describe Callback do
   subject { build(:callback) }
   let(:no_callback_slot) { build(:callback, phone_call_scheduled_at: "") }
 

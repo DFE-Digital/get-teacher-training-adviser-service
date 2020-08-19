@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Degree::StartTeacherTraining, :vcr do
+RSpec.describe Degree::StartTeacherTraining do
   let(:starter) { build(:degree_start_teacher_training) }
 
   describe "#next_step" do

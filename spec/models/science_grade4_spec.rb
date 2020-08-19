@@ -1,8 +1,8 @@
 require "rails_helper"
 
-RSpec.describe ScienceGrade4, :vcr do
+RSpec.describe ScienceGrade4 do
   subject { build(:science_grade4) }
-  let(:no) { build(:science_grade4, has_gcse_science_id: "222750000") }
+  let(:no) { build(:science_grade4, has_gcse_science_id: 222_750_000) }
 
   describe "validation" do
     context "with valid subject option" do

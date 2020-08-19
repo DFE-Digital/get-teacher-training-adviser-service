@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SubjectLikeToTeach, :vcr do
+RSpec.describe SubjectLikeToTeach do
   subject { build(:subject_like_to_teach) }
 
   describe "validation" do

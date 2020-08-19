@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SessionHelper, :vcr, type: :helper do
+RSpec.describe SessionHelper, type: :helper do
   describe "#show_session" do
     context "with a session value" do
       it "returns the value capitalized" do
@@ -36,6 +36,18 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
     it "returns the session date_of_birth value" do
       session[:registration] = { "date_of_birth" => Date.new(2000, 10, 1) }
       expect(show_dob).to eq("01 10 2000")
+    end
+  end
+
+  describe "#show_yes_or_no" do
+    it "returns yes if the value is 222_750_000" do
+      session[:registration] = { "test" => 222_750_000 }
+      expect(show_yes_or_no("test")).to eq("Yes")
+    end
+
+    it "returns no if the value is not 222_750_000" do
+      session[:registration] = { "test" => 222_750_001 }
+      expect(show_yes_or_no("test")).to eq("No")
     end
   end
 
@@ -137,7 +149,7 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_what_degree_class" do
     it "returns the session 'uk_degree_grade_id' value" do
       session[:registration] = {
-        "uk_degree_grade_id" => "222750001",
+        "uk_degree_grade_id" => 222_750_001,
       }
       expect(show_what_degree_class).to eq("First class")
     end
@@ -155,7 +167,7 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_start_teacher_training" do
     it "returns the session 'initial_teacher_training_year_id' value" do
       session[:registration] = {
-        "initial_teacher_training_year_id" => "12917",
+        "initial_teacher_training_year_id" => 12_917,
       }
       expect(show_start_teacher_training).to eq("Not sure")
     end
@@ -164,7 +176,7 @@ RSpec.describe SessionHelper, :vcr, type: :helper do
   describe "#show_stage_of_degree" do
     it "returns the session 'stage_of_degree' value" do
       session[:registration] = {
-        "degree_status_id" => "222750001",
+        "degree_status_id" => 222_750_001,
       }
       expect(show_stage_of_degree).to eq("Final year")
     end

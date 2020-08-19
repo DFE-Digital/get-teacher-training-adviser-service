@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Equivalent::UkCallback, :vcr do
+RSpec.describe Equivalent::UkCallback do
   let(:uk_callback) { build(:equivalent_uk_callback) }
 
   describe "#next_step" do

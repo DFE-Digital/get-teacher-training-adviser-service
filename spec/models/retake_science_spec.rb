@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe RetakeScience, :vcr do
+RSpec.describe RetakeScience do
   subject { build(:retake_science) }
 
   describe "validation" do

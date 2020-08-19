@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe AcceptPrivacyPolicy, :vcr do
+RSpec.describe AcceptPrivacyPolicy do
   subject { build(:accept_privacy_policy) }
 
   describe "validation" do

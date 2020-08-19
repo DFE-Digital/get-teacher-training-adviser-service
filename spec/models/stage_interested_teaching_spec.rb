@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StageInterestedTeaching, :vcr do
+RSpec.describe StageInterestedTeaching do
   subject { build(:stage_interested_teaching) }
 
   describe "validation" do

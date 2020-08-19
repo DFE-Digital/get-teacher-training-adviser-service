@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe OverseasCandidate, :vcr do
+RSpec.describe OverseasCandidate do
   subject { build(:overseas_candidate) }
   let(:no_callback_slot) { build(:overseas_candidate, phone_call_scheduled_at: "") }
   let(:no_time_zone) { build(:overseas_candidate, time_zone: "") }
