@@ -7,13 +7,8 @@ RSpec.describe PolicyValidator, type: :validator do
     expect(subject).to be_valid
   end
 
-  it "raises invalid error when accepted_policy_id not present" do
-    subject.accepted_policy_id = ""
-    expect(subject).to be_invalid
-  end
-
   it "raises invalid error when accepted_policy_id not returned by Api" do
-    subject.accepted_policy_id = "hello"
+    subject.accepted_policy_id = "invalid_id"
     expect(subject).to be_invalid
   end
 end
