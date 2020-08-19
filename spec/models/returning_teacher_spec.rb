@@ -13,16 +13,11 @@ RSpec.describe ReturningTeacher do
     end
   end
 
-  describe "#set_degree_options" do
-    it "sets the degree option before validation" do
-      returning_teacher.valid?
+  describe "#initialize" do
+    it "sets the degree option" do
       expect(returning_teacher.degree_options).to eq(ReturningTeacher::DEGREE_OPTIONS[:returner])
     end
-  end
-
-  describe "#set_education_phase" do
-    it "sets the preferred_education_phase_id before validation" do
-      returning_teacher.valid?
+    it "sets the preferred_education_phase_id" do
       expect(returning_teacher.preferred_education_phase_id).to eq(StageInterestedTeaching::OPTIONS[:secondary].to_i)
     end
   end
