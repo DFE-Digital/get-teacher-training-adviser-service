@@ -108,5 +108,4 @@ RSpec.describe HaveADegree do
       end
     end
   end
-
 end
