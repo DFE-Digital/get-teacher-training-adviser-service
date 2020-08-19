@@ -1,0 +1,100 @@
+---  
+name: Release to User Research (UR)
+on: 
+  workflow_dispatch:
+
+env:
+  DOCKERHUB_REPOSITORY: dfedigital/get-teacher-training-adviser-service
+  TF_VAR_RAILS_ENV:         "preprod"
+  CF_PROVIDER_DIR:          "$HOME/.terraform.d/plugins/linux_amd64/terraform-provider-cloudfoundry"
+
+jobs:
+  deploy_qa:
+    name: 'Deploy to Quality Assurance'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+       - name: Checkout
+         uses: actions/checkout@v2
+
+       - name: Get Short SHA
+         id: sha
+         run: echo ::set-output name=short::$(git rev-parse --short $GITHUB_SHA)
+
+       - uses: hashicorp/setup-terraform@v1
+         with:
+              terraform_version: 0.12.29
+
+       - name: Install Terraform CloudFoundry Provider
+         run: |
+             mkdir -p $HOME/.terraform.d/plugins/linux_amd64
+             wget -O ${{ env.CF_PROVIDER_DIR }} https://github.com/cloudfoundry-community/terraform-provider-cf/releases/latest/download/terraform-provider-cloudfoundry_linux_amd64
+             chmod +x ${{ env.CF_PROVIDER_DIR }}
+   
+       - name: Wait for any previous runs to complete
+         uses: softprops/turnstyle@v1
+         env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         with:
+           continue-after-seconds: 180
+
+       - name: Terraform Init
+         run: |
+             cd terraform/paas && pwd
+             terraform init -backend-config=ur.bk.vars
+         env:
+              TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
+              TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
+              ARM_ACCESS_KEY:           "${{ secrets.TEST_ARM_ACCESS_KEY  }}"
+
+       - name: Terraform Plan
+         run: |
+             cd terraform/paas && pwd
+             terraform plan -var-file=ur.env.tfvars -out plan
+         env:
+              TF_VAR_paas_adviser_docker_image: ${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}} 
+              TF_VAR_HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
+              TF_VAR_HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
+              TF_VAR_RAILS_MASTER_KEY:  "${{ secrets.RAILS_MASTER_KEY_PREPROD }}"
+              TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
+              TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
+              ARM_ACCESS_KEY:           "${{ secrets.TEST_ARM_ACCESS_KEY  }}"
+
+       - name: Terraform Apply
+         run: |
+             cd terraform/paas && pwd
+             terraform apply -auto-approve plan
+         env:
+              TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
+              TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
+              ARM_ACCESS_KEY:           "${{ secrets.TEST_ARM_ACCESS_KEY  }}"
+
+       - name: Smoke tests
+         run: |
+             tests/confidence/healthcheck.sh  "get-teacher-training-adviser-service-ur"  "${{ steps.sha.outputs.short }}"
+         env:
+             HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
+             HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
+   
+       - name: Create Sentry release
+         if: success()
+         uses: getsentry/action-release@v1.0.0
+         env:
+           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+         with:
+           environment: ur
+           
+       - name: Slack Notification
+         if: failure()
+         uses: rtCamp/action-slack-notify@master
+         env:
+           SLACK_CHANNEL: getintoteaching_tech
+           SLACK_COLOR: '#3278BD'
+           SLACK_ICON: https://github.com/rtCamp.png?size=48
+           SLACK_MESSAGE: ':disappointed_relieved: Pipeline Failure carrying out job ${{github.job}} :disappointed_relieved:'
+           SLACK_TITLE: 'Failure: ${{ github.workflow }}'
+           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
