@@ -140,7 +140,7 @@ RSpec.describe SessionHelper, type: :helper do
   describe "#show_have_a_degree" do
     it "returns the session 'degree_status_id' value" do
       session[:registration] = {
-        "degree_status_id" => HaveADegree::OPTIONS[:yes],
+        "degree_options" => HaveADegree::DEGREE_OPTIONS[:degree],
       }
       expect(show_have_a_degree).to eq("Yes")
     end

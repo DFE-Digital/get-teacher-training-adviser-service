@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :have_a_degree do
-    degree_status_id { HaveADegree::OPTIONS[:yes] }
+    degree_options { HaveADegree::DEGREE_OPTIONS[:degree] }
   end
 end
