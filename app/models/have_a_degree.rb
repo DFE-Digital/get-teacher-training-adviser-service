@@ -2,7 +2,7 @@ class HaveADegree < Base
   attribute :degree_options, :string
   attribute :degree_status_id, :integer
   attribute :degree_type_id, :integer
-
+# linting issue again
   before_validation :set_degree_status
   before_validation :set_degree_type
 
