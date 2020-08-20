@@ -57,5 +57,4 @@ RSpec.describe Callback do
       expect(grouped_quotas.keys.any? { |day| Date.parse(day) == Time.zone.tomorrow }).to be_truthy
     end
   end
-
 end
