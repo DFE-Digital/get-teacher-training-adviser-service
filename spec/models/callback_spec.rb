@@ -42,31 +42,19 @@ RSpec.describe Callback do
   end
 
   describe "#self.grouped_quotas" do
-    it "makes a success api call and returns a Hash" do
-      expect { described_class.grouped_quotas }.to_not raise_error
-      expect(described_class.grouped_quotas).to be_a(Hash)
-    end
-  end
+    it "returns all quotas excluding today's date" do
+      today = DateTime.now
+      tomorrow = DateTime.now + 1.day
 
-  describe "#self.options" do
-    include_context "callback_options_hash"
-    include_examples "callback_options"
-  end
+      quotas = [
+        GetIntoTeachingApiClient::CallbackBookingQuota.new(day: today.strftime, start_at: today, end_at: today + 1.hour),
+        GetIntoTeachingApiClient::CallbackBookingQuota.new(day: tomorrow.strftime, start_at: tomorrow, end_at: tomorrow + 1.hour),
+      ]
+      allow(ApiClient).to receive(:get_callback_booking_quotas).and_return(quotas)
 
-  describe "#self.remove_current_day" do
-    let(:options) do
-      { Time.zone.today.strftime("%a %d %B") => [
-        ["todays times and dates"], ["some more todays times and dates"]
-      ],
-        Time.zone.tomorrow.strftime("%a %d %B") => [
-          ["tomorrows times and dates"], ["some more tomorrows times and dates"]
-        ] }
-    end
-    let(:options_hash) { described_class.remove_current_day(options) }
-
-    it "removes todays data" do
-      expect(options_hash.size).to eq(1)
-      expect(options_hash.keys).to eq([Date.tomorrow.strftime("%a %d %B")])
+      grouped_quotas = described_class.grouped_quotas
+      expect(grouped_quotas.keys.any? { |day| Date.parse(day) == Time.zone.today }).to be_falsy
+      expect(grouped_quotas.keys.any? { |day| Date.parse(day) == Time.zone.tomorrow }).to be_truthy
     end
   end
 end

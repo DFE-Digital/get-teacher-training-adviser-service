@@ -9,8 +9,4 @@ RSpec.describe Equivalent::UkCallback do
     end
   end
 
-  describe "#self.options" do
-    include_context "callback_options_hash"
-    include_examples "callback_options"
-  end
 end
