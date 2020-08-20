@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe CallbackHelper, type: :helper do
-  let(:date) { Time.gm(2020, 8, 19, 9, 30).to_datetime }
+  let(:date) { DateTime.new(2020, 8, 19, 9, 30) }
   let(:date_string) { date.strftime }
   let(:grouped_quotas) do
     {

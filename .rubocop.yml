@@ -10,3 +10,11 @@ Rails/UnknownEnv:
     - rolling
     - preprod
     - production
+
+Style/DateTime:
+  Description: "Use Time over DateTime."
+  StyleGuide: "#date--time"
+  Enabled: false
+  VersionAdded: "0.51"
+  VersionChanged: "0.59"
+  AllowCoercion: false
