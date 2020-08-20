@@ -1,0 +1,7 @@
+<%= f.govuk_radio_buttons_fieldset(:degree_options, legend: { text: 'Do you have a degree?'},
+  hint_text: "You need to have a bachelor's degree, with honours." ) do %>
+  <%= f.govuk_radio_button :degree_options, HaveADegree::DEGREE_OPTIONS[:degree],  label: { text: 'Yes' } %>
+  <%= f.govuk_radio_button :degree_options, HaveADegree::DEGREE_OPTIONS[:no], label: { text: 'No' } %>
+  <%= f.govuk_radio_button :degree_options, HaveADegree::DEGREE_OPTIONS[:studying], label: { text: "I'm studying for a degree" } %>
+  <%= f.govuk_radio_button :degree_options, HaveADegree::DEGREE_OPTIONS[:equivalent], label: { text: 'I have an equivalent qualification from another country' } %>
+<% end %>

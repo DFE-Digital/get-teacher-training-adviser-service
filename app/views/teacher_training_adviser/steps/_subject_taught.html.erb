@@ -1,0 +1,6 @@
+<%= f.govuk_collection_select :subject_taught_id,
+  ApiClient::get_teaching_subjects,
+  :id,
+  :value,
+  label: { text: "Which main subject did you previously teach?", tag: "h1", size: "m" }
+%>

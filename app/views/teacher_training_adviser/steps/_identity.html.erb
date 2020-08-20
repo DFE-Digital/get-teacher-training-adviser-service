@@ -1,0 +1,15 @@
+
+<%= f.govuk_fieldset legend: { text: 'About you' } do %>
+<p class="govuk-body">We need to collect some personal details to complete your registration.</p>
+
+  <%= f.govuk_text_field :first_name, width: 20,
+    label: { text: 'First name' } %>
+  <%= f.govuk_text_field :last_name, width: 20,
+    label: { text: 'Surname' } %>
+    <%= f.govuk_email_field :email, width: 20,
+    label: { text: 'Email address' } %>
+
+  <p class="govuk-body">Your details are protected under the terms of our <%= link_to "privacy notice", privacy_policy_path(:id => session[:privacy_policy_id].presence || ApiClient.get_latest_privacy_policy.id) %>.</p>
+
+  <p class="govuk-body">Our privacy notice explains how we use your personal data. It is important you have read this notice before signing up to get help from a teacher training advisor.</p>
+<% end %>
