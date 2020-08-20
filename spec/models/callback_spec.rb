@@ -43,8 +43,8 @@ RSpec.describe Callback do
 
   describe "#self.grouped_quotas" do
     it "returns all quotas excluding today's date" do
-      today = DateTime.now
-      tomorrow = DateTime.now + 1.day
+      today = Time.now
+      tomorrow = Time.now + 1.day
 
       quotas = [
         GetIntoTeachingApiClient::CallbackBookingQuota.new(day: today.strftime, start_at: today, end_at: today + 1.hour),
