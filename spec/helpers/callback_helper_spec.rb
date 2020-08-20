@@ -5,12 +5,12 @@ RSpec.describe CallbackHelper, type: :helper do
   let(:date_string) { date.strftime }
   let(:grouped_quotas) do
     {
-      "#{date_string}" => [
+      date_string.to_s => [
         GetIntoTeachingApiClient::CallbackBookingQuota.new(
           startAt: date,
-          endAt: date + 30.minutes
-        )
-      ]
+          endAt: date + 30.minutes,
+        ),
+      ],
     }
   end
 
@@ -20,7 +20,7 @@ RSpec.describe CallbackHelper, type: :helper do
       time_slots = formatted_quotas[date_string]
       first_slot = time_slots.first
       expect(first_slot).to eq(
-        ["09:30 am - 10:00 am", grouped_quotas[date_string].first.start_at]
+        ["09:30 am - 10:00 am", grouped_quotas[date_string].first.start_at],
       )
     end
 
@@ -29,7 +29,7 @@ RSpec.describe CallbackHelper, type: :helper do
       time_slots = formatted_quotas[date_string]
       first_slot = time_slots.first
       expect(first_slot).to eq(
-        ["10:30 am - 11:00 am", grouped_quotas[date_string].first.start_at]
+        ["10:30 am - 11:00 am", grouped_quotas[date_string].first.start_at],
       )
     end
   end

@@ -8,5 +8,4 @@ RSpec.describe Equivalent::UkCallback do
       expect(uk_callback.next_step).to eq("equivalent/uk_completion")
     end
   end
-
 end
