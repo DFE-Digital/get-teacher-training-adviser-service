@@ -5,7 +5,7 @@ on:
 
 env:
   DOCKERHUB_REPOSITORY: dfedigital/get-teacher-training-adviser-service
-  TF_VAR_RAILS_ENV:         "preprod"
+  TF_VAR_RAILS_ENV:         "userresearch"
   CF_PROVIDER_DIR:          "$HOME/.terraform.d/plugins/linux_amd64/terraform-provider-cloudfoundry"
 
 jobs:
@@ -57,7 +57,7 @@ jobs:
               TF_VAR_paas_adviser_docker_image: ${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}} 
               TF_VAR_HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
               TF_VAR_HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
-              TF_VAR_RAILS_MASTER_KEY:  "${{ secrets.RAILS_MASTER_KEY_PREPROD }}"
+              TF_VAR_RAILS_MASTER_KEY:  "${{ secrets.RAILS_MASTER_KEY_USERRESEARCH}}"
               TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
               TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
               ARM_ACCESS_KEY:           "${{ secrets.TEST_ARM_ACCESS_KEY  }}"
