@@ -1,12 +1,10 @@
 module SignUp::Steps
   class Callback < Wizard::Step
     attribute :telephone, :string
-    # may need to DateTime.parse
-    attribute :phone_call_scheduled_at, :string
+    attribute :phone_call_scheduled_at, :datetime
 
     validates :telephone, length: { minimum: 5, too_short: "Telephone number is too short (minimum is 5 characters)" }, format: { with: /\A[0-9\s+]+\z/, message: "Enter a telephone number in the correct format" }
-    # possible caching issue
-    validates :phone_call_scheduled_at, callbacks: { method: :get_callback_booking_quotas }
+    validates :phone_call_scheduled_at, presence: true
 
     def skipped?
       @store["degree_options"] != HaveADegree::DEGREE_OPTIONS[:equivalent]
