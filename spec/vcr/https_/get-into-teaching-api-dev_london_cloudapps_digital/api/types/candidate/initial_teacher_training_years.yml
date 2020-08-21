@@ -20,30 +20,28 @@ http_interactions:
   response:
     status:
       code: 200
-      message: OK
+      message: ''
     headers:
-      Date:
-      - Wed, 19 Aug 2020 09:04:32 GMT
-      Content-Type:
+      date:
+      - Wed, 19 Aug 2020 06:28:35 GMT
+      content-type:
       - application/json; charset=utf-8
-      Content-Length:
+      content-length:
       - '515'
-      Connection:
-      - keep-alive
-      Etag:
-      - 9C486C144F71CA2B9E3A39284E18538901178C7E7A00CFE8AFFCB66DB95E5780
-      Server:
+      etag:
+      - CFB258F92C77C7FA54DC358D75B15E5E67D84E5940825D3D1C7E3460E7221BB9
+      server:
       - Kestrel
-      Strict-Transport-Security:
+      strict-transport-security:
       - max-age=31536000; includeSubDomains; preload
-      X-Vcap-Request-Id:
-      - f64ab752-8b6f-4332-626f-723f05caea30
+      x-vcap-request-id:
+      - 92f416a4-9088-40ae-7e08-acd65555b21f
     body:
       encoding: UTF-8
       string: '[{"id":"12907","value":"2009"},{"id":"12908","value":"2010"},{"id":"12909","value":"2011"},{"id":"12910","value":"2012"},{"id":"12911","value":"2013"},{"id":"12912","value":"2014"},{"id":"12913","value":"2015"},{"id":"12914","value":"2016"},{"id":"12917","value":"Not
         sure"},{"id":"12918","value":"2017"},{"id":"22300","value":"2018"},{"id":"22301","value":"2019"},{"id":"22302","value":"2020"},{"id":"22303","value":"2021"},{"id":"22304","value":"2022"},{"id":"22305","value":"2023"},{"id":"22306","value":"2024"}]'
-    http_version: '1.1'
+    http_version: '2'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/candidate/initial_teacher_training_years
-  recorded_at: Wed, 19 Aug 2020 09:04:32 GMT
+  recorded_at: Wed, 19 Aug 2020 06:28:35 GMT
 recorded_with: VCR 6.0.0

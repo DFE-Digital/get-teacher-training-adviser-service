@@ -20,29 +20,27 @@ http_interactions:
   response:
     status:
       code: 400
-      message: Bad Request
+      message: ''
     headers:
-      Date:
-      - Wed, 19 Aug 2020 09:04:33 GMT
-      Content-Type:
+      date:
+      - Wed, 19 Aug 2020 06:30:17 GMT
+      content-type:
       - application/problem+json; charset=utf-8
-      Content-Length:
+      content-length:
       - '220'
-      Connection:
-      - keep-alive
-      Server:
+      server:
       - Kestrel
-      Strict-Transport-Security:
+      strict-transport-security:
       - max-age=31536000; includeSubDomains; preload
-      X-Vcap-Request-Id:
-      - 50db6965-ea0a-4d97-7884-52e639b65562
+      x-vcap-request-id:
+      - 4b45d597-e472-494d-738b-46dc5874270b
     body:
       encoding: UTF-8
       string: '{"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One
-        or more validation errors occurred.","status":400,"traceId":"|79e2f35d-4a85a2350bad280a.","errors":{"id":["The
+        or more validation errors occurred.","status":400,"traceId":"|dff92d00-4d42d70b9c16e3eb.","errors":{"id":["The
         value ''invalid_id'' is not valid."]}}'
-    http_version: '1.1'
+    http_version: '2'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/privacy_policies/invalid_id
-  recorded_at: Wed, 19 Aug 2020 09:04:33 GMT
+  recorded_at: Wed, 19 Aug 2020 06:30:17 GMT
 recorded_with: VCR 6.0.0

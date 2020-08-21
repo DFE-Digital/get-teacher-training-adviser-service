@@ -20,24 +20,20 @@ http_interactions:
   response:
     status:
       code: 200
-      message: OK
+      message: ''
     headers:
-      Date:
-      - Wed, 19 Aug 2020 09:04:35 GMT
-      Content-Type:
+      date:
+      - Wed, 19 Aug 2020 06:28:35 GMT
+      content-type:
       - application/json; charset=utf-8
-      Transfer-Encoding:
-      - chunked
-      Connection:
-      - keep-alive
-      Etag:
-      - CE8EB5E1734F78B8434772570E7730B1CE6ACF622756AE61C0646F4EFC79E8E0
-      Server:
+      etag:
+      - 9F4E0B54F28EEC437DA84AFF7B46464885B10185D80A8A25670B852AD18B6B99
+      server:
       - Kestrel
-      Strict-Transport-Security:
+      strict-transport-security:
       - max-age=31536000; includeSubDomains; preload
-      X-Vcap-Request-Id:
-      - 1a80885b-e9bc-49d1-7872-05c02fe4c03d
+      x-vcap-request-id:
+      - ca6eb87f-aa46-4705-7da1-83c57429264a
     body:
       encoding: UTF-8
       string: '[{"id":"6b793433-cd1f-e911-a979-000d3a20838a","value":"Art"},{"id":"7e2655a1-2afa-e811-a981-000d3a276620","value":"Art
@@ -53,8 +49,8 @@ http_interactions:
         education"},{"id":"b62655a1-2afa-e811-a981-000d3a276620","value":"Social sciences"},{"id":"b82655a1-2afa-e811-a981-000d3a276620","value":"Spanish"},{"id":"ba2655a1-2afa-e811-a981-000d3a276620","value":"Vocational
         health"},{"id":"bc2655a1-2afa-e811-a981-000d3a276620","value":"Other"},{"id":"bc68e0c1-7212-e911-a974-000d3a206976","value":"No
         preference"}]'
-    http_version: '1.1'
+    http_version: '2'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/teaching_subjects
-  recorded_at: Wed, 19 Aug 2020 09:04:35 GMT
+  recorded_at: Wed, 19 Aug 2020 06:28:35 GMT
 recorded_with: VCR 6.0.0

@@ -20,24 +20,20 @@ http_interactions:
   response:
     status:
       code: 200
-      message: OK
+      message: ''
     headers:
-      Date:
-      - Wed, 19 Aug 2020 09:04:33 GMT
-      Content-Type:
+      date:
+      - Wed, 19 Aug 2020 06:30:17 GMT
+      content-type:
       - application/json; charset=utf-8
-      Transfer-Encoding:
-      - chunked
-      Connection:
-      - keep-alive
-      Etag:
-      - 97E5A9F73AFB6B7DCEA1BB8A2701248D753B13B170E2BF772D8784D3877E9F9B
-      Server:
+      etag:
+      - E1545A24075E90C4FB2CC7EAF4760341B6F9A3E32C8F049ED752F77A82B7C9D1
+      server:
       - Kestrel
-      Strict-Transport-Security:
+      strict-transport-security:
       - max-age=31536000; includeSubDomains; preload
-      X-Vcap-Request-Id:
-      - df1bec10-0e68-4e3f-7e23-ed5fe21580e5
+      x-vcap-request-id:
+      - 04db1b1f-7399-4789-6d4b-37f179bf3df6
     body:
       encoding: UTF-8
       string: '{"text":"Privacy Notice: Get Into Teaching Information Service\nWho
@@ -140,8 +136,8 @@ http_interactions:
         from time to time. This version was last updated on 14 January 2020.\nWe use
         cookies to make our services easy, useful and reliable. Find out more on how
         we use cookies.","createdAt":"2020-01-13T09:44:50","id":"0a203956-e935-ea11-a813-000d3a44a8e9"}'
-    http_version: '1.1'
+    http_version: '2'
     adapter_metadata:
       effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/privacy_policies/latest
-  recorded_at: Wed, 19 Aug 2020 09:04:33 GMT
+  recorded_at: Wed, 19 Aug 2020 06:30:17 GMT
 recorded_with: VCR 6.0.0
