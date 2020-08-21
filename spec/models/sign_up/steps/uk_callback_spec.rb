@@ -49,7 +49,20 @@ RSpec.describe SignUp::Steps::UkCallback do
     end
   end
 
-  describe "#self.options" do
-    it "is a pending example"
+  describe "#self.grouped_quotas" do
+    it "returns all quotas excluding today's date" do
+      today = DateTime.now
+      tomorrow = DateTime.now + 1.day
+
+      quotas = [
+        GetIntoTeachingApiClient::CallbackBookingQuota.new(day: today.strftime, start_at: today, end_at: today + 1.hour),
+        GetIntoTeachingApiClient::CallbackBookingQuota.new(day: tomorrow.strftime, start_at: tomorrow, end_at: tomorrow + 1.hour),
+      ]
+      allow(ApiClient).to receive(:get_callback_booking_quotas).and_return(quotas)
+
+      grouped_quotas = described_class.grouped_quotas
+      expect(grouped_quotas.keys.any? { |day| Date.parse(day) == Time.zone.today }).to be_falsy
+      expect(grouped_quotas.keys.any? { |day| Date.parse(day) == Time.zone.tomorrow }).to be_truthy
+    end
   end
 end

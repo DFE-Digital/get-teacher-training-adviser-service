@@ -7,7 +7,9 @@ module SignUp::Steps
     OPTIONS = Crm::OPTIONS
 
     def skipped?
-      @store["has_gcse_science_id"] != Crm::OPTIONS[:no]
+      @store["returning_to_teaching"] ||
+        @store["degree_options"] == HaveADegree::DEGREE_OPTIONS[:equivalent] ||
+        @store["has_gcse_science_id"] != Crm::OPTIONS[:no]
     end
   end
 end

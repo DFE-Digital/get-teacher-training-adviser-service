@@ -12,18 +12,12 @@ module SignUp::Steps
         @store["uk_or_overseas"] != "UK"
     end
 
-    def self.options
-      quotas = ApiClient.get_callback_booking_quotas
-      grouped_quotas = quotas.group_by(&:day)
-      options_hash = Hash.new { |hash, key| hash[key] = [] }
-      grouped_quotas.each do |day, data|
-        data.each do |x|
-          gmt_start_slot = Time.zone.parse(x.start_at.to_s).strftime("%I:%M %P")
-          gmt_end_slot = Time.zone.parse(x.end_at.to_s).strftime("%I:%M %P")
-          options_hash[day] << [gmt_start_slot.to_s + " - " + gmt_end_slot.to_s, x.start_at]
+    class << self
+      def grouped_quotas
+        ApiClient.get_callback_booking_quotas.group_by(&:day).reject do |day|
+          Date.parse(day) == Time.zone.today
         end
       end
-      options_hash
     end
   end
 end

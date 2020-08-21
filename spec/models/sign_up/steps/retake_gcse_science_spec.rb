@@ -19,6 +19,16 @@ RSpec.describe SignUp::Steps::RetakeGcseScience do
       expect(subject).to_not be_skipped
     end
 
+    it "returns true if returning_to_teaching is true" do
+      wizardstore["returning_to_teaching"] = true
+      expect(subject).to be_skipped
+    end
+
+    it "returns true if degree_options is equivalent" do
+      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:equivalent]
+      expect(subject).to be_skipped
+    end
+
     it "returns true if has_gcse_science_id is not not no" do
       wizardstore["has_gcse_science_id"] = nil
       expect(subject).to be_skipped
