@@ -16,7 +16,18 @@ RSpec.describe SignUp::Steps::SubjectTaught do
       expect(subject).to allow_value(subject_type.id).for :subject_taught_id
     end
 
-    it { is_expected.to_not allow_value("").for :subject_taught_id }
-    it { is_expected.to_not allow_value(nil).for :subject_taught_id }
+    it { is_expected.to_not allow_values("", nil).for :subject_taught_id }
+  end
+
+  describe "#skipped?" do
+    it "returns false if returning_to_teaching is true" do
+      wizardstore["returning_to_teaching"] = true
+      expect(subject).to_not be_skipped
+    end
+
+    it "returns true if returning_to_teaching is false" do
+      wizardstore["returning_to_teaching"] = false
+      expect(subject).to be_skipped
+    end
   end
 end

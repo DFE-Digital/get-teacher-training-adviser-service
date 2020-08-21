@@ -15,7 +15,18 @@ RSpec.describe SignUp::Steps::OverseasCountry do
         receive(:get_country_types) { [country] }
       expect(subject).to allow_value(country.id).for :country_id
     end
-    it { is_expected.to_not allow_value(nil).for :country_id }
-    it { is_expected.to_not allow_value("").for :country_id }
+    it { is_expected.to_not allow_values(nil, "").for :country_id }
+  end
+
+  describe "#skipped?" do
+    it "returns false if uk_or_overseas is Overseas" do
+      wizardstore["uk_or_overseas"] = "Overseas"
+      expect(subject).to_not be_skipped
+    end
+
+    it "returns true if uk_or_overseas is UK" do
+      wizardstore["uk_or_overseas"] = "UK"
+      expect(subject).to be_skipped
+    end
   end
 end

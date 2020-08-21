@@ -11,7 +11,7 @@ module SignUp::Steps
     end
 
     def skipped?
-      @store["education_phase_id"] != StageInterestedTeaching::OPTIONS[:secondary]
+      @store["preferred_education_phase_id"] != StageInterestedTeaching::OPTIONS[:secondary]
     end
   end
 end

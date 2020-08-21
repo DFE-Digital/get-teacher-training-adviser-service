@@ -7,10 +7,10 @@ module SignUp::Steps
     OPTIONS = Crm::OPTIONS
 
     def skipped?
-      ![
+      [
         HaveADegree::DEGREE_OPTIONS[:studying],
         HaveADegree::DEGREE_OPTIONS[:degree],
-      ].include?(@store["degree_options"])
+      ].none?(@store["degree_options"])
     end
   end
 end

@@ -16,8 +16,19 @@ RSpec.describe SignUp::Steps::SubjectLikeToTeach do
       expect(subject).to allow_value(subject_type.id).for :preferred_teaching_subject_id
     end
 
-    it { is_expected.to_not allow_value("").for :preferred_teaching_subject_id }
-    it { is_expected.to_not allow_value(nil).for :preferred_teaching_subject_id }
+    it { is_expected.to_not allow_values("", nil).for :preferred_teaching_subject_id }
+  end
+
+  describe "#skipped?" do
+    it "returns false if preferred_education_phase_id is secondary" do
+      wizardstore["preferred_education_phase_id"] = StageInterestedTeaching::OPTIONS[:secondary]
+      expect(subject).to_not be_skipped
+    end
+
+    it "returns true if preferred_education_phase_id is primary" do
+      wizardstore["preferred_education_phase_id"] = StageInterestedTeaching::OPTIONS[:primary]
+      expect(subject).to be_skipped
+    end
   end
 
   describe "#self.options" do

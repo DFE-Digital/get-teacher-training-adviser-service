@@ -16,8 +16,19 @@ RSpec.describe SignUp::Steps::StageOfDegree do
       expect(subject).to allow_value(status.id).for :degree_status_id
     end
 
-    it { is_expected.to_not allow_value("").for :degree_status_id }
-    it { is_expected.to_not allow_value(nil).for :degree_status_id }
+    it { is_expected.to_not allow_values("", nil).for :degree_status_id }
+  end
+
+  describe "#skipped?" do
+    it "returns false if degree_options is studying" do
+      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:studying]
+      expect(subject).to_not be_skipped
+    end
+
+    it "returns true if degree_options is not studying" do
+      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:degree]
+      expect(subject).to be_skipped
+    end
   end
 
   describe "#self.options" do

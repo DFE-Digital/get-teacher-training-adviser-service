@@ -11,21 +11,17 @@ RSpec.describe SignUp::Steps::HaveADegree do
   end
 
   describe "degree_options" do
-    it { is_expected.to_not allow_value("random").for :degree_options }
-    it { is_expected.to_not allow_value("").for :degree_options }
-    it { is_expected.to_not allow_value(nil).for :degree_options }
+    it { is_expected.to_not allow_values("random", "", nil).for :degree_options }
     it { is_expected.to allow_values(*HaveADegree::DEGREE_OPTIONS.values).for :degree_options }
   end
 
   describe "degree_status_id" do
-    it { is_expected.to_not allow_value(1234).for :degree_status_id }
-    it { is_expected.to_not allow_value(nil).for :degree_status_id }
+    it { is_expected.to_not allow_values(1234, nil).for :degree_status_id }
     it { is_expected.to allow_values(*HaveADegree::DEGREE_STATUS_OPTIONS.values).for :degree_status_id }
   end
 
   describe "degree_type_id" do
-    it { is_expected.to_not allow_value(1234).for :degree_type_id }
-    it { is_expected.to_not allow_value(nil).for :degree_type_id }
+    it { is_expected.to_not allow_values(1234, nil).for :degree_type_id }
     it { is_expected.to allow_values(*HaveADegree::DEGREE_TYPE.values).for :degree_type_id }
   end
 
@@ -52,6 +48,18 @@ RSpec.describe SignUp::Steps::HaveADegree do
       subject.degree_options = HaveADegree::DEGREE_OPTIONS[:equivalent]
       expect(subject.degree_status_id).to eq(HaveADegree::DEGREE_STATUS_OPTIONS[:yes])
       expect(subject.degree_type_id).to eq(HaveADegree::DEGREE_TYPE[:equivalent])
+    end
+  end
+
+  describe "#skipped?" do
+    it "returns false if returning_to_teaching is false" do
+      wizardstore["returning_to_teaching"] = false
+      expect(subject).to_not be_skipped
+    end
+
+    it "returns true if returning_to_teaching is true" do
+      wizardstore["returning_to_teaching"] = true
+      expect(subject).to be_skipped
     end
   end
 end

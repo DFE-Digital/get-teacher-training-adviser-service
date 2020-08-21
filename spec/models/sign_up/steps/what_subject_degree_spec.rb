@@ -16,8 +16,21 @@ RSpec.describe SignUp::Steps::WhatSubjectDegree do
       expect(subject).to allow_value(subject_type.id).for :degree_subject
     end
 
-    it { is_expected.to_not allow_value("").for :degree_subject }
-    it { is_expected.to_not allow_value(nil).for :degree_subject }
+    it { is_expected.to_not allow_value("", nil).for :degree_subject }
+  end
+
+  describe "#skipped?" do
+    it "returns false if degree_options is studying/degree" do
+      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:studying]
+      expect(subject).to_not be_skipped
+      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:degree]
+      expect(subject).to_not be_skipped
+    end
+
+    it "returns true if degree_options is not studying/degree" do
+      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:equivalent]
+      expect(subject).to be_skipped
+    end
   end
 
   describe "#self.options" do

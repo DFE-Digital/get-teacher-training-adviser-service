@@ -25,7 +25,7 @@ RSpec.describe SignUp::Steps::UkOrOverseas do
       expect(subject).to allow_value(country.id).for :country_id
     end
 
-    it { is_expected.to allow_value(nil).for :country_id }
+    it { is_expected.to allow_values(nil).for :country_id }
     it { is_expected.to_not allow_value("").for :country_id }
   end
 

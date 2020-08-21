@@ -11,8 +11,7 @@ RSpec.describe SignUp::Steps::ReturningTeacher do
   end
 
   describe "#returning_to_teaching" do
-    it { is_expected.to_not allow_value("").for :returning_to_teaching }
-    it { is_expected.to_not allow_value(nil).for :returning_to_teaching }
+    it { is_expected.to_not allow_values("", nil).for :returning_to_teaching }
     it { is_expected.to allow_value(true, false).for :returning_to_teaching }
   end
 

@@ -16,9 +16,7 @@ RSpec.describe SignUp::Steps::StartTeacherTraining do
       expect(subject).to allow_value(12_917).for :initial_teacher_training_year_id
     end
 
-    it { is_expected.to_not allow_value("").for :initial_teacher_training_year_id }
-    it { is_expected.to_not allow_value(nil).for :initial_teacher_training_year_id }
-    it { is_expected.to_not allow_value(1.year.ago.year).for :initial_teacher_training_year_id }
+    it { is_expected.to_not allow_values("", nil, 1.year.ago.year).for :initial_teacher_training_year_id }
   end
 
   describe "#year_range" do
@@ -47,6 +45,18 @@ RSpec.describe SignUp::Steps::StartTeacherTraining do
     it "returns false if the set year is not 'Dont know'" do
       subject.initial_teacher_training_year_id = -1
       expect(subject.dont_know).to be_falsy
+    end
+  end
+
+  describe "#skipped?" do
+    it "returns false if returning_to_teaching is false" do
+      wizardstore["returning_to_teaching"] = false
+      expect(subject).to_not be_skipped
+    end
+
+    it "returns true if returning_to_teaching is true" do
+      wizardstore["returning_to_teaching"] = true
+      expect(subject).to be_skipped
     end
   end
 

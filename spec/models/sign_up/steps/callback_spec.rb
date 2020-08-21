@@ -10,18 +10,25 @@ RSpec.describe SignUp::Steps::Callback do
   end
 
   context "phone_call_scheduled_at" do
-    it { is_expected.to_not allow_value("").for :phone_call_scheduled_at }
-    it { is_expected.to_not allow_value(nil).for :phone_call_scheduled_at }
-    it { is_expected.to_not allow_value("invalid_date").for :phone_call_scheduled_at }
+    it { is_expected.to_not allow_values("", nil, "invalid_date").for :phone_call_scheduled_at }
     it { is_expected.to allow_value(Time.zone.now).for :phone_call_scheduled_at }
   end
 
   context "telephone" do
-    it { is_expected.to_not allow_value("").for :telephone }
-    it { is_expected.to_not allow_value("12345uh").for :telephone }
-    it { is_expected.to_not allow_value("123-123-123").for :telephone }
-    it { is_expected.to allow_value("123456").for :telephone }
-    it { is_expected.to allow_value("123456 90").for :telephone }
+    it { is_expected.to_not allow_values("", "12345uh", "123-123-123").for :telephone }
+    it { is_expected.to allow_values("123456", "123456 90").for :telephone }
+  end
+
+  describe "#skipped?" do
+    it "returns false if degree_options is equivalent" do
+      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:equivalent]
+      expect(subject).to_not be_skipped
+    end
+
+    it "returns true if degree_options is not equivalent" do
+      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:degree]
+      expect(subject).to be_skipped
+    end
   end
 
   describe "#self.options" do

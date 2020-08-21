@@ -7,9 +7,7 @@ module SignUp::Steps
     validates :degree_status_id, types: { method: :get_qualification_degree_status, message: "You must select an option" }
 
     def skipped?
-      ![
-        HaveADegree::DEGREE_OPTIONS[:studying],
-      ].include?(@store["degree_options"])
+      @store["degree_options"] != HaveADegree::DEGREE_OPTIONS[:studying]
     end
 
     def self.options
