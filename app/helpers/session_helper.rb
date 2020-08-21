@@ -66,13 +66,13 @@ module SessionHelper
   end
 
   def show_have_a_degree
-    degree = session[:registration]["degree_status_id"]
+    degree = session[:registration]["degree_options"]
     case degree
-    when HaveADegree::OPTIONS[:yes]
+    when HaveADegree::DEGREE_OPTIONS[:degree]
       "Yes"
-    when HaveADegree::OPTIONS[:no]
+    when HaveADegree::DEGREE_OPTIONS[:no]
       "No"
-    when HaveADegree::OPTIONS[:equivalent]
+    when HaveADegree::DEGREE_OPTIONS[:equivalent]
       "Equivalent"
     else
       "Studying"

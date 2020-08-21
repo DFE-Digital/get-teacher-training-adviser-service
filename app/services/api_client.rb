@@ -27,11 +27,6 @@ class ApiClient
       api_instance.get_qualification_uk_degree_grades
     end
 
-    def get_qualification_types
-      api_instance = GetIntoTeachingApiClient::TypesApi.new
-      api_instance.get_qualification_types
-    end
-
     def get_country_types
       api_instance = GetIntoTeachingApiClient::TypesApi.new
       api_instance.get_country_types
