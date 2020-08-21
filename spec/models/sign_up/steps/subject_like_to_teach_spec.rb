@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe SignUp::Steps::SubjectLikeToTeach do
   include_context "wizard step"
   it_behaves_like "a wizard step"
+  it_behaves_like "a wizard step that exposes API types as options", :get_teaching_subjects
 
   context "attributes" do
     it { is_expected.to respond_to :preferred_teaching_subject_id }
@@ -29,9 +30,5 @@ RSpec.describe SignUp::Steps::SubjectLikeToTeach do
       wizardstore["preferred_education_phase_id"] = StageInterestedTeaching::OPTIONS[:primary]
       expect(subject).to be_skipped
     end
-  end
-
-  describe "#self.options" do
-    it "is a pending example"
   end
 end

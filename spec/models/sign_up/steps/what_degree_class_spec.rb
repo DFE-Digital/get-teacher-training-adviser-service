@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe SignUp::Steps::WhatDegreeClass do
   include_context "wizard step"
   it_behaves_like "a wizard step"
+  it_behaves_like "a wizard step that exposes API types as options", :get_qualification_uk_degree_grades
 
   context "attributes" do
     it { is_expected.to respond_to :uk_degree_grade_id }
@@ -31,9 +32,5 @@ RSpec.describe SignUp::Steps::WhatDegreeClass do
       wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:equivalent]
       expect(subject).to be_skipped
     end
-  end
-
-  describe "#self.options" do
-    it "is a pending example"
   end
 end

@@ -15,6 +15,22 @@ RSpec.shared_examples "a wizard step" do
   it { is_expected.to respond_to :save }
 end
 
+RSpec.shared_examples "a wizard step that exposes API types as options" do |api_method|
+  it { expect(subject.class).to respond_to :options }
+
+  it "it exposes API types as options" do
+    types = [
+      GetIntoTeachingApiClient::TypeEntity.new(id: 1, value: "one"), 
+      GetIntoTeachingApiClient::TypeEntity.new(id: 2, value: "two")
+    ]
+
+    allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
+      receive(api_method) { types }
+
+    expect(described_class.options).to eq({ "one" => 1, "two" => 2 })
+  end
+end
+
 class TestWizard < Wizard::Base
   class Name < Wizard::Step
     attribute :name

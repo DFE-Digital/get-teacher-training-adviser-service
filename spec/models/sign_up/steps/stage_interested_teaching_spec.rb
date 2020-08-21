@@ -24,8 +24,4 @@ RSpec.describe SignUp::Steps::StageInterestedTeaching do
       expect(subject).to be_skipped
     end
   end
-
-  describe "#self.options" do
-    it "is a pending example"
-  end
 end
