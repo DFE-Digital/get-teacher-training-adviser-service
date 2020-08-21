@@ -15,8 +15,8 @@ class HaveADegree < Base
   DEGREE_TYPE = { degree: 222_750_000, equivalent: 222_750_005 }.freeze
 
   validates :degree_options, inclusion: { in: DEGREE_OPTIONS.map { |_k, v| v }, message: "Select an option from the list" }
-  validates :degree_status_id, inclusion: { in: DEGREE_STATUS_OPTIONS.map { |_k, v| v }, message: "Select an option from the list" }
-  validates :degree_type_id, types: { method: :get_qualification_degree_status }
+  #validates :degree_status_id, inclusion: { in: DEGREE_STATUS_OPTIONS.map { |_k, v| v }, message: "Select an option from the list" }
+  #validates :degree_type_id, types: { method: :get_qualification_degree_status }
 
   def set_degree_status
     self.degree_status_id = case degree_options
