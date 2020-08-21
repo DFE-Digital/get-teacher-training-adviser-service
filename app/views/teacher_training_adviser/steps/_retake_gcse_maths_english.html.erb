@@ -1,0 +1,5 @@
+<%= f.govuk_radio_buttons_fieldset(:planning_to_retake_gcse_maths_and_english_id, legend: { text: 'Are you planning to retake either English or maths (or both) GCSEs, or equivalent?'}, inline: true ) do %>
+  <%= f.govuk_radio_button :planning_to_retake_gcse_maths_and_english_id, RetakeEnglishMaths::OPTIONS[:yes], label: { text: 'Yes' } %>
+  <%= f.govuk_radio_button :planning_to_retake_gcse_maths_and_english_id, RetakeEnglishMaths::OPTIONS[:no], label: { text: 'No' } %>
+<% end %>
+<%= f.govuk_submit%>

@@ -14,7 +14,8 @@ RSpec.describe SignUp::Steps::GcseScience do
   end
 
   describe "#skipped?" do
-    it "returns false if degree_options is studying/degree" do
+    it "returns false if degree_options is studying/degree and preferred_education_phase_id primary" do
+      wizardstore["preferred_education_phase_id"] = StageInterestedTeaching::OPTIONS[:primary]
       wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:studying]
       expect(subject).to_not be_skipped
       wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:degree]
@@ -22,7 +23,14 @@ RSpec.describe SignUp::Steps::GcseScience do
     end
 
     it "returns true if degree_options is not studying/degree" do
+      wizardstore["preferred_education_phase_id"] = StageInterestedTeaching::OPTIONS[:primary]
       wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:equivalent]
+      expect(subject).to be_skipped
+    end
+
+    it "returns true if preferred_education_phase_id is secondary" do
+      wizardstore["preferred_education_phase_id"] = StageInterestedTeaching::OPTIONS[:secondary]
+      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:degree]
       expect(subject).to be_skipped
     end
   end

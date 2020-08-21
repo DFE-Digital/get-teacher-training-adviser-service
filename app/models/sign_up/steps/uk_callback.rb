@@ -7,7 +7,8 @@ module SignUp::Steps
     validates :phone_call_scheduled_at, presence: true
 
     def skipped?
-      @store["degree_options"] != HaveADegree::DEGREE_OPTIONS[:equivalent] ||
+      @store["returning_to_teaching"] ||
+        @store["degree_options"] != HaveADegree::DEGREE_OPTIONS[:equivalent] ||
         @store["uk_or_overseas"] != "UK"
     end
 

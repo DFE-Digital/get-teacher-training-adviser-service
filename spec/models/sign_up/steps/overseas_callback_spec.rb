@@ -16,21 +16,31 @@ RSpec.describe SignUp::Steps::OverseasCallback do
   end
 
   describe "#skipped?" do
-    it "returns false if degree_options is equivalent and uk_or_overseas is Overseas" do
+    it "returns false if degree_options is equivalent and uk_or_overseas is overseas" do
       wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:equivalent]
       wizardstore["uk_or_overseas"] = "overseas"
+      wizardstore["returning_to_teaching"] = false
       expect(subject).to_not be_skipped
     end
 
     it "returns true if degree_options is not equivalent" do
       wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:degree]
       wizardstore["uk_or_overseas"] = "overseas"
+      wizardstore["returning_to_teaching"] = false
       expect(subject).to be_skipped
     end
 
-    it "returns true if uk_or_overseas is not Overseas" do
+    it "returns true if uk_or_overseas is not overseas" do
       wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:equivalent]
       wizardstore["uk_or_overseas"] = "UK"
+      wizardstore["returning_to_teaching"] = false
+      expect(subject).to be_skipped
+    end
+
+    it "returns true if returning_to_teaching is true" do
+      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:equivalent]
+      wizardstore["uk_or_overseas"] = "UK"
+      wizardstore["returning_to_teaching"] = true
       expect(subject).to be_skipped
     end
   end
