@@ -1,4 +1,4 @@
-class OverseasCandidate < Callback
+class OverseasCallback < Callback
   attribute :time_zone, :string
 
   validates :time_zone, presence: { message: "Select a time zone" }

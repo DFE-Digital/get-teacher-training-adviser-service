@@ -69,7 +69,7 @@ class StepFactory
     "Equivalent::UkOrOverseas",
     "Equivalent::UkCandidate",
     "Equivalent::UkCompletion",
-    "Equivalent::OverseasCandidate",
+    "Equivalent::OverseasCallback",
     "Equivalent::OverseasCompletion",
     "Equivalent::UkCallback",
     "Equivalent::OverseasCountry",

@@ -1,5 +1,5 @@
 module Equivalent
-  class OverseasCandidate < OverseasCandidate
+  class OverseasCallback < OverseasCallback
     def next_step
       "equivalent/overseas_completion"
     end
