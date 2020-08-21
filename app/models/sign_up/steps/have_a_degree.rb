@@ -16,8 +16,11 @@ module SignUp::Steps
     DEGREE_TYPE = { degree: 222_750_000, equivalent: 222_750_005 }.freeze
 
     validates :degree_options, inclusion: { in: DEGREE_OPTIONS.values, message: "Select an option from the list" }
-    validates :degree_status_id, inclusion: { in: DEGREE_STATUS_OPTIONS.values, message: "Select an option from the list" }
-    validates :degree_type_id, inclusion: { in: DEGREE_TYPE.values }
+
+    with_options if: -> { degree_options.present? } do |degree_option|
+      degree_option.validates :degree_status_id, inclusion: { in: DEGREE_STATUS_OPTIONS.values, message: "Select an option from the list" }
+      degree_option.validates :degree_type_id, inclusion: { in: DEGREE_TYPE.values }
+    end
 
     def skipped?
       @store["returning_to_teaching"]
