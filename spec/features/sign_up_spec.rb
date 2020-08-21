@@ -44,6 +44,9 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
     fill_in "UK telephone number (optional)", with: "123456789"
     click_on "Continue"
 
+    expect(page).to have_text "Check your answers before you continue"
+    click_on "Continue"
+
     expect(page).to have_text "Read and accept the privacy policy"
     check "Accept the privacy policy"
     click_on "Complete"
@@ -97,6 +100,9 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
 
     expect(page).to have_text "You told us you live overseas"
     select "(GMT-10:00) Hawaii"
+    click_on "Continue"
+
+    expect(page).to have_text "Check your answers before you continue"
     click_on "Continue"
 
     expect(page).to have_text "Read and accept the privacy policy"
@@ -164,6 +170,9 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
 
     expect(page).to have_text "What is your telephone number?"
     fill_in "Overseas telephone number (optional)", with: "123456789"
+    click_on "Continue"
+
+    expect(page).to have_text "Check your answers before you continue"
     click_on "Continue"
 
     expect(page).to have_text "Read and accept the privacy policy"

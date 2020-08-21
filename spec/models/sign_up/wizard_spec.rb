@@ -33,6 +33,7 @@ RSpec.describe SignUp::Wizard do
         SignUp::Steps::OverseasTelephone,
         SignUp::Steps::UkCallback,
         SignUp::Steps::OverseasCallback,
+        SignUp::Steps::ReviewAnswers,
         SignUp::Steps::AcceptPrivacyPolicy,
       ]
     end

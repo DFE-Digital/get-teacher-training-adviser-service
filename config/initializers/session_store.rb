@@ -1,3 +1,5 @@
+# Changing the session store causes it 
+# to become nil between Capybara requests.
 return if Rails.env.test?
 
 Rails.application.config.session_store :cache_store,

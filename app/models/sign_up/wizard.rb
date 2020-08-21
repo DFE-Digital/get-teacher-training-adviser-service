@@ -28,6 +28,7 @@ module SignUp
       Steps::OverseasTelephone,
       Steps::UkCallback,
       Steps::OverseasCallback,
+      Steps::ReviewAnswers,
       Steps::AcceptPrivacyPolicy,
     ].freeze
 
