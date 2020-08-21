@@ -8,9 +8,4 @@ RSpec.describe Equivalent::UkCallback do
       expect(uk_callback.next_step).to eq("equivalent/uk_completion")
     end
   end
-
-  describe "#self.options" do
-    let(:options_hash) { Equivalent::UkCallback.options }
-    include_examples "callback_options"
-  end
 end
