@@ -1,5 +1,5 @@
 module SignUp::Steps
-  class Callback < Wizard::Step
+  class UkCallback < Wizard::Step
     attribute :telephone, :string
     attribute :phone_call_scheduled_at, :datetime
 
@@ -7,7 +7,8 @@ module SignUp::Steps
     validates :phone_call_scheduled_at, presence: true
 
     def skipped?
-      @store["degree_options"] != HaveADegree::DEGREE_OPTIONS[:equivalent]
+      @store["degree_options"] != HaveADegree::DEGREE_OPTIONS[:equivalent] ||
+        @store["uk_or_overseas"] != "UK"
     end
 
     def self.options

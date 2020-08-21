@@ -20,8 +20,8 @@ RSpec.shared_examples "a wizard step that exposes API types as options" do |api_
 
   it "it exposes API types as options" do
     types = [
-      GetIntoTeachingApiClient::TypeEntity.new(id: 1, value: "one"), 
-      GetIntoTeachingApiClient::TypeEntity.new(id: 2, value: "two")
+      GetIntoTeachingApiClient::TypeEntity.new(id: 1, value: "one"),
+      GetIntoTeachingApiClient::TypeEntity.new(id: 2, value: "two"),
     ]
 
     allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \

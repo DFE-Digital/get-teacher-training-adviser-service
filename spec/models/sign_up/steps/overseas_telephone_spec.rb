@@ -15,7 +15,7 @@ RSpec.describe SignUp::Steps::OverseasTelephone do
 
   describe "#skipped?" do
     it "returns false if uk_or_overseas is Overseas" do
-      wizardstore["uk_or_overseas"] = "Overseas"
+      wizardstore["uk_or_overseas"] = "overseas"
       expect(subject).to_not be_skipped
     end
 

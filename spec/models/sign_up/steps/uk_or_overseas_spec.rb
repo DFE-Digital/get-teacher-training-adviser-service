@@ -40,7 +40,7 @@ RSpec.describe SignUp::Steps::UkOrOverseas do
     end
 
     it "does nothing when overseas" do
-      subject.uk_or_overseas = "Overseas"
+      subject.uk_or_overseas = "overseas"
       expect(subject.country_id).to be_nil
     end
   end

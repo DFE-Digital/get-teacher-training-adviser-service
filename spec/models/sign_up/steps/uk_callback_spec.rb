@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SignUp::Steps::Callback do
+RSpec.describe SignUp::Steps::UkCallback do
   include_context "wizard step"
   it_behaves_like "a wizard step"
 
@@ -20,13 +20,21 @@ RSpec.describe SignUp::Steps::Callback do
   end
 
   describe "#skipped?" do
-    it "returns false if degree_options is equivalent" do
+    it "returns false if degree_options is equivalent and uk_or_overseas is UK" do
       wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:equivalent]
+      wizardstore["uk_or_overseas"] = "UK"
       expect(subject).to_not be_skipped
     end
 
     it "returns true if degree_options is not equivalent" do
       wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:degree]
+      wizardstore["uk_or_overseas"] = "UK"
+      expect(subject).to be_skipped
+    end
+
+    it "returns true if uk_or_overseas is not UK" do
+      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:equivalent]
+      wizardstore["uk_or_overseas"] = "overseas"
       expect(subject).to be_skipped
     end
   end

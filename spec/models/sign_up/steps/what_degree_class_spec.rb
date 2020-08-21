@@ -33,4 +33,16 @@ RSpec.describe SignUp::Steps::WhatDegreeClass do
       expect(subject).to be_skipped
     end
   end
+
+  describe "#studying?" do
+    it "returns true if degree_options is studying" do
+      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:studying]
+      expect(subject).to be_studying
+    end
+
+    it "returns false if degree_options is not studying" do
+      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:degree]
+      expect(subject).to_not be_studying
+    end
+  end
 end

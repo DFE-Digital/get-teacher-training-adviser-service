@@ -26,7 +26,8 @@ RSpec.describe SignUp::Wizard do
         SignUp::Steps::UkTelephone,
         SignUp::Steps::OverseasCountry,
         SignUp::Steps::OverseasTelephone,
-        SignUp::Steps::Callback,
+        SignUp::Steps::UkCallback,
+        SignUp::Steps::OverseasCallback,
         SignUp::Steps::AcceptPrivacyPolicy,
       ]
     end

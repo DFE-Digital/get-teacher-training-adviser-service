@@ -13,6 +13,10 @@ module SignUp::Steps
       ].none?(@store["degree_options"])
     end
 
+    def studying?
+      @store["degree_options"] == HaveADegree::DEGREE_OPTIONS[:studying]
+    end
+
     def self.options
       generate_api_options(ApiClient.get_qualification_uk_degree_grades)
     end

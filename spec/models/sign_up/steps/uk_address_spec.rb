@@ -33,7 +33,7 @@ RSpec.describe SignUp::Steps::UkAddress do
     end
 
     it "returns true if returning_to_teaching is Overseas" do
-      wizardstore["uk_or_overseas"] = "Overseas"
+      wizardstore["uk_or_overseas"] = "overseas"
       expect(subject).to be_skipped
     end
   end
