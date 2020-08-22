@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe TeacherTrainingAdviser::StepsController do
-  let(:model) { SignUp::Steps::Identity }
+  let(:model) { TeacherTrainingAdviser::Steps::Identity }
   let(:step_path) { teacher_training_adviser_step_path model.key }
 
   describe "#show" do
@@ -29,7 +29,7 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
     end
 
     context "for last step" do
-      let(:steps) { SignUp::Wizard.steps }
+      let(:steps) { TeacherTrainingAdviser::Wizard.steps }
       let(:model) { steps.last }
       let(:params) { { accepted_policy_id: "abc-123" } }
 

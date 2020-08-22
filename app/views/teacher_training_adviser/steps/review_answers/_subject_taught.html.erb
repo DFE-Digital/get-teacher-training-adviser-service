@@ -8,6 +8,6 @@
     <%= GetIntoTeachingApiClient::TypesApi.new.get_teaching_subjects.find { |subject| subject.id == answers["subject_taught_id"] }.value %>
   </dd>
   <dd class="govuk-summary-list__actions">
-    <%= link_to_change_answer(SignUp::Steps::SubjectTaught) %>
+    <%= link_to_change_answer(TeacherTrainingAdviser::Steps::SubjectTaught) %>
   </dd>
 </div>

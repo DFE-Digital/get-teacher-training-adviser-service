@@ -1,7 +1,7 @@
 module TeacherTrainingAdviser
   class StepsController < ApplicationController
     include WizardSteps
-    self.wizard_class = SignUp::Wizard
+    self.wizard_class = TeacherTrainingAdviser::Wizard
 
   private
 
@@ -11,7 +11,7 @@ module TeacherTrainingAdviser
     helper_method :step_path
 
     def wizard_store
-      Wizard::Store.new session_store
+      ::Wizard::Store.new session_store
     end
 
     def session_store
