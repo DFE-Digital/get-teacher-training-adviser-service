@@ -1,0 +1,4 @@
+<%= f.govuk_radio_buttons_fieldset(:has_gcse_science_id, legend: { text: 'Do you have grade 4 (C) or above in GCSE science, or equivalent?'}, inline: true ) do %>
+  <%= f.govuk_radio_button :has_gcse_science_id, TeacherTrainingAdviser::Steps::GcseScience::OPTIONS[:yes], label: { text: 'Yes' } %>
+  <%= f.govuk_radio_button :has_gcse_science_id, TeacherTrainingAdviser::Steps::GcseScience::OPTIONS[:no], label: { text: 'No' } %>
+<% end %>

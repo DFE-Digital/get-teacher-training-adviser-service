@@ -1,0 +1,13 @@
+<p>
+  <%= back_link step_path(wizard.previous_key) if wizard.previous_key %>
+</p>
+
+<%= govuk_form_for current_step, url: step_path do |f| %>
+  <%= f.govuk_error_summary %>
+
+  <%= render current_step.key, current_step: current_step, f: f %>
+
+  <% if wizard.can_proceed? %>
+    <%= f.govuk_submit(wizard.last_step? ? "Complete" : "Continue") %>
+  <% end %>
+<% end %>

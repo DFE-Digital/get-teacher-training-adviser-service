@@ -1,0 +1,13 @@
+<% return unless answers.key?("degree_subject") %>
+
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">
+    Which subject is your degree?
+  </dt>
+  <dd class="govuk-summary-list__value">
+    <p class="govuk-body"><%= answers["degree_subject"] %></p>
+  </dd>
+  <dd class="govuk-summary-list__actions">
+    <%= link_to_change_answer(TeacherTrainingAdviser::Steps::WhatSubjectDegree) %>
+  </dd>
+</div>
