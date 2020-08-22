@@ -71,6 +71,7 @@ group :development do
 end
 
 group :test do
+  gem "shoulda-matchers"
   gem "vcr"
   gem "webdrivers", "~> 4.3"
 end
