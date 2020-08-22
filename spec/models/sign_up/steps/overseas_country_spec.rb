@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe SignUp::Steps::OverseasCountry do
   include_context "wizard step"
   it_behaves_like "a wizard step"
+  it_behaves_like "a wizard step that exposes API types as options", :get_country_types
 
   context "attributes" do
     it { is_expected.to respond_to :country_id }

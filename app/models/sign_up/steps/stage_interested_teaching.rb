@@ -11,9 +11,5 @@ module SignUp::Steps
     def skipped?
       @store["returning_to_teaching"]
     end
-
-    def self.options
-      generate_api_options(ApiClient.get_candidate_preferred_education_phases)
-    end
   end
 end
