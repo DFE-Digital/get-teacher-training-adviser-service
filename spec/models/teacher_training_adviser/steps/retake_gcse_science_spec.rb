@@ -10,12 +10,12 @@ RSpec.describe TeacherTrainingAdviser::Steps::RetakeGcseScience do
 
   describe "planning_to_retake_gcse_science_id" do
     it { is_expected.to_not allow_value(nil).for :planning_to_retake_gcse_science_id }
-    it { is_expected.to allow_values(Crm::OPTIONS[:yes], Crm::OPTIONS[:no]).for :planning_to_retake_gcse_science_id }
+    it { is_expected.to allow_values(*TeacherTrainingAdviser::Steps::RetakeGcseScience::OPTIONS.values).for :planning_to_retake_gcse_science_id }
   end
 
   describe "#skipped?" do
     it "returns false if has_gcse_science_id is no" do
-      wizardstore["has_gcse_science_id"] = Crm::OPTIONS[:no]
+      wizardstore["has_gcse_science_id"] = TeacherTrainingAdviser::Steps::GcseScience::OPTIONS[:no]
       expect(subject).to_not be_skipped
     end
 
@@ -32,7 +32,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::RetakeGcseScience do
     it "returns true if has_gcse_science_id is not not no" do
       wizardstore["has_gcse_science_id"] = nil
       expect(subject).to be_skipped
-      wizardstore["has_gcse_science_id"] = Crm::OPTIONS[:yes]
+      wizardstore["has_gcse_science_id"] = TeacherTrainingAdviser::Steps::GcseScience::OPTIONS[:yes]
       expect(subject).to be_skipped
     end
   end

@@ -8,17 +8,17 @@ RSpec.describe TeacherTrainingAdviser::Steps::QualificationRequired do
 
   describe "#skipped?" do
     it "returns false if planning_to_retake_gcse_maths_and_english_id is no" do
-      wizardstore["planning_to_retake_gcse_maths_and_english_id"] = Crm::OPTIONS[:no]
+      wizardstore["planning_to_retake_gcse_maths_and_english_id"] = TeacherTrainingAdviser::Steps::RetakeGcseMathsEnglish::OPTIONS[:no]
       expect(subject).to_not be_skipped
     end
 
     it "returns false if planning_to_retake_gcse_science_id is no" do
-      wizardstore["planning_to_retake_gcse_science_id"] = Crm::OPTIONS[:no]
+      wizardstore["planning_to_retake_gcse_science_id"] = TeacherTrainingAdviser::Steps::RetakeGcseScience::OPTIONS[:no]
       expect(subject).to_not be_skipped
     end
 
     it "returns true if planning_to_retake_gcse_maths_and_english_id is not no" do
-      wizardstore["planning_to_retake_gcse_maths_and_english_id"] = Crm::OPTIONS[:yes]
+      wizardstore["planning_to_retake_gcse_maths_and_english_id"] = TeacherTrainingAdviser::Steps::RetakeGcseMathsEnglish::OPTIONS[:yes]
       expect(subject).to be_skipped
       wizardstore["planning_to_retake_gcse_maths_and_english_id"] = nil
       expect(subject).to be_skipped

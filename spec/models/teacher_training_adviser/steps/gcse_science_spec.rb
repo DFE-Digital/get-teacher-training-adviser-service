@@ -10,7 +10,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::GcseScience do
 
   describe "has_gcse_science_id" do
     it { is_expected.to_not allow_value(nil).for :has_gcse_science_id }
-    it { is_expected.to allow_values(Crm::OPTIONS[:yes], Crm::OPTIONS[:no]).for :has_gcse_science_id }
+    it { is_expected.to allow_values(*TeacherTrainingAdviser::Steps::GcseScience::OPTIONS.values).for :has_gcse_science_id }
   end
 
   describe "#skipped?" do
