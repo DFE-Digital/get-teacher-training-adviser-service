@@ -12,8 +12,10 @@ RSpec.describe TypesValidator, type: :validator do
   subject { TypeValidatable.new }
 
   before do
-    expect(ApiClient).to receive(:get_teaching_subjects)
-      .and_return([OpenStruct.new({ id: 1, value: "one" })])
+    expect_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
+      receive(:get_teaching_subjects).and_return(
+        [OpenStruct.new({ id: 1, value: "one" })],
+      )
   end
 
   it "is invalid when null" do
