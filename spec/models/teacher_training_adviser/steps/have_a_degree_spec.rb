@@ -12,15 +12,15 @@ RSpec.describe TeacherTrainingAdviser::Steps::HaveADegree do
 
   describe "degree_options" do
     it { is_expected.to_not allow_values("random", "", nil).for :degree_options }
-    it { is_expected.to allow_values(*HaveADegree::DEGREE_OPTIONS.values).for :degree_options }
+    it { is_expected.to allow_values(*TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS.values).for :degree_options }
   end
 
   describe "degree_status_id" do
     context "when degree_options is set" do
-      before { subject.degree_options = HaveADegree::DEGREE_OPTIONS[:degree] }
+      before { subject.degree_options = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree] }
 
       it { is_expected.to_not allow_values(1234, nil).for :degree_status_id }
-      it { is_expected.to allow_values(*HaveADegree::DEGREE_STATUS_OPTIONS.values).for :degree_status_id }
+      it { is_expected.to allow_values(*TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_STATUS_OPTIONS.values).for :degree_status_id }
     end
 
     context "when degree_options is not set" do
@@ -30,10 +30,10 @@ RSpec.describe TeacherTrainingAdviser::Steps::HaveADegree do
 
   describe "degree_type_id" do
     context "when degree_options is set" do
-      before { subject.degree_options = HaveADegree::DEGREE_OPTIONS[:degree] }
+      before { subject.degree_options = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree] }
 
       it { is_expected.to_not allow_values(1234, nil).for :degree_type_id }
-      it { is_expected.to allow_values(*HaveADegree::DEGREE_TYPE.values).for :degree_type_id }
+      it { is_expected.to allow_values(*TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_TYPE.values).for :degree_type_id }
     end
 
     context "when degree_options is not set" do
@@ -43,27 +43,27 @@ RSpec.describe TeacherTrainingAdviser::Steps::HaveADegree do
 
   describe "#degree_option=" do
     it "sets the correct degree_status_id/degree_type_id for value of degree" do
-      subject.degree_options = HaveADegree::DEGREE_OPTIONS[:degree]
-      expect(subject.degree_status_id).to eq(HaveADegree::DEGREE_STATUS_OPTIONS[:yes])
-      expect(subject.degree_type_id).to eq(HaveADegree::DEGREE_TYPE[:degree])
+      subject.degree_options = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree]
+      expect(subject.degree_status_id).to eq(TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_STATUS_OPTIONS[:yes])
+      expect(subject.degree_type_id).to eq(TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_TYPE[:degree])
     end
 
     it "sets the correct degree_status_id/degree_type_id when no" do
-      subject.degree_options = HaveADegree::DEGREE_OPTIONS[:no]
-      expect(subject.degree_status_id).to eq(HaveADegree::DEGREE_STATUS_OPTIONS[:no])
-      expect(subject.degree_type_id).to eq(HaveADegree::DEGREE_TYPE[:degree])
+      subject.degree_options = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:no]
+      expect(subject.degree_status_id).to eq(TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_STATUS_OPTIONS[:no])
+      expect(subject.degree_type_id).to eq(TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_TYPE[:degree])
     end
 
     it "sets the correct degree_status_id/degree_type_id when studying" do
-      subject.degree_options = HaveADegree::DEGREE_OPTIONS[:studying]
-      expect(subject.degree_status_id).to eq(HaveADegree::DEGREE_STATUS_OPTIONS[:studying])
-      expect(subject.degree_type_id).to eq(HaveADegree::DEGREE_TYPE[:degree])
+      subject.degree_options = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
+      expect(subject.degree_status_id).to eq(TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_STATUS_OPTIONS[:studying])
+      expect(subject.degree_type_id).to eq(TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_TYPE[:degree])
     end
 
     it "sets the correct degree_status_id/degree_type_id when equivalent" do
-      subject.degree_options = HaveADegree::DEGREE_OPTIONS[:equivalent]
-      expect(subject.degree_status_id).to eq(HaveADegree::DEGREE_STATUS_OPTIONS[:yes])
-      expect(subject.degree_type_id).to eq(HaveADegree::DEGREE_TYPE[:equivalent])
+      subject.degree_options = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
+      expect(subject.degree_status_id).to eq(TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_STATUS_OPTIONS[:yes])
+      expect(subject.degree_type_id).to eq(TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_TYPE[:equivalent])
     end
   end
 

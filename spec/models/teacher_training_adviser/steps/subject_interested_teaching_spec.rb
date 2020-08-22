@@ -23,19 +23,19 @@ RSpec.describe TeacherTrainingAdviser::Steps::SubjectInterestedTeaching do
   describe "#skipped?" do
     it "returns false if returning_to_teaching is false and preferred_education_phase_id is secondary" do
       wizardstore["returning_to_teaching"] = false
-      wizardstore["preferred_education_phase_id"] = StageInterestedTeaching::OPTIONS[:secondary]
+      wizardstore["preferred_education_phase_id"] = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
       expect(subject).to_not be_skipped
     end
 
     it "returns true if preferred_education_phase_id is not secondary" do
       wizardstore["returning_to_teaching"] = false
-      wizardstore["preferred_education_phase_id"] = StageInterestedTeaching::OPTIONS[:primary]
+      wizardstore["preferred_education_phase_id"] = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:primary]
       expect(subject).to be_skipped
     end
 
     it "returns true if returning_to_teaching is not false" do
       wizardstore["returning_to_teaching"] = true
-      wizardstore["preferred_education_phase_id"] = StageInterestedTeaching::OPTIONS[:secondary]
+      wizardstore["preferred_education_phase_id"] = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
       expect(subject).to be_skipped
     end
   end

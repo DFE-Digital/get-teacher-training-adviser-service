@@ -7,7 +7,7 @@ module TeacherTrainingAdviser::Steps
     validates :degree_status_id, types: { method: :get_qualification_degree_status, message: "You must select an option" }
 
     def skipped?
-      @store["degree_options"] != HaveADegree::DEGREE_OPTIONS[:studying]
+      @store["degree_options"] != TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
     end
 
     def self.options

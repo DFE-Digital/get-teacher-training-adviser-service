@@ -8,11 +8,11 @@
     <p class="govuk-body">
       <%=
         case answers["degree_options"]
-        when HaveADegree::DEGREE_OPTIONS[:degree]
+        when TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree]
           "Yes"
-        when HaveADegree::DEGREE_OPTIONS[:no]
+        when TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:no]
           "No"
-        when HaveADegree::DEGREE_OPTIONS[:equivalent]
+        when TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
           "Equivalent"
         else
           "Studying"

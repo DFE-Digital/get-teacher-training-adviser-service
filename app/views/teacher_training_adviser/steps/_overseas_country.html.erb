@@ -1,4 +1,4 @@
-<% countries = ApiClient::get_country_types.sort_by { |k| k.value } %>
+<% countries = GetIntoTeachingApiClient::TypesApi.new.get_country_types.sort_by { |k| k.value } %>
 <% countries.delete_if { |k| k.value == "United Kingdom" } %>
 
 <%= f.govuk_collection_select :country_id,

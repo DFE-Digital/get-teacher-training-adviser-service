@@ -6,7 +6,7 @@ module TeacherTrainingAdviser::Steps
 
     def skipped?
       @store["returning_to_teaching"] ||
-        @store["degree_options"] != HaveADegree::DEGREE_OPTIONS[:equivalent] ||
+        @store["degree_options"] != TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent] ||
         @store["uk_or_overseas"] != TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:overseas]
     end
   end

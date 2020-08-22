@@ -6,7 +6,7 @@
   </dt>
   <dd class="govuk-summary-list__value">
     <%= 
-      StageInterestedTeaching.options.key(answers["preferred_education_phase_id"].to_s).to_s.capitalize
+      TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS.key(answers["preferred_education_phase_id"].to_s).to_s.capitalize
     %>
   </dd>
   <dd class="govuk-summary-list__actions">

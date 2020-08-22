@@ -17,13 +17,13 @@ RSpec.describe TeacherTrainingAdviser::Steps::ReturningTeacher do
 
   describe "#degree_options" do
     it "defaults" do
-      expect(subject.degree_options).to eq(ReturningTeacher::DEGREE_OPTIONS[:returner])
+      expect(subject.degree_options).to eq(TeacherTrainingAdviser::Steps::ReturningTeacher::DEGREE_OPTIONS[:returner])
     end
   end
 
   describe "#preferred_education_phase_id" do
     it "defaults" do
-      expect(subject.preferred_education_phase_id).to eq(StageInterestedTeaching::OPTIONS[:secondary].to_i)
+      expect(subject.preferred_education_phase_id).to eq(TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary].to_i)
     end
   end
 end

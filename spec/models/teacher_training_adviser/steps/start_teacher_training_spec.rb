@@ -39,7 +39,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
 
   describe "#dont_know" do
     it "returns true if the set year is 'Dont know'" do
-      subject.initial_teacher_training_year_id = StartTeacherTraining.options["Not sure"]
+      subject.initial_teacher_training_year_id = TeacherTrainingAdviser::Steps::StartTeacherTraining.options["Not sure"]
       expect(subject.dont_know).to be_truthy
     end
 

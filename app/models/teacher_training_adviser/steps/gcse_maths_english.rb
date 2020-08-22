@@ -8,8 +8,8 @@ module TeacherTrainingAdviser::Steps
 
     def skipped?
       [
-        HaveADegree::DEGREE_OPTIONS[:studying],
-        HaveADegree::DEGREE_OPTIONS[:degree],
+        TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying],
+        TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree],
       ].none?(@store["degree_options"])
     end
   end

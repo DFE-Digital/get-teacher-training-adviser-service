@@ -8,13 +8,13 @@ module TeacherTrainingAdviser::Steps
 
     def skipped?
       [
-        HaveADegree::DEGREE_OPTIONS[:studying],
-        HaveADegree::DEGREE_OPTIONS[:degree],
+        TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying],
+        TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree],
       ].none?(@store["degree_options"])
     end
 
     def studying?
-      @store["degree_options"] == HaveADegree::DEGREE_OPTIONS[:studying]
+      @store["degree_options"] == TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
     end
 
     def self.options

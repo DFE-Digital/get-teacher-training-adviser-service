@@ -7,10 +7,10 @@ module TeacherTrainingAdviser::Steps
     OPTIONS = Crm::OPTIONS
 
     def skipped?
-      @store["preferred_education_phase_id"] == StageInterestedTeaching::OPTIONS[:secondary] ||
+      @store["preferred_education_phase_id"] == TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary] ||
         [
-          HaveADegree::DEGREE_OPTIONS[:studying],
-          HaveADegree::DEGREE_OPTIONS[:degree],
+          TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying],
+          TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree],
         ].none?(@store["degree_options"])
     end
   end

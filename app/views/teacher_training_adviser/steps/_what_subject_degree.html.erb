@@ -1,5 +1,5 @@
 <%= f.govuk_collection_select :degree_subject,
-  ApiClient::get_teaching_subjects,
+  GetIntoTeachingApiClient::TypesApi.new.get_teaching_subjects,
   :value,
   :value,
   label: { text: "What subject is your degree?", tag: "h1", size: "m" },

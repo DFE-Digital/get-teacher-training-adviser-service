@@ -6,7 +6,7 @@
   </dt>
   <dd class="govuk-summary-list__value">
     <%= 
-      StartTeacherTraining.options.key(answers["initial_teacher_training_year_id"].to_s)
+      TeacherTrainingAdviser::Steps::StartTeacherTraining.options.key(answers["initial_teacher_training_year_id"].to_s)
     %>
   </dd>
   <dd class="govuk-summary-list__actions">

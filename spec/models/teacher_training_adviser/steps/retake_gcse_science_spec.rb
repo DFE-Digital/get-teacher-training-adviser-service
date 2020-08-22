@@ -25,7 +25,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::RetakeGcseScience do
     end
 
     it "returns true if degree_options is equivalent" do
-      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:equivalent]
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
       expect(subject).to be_skipped
     end
 

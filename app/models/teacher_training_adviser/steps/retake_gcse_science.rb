@@ -8,7 +8,7 @@ module TeacherTrainingAdviser::Steps
 
     def skipped?
       @store["returning_to_teaching"] ||
-        @store["degree_options"] == HaveADegree::DEGREE_OPTIONS[:equivalent] ||
+        @store["degree_options"] == TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent] ||
         @store["has_gcse_science_id"] != Crm::OPTIONS[:no]
     end
   end

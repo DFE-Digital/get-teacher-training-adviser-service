@@ -15,14 +15,14 @@ RSpec.describe TeacherTrainingAdviser::Steps::GcseMathsEnglish do
 
   describe "#skipped?" do
     it "returns false if degree_options is studying/degree" do
-      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:studying]
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
       expect(subject).to_not be_skipped
-      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:degree]
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree]
       expect(subject).to_not be_skipped
     end
 
     it "returns true if degree_options is not studying/degree" do
-      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:equivalent]
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
       expect(subject).to be_skipped
     end
   end

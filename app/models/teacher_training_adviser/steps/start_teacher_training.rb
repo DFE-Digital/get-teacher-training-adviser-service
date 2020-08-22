@@ -24,7 +24,7 @@ module TeacherTrainingAdviser::Steps
     end
 
     def dont_know
-      initial_teacher_training_year_id == StartTeacherTraining.options["Not sure"].to_i
+      initial_teacher_training_year_id == TeacherTrainingAdviser::Steps::StartTeacherTraining.options["Not sure"].to_i
     end
 
     def skipped?

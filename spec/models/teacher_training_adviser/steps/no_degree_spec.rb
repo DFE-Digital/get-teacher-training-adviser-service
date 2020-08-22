@@ -8,12 +8,12 @@ RSpec.describe TeacherTrainingAdviser::Steps::NoDegree do
 
   describe "#skipped?" do
     it "returns false if degree_options is no" do
-      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:no]
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:no]
       expect(subject).to_not be_skipped
     end
 
     it "returns true if degree_options is not no" do
-      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:degree]
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree]
       expect(subject).to be_skipped
     end
   end

@@ -1,4 +1,4 @@
 <%= f.govuk_radio_buttons_fieldset(:planning_to_retake_gcse_science_id, legend: { text: 'Are you planning to retake your science GCSE?'}, inline: true ) do %>
-  <%= f.govuk_radio_button :planning_to_retake_gcse_science_id, RetakeScience::OPTIONS[:yes], label: { text: 'Yes' } %>
-  <%= f.govuk_radio_button :planning_to_retake_gcse_science_id, RetakeScience::OPTIONS[:no], label: { text: 'No' } %>
+  <%= f.govuk_radio_button :planning_to_retake_gcse_science_id, Crm::OPTIONS[:yes], label: { text: 'Yes' } %>
+  <%= f.govuk_radio_button :planning_to_retake_gcse_science_id, Crm::OPTIONS[:no], label: { text: 'No' } %>
 <% end %>

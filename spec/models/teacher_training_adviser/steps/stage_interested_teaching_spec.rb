@@ -10,7 +10,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::StageInterestedTeaching do
 
   describe "#preferred_education_phase_id" do
     it { is_expected.to_not allow_values("", nil).for :preferred_education_phase_id }
-    it { is_expected.to allow_value(*StageInterestedTeaching::OPTIONS.values).for :preferred_education_phase_id }
+    it { is_expected.to allow_value(*TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS.values).for :preferred_education_phase_id }
   end
 
   describe "#skipped?" do
