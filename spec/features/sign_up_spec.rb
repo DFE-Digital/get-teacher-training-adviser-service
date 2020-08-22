@@ -202,6 +202,53 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
     expect(page).to_not have_text "Continue"
   end
 
+  scenario "a candidate without GCSEs" do
+    visit teacher_training_adviser_steps_path
+
+    expect(page).to have_text "About you"
+    fill_in_identity_step
+    click_on "Continue"
+
+    expect(page).to have_text "Are you returning to teaching?"
+    choose "No"
+    click_on "Continue"
+
+    expect(page).to have_text "Do you have a degree?"
+    choose "Yes"
+    click_on "Continue"
+
+    expect(page).to have_text "What subject is your degree?"
+    select "Maths"
+    click_on "Continue"
+
+    expect(page).to have_text "Which class is your degree?"
+    select "2:2"
+    click_on "Continue"
+
+    expect(page).to have_text "Which stage are you interested in teaching?"
+    choose "Primary"
+    click_on "Continue"
+
+    expect(page).to have_text "Do you have grade 4 (C) or above in English and maths GCSEs, or equivalent?"
+    choose "No"
+    click_on "Continue"
+
+    expect(page).to have_text "Are you planning to retake either English or maths (or both) GCSEs, or equivalent?"
+    choose "Yes"
+    click_on "Continue"
+
+    expect(page).to have_text "Do you have grade 4 (C) or above in GCSE science, or equivalent?"
+    choose "No"
+    click_on "Continue"
+
+    expect(page).to have_text "Are you planning to retake your science GCSE?"
+    choose "No"
+    click_on "Continue"
+
+    expect(page).to have_text "Get the right GCSEs or equivalent qualifications"
+    expect(page).to_not have_text "Continue"
+  end
+
   def fill_in_identity_step
     fill_in "First name", with: "John"
     fill_in "Surname", with: "Doe"
