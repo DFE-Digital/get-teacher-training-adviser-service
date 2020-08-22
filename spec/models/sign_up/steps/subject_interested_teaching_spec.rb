@@ -21,30 +21,20 @@ RSpec.describe SignUp::Steps::SubjectInterestedTeaching do
   end
 
   describe "#skipped?" do
-    it "returns false if returning_to_teaching is false and degree_options is equivalent and preferred_education_phase_id is secondary" do
+    it "returns false if returning_to_teaching is false and preferred_education_phase_id is secondary" do
       wizardstore["returning_to_teaching"] = false
-      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:equivalent]
       wizardstore["preferred_education_phase_id"] = StageInterestedTeaching::OPTIONS[:secondary]
       expect(subject).to_not be_skipped
     end
 
-    it "returns true if degree_options is not equivalent" do
-      wizardstore["returning_to_teaching"] = false
-      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:degree]
-      wizardstore["preferred_education_phase_id"] = StageInterestedTeaching::OPTIONS[:secondary]
-      expect(subject).to be_skipped
-    end
-
     it "returns true if preferred_education_phase_id is not secondary" do
       wizardstore["returning_to_teaching"] = false
-      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:equivalent]
       wizardstore["preferred_education_phase_id"] = StageInterestedTeaching::OPTIONS[:primary]
       expect(subject).to be_skipped
     end
 
     it "returns true if returning_to_teaching is not false" do
       wizardstore["returning_to_teaching"] = true
-      wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:equivalent]
       wizardstore["preferred_education_phase_id"] = StageInterestedTeaching::OPTIONS[:secondary]
       expect(subject).to be_skipped
     end

@@ -12,7 +12,6 @@ module SignUp::Steps
 
     def skipped?
       @store["returning_to_teaching"] || 
-      @store["degree_options"] != HaveADegree::DEGREE_OPTIONS[:equivalent] || 
         @store["preferred_education_phase_id"] != StageInterestedTeaching::OPTIONS[:secondary]
     end
   end
