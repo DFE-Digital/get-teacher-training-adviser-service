@@ -1,0 +1,14 @@
+<%= f.govuk_fieldset legend: { text: 'You told us you live in the United Kingdom' } do %>
+
+<p class="govuk-body">You need to speak to a teacher training adviser. You will have to book a call in advance.</p>
+<p class="govuk-body">For this, you must have the details of your overseas qualifications when they contact you.</p>
+
+<%= f.govuk_phone_field :telephone, width: 20,
+  label: { text: 'Contact telephone number *' } %>
+
+<div class="govuk-form-group">
+  <%= f.label :phone_call_scheduled_at, "Select your preferred day and time for a callback", class: "govuk-label" %>
+  <%= f.select :phone_call_scheduled_at, format_booking_quotas(EquivaleTeacherTrainingAdviser::Steps::UkCallback::grouped_quotas, "London"), {}, { class: "govuk-select" } %>
+</div>
+
+<% end %>

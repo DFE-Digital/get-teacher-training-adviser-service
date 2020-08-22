@@ -1,0 +1,5 @@
+<%= f.govuk_radio_buttons_fieldset(:preferred_education_phase_id, legend: { text: 'Which stage are you interested in teaching?'},
+hint_text: "Select a stage even if you're not sure yet, as this will not affect the sign up process.", inline: true ) do %>
+  <%= f.govuk_radio_button :preferred_education_phase_id, TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:primary], label: { text: 'Primary' } %>
+  <%= f.govuk_radio_button :preferred_education_phase_id, TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary], label: { text: 'Secondary' } %>
+<% end %>

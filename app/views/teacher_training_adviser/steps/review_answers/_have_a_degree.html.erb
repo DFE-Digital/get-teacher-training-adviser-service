@@ -1,0 +1,26 @@
+<% return unless answers.key?("degree_options") %>
+
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">
+    Do you have a degree?
+  </dt>
+  <dd class="govuk-summary-list__value">
+    <p class="govuk-body">
+      <%=
+        case answers["degree_options"]
+        when TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree]
+          "Yes"
+        when TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:no]
+          "No"
+        when TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
+          "Equivalent"
+        else
+          "Studying"
+        end
+      %>
+    </p>
+  </dd>
+  <dd class="govuk-summary-list__actions">
+    <%= link_to_change_answer(TeacherTrainingAdviser::Steps::HaveADegree) %>
+  </dd>
+</div>

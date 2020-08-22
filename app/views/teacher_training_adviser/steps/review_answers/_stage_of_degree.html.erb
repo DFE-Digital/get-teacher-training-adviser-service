@@ -1,0 +1,15 @@
+<% return unless answers.key?("degree_status_id") %>
+
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">
+    In which year are you studying?
+  </dt>
+  <dd class="govuk-summary-list__value">
+    <p class="govuk-body">
+      <%= GetIntoTeachingApiClient::TypesApi.new.get_qualification_degree_status.find { |status| status.id == answers["degree_status_id"].to_s }.value %>
+    </p>
+  </dd>
+  <dd class="govuk-summary-list__actions">
+    <%= link_to_change_answer(TeacherTrainingAdviser::Steps::StageOfDegree) %>
+  </dd>
+</div>

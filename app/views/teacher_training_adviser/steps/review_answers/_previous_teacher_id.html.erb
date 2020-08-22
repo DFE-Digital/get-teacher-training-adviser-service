@@ -1,0 +1,13 @@
+<% return unless answers.key?("teacher_id") %>
+
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">
+    What is your previous teacher reference number?
+  </dt>
+  <dd class="govuk-summary-list__value">
+    <%= answers["teacher_id"] %>
+  </dd>
+  <dd class="govuk-summary-list__actions">
+    <%= link_to_change_answer(TeacherTrainingAdviser::Steps::PreviousTeacherId) %>
+  </dd>
+</div>
