@@ -1,4 +1,4 @@
-# Changing the session store causes it 
+# Changing the session store causes it
 # to become nil between Capybara requests.
 return if Rails.env.test?
 

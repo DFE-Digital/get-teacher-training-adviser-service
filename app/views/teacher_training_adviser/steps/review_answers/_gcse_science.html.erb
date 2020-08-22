@@ -1,0 +1,15 @@
+<% return unless answers.key?("has_gcse_science_id") %>
+
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">
+    Do you have science GCSE Grade 4 or above?
+  </dt>
+  <dd class="govuk-summary-list__value">
+    <%= 
+      Crm::OPTIONS.key(answers["has_gcse_science_id"]).to_s.capitalize
+    %>
+  </dd>
+  <dd class="govuk-summary-list__actions">
+    <%= link_to_change_answer(SignUp::Steps::GcseScience) %>
+  </dd>
+</div>

@@ -9,6 +9,7 @@ module SignUp
       Steps::WhatSubjectDegree,
       Steps::WhatDegreeClass,
       Steps::StageInterestedTeaching,
+      Steps::SubjectInterestedTeaching,
       Steps::GcseMathsEnglish,
       Steps::RetakeGcseMathsEnglish,
       Steps::QualificationRequired,

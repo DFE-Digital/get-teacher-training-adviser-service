@@ -10,7 +10,7 @@ module SignUp::Steps
     validates :address_postcode, format: { with: /^([A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}|GIR ?0A{2})$/i, multiline: true, message: "Enter a real postcode" }
 
     def skipped?
-      @store["uk_or_overseas"] != "UK"
+      @store["uk_or_overseas"] != SignUp::Steps::UkOrOverseas::OPTIONS[:uk]
     end
   end
 end

@@ -11,7 +11,7 @@ module SignUp::Steps
     end
 
     def skipped?
-      @store["uk_or_overseas"] == "UK"
+      @store["uk_or_overseas"] == SignUp::Steps::UkOrOverseas::OPTIONS[:uk]
     end
   end
 end

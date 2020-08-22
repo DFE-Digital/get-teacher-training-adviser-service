@@ -1,6 +1,6 @@
 <%= f.govuk_collection_select :degree_subject,
   ApiClient::get_teaching_subjects,
-  :id,
+  :value,
   :value,
   label: { text: "What subject is your degree?", tag: "h1", size: "m" },
   hint_text: "If your subject is not listed choose the option that is nearest to your degree."

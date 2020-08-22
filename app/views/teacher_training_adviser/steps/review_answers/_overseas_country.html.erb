@@ -1,0 +1,17 @@
+<% return unless answers.key?("country_id") && answers["uk_or_overseas"] == SignUp::Steps::UkOrOverseas::OPTIONS[:overseas] %>
+
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">
+    Which country do you live in?
+  </dt>
+  <dd class="govuk-summary-list__value">
+    <p class="govuk-body">
+    <%=
+      OverseasCountry.options.key(answers["country_id"])
+    %>
+    </p>
+  </dd>
+  <dd class="govuk-summary-list__actions">
+    <%= link_to_change_answer(SignUp::Steps::OverseasCountry) %>
+  </dd>
+</div>

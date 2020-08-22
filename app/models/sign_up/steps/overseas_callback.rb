@@ -7,7 +7,7 @@ module SignUp::Steps
     def skipped?
       @store["returning_to_teaching"] ||
         @store["degree_options"] != HaveADegree::DEGREE_OPTIONS[:equivalent] ||
-        @store["uk_or_overseas"] != "overseas"
+        @store["uk_or_overseas"] != SignUp::Steps::UkOrOverseas::OPTIONS[:overseas]
     end
   end
 end

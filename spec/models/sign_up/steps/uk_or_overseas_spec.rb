@@ -13,8 +13,7 @@ RSpec.describe SignUp::Steps::UkOrOverseas do
     it { is_expected.to_not allow_value("").for :uk_or_overseas }
     it { is_expected.to_not allow_value(nil).for :uk_or_overseas }
     it { is_expected.to_not allow_value("Denmark").for :uk_or_overseas }
-    it { is_expected.to allow_value("UK").for :uk_or_overseas }
-    it { is_expected.to allow_value("overseas").for :uk_or_overseas }
+    it { is_expected.to allow_values(*SignUp::Steps::UkOrOverseas::OPTIONS.values).for :uk_or_overseas }
   end
 
   describe "#country_id" do
@@ -35,12 +34,12 @@ RSpec.describe SignUp::Steps::UkOrOverseas do
       allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
         receive(:get_country_types) { [country] }
 
-      subject.uk_or_overseas = "UK"
+      subject.uk_or_overseas = SignUp::Steps::UkOrOverseas::OPTIONS[:uk]
       expect(subject.country_id).to eq(country.id)
     end
 
     it "does nothing when overseas" do
-      subject.uk_or_overseas = "overseas"
+      subject.uk_or_overseas = SignUp::Steps::UkOrOverseas::OPTIONS[:overseas]
       expect(subject.country_id).to be_nil
     end
   end

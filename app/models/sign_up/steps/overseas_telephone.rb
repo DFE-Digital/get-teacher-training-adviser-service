@@ -10,7 +10,7 @@ module SignUp::Steps
               allow_blank: true
 
     def skipped?
-      @store["uk_or_overseas"] == "UK"
+      @store["uk_or_overseas"] == SignUp::Steps::UkOrOverseas::OPTIONS[:uk]
     end
   end
 end

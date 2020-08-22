@@ -1,0 +1,13 @@
+<% return unless answers.key?("date_of_birth") %>
+
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">
+    Date of birth
+  </dt>
+  <dd class="govuk-summary-list__value">
+    <%= answers["date_of_birth"].to_date.strftime("%d %m %Y") %>
+  </dd>
+  <dd class="govuk-summary-list__actions">
+    <%= link_to_change_answer(SignUp::Steps::DateOfBirth) %>
+  </dd>
+</div>

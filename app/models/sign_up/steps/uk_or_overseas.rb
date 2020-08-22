@@ -3,7 +3,9 @@ module SignUp::Steps
     attribute :uk_or_overseas, :string
     attribute :country_id, :string
 
-    validates :uk_or_overseas, inclusion: { in: %w[UK overseas], message: "Select if you live in the UK or overseas" }
+    OPTIONS = { uk: "UK", overseas: "Overseas" }.freeze
+
+    validates :uk_or_overseas, inclusion: { in: OPTIONS.values, message: "Select if you live in the UK or overseas" }
     validates :country_id, types: { method: :get_country_types }, allow_nil: true
 
     def uk_or_overseas=(value)

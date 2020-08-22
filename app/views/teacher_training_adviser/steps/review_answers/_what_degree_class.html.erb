@@ -1,0 +1,15 @@
+<% return unless answers.key?("degree_subject") %>
+
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">
+    Which class is your degree?
+  </dt>
+  <dd class="govuk-summary-list__value">
+    <p class="govuk-body">
+    <%= SignUp::Steps::WhatDegreeClass.options.key(answers["uk_degree_grade_id"].to_s) %>
+    </p>
+  </dd>
+  <dd class="govuk-summary-list__actions">
+    <%= link_to_change_answer(SignUp::Steps::WhatDegreeClass) %>
+  </dd>
+</div>

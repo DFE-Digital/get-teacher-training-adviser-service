@@ -9,14 +9,8 @@ RSpec.describe SignUp::Steps::WhatSubjectDegree do
   end
 
   describe "#degree_subject" do
-    it "allows a valid degree_subject" do
-      subject_type = GetIntoTeachingApiClient::TypeEntity.new(id: "abc-123")
-      allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
-        receive(:get_teaching_subjects) { [subject_type] }
-      expect(subject).to allow_value(subject_type.id).for :degree_subject
-    end
-
-    it { is_expected.to_not allow_value("", nil).for :degree_subject }
+    it { is_expected.to_not allow_values("", nil).for :degree_subject }
+    it { is_expected.to allow_value("Maths").for :degree_subject }
   end
 
   describe "#skipped?" do

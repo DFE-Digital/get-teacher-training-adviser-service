@@ -14,6 +14,7 @@ RSpec.describe SignUp::Wizard do
         SignUp::Steps::WhatSubjectDegree,
         SignUp::Steps::WhatDegreeClass,
         SignUp::Steps::StageInterestedTeaching,
+        SignUp::Steps::SubjectInterestedTeaching,
         SignUp::Steps::GcseMathsEnglish,
         SignUp::Steps::RetakeGcseMathsEnglish,
         SignUp::Steps::QualificationRequired,

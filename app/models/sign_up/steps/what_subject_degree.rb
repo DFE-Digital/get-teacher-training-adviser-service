@@ -2,7 +2,7 @@ module SignUp::Steps
   class WhatSubjectDegree < Wizard::Step
     attribute :degree_subject, :string
 
-    validates :degree_subject, types: { method: :get_teaching_subjects }
+    validates :degree_subject, presence: true
 
     def skipped?
       [

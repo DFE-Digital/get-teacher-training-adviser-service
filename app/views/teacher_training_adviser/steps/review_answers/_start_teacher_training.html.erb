@@ -1,0 +1,15 @@
+<% return unless answers.key?("initial_teacher_training_year_id") %>
+
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">
+    When do you want to start teacher training?
+  </dt>
+  <dd class="govuk-summary-list__value">
+    <%= 
+      StartTeacherTraining.options.key(answers["initial_teacher_training_year_id"].to_s)
+    %>
+  </dd>
+  <dd class="govuk-summary-list__actions">
+    <%= link_to_change_answer(SignUp::Steps::StartTeacherTraining) %>
+  </dd>
+</div>

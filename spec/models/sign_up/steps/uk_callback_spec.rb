@@ -22,28 +22,28 @@ RSpec.describe SignUp::Steps::UkCallback do
   describe "#skipped?" do
     it "returns false if degree_options is equivalent and uk_or_overseas is UK" do
       wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:equivalent]
-      wizardstore["uk_or_overseas"] = "UK"
+      wizardstore["uk_or_overseas"] = SignUp::Steps::UkOrOverseas::OPTIONS[:uk]
       wizardstore["returning_to_teaching"] = false
       expect(subject).to_not be_skipped
     end
 
     it "returns true if degree_options is not equivalent" do
       wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:degree]
-      wizardstore["uk_or_overseas"] = "UK"
+      wizardstore["uk_or_overseas"] = SignUp::Steps::UkOrOverseas::OPTIONS[:uk]
       wizardstore["returning_to_teaching"] = false
       expect(subject).to be_skipped
     end
 
     it "returns true if uk_or_overseas is not UK" do
       wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:equivalent]
-      wizardstore["uk_or_overseas"] = "overseas"
+      wizardstore["uk_or_overseas"] = SignUp::Steps::UkOrOverseas::OPTIONS[:overseas]
       wizardstore["returning_to_teaching"] = false
       expect(subject).to be_skipped
     end
 
     it "returns true if returning_to_teaching is true" do
       wizardstore["degree_options"] = HaveADegree::DEGREE_OPTIONS[:equivalent]
-      wizardstore["uk_or_overseas"] = "overseas"
+      wizardstore["uk_or_overseas"] = SignUp::Steps::UkOrOverseas::OPTIONS[:overseas]
       wizardstore["returning_to_teaching"] = true
       expect(subject).to be_skipped
     end

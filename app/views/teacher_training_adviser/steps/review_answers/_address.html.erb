@@ -1,0 +1,21 @@
+<% return unless answers.key?("address_line1") %>
+
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">
+    Address
+  </dt>
+  <dd class="govuk-summary-list__value">
+    <%
+      address = [
+        answers["address_line1"], 
+        answers["address_line2"], 
+        answers["address_city"], 
+        answers["address_postcode"],
+      ].compact
+    %>
+    <%= safe_format(address.reject(&:empty?).join("\n")) %>
+  </dd>
+  <dd class="govuk-summary-list__actions">
+    <%= link_to_change_answer(SignUp::Steps::UkAddress) %>
+  </dd>
+</div>

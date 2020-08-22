@@ -1,0 +1,6 @@
+<%= f.govuk_collection_select :preferred_teaching_subject_id,
+  ApiClient::get_teaching_subjects,
+  :id,
+  :value,
+  label: { text: "Which subject would you like to teach?", tag: "h1", size: "m" }
+%>

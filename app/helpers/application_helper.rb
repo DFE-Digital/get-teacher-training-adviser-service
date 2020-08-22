@@ -13,4 +13,8 @@ module ApplicationHelper
 
     link_to text, path, **options
   end
+
+  def link_to_change_answer(step)
+    link_to "Change", teacher_training_adviser_step_path(step.key)
+  end
 end

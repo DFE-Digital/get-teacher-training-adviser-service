@@ -1,0 +1,13 @@
+<% return unless answers.key?("uk_or_overseas") %>
+
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">
+    Where do you live?
+  </dt>
+  <dd class="govuk-summary-list__value">
+    <%= answers["uk_or_overseas"] %>
+  </dd>
+  <dd class="govuk-summary-list__actions">
+    <%= link_to_change_answer(SignUp::Steps::UkOrOverseas) %>
+  </dd>
+</div>

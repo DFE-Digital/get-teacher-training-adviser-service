@@ -1,0 +1,17 @@
+<% return unless answers.key?("time_zone") %>
+
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">
+    Time zone
+  </dt>
+  <dd class="govuk-summary-list__value">
+    <p class="govuk-body"><%= answers["time_zone"] %></p>
+  </dd>
+  <dd class="govuk-summary-list__actions">
+  <% if answers["uk_or_overseas"] == SignUp::Steps::UkOrOverseas::OPTIONS[:uk] %>
+    <%= link_to_change_answer(SignUp::Steps::UkCallback) %>
+  <% else %>
+      <%= link_to_change_answer(SignUp::Steps::OverseasCallback) %>
+  <% end %>
+  </dd>
+</div>

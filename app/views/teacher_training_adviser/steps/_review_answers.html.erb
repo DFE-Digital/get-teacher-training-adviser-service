@@ -1,3 +1,5 @@
+<% answers = f.object.answers %>
+
 <div class="govuk-width-container">
 
   <main class="govuk-main-wrapper " id="main-content" role="main">
@@ -6,8 +8,42 @@
 
         <h1 class="govuk-heading-l">Check your answers before you continue</h1>
 
-        <%= f.hidden_field(:confirmed) %>
+        <h2 class="govuk-heading-m">Personal details</h2>
 
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/name', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/date_of_birth', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/address', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/email', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/telephone', locals: { answers: answers } %>
+        </dl>
+
+        <h2 class="govuk-heading-m">What you've told us</h2>
+
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/returning_teacher', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/previous_teacher_id', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/subject_taught', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/subject_like_to_teach', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/have_a_degree', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/stage_of_degree', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/what_subject_degree', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/what_degree_class', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/stage_interested_teaching', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/subject_interested_teaching', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/gcse_maths_english', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/retake_gcse_maths_english', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/gcse_science', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/retake_gcse_science', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/start_teacher_training', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/uk_or_overseas', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/overseas_country', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/callback_date', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/callback_time', locals: { answers: answers } %>
+          <%= render partial: 'teacher_training_adviser/steps/review_answers/time_zone', locals: { answers: answers } %>
+        </dl>
+
+        <%= f.hidden_field(:confirmed) %>
       </div>
     </div>
   </main>

@@ -74,12 +74,12 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
     choose "Secondary"
     click_on "Continue"
 
-    expect(page).to have_text "When do you want to start your teacher training?"
-    select "2022"
+    expect(page).to have_text "Which subject would you like to teach?"
+    select "Physics"
     click_on "Continue"
 
-    expect(page).to have_text "Which subject would you like to teach if you return to teaching?"
-    choose "Physics"
+    expect(page).to have_text "When do you want to start your teacher training?"
+    select "2022"
     click_on "Continue"
 
     expect(page).to have_text "Enter your date of birth"

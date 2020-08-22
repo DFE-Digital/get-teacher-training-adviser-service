@@ -1,0 +1,13 @@
+<% return unless answers.key?("returning_to_teaching") %>
+
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">
+    Are you returning to teaching?
+  </dt>
+  <dd class="govuk-summary-list__value">
+    <%= answers["returning_to_teaching"] ? "Yes" : "No" %>
+  </dd>
+  <dd class="govuk-summary-list__actions">
+    <%= link_to_change_answer(SignUp::Steps::ReturningTeacher) %>
+  </dd>
+</div>

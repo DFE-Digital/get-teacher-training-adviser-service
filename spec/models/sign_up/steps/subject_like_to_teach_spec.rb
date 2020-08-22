@@ -21,13 +21,13 @@ RSpec.describe SignUp::Steps::SubjectLikeToTeach do
   end
 
   describe "#skipped?" do
-    it "returns false if preferred_education_phase_id is secondary" do
-      wizardstore["preferred_education_phase_id"] = StageInterestedTeaching::OPTIONS[:secondary]
+    it "returns false if returning_to_teaching is true" do
+      wizardstore["returning_to_teaching"] = true
       expect(subject).to_not be_skipped
     end
 
-    it "returns true if preferred_education_phase_id is primary" do
-      wizardstore["preferred_education_phase_id"] = StageInterestedTeaching::OPTIONS[:primary]
+    it "returns true if returning_to_teaching is false" do
+      wizardstore["returning_to_teaching"] = false
       expect(subject).to be_skipped
     end
   end
