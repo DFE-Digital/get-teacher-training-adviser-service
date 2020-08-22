@@ -45,7 +45,7 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
 
       context "when there is an invalid step" do
         let(:invalid_step) { steps.first }
-        
+
         before do
           steps.each do |step|
             allow_any_instance_of(step).to receive(:valid?).and_return true

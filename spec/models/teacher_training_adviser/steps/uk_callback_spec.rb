@@ -58,7 +58,8 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkCallback do
         GetIntoTeachingApiClient::CallbackBookingQuota.new(day: today.strftime, start_at: today, end_at: today + 1.hour),
         GetIntoTeachingApiClient::CallbackBookingQuota.new(day: tomorrow.strftime, start_at: tomorrow, end_at: tomorrow + 1.hour),
       ]
-      allow(ApiClient).to receive(:get_callback_booking_quotas).and_return(quotas)
+      allow_any_instance_of(GetIntoTeachingApiClient::CallbackBookingQuotasApi).to \
+        receive(:get_callback_booking_quotas).and_return(quotas)
 
       grouped_quotas = described_class.grouped_quotas
       expect(grouped_quotas.keys.any? { |day| Date.parse(day) == Time.zone.today }).to be_falsy

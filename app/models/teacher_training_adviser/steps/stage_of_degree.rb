@@ -11,7 +11,7 @@ module TeacherTrainingAdviser::Steps
     end
 
     def self.options
-      generate_api_options(ApiClient.get_qualification_degree_status)
+      generate_api_options(GetIntoTeachingApiClient::TypesApi.new.get_qualification_degree_status)
     end
   end
 end

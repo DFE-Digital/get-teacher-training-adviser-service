@@ -7,7 +7,7 @@ module TeacherTrainingAdviser::Steps
     validates :country_id, types: { method: :get_country_types }
 
     def self.options
-      generate_api_options(ApiClient.get_country_types)
+      generate_api_options(GetIntoTeachingApiClient::TypesApi.new.get_country_types)
     end
 
     def skipped?

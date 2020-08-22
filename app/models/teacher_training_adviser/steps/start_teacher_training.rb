@@ -8,12 +8,12 @@ module TeacherTrainingAdviser::Steps
     validate :date_cannot_be_in_the_past, unless: :dont_know
 
     def self.options
-      generate_api_options(ApiClient.get_candidate_initial_teacher_training_years)
+      generate_api_options(GetIntoTeachingApiClient::TypesApi.new.get_candidate_initial_teacher_training_years)
     end
 
     # sets year range for view, this must be within api range!
     def year_range(number_of_years)
-      years = ApiClient.get_candidate_initial_teacher_training_years
+      years = GetIntoTeachingApiClient::TypesApi.new.get_candidate_initial_teacher_training_years
       years.select { |year| year.id.to_i == 12_917 || year.value.to_i.between?(Time.zone.today.year, Time.zone.today.next_year(number_of_years).year) }
     end
 

@@ -11,7 +11,7 @@ module TeacherTrainingAdviser::Steps
     def uk_or_overseas=(value)
       super
       if value == "UK"
-        self.country_id = ApiClient.get_country_types.find { |v| v.value = "United Kingdom" }.id
+        self.country_id = GetIntoTeachingApiClient::TypesApi.new.get_country_types.find { |v| v.value = "United Kingdom" }.id
       end
     end
   end

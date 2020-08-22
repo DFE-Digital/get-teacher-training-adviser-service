@@ -14,7 +14,7 @@ module TeacherTrainingAdviser::Steps
 
     class << self
       def grouped_quotas
-        ApiClient.get_callback_booking_quotas.group_by(&:day).reject do |day|
+        GetIntoTeachingApiClient::CallbackBookingQuotasApi.new.get_callback_booking_quotas.group_by(&:day).reject do |day|
           Date.parse(day) == Time.zone.today
         end
       end
