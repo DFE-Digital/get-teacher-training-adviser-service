@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
   before_action :http_basic_authenticate
 
-  rescue_from ActionController::InvalidAuthenticityToken, with: :handle_session_expired
+  rescue_from ActionController::InvalidAuthenticityToken, with: :session_expired
 
 private
 
@@ -15,7 +15,8 @@ private
     end
   end
 
-  def handle_session_expired
-    redirect_to root_path
+  def session_expired(exception)
+    Raven.capture_exception(exception)
+    redirect_to session_expired_path
   end
 end

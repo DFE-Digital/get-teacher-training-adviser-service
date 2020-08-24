@@ -3,6 +3,10 @@ class PagesController < ApplicationController
     render template: "pages/#{params[:page]}"
   end
 
+  def session_expired
+    render template "pages/session_expired"
+  end
+
   def privacy_policy
     policy_id = params[:id]
 
