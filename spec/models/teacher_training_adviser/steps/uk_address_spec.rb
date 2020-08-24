@@ -18,7 +18,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkAddress do
 
   describe "#address_line2" do
     it { is_expected.to_not allow_values("a" * 1025).for :address_line2 }
-end
+  end
 
   describe "#address_city" do
     it { is_expected.to_not allow_values("", nil, "a" * 129).for :address_city }

@@ -9,8 +9,8 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkTelephone do
   end
 
   describe "telephone" do
-    it { is_expected.to_not allow_values("abc12345", "12", "93837537372758327832726823").for :telephone }
-    it { is_expected.to allow_values(nil, "", "123456789").for :telephone }
+    it { is_expected.to_not allow_values("abc12345", "12", "1" * 21).for :telephone }
+    it { is_expected.to allow_values(nil, "123456789").for :telephone }
   end
 
   describe "#skipped?" do
