@@ -17,7 +17,7 @@ module WizardSteps
   def update
     @current_step.assign_attributes step_params
 
-    if @current_step.save
+    if @current_step.save!
       redirect_to next_step_path
 
       # Needs to occur after redirect because it purges data after submission

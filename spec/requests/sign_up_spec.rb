@@ -19,6 +19,13 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
     end
 
     context "with valid data" do
+      before do
+        # Emulate an unsuccessful matchback response from the API.
+        expect_any_instance_of(GetIntoTeachingApiClient::CandidatesApi).to \
+          receive(:create_candidate_access_token)
+          .and_raise(GetIntoTeachingApiClient::ApiError)
+      end
+
       let(:params) { { first_name: "John", last_name: "Doe", email: "john@doe.com" } }
       it { is_expected.to redirect_to teacher_training_adviser_step_path("returning_teacher") }
     end

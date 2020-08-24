@@ -1,6 +1,13 @@
 require "rails_helper"
 
 RSpec.feature "Sign up for a teacher training adviser", type: :feature do
+  before do
+    # Emulate an unsuccessful matchback response from the API.
+    expect_any_instance_of(GetIntoTeachingApiClient::CandidatesApi).to \
+      receive(:create_candidate_access_token)
+      .and_raise(GetIntoTeachingApiClient::ApiError)
+  end
+
   scenario "a candidate that is a returning teacher" do
     visit teacher_training_adviser_steps_path
 
