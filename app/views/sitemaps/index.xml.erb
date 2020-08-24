@@ -11,10 +11,4 @@
     <lastmod><%= Time.now.strftime("%Y-%m-%dT%H:%M:%S")%></lastmod>
   </url>
   <% end %>
-  <% @steps.each do |step| %>
-  <url>
-    <loc><%= "#{@host}" + "#{new_registration_path step.underscore}" %></loc>
-    <lastmod><%= Time.now.strftime("%Y-%m-%dT%H:%M:%S")%></lastmod>
-  </url>
-  <% end %>
 </urlset>
