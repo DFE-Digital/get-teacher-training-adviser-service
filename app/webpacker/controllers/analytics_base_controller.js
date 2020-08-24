@@ -3,18 +3,7 @@ import { Controller } from "stimulus"
 export default class extends Controller {
 
   connect() {
-    if(document.cookie.indexOf('GiTBetaCookie=Accepted') > -1) {
-      this.triggerEvent() ;
-    } else {
-      this.triggerEventHandler = this.triggerEvent.bind(this)
-      document.addEventListener("cookies:accepted", this.triggerEventHandler) ;
-    }
-  }
-
-  disconnect() {
-    if (this.analyticsAcceptedHandler) {
-      document.removeEventListener("cookies:accepted", this.triggerEventHandler) ;
-    }
+    this.triggerEvent() ;
   }
 
   get isEnabled() {
