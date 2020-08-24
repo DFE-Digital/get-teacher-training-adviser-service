@@ -5,6 +5,7 @@ RSpec.describe "Invalid Authenticity Token", type: :request do
 
   before do
     ActionController::Base.allow_forgery_protection = true
+    allow(Raven).to receive(:capture_exception)
   end
 
   after do
@@ -16,6 +17,7 @@ RSpec.describe "Invalid Authenticity Token", type: :request do
       params = { "authenticity_token" => "expired", identity: { email: "email@address.com", first_name: "first", last_name: "last" } }
       post registrations_path(identity.step_name), params: params
       expect(response).to redirect_to session_expired_path
+      expect(Raven).to have_received(:capture_exception)
     end
   end
 end
