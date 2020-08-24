@@ -55,7 +55,6 @@ group :development, :test do
   gem "simplecov", "<= 0.17"
   # Adds support for Capybara system testing and selenium driver
   gem "capybara", "~> 3.32"
-
   # Factory builder
   gem "factory_bot_rails"
 end

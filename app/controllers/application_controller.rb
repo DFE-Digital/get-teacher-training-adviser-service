@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
   before_action :http_basic_authenticate
 
+  rescue_from ActionController::InvalidAuthenticityToken, with: :handle_session_expired
+
 private
 
   def http_basic_authenticate
@@ -11,5 +13,9 @@ private
       name == ENV["HTTPAUTH_USERNAME"].to_s &&
         password == ENV["HTTPAUTH_PASSWORD"].to_s
     end
+  end
+
+  def handle_session_expired
+    redirect_to root_path
   end
 end
