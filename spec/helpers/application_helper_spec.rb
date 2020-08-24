@@ -3,10 +3,12 @@ require "rails_helper"
 RSpec.describe ApplicationHelper do
   describe "#analytics_body_tag" do
     let(:gtm_id) { "1234" }
+    let(:hotjar_id) { "5678" }
 
     before do
       allow(ENV).to receive(:[]).and_call_original
       allow(ENV).to receive(:[]).with("GOOGLE_TAG_MANAGER_ID").and_return gtm_id
+      allow(ENV).to receive(:[]).with("HOTJAR_ID").and_return hotjar_id
     end
 
     subject { analytics_body_tag { "<h1>TEST</h1>".html_safe } }
@@ -15,10 +17,12 @@ RSpec.describe ApplicationHelper do
 
     context "includes stimulus controllers" do
       it { is_expected.to have_css "body[data-controller~=gtm]" }
+      it { is_expected.to have_css "body[data-controller~=hotjar]" }
     end
 
     context "assigns service ids" do
       it { is_expected.to have_css "body[data-analytics-gtm-id=1234]" }
+      it { is_expected.to have_css "body[data-analytics-hotjar-id=5678]" }
     end
 
     context "with blank service ids" do
