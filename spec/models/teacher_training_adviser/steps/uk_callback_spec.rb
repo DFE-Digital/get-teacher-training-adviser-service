@@ -15,8 +15,8 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkCallback do
   end
 
   context "telephone" do
-    it { is_expected.to_not allow_values("", "12345uh", "123-123-123").for :telephone }
-    it { is_expected.to allow_values("123456", "123456 90").for :telephone }
+    it { is_expected.to_not allow_values(nil, "", "abc12345", "12", "1" * 21).for :telephone }
+    it { is_expected.to allow_values("123456789").for :telephone }
   end
 
   describe "#skipped?" do
