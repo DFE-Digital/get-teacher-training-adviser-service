@@ -15,7 +15,7 @@ RSpec.describe "Invalid Authenticity Token", type: :request do
     it "redirects to the root path" do
       params = { "authenticity_token" => "expired", identity: { email: "email@address.com", first_name: "first", last_name: "last" } }
       post registrations_path(identity.step_name), params: params
-      assert_redirected_to root_path
+      expect(response).to redirect_to root_path
     end
   end
 end
