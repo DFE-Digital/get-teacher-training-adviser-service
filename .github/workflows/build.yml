@@ -68,9 +68,11 @@ jobs:
 
       - name: Run Specs
         run: |-
-          docker run -t --rm -v ${PWD}/out:/app/out -v ${PWD}/coverage:/app/coverage -e RAILS_ENV=test $DOCKER_IMAGE /bin/sh -c 'cd /app; bundle exec rspec'
-          sed -e "s?/app/app?${PWD}/app?" < coverage/.resultset.json > tmp.file
-          sudo mv tmp.file coverage/.resultset.json
+          docker run -t --rm -v ${PWD}/out:/app/out -v ${PWD}/coverage:/app/coverage -e RAILS_ENV=test $DOCKER_IMAGE \
+            rspec --format RspecSonarqubeFormatter --out /app/out/test-report.xml --format documentation
+
+      - name: Fixup report file paths
+        run: sudo sed -i "s?\"/app/?\"${PWD}/?" coverage/.resultset.json
 
       - name:  Keep Code Coverage Report
         uses: actions/upload-artifact@v2
