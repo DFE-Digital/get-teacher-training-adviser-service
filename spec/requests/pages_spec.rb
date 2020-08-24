@@ -31,4 +31,11 @@ RSpec.describe PagesController, type: :request do
       include_examples "policy_views"
     end
   end
+
+  describe "get /session-expired" do
+    it "returns a success response" do
+      get session_expired_path
+      expect(response).to have_http_status(200)
+    end
+  end
 end
