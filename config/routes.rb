@@ -7,6 +7,7 @@ Rails.application.routes.draw do
               only: %i[index show update] do
       collection do
         get :completed
+        get :resend_verification
       end
     end
   end

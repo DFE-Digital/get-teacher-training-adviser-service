@@ -73,4 +73,17 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
     end
     it { is_expected.to have_http_status :success }
   end
+
+  describe "#resend_verification" do
+    before do
+      expect_any_instance_of(GetIntoTeachingApiClient::CandidatesApi).to \
+        receive(:create_candidate_access_token)
+    end
+
+    subject do
+      get resend_verification_teacher_training_adviser_steps_path(redirect_path: "redirect/path")
+      response
+    end
+    it { is_expected.to redirect_to("redirect/path") }
+  end
 end

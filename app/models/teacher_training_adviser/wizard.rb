@@ -2,6 +2,7 @@ module TeacherTrainingAdviser
   class Wizard < ::Wizard::Base
     self.steps = [
       Steps::Identity,
+      Steps::Authenticate,
       Steps::ReturningTeacher,
       Steps::HaveADegree,
       Steps::NoDegree,
