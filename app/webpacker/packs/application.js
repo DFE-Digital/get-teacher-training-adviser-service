@@ -10,3 +10,5 @@ import { initAll } from "govuk-frontend";
 Rails.start();
 Turbolinks.start();
 initAll();
+
+import "controllers"
