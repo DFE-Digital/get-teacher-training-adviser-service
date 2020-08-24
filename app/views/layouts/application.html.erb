@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="govuk-template ">
   <head>
-    <%= render 'layouts/google_analytics' %>
     <title>Sign up to talk to a teacher training adviser</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -19,7 +18,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
   </head>
 
-  <body class="govuk-template__body govuk-body">
+  <%= analytics_body_tag class: "govuk-template__body govuk-body" do %>
     <script>
       document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
     </script>
@@ -72,5 +71,5 @@
         </div>
       </div>
     </footer>
-  </body>
+  <% end %>
 </html>

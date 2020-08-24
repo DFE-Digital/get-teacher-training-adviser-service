@@ -5,9 +5,25 @@
     "rails-ujs": "^5.2.4",
     "serialize-javascript": "^3.1.0",
     "set-value": "^3.0.2",
+    "stimulus": "^1.1.1",
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
+    "@stimulus/test": "^1.1.1",
+    "jest": "^26.4.2",
     "webpack-dev-server": "^3.10.3"
+  },
+  "jest": {
+    "testRegex": ".*_spec.js",
+    "roots": [
+      "spec/javascript"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "app/webpacker/controllers"
+    ]
+  },
+  "scripts": {
+    "spec": "jest"
   }
 }
