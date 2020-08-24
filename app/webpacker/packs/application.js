@@ -1,5 +1,4 @@
 require.context("govuk-frontend/govuk/assets");
-require("scripts/back_link");
 
 import "../styles/application.scss";
 import Rails from "rails-ujs";
