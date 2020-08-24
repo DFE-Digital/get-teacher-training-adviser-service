@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   end
 
   def session_expired
-    render template "pages/session_expired"
+    render template: "pages/session_expired"
   end
 
   def privacy_policy
