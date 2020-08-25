@@ -57,6 +57,16 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
         it { is_expected.to redirect_to teacher_training_adviser_step_path(invalid_step.key) }
       end
     end
+
+    context "for step with no attributes" do
+      include_context "wizard store"
+
+      let(:model) { TeacherTrainingAdviser::Steps::ReviewAnswers }
+      let(:params) { {} }
+
+      it { expect(model.new(nil, wizardstore).attributes).to be_empty }
+      it { is_expected.to have_http_status :redirect }
+    end
   end
 
   describe "#completed" do
