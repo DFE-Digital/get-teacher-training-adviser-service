@@ -3,7 +3,7 @@
     Address
   </dt>
   <dd class="govuk-summary-list__value">
-    <%= show_uk_address %>
+    <%= safe_format(show_uk_address) %>
   </dd>
   <dd class="govuk-summary-list__actions">
     <% if defined?(link) %>

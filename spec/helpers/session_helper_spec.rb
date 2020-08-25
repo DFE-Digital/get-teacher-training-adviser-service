@@ -76,7 +76,7 @@ RSpec.describe SessionHelper, type: :helper do
                                  "address_line2" => "acacia avenue",
                                  "address_city" => "bradford",
                                  "address_postcode" => "tr1 1uf" }
-      expect(show_uk_address).to eq("22<br />acacia avenue<br />bradford<br />tr1 1uf")
+      expect(show_uk_address).to eq("22\nacacia avenue\nbradford\ntr1 1uf")
     end
   end
 
