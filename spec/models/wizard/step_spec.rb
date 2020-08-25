@@ -52,6 +52,14 @@ RSpec.describe Wizard::Step do
     end
   end
 
+  describe "#reviewable_answers" do
+    let(:backingstore) { { "name" => "Joe" } }
+    let(:instance) { FirstStep.new nil, wizardstore, age: 35 }
+    subject { instance.reviewable_answers }
+    it { is_expected.to include "name" => "Joe" }
+    it { is_expected.to include "age" => 35 }
+  end
+
   describe "#export" do
     let(:backingstore) { { "name" => "Joe" } }
     let(:instance) { FirstStep.new nil, wizardstore, age: 35 }

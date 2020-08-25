@@ -22,18 +22,23 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
 
   describe "#year_range" do
     before do
-      year1 = GetIntoTeachingApiClient::TypeEntity.new(id: 12_917, value: "Not sure")
-      year2 = GetIntoTeachingApiClient::TypeEntity.new(id: 12_918, value: 2020)
-      year3 = GetIntoTeachingApiClient::TypeEntity.new(id: 12_919, value: 2021)
-      year4 = GetIntoTeachingApiClient::TypeEntity.new(id: 12_920, value: 2022)
+      years = [
+        GetIntoTeachingApiClient::TypeEntity.new(id: 12_917, value: "Not sure"),
+        GetIntoTeachingApiClient::TypeEntity.new(id: 12_918, value: 2020),
+        GetIntoTeachingApiClient::TypeEntity.new(id: 12_919, value: 2021),
+        GetIntoTeachingApiClient::TypeEntity.new(id: 12_920, value: 2022),
+        GetIntoTeachingApiClient::TypeEntity.new(id: 12_921, value: 2023),
+        GetIntoTeachingApiClient::TypeEntity.new(id: 12_921, value: 2024),
+      ]
+
       allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
-        receive(:get_candidate_initial_teacher_training_years) { [year1, year2, year3, year4] }
+        receive(:get_candidate_initial_teacher_training_years) { years }
     end
 
-    let(:years) { subject.year_range(1) }
+    let(:years) { subject.year_range }
 
-    it "returns 'Not sure', the current year and the next year" do
-      expect(years.map(&:value)).to eq(["Not sure", 2020, 2021])
+    it "returns 'Not sure', and the current year plus next 3 years" do
+      expect(years.map(&:value)).to eq(["Not sure", 2020, 2021, 2022, 2023])
     end
   end
 
@@ -59,5 +64,17 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
       wizardstore["returning_to_teaching"] = true
       expect(subject).to be_skipped
     end
+  end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    let(:type) { GetIntoTeachingApiClient::TypeEntity.new(id: 12_917, value: "Value") }
+    before do
+      allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
+        receive(:get_candidate_initial_teacher_training_years) { [type] }
+      instance.initial_teacher_training_year_id = type.id
+    end
+
+    it { is_expected.to eq({ "initial_teacher_training_year_id" => "Value" }) }
   end
 end

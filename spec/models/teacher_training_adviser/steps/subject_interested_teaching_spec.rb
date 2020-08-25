@@ -39,4 +39,16 @@ RSpec.describe TeacherTrainingAdviser::Steps::SubjectInterestedTeaching do
       expect(subject).to be_skipped
     end
   end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    let(:type) { GetIntoTeachingApiClient::TypeEntity.new(id: "123", value: "Value") }
+    before do
+      allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
+        receive(:get_teaching_subjects) { [type] }
+      instance.preferred_teaching_subject_id = type.id
+    end
+
+    it { is_expected.to eq({ "preferred_teaching_subject_id" => "Value" }) }
+  end
 end

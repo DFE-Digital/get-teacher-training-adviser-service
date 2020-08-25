@@ -31,4 +31,10 @@ RSpec.describe TeacherTrainingAdviser::Steps::GcseMathsEnglish do
       expect(subject).to be_skipped
     end
   end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    before { instance.has_gcse_maths_and_english_id = Crm::OPTIONS[:yes] }
+    it { is_expected.to eq({ "has_gcse_maths_and_english_id" => "Yes" }) }
+  end
 end

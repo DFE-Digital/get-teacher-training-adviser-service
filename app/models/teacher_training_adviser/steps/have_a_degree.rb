@@ -22,6 +22,12 @@ module TeacherTrainingAdviser::Steps
       set_degree_type
     end
 
+    def reviewable_answers
+      {
+        "degree_options" => degree_options.capitalize,
+      }
+    end
+
     def skipped?
       @store["returning_to_teaching"]
     end

@@ -1,11 +1,25 @@
 module TeacherTrainingAdviser::Steps
   class ReviewAnswers < Wizard::Step
-    attribute :confirmed, :boolean, default: -> { true }
+    PERSONAL_DETAILS_STEPS = [
+      TeacherTrainingAdviser::Steps::Identity,
+      TeacherTrainingAdviser::Steps::DateOfBirth,
+      TeacherTrainingAdviser::Steps::UkAddress,
+      TeacherTrainingAdviser::Steps::UkTelephone,
+      TeacherTrainingAdviser::Steps::OverseasTelephone,
+    ].freeze
 
-    validates :confirmed, inclusion: { in: [true] }
+    def personal_detail_answers_by_step
+      answers_by_step.select { |k| PERSONAL_DETAILS_STEPS.include?(k) }
+    end
 
-    def answers
-      @answers ||= @wizard.export_data
+    def other_answers_by_step
+      answers_by_step.reject { |k| PERSONAL_DETAILS_STEPS.include?(k) }
+    end
+
+  private
+
+    def answers_by_step
+      @answers_by_step ||= @wizard.reviewable_answers_by_step
     end
   end
 end

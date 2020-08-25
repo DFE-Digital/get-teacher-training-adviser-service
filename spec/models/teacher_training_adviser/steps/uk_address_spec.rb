@@ -41,4 +41,15 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkAddress do
       expect(subject).to be_skipped
     end
   end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    before do
+      instance.address_line1 = "Address 1"
+      instance.address_line2 = "Address 2"
+      instance.address_city = "City"
+      instance.address_postcode = "TE7 8JT"
+    end
+    it { is_expected.to eq({ "address" => "Address 1\nAddress 2\nCity\nTE7 8JT" }) }
+  end
 end

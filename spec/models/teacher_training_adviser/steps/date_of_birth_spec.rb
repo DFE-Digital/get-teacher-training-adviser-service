@@ -25,4 +25,10 @@ RSpec.describe TeacherTrainingAdviser::Steps::DateOfBirth do
     subject.valid?
     expect(subject.date_of_birth).to eq(Date.new(2001, 4, 20))
   end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    before { instance.date_of_birth = Date.new(1986, 3, 12) }
+    it { is_expected.to eq({ "date_of_birth" => "12 03 1986" }) }
+  end
 end

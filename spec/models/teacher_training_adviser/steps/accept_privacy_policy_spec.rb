@@ -15,4 +15,10 @@ RSpec.describe TeacherTrainingAdviser::Steps::AcceptPrivacyPolicy do
     end
     it { is_expected.to_not allow_value("invalid-id").for :accepted_policy_id }
   end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    before { instance.accepted_policy_id = "abc-123" }
+    it { is_expected.to eq({}) }
+  end
 end

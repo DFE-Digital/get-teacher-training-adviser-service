@@ -13,5 +13,18 @@ module TeacherTrainingAdviser::Steps
     def skipped?
       @store["uk_or_overseas"] != TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]
     end
+
+    def reviewable_answers
+      address = [
+        address_line1,
+        address_line2,
+        address_city,
+        address_postcode,
+      ].compact
+
+      {
+        "address" => address.reject(&:empty?).join("\n"),
+      }
+    end
   end
 end

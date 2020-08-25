@@ -6,6 +6,13 @@ module TeacherTrainingAdviser::Steps
     validates :telephone, telephone: true, presence: { message: "Enter a telephone number" }
     validates :phone_call_scheduled_at, presence: true
 
+    def reviewable_answers
+      {
+        "callback_date" => phone_call_scheduled_at.strftime("%d %m %Y"),
+        "callback_time" => phone_call_scheduled_at.strftime("%H:%M"),
+      }
+    end
+
     def skipped?
       @store["returning_to_teaching"] ||
         @store["degree_options"] != TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent] ||

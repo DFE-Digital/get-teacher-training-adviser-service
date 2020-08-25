@@ -13,5 +13,11 @@ module TeacherTrainingAdviser::Steps
     def skipped?
       @store["uk_or_overseas"] == TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]
     end
+
+    def reviewable_answers
+      super.tap do |answers|
+        answers["country_id"] = self.class.options.key(country_id)
+      end
+    end
   end
 end

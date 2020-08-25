@@ -44,4 +44,13 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasCallback do
       expect(subject).to be_skipped
     end
   end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    before do
+      instance.time_zone = "London"
+      instance.phone_call_scheduled_at = Time.utc(2022, 1, 1, 10, 30)
+    end
+    it { is_expected.to eq({ "time_zone" => "London", "callback_date" => "01 01 2022", "callback_time" => "10:30" }) }
+  end
 end

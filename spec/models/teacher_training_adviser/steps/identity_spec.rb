@@ -24,4 +24,15 @@ RSpec.describe TeacherTrainingAdviser::Steps::Identity do
     it { is_expected.to_not allow_values(nil, "", "a@#{'a' * 101}.com").for :email }
     it { is_expected.to allow_values("test@test.com", "test%.mctest@domain.co.uk").for :email }
   end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    before do
+      instance.first_name = "John"
+      instance.last_name = "Doe"
+      instance.email = "john@doe.com"
+    end
+
+    it { is_expected.to eq({ "name" => "John Doe", "email" => "john@doe.com" }) }
+  end
 end

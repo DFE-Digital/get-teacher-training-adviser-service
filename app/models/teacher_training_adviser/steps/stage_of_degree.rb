@@ -11,6 +11,12 @@ module TeacherTrainingAdviser::Steps
         @store["degree_options"] != TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
     end
 
+    def reviewable_answers
+      super.tap do |answers|
+        answers["degree_status_id"] = self.class.options.key(degree_status_id)
+      end
+    end
+
     def self.options
       generate_api_options(GetIntoTeachingApiClient::TypesApi.new.get_qualification_degree_status)
     end

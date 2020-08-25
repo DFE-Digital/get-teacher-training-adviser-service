@@ -97,6 +97,12 @@ module Wizard
       all_steps.map(&:export).reduce({}, :merge)
     end
 
+    def reviewable_answers_by_step
+      all_steps.reject(&:skipped?).each_with_object({}) do |step, hash|
+        hash[step.class] = step.reviewable_answers
+      end
+    end
+
   private
 
     def all_steps

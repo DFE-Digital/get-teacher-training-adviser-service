@@ -36,4 +36,10 @@ RSpec.describe TeacherTrainingAdviser::Steps::RetakeGcseScience do
       expect(subject).to be_skipped
     end
   end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    before { instance.planning_to_retake_gcse_science_id = Crm::OPTIONS[:yes] }
+    it { is_expected.to eq({ "planning_to_retake_gcse_science_id" => "Yes" }) }
+  end
 end

@@ -30,4 +30,16 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasCountry do
       expect(subject).to be_skipped
     end
   end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    let(:type) { GetIntoTeachingApiClient::TypeEntity.new(id: "123", value: "Value") }
+    before do
+      allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
+        receive(:get_country_types) { [type] }
+      instance.country_id = type.id
+    end
+
+    it { is_expected.to eq({ "country_id" => "Value" }) }
+  end
 end

@@ -45,6 +45,10 @@ module Wizard
       Hash[attributes.keys.zip([])].merge attributes_from_store
     end
 
+    def reviewable_answers
+      attributes
+    end
+
   private
 
     def attributes_from_store

@@ -4,6 +4,12 @@ module TeacherTrainingAdviser::Steps
 
     validates :has_id, inclusion: { in: [true, false], message: "You must select either yes or no" }
 
+    def reviewable_answers
+      super.tap do |answers|
+        answers["has_id"] = has_id ? "Yes" : "No"
+      end
+    end
+
     def skipped?
       !@store["returning_to_teaching"]
     end
