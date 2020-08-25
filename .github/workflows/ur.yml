@@ -75,8 +75,8 @@ jobs:
          run: |
              tests/confidence/healthcheck.sh  "get-teacher-training-adviser-service-ur"  "${{ steps.sha.outputs.short }}"
          env:
-             HTTPAUTH_PASSWORD: ""
-             HTTPAUTH_USERNAME: ""
+             HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
+             HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
    
        - name: Create Sentry release
          if: success()
