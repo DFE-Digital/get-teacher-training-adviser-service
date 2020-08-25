@@ -55,8 +55,8 @@ jobs:
              terraform plan -var-file=ur.env.tfvars -out plan
          env:
               TF_VAR_paas_adviser_docker_image: ${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}} 
-              TF_VAR_HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
-              TF_VAR_HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
+              TF_VAR_HTTPAUTH_PASSWORD: ""
+              TF_VAR_HTTPAUTH_USERNAME: ""
               TF_VAR_RAILS_MASTER_KEY:  "${{ secrets.RAILS_MASTER_KEY_USERRESEARCH}}"
               TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
               TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
@@ -75,8 +75,8 @@ jobs:
          run: |
              tests/confidence/healthcheck.sh  "get-teacher-training-adviser-service-ur"  "${{ steps.sha.outputs.short }}"
          env:
-             HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
-             HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
+             HTTPAUTH_PASSWORD: ""
+             HTTPAUTH_USERNAME: ""
    
        - name: Create Sentry release
          if: success()
