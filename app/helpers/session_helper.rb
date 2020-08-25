@@ -30,7 +30,7 @@ module SessionHelper
     address_postcode = session[:registration]["address_postcode"]
     # do we need these capitalized etc?
     address = [addr1, addr2, city, address_postcode]
-    address.join("<br />").html_safe
+    address.join("\n")
   end
 
   def show_name
