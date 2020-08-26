@@ -1,0 +1,4 @@
+<%= f.govuk_radio_buttons_fieldset(:has_id, legend: { text: 'Do you have your previous teacher reference number?'}, inline: true ) do %>
+  <%= f.govuk_radio_button :has_id, true, label: { text: 'Yes' } %>
+  <%= f.govuk_radio_button :has_id, false, label: { text: 'No' } %>
+<% end %>

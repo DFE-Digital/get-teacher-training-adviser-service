@@ -1,0 +1,13 @@
+<% return unless answers.key?("first_name") %>
+
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">
+    Name
+  </dt>
+  <dd class="govuk-summary-list__value">
+    <%= "#{answers["first_name"]} #{answers["last_name"]}" %>
+  </dd>
+  <dd class="govuk-summary-list__actions">
+    <%= link_to_change_answer(TeacherTrainingAdviser::Steps::Identity) %>
+  </dd>
+</div>

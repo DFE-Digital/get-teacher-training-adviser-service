@@ -1,0 +1,4 @@
+<%= f.govuk_radio_buttons_fieldset(:uk_or_overseas, legend: { text: 'Where do you live?'}, inline: true) do %>
+  <%= f.govuk_radio_button :uk_or_overseas, 'UK', label: { text: 'UK' } %>
+  <%= f.govuk_radio_button :uk_or_overseas, 'Overseas', label: { text: 'Overseas' } %>
+<% end %>
