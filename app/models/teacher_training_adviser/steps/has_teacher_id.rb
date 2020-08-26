@@ -5,7 +5,9 @@ module TeacherTrainingAdviser::Steps
     validates :has_id, inclusion: { in: [true, false], message: "You must select either yes or no" }
 
     def skipped?
-      !@store["returning_to_teaching"]
+      returning_teacher = @store["returning_to_teaching"]
+
+      !returning_teacher
     end
   end
 end

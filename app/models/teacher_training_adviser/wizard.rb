@@ -14,7 +14,6 @@ module TeacherTrainingAdviser
       Steps::StageInterestedTeaching,
       Steps::GcseMathsEnglish,
       Steps::RetakeGcseMathsEnglish,
-      Steps::QualificationRequired,
       Steps::GcseScience,
       Steps::RetakeGcseScience,
       Steps::QualificationRequired,

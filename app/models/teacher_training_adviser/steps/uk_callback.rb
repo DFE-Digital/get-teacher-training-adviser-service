@@ -7,9 +7,11 @@ module TeacherTrainingAdviser::Steps
     validates :phone_call_scheduled_at, presence: true
 
     def skipped?
-      @store["returning_to_teaching"] ||
-        @store["degree_options"] != TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent] ||
-        @store["uk_or_overseas"] != TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]
+      overseas = @store["uk_or_overseas"] != TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]
+      not_equivalent_degree = @store["degree_options"] != TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
+      returning_teacher = @store["returning_to_teaching"]
+
+      overseas || not_equivalent_degree || returning_teacher
     end
 
     class << self

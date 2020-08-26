@@ -28,7 +28,9 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      @store["returning_to_teaching"]
+      returning_teacher = @store["returning_to_teaching"]
+
+      returning_teacher
     end
   end
 end

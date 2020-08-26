@@ -5,7 +5,9 @@ module TeacherTrainingAdviser::Steps
     validates :subject_taught_id, types: { method: :get_teaching_subjects }
 
     def skipped?
-      !@store["returning_to_teaching"]
+      returning_teacher = @store["returning_to_teaching"]
+
+      !returning_teacher
     end
   end
 end

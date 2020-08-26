@@ -11,8 +11,10 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      @store["returning_to_teaching"] ||
-        @store["preferred_education_phase_id"] != TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
+      returning_teacher = @store["returning_to_teaching"]
+      phase_is_not_secondary = @store["preferred_education_phase_id"] != TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
+
+      returning_teacher || phase_is_not_secondary
     end
   end
 end

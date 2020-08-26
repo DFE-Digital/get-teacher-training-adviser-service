@@ -7,12 +7,16 @@ module TeacherTrainingAdviser::Steps
     OPTIONS = Crm::OPTIONS
 
     def skipped?
-      @store["returning_to_teaching"] ||
-        @store["preferred_education_phase_id"] == TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary] ||
-        [
-          TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying],
-          TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree],
-        ].none?(@store["degree_options"])
+      returning_teacher = @store["returning_to_teaching"]
+      phase_is_secondary = @store["preferred_education_phase_id"] == TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
+      no_gcse_maths_science = @store["has_gcse_maths_and_english_id"] == TeacherTrainingAdviser::Steps::GcseMathsEnglish::OPTIONS[:no] &&
+        @store["planning_to_retake_gcse_maths_and_english_id"] == TeacherTrainingAdviser::Steps::RetakeGcseMathsEnglish::OPTIONS[:no]
+      not_studying_or_have_a_degree = [
+        TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying],
+        TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree],
+      ].none?(@store["degree_options"])
+
+      returning_teacher || phase_is_secondary || no_gcse_maths_science || not_studying_or_have_a_degree
     end
   end
 end
