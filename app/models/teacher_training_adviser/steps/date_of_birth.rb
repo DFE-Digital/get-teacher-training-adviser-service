@@ -10,6 +10,10 @@ module TeacherTrainingAdviser::Steps
     validates :date_of_birth, presence: { message: "You need to enter your date of birth" }
     validate :date_cannot_be_in_the_future, :age_limit, :upper_age_limit
 
+    def self.contains_personal_details?
+      true
+    end
+
     def reviewable_answers
       {
         "date_of_birth" => date_of_birth.strftime("%d %m %Y"),

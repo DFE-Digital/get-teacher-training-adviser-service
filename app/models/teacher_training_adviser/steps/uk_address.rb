@@ -10,6 +10,10 @@ module TeacherTrainingAdviser::Steps
     validates :address_city, presence: { message: "Enter your town or city" }, length: { maximum: 128 }
     validates :address_postcode, format: { with: /^([A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}|GIR ?0A{2})$/i, multiline: true, message: "Enter a real postcode" }
 
+    def self.contains_personal_details?
+      true
+    end
+    
     def skipped?
       @store["uk_or_overseas"] != TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]
     end
