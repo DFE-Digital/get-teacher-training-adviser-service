@@ -3,7 +3,7 @@
     <%= t("answers.#{step.key}.#{answer.first}") %>
   </dt>
   <dd class="govuk-summary-list__value">
-    <%= safe_format(answer.last.to_s, wrapper_tag: "span") %>
+    <%= format_answer(answer.last) %>
   </dd>
   <dd class="govuk-summary-list__actions">
     <%= link_to_change_answer(step) %>

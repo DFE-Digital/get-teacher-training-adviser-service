@@ -16,7 +16,7 @@ module TeacherTrainingAdviser::Steps
 
     def reviewable_answers
       {
-        "date_of_birth" => date_of_birth.strftime("%d %m %Y"),
+        "date_of_birth" => date_of_birth,
       }
     end
 

@@ -7,7 +7,7 @@ module TeacherTrainingAdviser::Steps
     def self.contains_personal_details?
       true
     end
-    
+
     def skipped?
       @store["uk_or_overseas"] != TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]
     end

@@ -46,11 +46,18 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasCallback do
   end
 
   describe "#reviewable_answers" do
+    let(:date_time) { DateTime.new(2022, 1, 1, 10, 30) }
     subject { instance.reviewable_answers }
     before do
       instance.time_zone = "London"
-      instance.phone_call_scheduled_at = Time.utc(2022, 1, 1, 10, 30)
+      instance.phone_call_scheduled_at = date_time
     end
-    it { is_expected.to eq({ "time_zone" => "London", "callback_date" => "01 01 2022", "callback_time" => "10:30" }) }
+    it {
+      is_expected.to eq({
+        "time_zone" => "London",
+        "callback_date" => date_time.to_date,
+        "callback_time" => date_time.to_time, # rubocop:disable Rails/Date
+      })
+    }
   end
 end
