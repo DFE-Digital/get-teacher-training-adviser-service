@@ -6,7 +6,7 @@ RSpec.describe WhatDegreeClassHelper, type: :helper do
   describe "#remove_third_and_pass_unknown" do
     it "removes third class and pass unknown values" do
       remove_third_and_grade_unknown(class_options)
-      expect(class_options.map { |x| x.value }).to eq(["Not applicable", "First class", "2:1", "2:2"])
+      expect(class_options.map(&:value)).to eq(["Not applicable", "First class", "2:1", "2:2"])
     end
   end
 end
