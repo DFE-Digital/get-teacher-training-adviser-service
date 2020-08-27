@@ -1,4 +1,4 @@
-# DFE-Digital Get Teacher Training Adviser Service
+# DFE-Digital Get An Adviser Service
 
 ![Build and Deploy](https://github.com/DFE-Digital/get-teacher-training-adviser-service/workflows/Build%20and%20Deploy/badge.svg)
 
@@ -111,6 +111,7 @@ password protection
 ## DevOps
 
 ### Docker
+
 The built docker container will be stored on the [Docker Hub](https://hub.docker.com/repository/docker/dfedigital/accessibility_crawler)
 
 ### OWASP Scanning
@@ -124,8 +125,9 @@ The following rules have been added:
 - 90022 IGNORE (500 Internal Server Error)
 
 ### Accessibility Scanning
+
 The [Scanner](https://github.com/DFE-Digital/accessibility-scanner) is employed to provide Accessibility Scanning within the pipeline.
 
 ### CVE Scanning
-The [Anchore Scanner](https://github.com/anchore/scan-action) will carry out CVE testing on the docker container. 
 
+The [Anchore Scanner](https://github.com/anchore/scan-action) will carry out CVE testing on the docker container.
