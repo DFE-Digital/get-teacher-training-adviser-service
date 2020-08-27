@@ -1,3 +1,10 @@
+<%
+  # To be removed after the user research session
+  # has been completed (31st August).
+  show_new_journey = Rails.env.development? || config.x&.git_api_endpoint == "https://get-into-teaching-api-dev.london.cloudapps.digital"
+  url = show_new_journey ? teacher_training_adviser_step_path(:identity) : new_registration_path(step_name: :identity)
+%>
+
 <div class="govuk-width-container">
   <main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
@@ -25,7 +32,7 @@
           <li><a href="https://www.education-ni.gov.uk/articles/initial-teacher-education-courses-northern-ireland">Northern Ireland</a></li>
         </ul>
 
-        <a href="<%= new_registration_path(step_name: :identity) %>" role="button" draggable="false" class="govuk-button govuk-!-margin-top-2 govuk-!-margin-bottom-8 govuk-button--start" data-module="govuk-button">
+        <a href="<%= url %>" role="button" draggable="false" class="govuk-button govuk-!-margin-top-2 govuk-!-margin-bottom-8 govuk-button--start" data-module="govuk-button">
           Start now
           <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
             <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
