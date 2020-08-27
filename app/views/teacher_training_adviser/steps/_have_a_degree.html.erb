@@ -1,5 +1,5 @@
 <%= f.govuk_radio_buttons_fieldset(:degree_options, legend: { text: 'Do you have a degree?'},
-  hint_text: "You need to have a bachelor's degree, with honours." ) do %>
+  hint_text: "To use this service your bachelor's degree or predicted grade needs to be higher than a 3rd class honours." ) do %>
   <%= f.govuk_radio_button :degree_options, TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree],  label: { text: 'Yes' } %>
   <%= f.govuk_radio_button :degree_options, TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:no], label: { text: 'No' } %>
   <%= f.govuk_radio_button :degree_options, TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying], label: { text: "I'm studying for a degree" } %>
