@@ -6,9 +6,11 @@ else
 end
 %>
 
-<%= f.govuk_collection_select :uk_degree_grade_id,
-  remove_third_and_grade_unknown(GetIntoTeachingApiClient::TypesApi.new.get_qualification_uk_degree_grades),
-  :id,
-  :value,
-  label: { text: text, tag: "h1", size: "m" }
-%>
+<div class="govuk-form-group">
+  <%= f.label :uk_degree_grade_id, text, class: "govuk-label govuk-label--m" %>
+  <%= f.select :uk_degree_grade_id,
+    options_for_select(TeacherTrainingAdviser::Steps::WhatDegreeClass.options),
+    {},
+    { class: "govuk-select" }
+  %>
+</div>
