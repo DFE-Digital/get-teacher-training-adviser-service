@@ -27,7 +27,7 @@ RSpec.shared_examples "a wizard step that exposes API types as options" do |api_
     allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
       receive(api_method) { types }
 
-    expect(described_class.options).to eq({ "one" => 1, "two" => 2 })
+    expect(described_class.options).to eq({ "one" => "1", "two" => "2" })
   end
 end
 
