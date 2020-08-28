@@ -17,18 +17,15 @@ Rails.application.configure do
   if Rails.root.join("tmp/caching-dev.txt").exist?
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
-
-    config.cache_store = :redis_cache_store
     config.public_file_server.headers = {
       "Cache-Control" => "public, max-age=#{2.days.to_i}",
     }
   else
     config.action_controller.perform_caching = false
-
-    config.cache_store = :null_store
   end
-  # to enable redsis session store
-  config.cache_store = :redis_cache_store
+
+  # cache enabled by deafult to store session data
+  config.cache_store = :memory_store
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   # config.active_storage.service = :local
@@ -57,6 +54,6 @@ Rails.application.configure do
   config.x.git_api_endpoint = "https://get-into-teaching-api-dev.london.cloudapps.digital"
 
   config.session_store :cache_store,
-                       key: "_#{Rails.application.class.parent_name}_session",
-                       expire_after: 1.day
+    key: "_#{Rails.application.class.parent_name}_session",
+    expire_after: 1.day
 end
