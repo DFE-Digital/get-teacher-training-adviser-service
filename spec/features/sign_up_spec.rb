@@ -57,6 +57,10 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
 
       expect(page).to have_text "Read and accept the privacy policy"
       check "Accept the privacy policy"
+
+      expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
+        receive(:sign_up_teacher_training_adviser_candidate).once
+
       click_on "Complete"
 
       expect(page).to have_text "Thank you"
@@ -115,6 +119,10 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
 
       expect(page).to have_text "Read and accept the privacy policy"
       check "Accept the privacy policy"
+
+      expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
+        receive(:sign_up_teacher_training_adviser_candidate).once
+
       click_on "Complete"
 
       expect(page).to have_text "Thank you"
@@ -185,6 +193,10 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
 
       expect(page).to have_text "Read and accept the privacy policy"
       check "Accept the privacy policy"
+
+      expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
+        receive(:sign_up_teacher_training_adviser_candidate).once
+
       click_on "Complete"
 
       expect(page).to have_text "Thank you"

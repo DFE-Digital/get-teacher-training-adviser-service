@@ -45,6 +45,9 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
           steps.each do |step|
             allow_any_instance_of(step).to receive(:valid?).and_return true
           end
+
+          expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
+            receive(:sign_up_teacher_training_adviser_candidate).once
         end
 
         it { is_expected.to redirect_to completed_teacher_training_adviser_steps_path }
@@ -56,6 +59,9 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
         before do
           steps.each do |step|
             allow_any_instance_of(step).to receive(:valid?).and_return true
+
+            expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to_not \
+              receive(:sign_up_teacher_training_adviser_candidate)
           end
 
           allow_any_instance_of(invalid_step).to receive(:valid?).and_return false
