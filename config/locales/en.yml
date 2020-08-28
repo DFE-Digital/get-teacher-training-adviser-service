@@ -30,6 +30,12 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  have_a_degree:
+    degree_options:
+      degree: "Yes"
+      no: "No"
+      studying: "I'm studying for a degree"
+      equivalent: "I have an equivalent qualification from another country"
   answers:
     identity:
       name: "Name"
