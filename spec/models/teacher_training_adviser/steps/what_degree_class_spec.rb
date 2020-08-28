@@ -53,7 +53,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::WhatDegreeClass do
 
   describe "#self.options" do
     it "returns a hash of filtered options" do
-      expect(TeacherTrainingAdviser::Steps::WhatDegreeClass.options).to eq({"Not applicable"=>"222750000", "First class"=>"222750001", "2:1"=>"222750002", "2:2"=>"222750003"})
+      expect(TeacherTrainingAdviser::Steps::WhatDegreeClass.options).to eq({ "Not applicable" => "222750000", "First class" => "222750001", "2:1" => "222750002", "2:2" => "222750003" })
     end
   end
 end
