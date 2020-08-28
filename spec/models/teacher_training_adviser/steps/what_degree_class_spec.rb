@@ -11,7 +11,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::WhatDegreeClass do
 
   describe "#uk_degree_grade_id" do
     it "allows a valid uk_degree_grade_id" do
-      grade = GetIntoTeachingApiClient::TypeEntity.new(id: 123)
+      grade = GetIntoTeachingApiClient::TypeEntity.new(id: TeacherTrainingAdviser::Steps::WhatDegreeClass::OPTIONS["Not applicable"])
       allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
         receive(:get_qualification_uk_degree_grades) { [grade] }
       expect(subject).to allow_value(grade.id).for :uk_degree_grade_id
