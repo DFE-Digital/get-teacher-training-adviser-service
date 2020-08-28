@@ -15,5 +15,11 @@ module TeacherTrainingAdviser::Steps
 
       !returning_teacher
     end
+
+    def reviewable_answers
+      super.tap do |answers|
+        answers["preferred_teaching_subject_id"] = self.class.options.key(preferred_teaching_subject_id)
+      end
+    end
   end
 end

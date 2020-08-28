@@ -6,6 +6,12 @@ module TeacherTrainingAdviser::Steps
 
     OPTIONS = Crm::OPTIONS
 
+    def reviewable_answers
+      super.tap do |answers|
+        answers["has_gcse_maths_and_english_id"] = OPTIONS.key(has_gcse_maths_and_english_id).to_s.capitalize
+      end
+    end
+
     def skipped?
       not_studying_or_have_a_degree = [
         TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying],

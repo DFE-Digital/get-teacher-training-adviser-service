@@ -1,11 +1,17 @@
 module TeacherTrainingAdviser::Steps
   class ReviewAnswers < Wizard::Step
-    attribute :confirmed, :boolean, default: -> { true }
+    def personal_detail_answers_by_step
+      answers_by_step.select { |k| k.contains_personal_details? } # rubocop:disable Style/SymbolProc
+    end
 
-    validates :confirmed, inclusion: { in: [true] }
+    def other_answers_by_step
+      answers_by_step.reject { |k| k.contains_personal_details? } # rubocop:disable Style/SymbolProc
+    end
 
-    def answers
-      @answers ||= @wizard.export_data
+  private
+
+    def answers_by_step
+      @answers_by_step ||= @wizard.reviewable_answers_by_step
     end
   end
 end

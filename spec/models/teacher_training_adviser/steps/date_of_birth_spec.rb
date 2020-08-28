@@ -4,6 +4,8 @@ RSpec.describe TeacherTrainingAdviser::Steps::DateOfBirth do
   include_context "wizard step"
   it_behaves_like "a wizard step"
 
+  it { is_expected.to be_contains_personal_details }
+
   context "attributes" do
     it { is_expected.to respond_to :date_of_birth }
     it { is_expected.to respond_to "date_of_birth(3i)" }
@@ -24,5 +26,12 @@ RSpec.describe TeacherTrainingAdviser::Steps::DateOfBirth do
     subject.send("date_of_birth(3i)=", 20)
     subject.valid?
     expect(subject.date_of_birth).to eq(Date.new(2001, 4, 20))
+  end
+
+  describe "#reviewable_answers" do
+    let(:date) { Date.new(1986, 3, 12) }
+    subject { instance.reviewable_answers }
+    before { instance.date_of_birth = date }
+    it { is_expected.to eq({ "date_of_birth" => date }) }
   end
 end

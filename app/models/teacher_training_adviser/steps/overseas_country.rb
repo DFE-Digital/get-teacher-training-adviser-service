@@ -15,5 +15,11 @@ module TeacherTrainingAdviser::Steps
 
       in_uk
     end
+
+    def reviewable_answers
+      super.tap do |answers|
+        answers["country_id"] = self.class.options.key(country_id)
+      end
+    end
   end
 end

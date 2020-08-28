@@ -6,6 +6,12 @@ module TeacherTrainingAdviser::Steps
 
     OPTIONS = Crm::OPTIONS
 
+    def reviewable_answers
+      super.tap do |answers|
+        answers["has_gcse_science_id"] = OPTIONS.key(has_gcse_science_id).to_s.capitalize
+      end
+    end
+
     def skipped?
       returning_teacher = @store["returning_to_teaching"]
       phase_is_secondary = @store["preferred_education_phase_id"] == TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]

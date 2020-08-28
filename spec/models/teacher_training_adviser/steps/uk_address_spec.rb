@@ -4,6 +4,8 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkAddress do
   include_context "wizard step"
   it_behaves_like "a wizard step"
 
+  it { is_expected.to be_contains_personal_details }
+
   context "attributes" do
     it { is_expected.to respond_to :address_line1 }
     it { is_expected.to respond_to :address_line2 }
@@ -40,5 +42,16 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkAddress do
       wizardstore["uk_or_overseas"] = TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:overseas]
       expect(subject).to be_skipped
     end
+  end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    before do
+      instance.address_line1 = "Address 1"
+      instance.address_line2 = "Address 2"
+      instance.address_city = "City"
+      instance.address_postcode = "TE7 8JT"
+    end
+    it { is_expected.to eq({ "address" => "Address 1\nAddress 2\nCity\nTE7 8JT" }) }
   end
 end

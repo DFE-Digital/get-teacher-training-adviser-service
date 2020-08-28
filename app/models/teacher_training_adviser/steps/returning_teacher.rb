@@ -15,5 +15,11 @@ module TeacherTrainingAdviser::Steps
       self.degree_options = DEGREE_OPTIONS[:returner]
       self.preferred_education_phase_id = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary].to_i
     end
+
+    def reviewable_answers
+      {
+        "returning_to_teaching" => returning_to_teaching ? "Yes" : "No",
+      }
+    end
   end
 end

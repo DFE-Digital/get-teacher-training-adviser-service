@@ -8,9 +8,13 @@ module Wizard
       def key
         name.split("::").last.underscore
       end
+
+      def contains_personal_details?
+        false
+      end
     end
 
-    delegate :key, to: :class
+    delegate :key, :contains_personal_details?, to: :class
     alias_method :id, :key
 
     def initialize(wizard, store, attributes = {}, *args)
@@ -43,6 +47,10 @@ module Wizard
       return {} if skipped?
 
       Hash[attributes.keys.zip([])].merge attributes_from_store
+    end
+
+    def reviewable_answers
+      attributes
     end
 
   private

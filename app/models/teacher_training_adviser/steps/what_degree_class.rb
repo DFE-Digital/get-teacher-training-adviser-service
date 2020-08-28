@@ -23,5 +23,11 @@ module TeacherTrainingAdviser::Steps
     def self.options
       generate_api_options(GetIntoTeachingApiClient::TypesApi.new.get_qualification_uk_degree_grades)
     end
+
+    def reviewable_answers
+      super.tap do |answers|
+        answers["uk_degree_grade_id"] = self.class.options.key(uk_degree_grade_id)
+      end
+    end
   end
 end

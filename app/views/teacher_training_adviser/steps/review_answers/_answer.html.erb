@@ -1,13 +1,11 @@
-<% return unless answers.key?("uk_or_overseas") %>
-
 <div class="govuk-summary-list__row">
   <dt class="govuk-summary-list__key">
-    Where do you live?
+    <%= t("answers.#{step.key}.#{answer.first}") %>
   </dt>
   <dd class="govuk-summary-list__value">
-    <%= answers["uk_or_overseas"] %>
+    <%= format_answer(answer.last) %>
   </dd>
   <dd class="govuk-summary-list__actions">
-    <%= link_to_change_answer(TeacherTrainingAdviser::Steps::UkOrOverseas) %>
+    <%= link_to_change_answer(step) %>
   </dd>
 </div>

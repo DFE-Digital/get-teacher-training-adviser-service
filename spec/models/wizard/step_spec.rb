@@ -17,6 +17,11 @@ RSpec.describe Wizard::Step do
     it { expect(FirstStep.key).to eql "first_step" }
   end
 
+  describe ".contains_personal_details?" do
+    it { expect(described_class).to_not be_contains_personal_details }
+    it { expect(FirstStep).to_not be_contains_personal_details }
+  end
+
   describe ".new" do
     let(:attributes) { { age: "20" } }
     it { is_expected.to be_instance_of FirstStep }
@@ -50,6 +55,14 @@ RSpec.describe Wizard::Step do
       it { expect(result).to be false }
       it { is_expected.to have_attributes errors: hash_including(:name) }
     end
+  end
+
+  describe "#reviewable_answers" do
+    let(:backingstore) { { "name" => "Joe" } }
+    let(:instance) { FirstStep.new nil, wizardstore, age: 35 }
+    subject { instance.reviewable_answers }
+    it { is_expected.to include "name" => "Joe" }
+    it { is_expected.to include "age" => 35 }
   end
 
   describe "#export" do

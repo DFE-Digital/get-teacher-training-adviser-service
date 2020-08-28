@@ -6,6 +6,13 @@ module TeacherTrainingAdviser::Steps
 
     OPTIONS = Crm::OPTIONS
 
+    def reviewable_answers
+      super.tap do |answers|
+        answers["planning_to_retake_gcse_science_id"] =
+          OPTIONS.key(planning_to_retake_gcse_science_id).to_s.capitalize
+      end
+    end
+
     def skipped?
       returning_teacher = @store["returning_to_teaching"]
       equivalent_degree = @store["degree_options"] == TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]

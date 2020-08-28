@@ -36,4 +36,16 @@ RSpec.describe TeacherTrainingAdviser::Steps::StageOfDegree do
       expect(subject).to be_skipped
     end
   end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    let(:type) { GetIntoTeachingApiClient::TypeEntity.new(id: 123, value: "Value") }
+    before do
+      allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
+        receive(:get_qualification_degree_status) { [type] }
+      instance.degree_status_id = type.id
+    end
+
+    it { is_expected.to eq({ "degree_status_id" => "Value" }) }
+  end
 end

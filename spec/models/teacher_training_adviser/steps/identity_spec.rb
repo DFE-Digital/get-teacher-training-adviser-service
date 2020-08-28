@@ -5,6 +5,8 @@ RSpec.describe TeacherTrainingAdviser::Steps::Identity do
   it_behaves_like "a wizard step"
   it_behaves_like "an issue verification code wizard step"
 
+  it { is_expected.to be_contains_personal_details }
+
   context "attributes" do
     it { is_expected.to respond_to :first_name }
     it { is_expected.to respond_to :last_name }
@@ -24,5 +26,16 @@ RSpec.describe TeacherTrainingAdviser::Steps::Identity do
   describe "email" do
     it { is_expected.to_not allow_values(nil, "", "a@#{'a' * 101}.com").for :email }
     it { is_expected.to allow_values("test@test.com", "test%.mctest@domain.co.uk").for :email }
+  end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    before do
+      instance.first_name = "John"
+      instance.last_name = "Doe"
+      instance.email = "john@doe.com"
+    end
+
+    it { is_expected.to eq({ "name" => "John Doe", "email" => "john@doe.com" }) }
   end
 end
