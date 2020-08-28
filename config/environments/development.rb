@@ -54,6 +54,6 @@ Rails.application.configure do
   config.x.git_api_endpoint = "https://get-into-teaching-api-dev.london.cloudapps.digital"
 
   config.session_store :cache_store,
-    key: "_#{Rails.application.class.parent_name}_session",
-    expire_after: 1.day
+                       key: "_#{Rails.application.class.parent_name}_session",
+                       expire_after: 1.day
 end
