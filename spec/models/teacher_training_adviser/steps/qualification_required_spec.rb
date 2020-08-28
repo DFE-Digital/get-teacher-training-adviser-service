@@ -9,7 +9,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::QualificationRequired do
   describe "#skipped?" do
     it "returns false if has gcse maths/english, primary, doesn't have or retaking gcse science" do
       wizardstore["preferred_education_phase_id"] = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:primary]
-      wizardstore["has_gcse_maths_english_id"] = TeacherTrainingAdviser::Steps::GcseMathsEnglish::OPTIONS[:yes]
+      wizardstore["has_gcse_maths_and_english_id"] = TeacherTrainingAdviser::Steps::GcseMathsEnglish::OPTIONS[:yes]
       wizardstore["has_gcse_science_id"] = TeacherTrainingAdviser::Steps::GcseScience::OPTIONS[:no]
       wizardstore["planning_to_retake_gcse_science_id"] = TeacherTrainingAdviser::Steps::RetakeGcseScience::OPTIONS[:no]
       expect(subject).to_not be_skipped
@@ -17,8 +17,8 @@ RSpec.describe TeacherTrainingAdviser::Steps::QualificationRequired do
 
     it "returns false if does not have or planning to retake gcse maths/english, secondary" do
       wizardstore["preferred_education_phase_id"] = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
-      wizardstore["has_gcse_maths_english_id"] = TeacherTrainingAdviser::Steps::GcseMathsEnglish::OPTIONS[:no]
-      wizardstore["planning_to_retake_gcse_maths_english_id"] = TeacherTrainingAdviser::Steps::GcseMathsEnglish::OPTIONS[:no]
+      wizardstore["has_gcse_maths_and_english_id"] = TeacherTrainingAdviser::Steps::GcseMathsEnglish::OPTIONS[:no]
+      wizardstore["planning_to_retake_gcse_maths_and_english_id"] = TeacherTrainingAdviser::Steps::GcseMathsEnglish::OPTIONS[:no]
       expect(subject).to_not be_skipped
     end
 
@@ -34,13 +34,13 @@ RSpec.describe TeacherTrainingAdviser::Steps::QualificationRequired do
 
     it "returns true if preferred_education_phase_id is primary and has gcse maths/english" do
       wizardstore["preferred_education_phase_id"] = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
-      wizardstore["has_gcse_maths_english_id"] = TeacherTrainingAdviser::Steps::GcseMathsEnglish::OPTIONS[:yes]
+      wizardstore["has_gcse_maths_and_english_id"] = TeacherTrainingAdviser::Steps::GcseMathsEnglish::OPTIONS[:yes]
       expect(subject).to be_skipped
     end
 
     it "returns true if preferred_education_phase_id is primary and retaking gcse maths/english" do
       wizardstore["preferred_education_phase_id"] = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
-      wizardstore["planning_to_retake_gcse_maths_english_id"] = TeacherTrainingAdviser::Steps::RetakeGcseMathsEnglish::OPTIONS[:yes]
+      wizardstore["planning_to_retake_gcse_maths_and_english_id"] = TeacherTrainingAdviser::Steps::RetakeGcseMathsEnglish::OPTIONS[:yes]
       expect(subject).to be_skipped
     end
 
