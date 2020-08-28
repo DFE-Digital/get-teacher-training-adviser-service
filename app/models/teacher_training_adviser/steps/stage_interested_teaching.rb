@@ -8,8 +8,16 @@ module TeacherTrainingAdviser::Steps
 
     OPTIONS = { primary: 222_750_000, secondary: 222_750_001 }.freeze
 
+    def reviewable_answers
+      super.tap do |answers|
+        answers["preferred_education_phase_id"] = OPTIONS.key(preferred_education_phase_id).to_s.capitalize
+      end
+    end
+
     def skipped?
-      @store["returning_to_teaching"]
+      returning_teacher = @store["returning_to_teaching"]
+
+      returning_teacher
     end
   end
 end

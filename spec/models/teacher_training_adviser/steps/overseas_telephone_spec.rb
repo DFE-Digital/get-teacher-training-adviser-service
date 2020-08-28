@@ -4,6 +4,8 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasTelephone do
   include_context "wizard step"
   it_behaves_like "a wizard step"
 
+  it { is_expected.to be_contains_personal_details }
+
   context "attributes" do
     it { is_expected.to respond_to :telephone }
   end
@@ -21,6 +23,11 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasTelephone do
 
     it "returns true if uk_or_overseas is UK" do
       wizardstore["uk_or_overseas"] = TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]
+      expect(subject).to be_skipped
+    end
+
+    it "returns true if degree_options is equivalent is true" do
+      wizardstore["degree_options"] = "equivalent"
       expect(subject).to be_skipped
     end
   end

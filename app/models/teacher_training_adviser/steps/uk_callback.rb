@@ -6,10 +6,19 @@ module TeacherTrainingAdviser::Steps
     validates :telephone, telephone: true, presence: { message: "Enter a telephone number" }
     validates :phone_call_scheduled_at, presence: true
 
+    def reviewable_answers
+      {
+        "callback_date" => phone_call_scheduled_at.to_date,
+        "callback_time" => phone_call_scheduled_at.to_time, # rubocop:disable Rails/Date
+      }
+    end
+
     def skipped?
-      @store["returning_to_teaching"] ||
-        @store["degree_options"] != TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent] ||
-        @store["uk_or_overseas"] != TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]
+      overseas = @store["uk_or_overseas"] != TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]
+      not_equivalent_degree = @store["degree_options"] != TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
+      returning_teacher = @store["returning_to_teaching"]
+
+      overseas || not_equivalent_degree || returning_teacher
     end
 
     class << self

@@ -24,4 +24,10 @@ RSpec.describe TeacherTrainingAdviser::Steps::HasTeacherId do
       expect(subject).to be_skipped
     end
   end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    before { instance.has_id = true }
+    it { is_expected.to eq({ "has_id" => "Yes" }) }
+  end
 end

@@ -66,4 +66,16 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkCallback do
       expect(grouped_quotas.keys.any? { |day| Date.parse(day) == Time.zone.tomorrow }).to be_truthy
     end
   end
+
+  describe "#reviewable_answers" do
+    let(:date_time) { DateTime.new(2022, 1, 1, 10, 30) }
+    subject { instance.reviewable_answers }
+    before { instance.phone_call_scheduled_at = date_time }
+    it {
+      is_expected.to eq({
+        "callback_date" => date_time.to_date,
+        "callback_time" => date_time.to_time, # rubocop:disable Rails/Date
+      })
+    }
+  end
 end

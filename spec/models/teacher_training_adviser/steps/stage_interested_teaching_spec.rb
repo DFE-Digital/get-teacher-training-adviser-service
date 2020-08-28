@@ -24,4 +24,10 @@ RSpec.describe TeacherTrainingAdviser::Steps::StageInterestedTeaching do
       expect(subject).to be_skipped
     end
   end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    before { instance.preferred_education_phase_id = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:primary] }
+    it { is_expected.to eq({ "preferred_education_phase_id" => "Primary" }) }
+  end
 end

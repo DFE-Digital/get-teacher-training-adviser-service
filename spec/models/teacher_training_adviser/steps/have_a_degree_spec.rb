@@ -78,4 +78,10 @@ RSpec.describe TeacherTrainingAdviser::Steps::HaveADegree do
       expect(subject).to be_skipped
     end
   end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    before { instance.degree_options = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying] }
+    it { is_expected.to eq({ "degree_options" => "Studying" }) }
+  end
 end

@@ -6,10 +6,19 @@ module TeacherTrainingAdviser::Steps
 
     OPTIONS = Crm::OPTIONS
 
+    def reviewable_answers
+      super.tap do |answers|
+        answers["planning_to_retake_gcse_maths_and_english_id"] =
+          OPTIONS.key(planning_to_retake_gcse_maths_and_english_id).to_s.capitalize
+      end
+    end
+
     def skipped?
-      @store["returning_to_teaching"] ||
-        @store["degree_options"] == TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent] ||
-        @store["has_gcse_maths_and_english_id"] != TeacherTrainingAdviser::Steps::GcseMathsEnglish::OPTIONS[:no]
+      returning_teacher = @store["returning_to_teaching"]
+      equivalent_degree = @store["degree_options"] == TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
+      has_gcse_maths_english = @store["has_gcse_maths_and_english_id"] != TeacherTrainingAdviser::Steps::GcseMathsEnglish::OPTIONS[:no]
+
+      returning_teacher || equivalent_degree || has_gcse_maths_english
     end
   end
 end

@@ -24,8 +24,18 @@ RSpec.describe TeacherTrainingAdviser::Steps::RetakeGcseScience do
       expect(subject).to be_skipped
     end
 
+    it "returns true if preferred_education_phase_id is secondary" do
+      wizardstore["preferred_education_phase_id"] = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
+      expect(subject).to be_skipped
+    end
+
     it "returns true if degree_options is equivalent" do
       wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
+      expect(subject).to be_skipped
+    end
+
+    it "returns true if planning_to_retake_gcse_maths_and_english_id is no" do
+      wizardstore["planning_to_retake_gcse_maths_and_english_id"] = TeacherTrainingAdviser::Steps::RetakeGcseMathsEnglish::OPTIONS[:no]
       expect(subject).to be_skipped
     end
 
@@ -35,5 +45,11 @@ RSpec.describe TeacherTrainingAdviser::Steps::RetakeGcseScience do
       wizardstore["has_gcse_science_id"] = TeacherTrainingAdviser::Steps::GcseScience::OPTIONS[:yes]
       expect(subject).to be_skipped
     end
+  end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    before { instance.planning_to_retake_gcse_science_id = Crm::OPTIONS[:yes] }
+    it { is_expected.to eq({ "planning_to_retake_gcse_science_id" => "Yes" }) }
   end
 end

@@ -7,6 +7,7 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
     it do
       is_expected.to eql [
         TeacherTrainingAdviser::Steps::Identity,
+        TeacherTrainingAdviser::Steps::Authenticate,
         TeacherTrainingAdviser::Steps::ReturningTeacher,
         TeacherTrainingAdviser::Steps::HaveADegree,
         TeacherTrainingAdviser::Steps::NoDegree,
@@ -16,7 +17,6 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
         TeacherTrainingAdviser::Steps::StageInterestedTeaching,
         TeacherTrainingAdviser::Steps::GcseMathsEnglish,
         TeacherTrainingAdviser::Steps::RetakeGcseMathsEnglish,
-        TeacherTrainingAdviser::Steps::QualificationRequired,
         TeacherTrainingAdviser::Steps::GcseScience,
         TeacherTrainingAdviser::Steps::RetakeGcseScience,
         TeacherTrainingAdviser::Steps::QualificationRequired,
@@ -49,9 +49,18 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
       }
     end
     let(:wizardstore) { Wizard::Store.new store }
+    let(:request) do
+      GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.new(
+        { email: "email@address.com", firstName: "Joe", lastName: "Joseph" },
+      )
+    end
 
     subject { described_class.new wizardstore, "accept_privacy_policy" }
 
+    before do
+      expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
+        receive(:sign_up_teacher_training_adviser_candidate).with(request).once
+    end
     before { allow(subject).to receive(:valid?).and_return true }
     before { subject.complete! }
 

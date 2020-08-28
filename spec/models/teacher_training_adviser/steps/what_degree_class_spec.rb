@@ -55,5 +55,16 @@ RSpec.describe TeacherTrainingAdviser::Steps::WhatDegreeClass do
     it "returns a hash of filtered options" do
       expect(TeacherTrainingAdviser::Steps::WhatDegreeClass.options).to eq({ "Not applicable" => "222750000", "First class" => "222750001", "2:1" => "222750002", "2:2" => "222750003" })
     end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    let(:type) { GetIntoTeachingApiClient::TypeEntity.new(id: 123, value: "Value") }
+    before do
+      allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
+        receive(:get_qualification_uk_degree_grades) { [type] }
+      instance.uk_degree_grade_id = type.id
+    end
+
+    it { is_expected.to eq({ "uk_degree_grade_id" => "Value" }) }
   end
 end

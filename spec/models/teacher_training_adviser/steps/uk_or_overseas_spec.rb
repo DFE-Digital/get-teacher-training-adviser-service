@@ -43,4 +43,10 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkOrOverseas do
       expect(subject.country_id).to be_nil
     end
   end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    before { instance.uk_or_overseas = TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:overseas] }
+    it { is_expected.to eq({ "uk_or_overseas" => "Overseas" }) }
+  end
 end

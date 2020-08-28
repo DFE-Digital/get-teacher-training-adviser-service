@@ -210,6 +210,25 @@ RSpec.describe Wizard::Base do
     end
   end
 
+  describe "#reviewable_answers_by_step" do
+    subject { wizard.reviewable_answers_by_step }
+
+    it { is_expected.to include TestWizard::Name => { "name" => "Joe" } }
+    it { is_expected.to include TestWizard::Age => { "age" => 35 } }
+    it { is_expected.to include TestWizard::Postcode => { "postcode" => nil } }
+
+    context "with skipped step" do
+      before do
+        allow_any_instance_of(TestWizard::Age).to \
+          receive(:skipped?).and_return true
+      end
+
+      it { is_expected.to include TestWizard::Name => { "name" => "Joe" } }
+      it { is_expected.to_not include TestWizard::Age => { "age" => 35 } }
+      it { is_expected.to include TestWizard::Postcode => { "postcode" => nil } }
+    end
+  end
+
   describe "#export_data" do
     subject { wizard.export_data }
 

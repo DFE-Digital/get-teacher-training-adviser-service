@@ -23,14 +23,12 @@ RSpec.describe TeacherTrainingAdviser::Steps::GcseScience do
     end
 
     it "returns true if degree_options is not studying/degree" do
-      wizardstore["preferred_education_phase_id"] = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:primary]
       wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
       expect(subject).to be_skipped
     end
 
     it "returns true if preferred_education_phase_id is secondary" do
       wizardstore["preferred_education_phase_id"] = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
-      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree]
       expect(subject).to be_skipped
     end
 
@@ -38,5 +36,17 @@ RSpec.describe TeacherTrainingAdviser::Steps::GcseScience do
       wizardstore["returning_to_teaching"] = true
       expect(subject).to be_skipped
     end
+
+    it "returns true if has_gcse_maths_and_english_id and planning_to_retake_gcse_maths_and_english_id are no" do
+      wizardstore["has_gcse_maths_and_english_id"] = TeacherTrainingAdviser::Steps::GcseMathsEnglish::OPTIONS[:no]
+      wizardstore["planning_to_retake_gcse_maths_and_english_id"] = TeacherTrainingAdviser::Steps::RetakeGcseMathsEnglish::OPTIONS[:no]
+      expect(subject).to be_skipped
+    end
+  end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    before { instance.has_gcse_science_id = Crm::OPTIONS[:yes] }
+    it { is_expected.to eq({ "has_gcse_science_id" => "Yes" }) }
   end
 end

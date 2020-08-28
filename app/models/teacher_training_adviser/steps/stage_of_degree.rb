@@ -7,8 +7,16 @@ module TeacherTrainingAdviser::Steps
     validates :degree_status_id, types: { method: :get_qualification_degree_status, message: "You must select an option" }
 
     def skipped?
-      @store["returning_to_teaching"] ||
-        @store["degree_options"] != TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
+      returning_teacher = @store["returning_to_teaching"]
+      studying = @store["degree_options"] == TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
+
+      returning_teacher || !studying
+    end
+
+    def reviewable_answers
+      super.tap do |answers|
+        answers["degree_status_id"] = self.class.options.key(degree_status_id)
+      end
     end
 
     def self.options

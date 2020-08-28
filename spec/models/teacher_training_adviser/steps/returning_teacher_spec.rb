@@ -28,4 +28,10 @@ RSpec.describe TeacherTrainingAdviser::Steps::ReturningTeacher do
       expect(subject.preferred_education_phase_id).to be_nil
     end
   end
+
+  describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+    before { instance.returning_to_teaching = true }
+    it { is_expected.to eq({ "returning_to_teaching" => "Yes" }) }
+  end
 end

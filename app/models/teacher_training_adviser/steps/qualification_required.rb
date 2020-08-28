@@ -5,10 +5,18 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      @store["returning_to_teaching"] || (
-        @store["planning_to_retake_gcse_maths_and_english_id"] != TeacherTrainingAdviser::Steps::RetakeGcseMathsEnglish::OPTIONS[:no] &&
-        @store["planning_to_retake_gcse_science_id"] != TeacherTrainingAdviser::Steps::RetakeGcseScience::OPTIONS[:no]
-      )
+      equivalent_degree = @store["degree_options"] == "equivalent"
+      returning_teacher = @store["returning_to_teaching"]
+      has_gcse_maths_english = @store["has_gcse_maths_and_english_id"] != TeacherTrainingAdviser::Steps::GcseMathsEnglish::OPTIONS[:no]
+      retaking_gcse_maths_english = @store["planning_to_retake_gcse_maths_and_english_id"] != TeacherTrainingAdviser::Steps::RetakeGcseMathsEnglish::OPTIONS[:no]
+      phase_is_secondary = @store["preferred_education_phase_id"] == TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
+      has_gcse_science = @store["has_gcse_science_id"] != TeacherTrainingAdviser::Steps::GcseScience::OPTIONS[:no]
+      retaking_gcse_science = @store["planning_to_retake_gcse_science_id"] != TeacherTrainingAdviser::Steps::RetakeGcseScience::OPTIONS[:no]
+
+      equivalent_degree ||
+        returning_teacher ||
+        (phase_is_secondary && (has_gcse_maths_english || retaking_gcse_maths_english)) ||
+        (!phase_is_secondary && (has_gcse_science || retaking_gcse_science))
     end
   end
 end
