@@ -28,7 +28,7 @@ module TeacherTrainingAdviser::Steps
 
     def reviewable_answers
       super.tap do |answers|
-        answers["uk_degree_grade_id"] = self.class.options.key(uk_degree_grade_id)
+        answers["uk_degree_grade_id"] = self.class.options.key(uk_degree_grade_id.to_s)
       end
     end
   end
