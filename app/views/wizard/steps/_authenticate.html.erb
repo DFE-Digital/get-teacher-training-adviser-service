@@ -1,0 +1,9 @@
+<%
+  link = link_to("resend verification", resend_verification_path)
+  hint_text = "Check your junk mail folder or #{link}."
+  hint_text += "<br /><b>We've sent you another email.</b>" if params[:verification_resent]
+%>
+
+<%= f.govuk_text_field :timed_one_time_password, 
+label: { text: "Enter the verification code sent to #{email}" }, 
+hint_text: hint_text.html_safe %>

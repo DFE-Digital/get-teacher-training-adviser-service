@@ -21,7 +21,7 @@ module Wizard
       assign_attributes attributes
     end
 
-    def save
+    def save!
       return false unless valid?
 
       persist_to_store

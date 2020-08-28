@@ -32,12 +32,12 @@ RSpec.describe Wizard::Step do
     it { expect(subject).to be_can_proceed }
   end
 
-  describe "#save" do
+  describe "#save!" do
     let(:backingstore) { {} }
 
     context "when valid" do
       let(:attributes) { { name: "Jane" } }
-      let!(:result) { subject.save }
+      let!(:result) { subject.save! }
 
       it { expect(result).to be true }
       it { expect(wizardstore[:name]).to eql "Jane" }
@@ -45,7 +45,7 @@ RSpec.describe Wizard::Step do
 
     context "when invalid" do
       let(:attributes) { { age: 30 } }
-      let!(:result) { subject.save }
+      let!(:result) { subject.save! }
 
       it { expect(result).to be false }
       it { is_expected.to have_attributes errors: hash_including(:name) }

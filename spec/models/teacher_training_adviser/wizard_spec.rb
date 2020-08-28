@@ -7,6 +7,7 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
     it do
       is_expected.to eql [
         TeacherTrainingAdviser::Steps::Identity,
+        TeacherTrainingAdviser::Steps::Authenticate,
         TeacherTrainingAdviser::Steps::ReturningTeacher,
         TeacherTrainingAdviser::Steps::HaveADegree,
         TeacherTrainingAdviser::Steps::NoDegree,
