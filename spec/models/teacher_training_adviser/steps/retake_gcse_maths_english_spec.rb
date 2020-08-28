@@ -29,7 +29,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::RetakeGcseMathsEnglish do
       expect(subject).to be_skipped
     end
 
-    it "returns true if has_gcse_maths_and_english_id is not not no" do
+    it "returns true if has_gcse_maths_and_english_id is not no" do
       wizardstore["has_gcse_maths_and_english_id"] = nil
       expect(subject).to be_skipped
       wizardstore["has_gcse_maths_and_english_id"] = TeacherTrainingAdviser::Steps::RetakeGcseMathsEnglish::OPTIONS[:yes]

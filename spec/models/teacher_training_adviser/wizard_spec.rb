@@ -17,7 +17,6 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
         TeacherTrainingAdviser::Steps::StageInterestedTeaching,
         TeacherTrainingAdviser::Steps::GcseMathsEnglish,
         TeacherTrainingAdviser::Steps::RetakeGcseMathsEnglish,
-        TeacherTrainingAdviser::Steps::QualificationRequired,
         TeacherTrainingAdviser::Steps::GcseScience,
         TeacherTrainingAdviser::Steps::RetakeGcseScience,
         TeacherTrainingAdviser::Steps::QualificationRequired,

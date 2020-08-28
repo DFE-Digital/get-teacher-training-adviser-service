@@ -7,11 +7,13 @@ module TeacherTrainingAdviser::Steps
     validates :uk_degree_grade_id, types: { method: :get_qualification_uk_degree_grades, message: "You must select an option" }
 
     def skipped?
-      @store["returning_to_teaching"] ||
-        [
-          TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying],
-          TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree],
-        ].none?(@store["degree_options"])
+      returning_teacher = @store["returning_to_teaching"]
+      not_studying_or_have_a_degree = [
+        TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying],
+        TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree],
+      ].none?(@store["degree_options"])
+
+      returning_teacher || not_studying_or_have_a_degree
     end
 
     def studying?

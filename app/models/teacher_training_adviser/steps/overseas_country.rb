@@ -11,7 +11,9 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      @store["uk_or_overseas"] == TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]
+      in_uk = @store["uk_or_overseas"] == TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]
+
+      in_uk
     end
   end
 end

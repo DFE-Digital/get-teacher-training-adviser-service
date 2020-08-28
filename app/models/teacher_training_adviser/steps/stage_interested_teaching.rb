@@ -9,7 +9,9 @@ module TeacherTrainingAdviser::Steps
     OPTIONS = { primary: 222_750_000, secondary: 222_750_001 }.freeze
 
     def skipped?
-      @store["returning_to_teaching"]
+      returning_teacher = @store["returning_to_teaching"]
+
+      returning_teacher
     end
   end
 end

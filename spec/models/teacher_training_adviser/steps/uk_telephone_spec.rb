@@ -23,5 +23,10 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkTelephone do
       wizardstore["uk_or_overseas"] = TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:overseas]
       expect(subject).to be_skipped
     end
+
+    it "returns true if degree_options is equivalent" do
+      wizardstore["degree_options"] = "equivalent"
+      expect(subject).to be_skipped
+    end
   end
 end
