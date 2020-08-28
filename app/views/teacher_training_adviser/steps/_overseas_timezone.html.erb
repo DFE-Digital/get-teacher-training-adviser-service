@@ -3,9 +3,12 @@
 <p class="govuk-body">You need to speak to us and should book a call in advance. We will contact you once your call is booked.</p>
 <p class="govuk-body">You must have the details of your overseas qualifications when we contact you.</p>
 
+<%= f.govuk_phone_field :telephone, width: 20,
+  label: { text: 'Contact telephone number *' } %>
+
 <div class="govuk-form-group">
-  <%= f.label :phone_call_scheduled_at, "Select your preferred day and time for a callback", class: "govuk-label" %>
-  <%= f.select :phone_call_scheduled_at, format_booking_quotas(TeacherTrainingAdviser::Steps::OverseasCallback::grouped_quotas, @wizard.export_data["time_zone"]), {}, { class: "govuk-select" } %>
+  <%= f.label 'Select your time zone', class: "govuk-label" %>
+  <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.all.drop(1), {}, { class: "govuk-select" }  %>
 </div>
 
 <% end %>
