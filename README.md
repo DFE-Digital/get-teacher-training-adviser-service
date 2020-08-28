@@ -17,15 +17,8 @@
 
 1. Run `bundle install` to install the gem dependencies
 2. Run `yarn` to install node dependencies
-3. Start Redis in alternate terminal, see below
-4. Run `bundle exec rails server` to launch the app on http://localhost:3000
-5. (optional) Run `./bin/webpack-dev-server` in a separate shell for faster compilation of assets
-
-## Redis for session storage
-
-1. Install redis, https://redis.io/documentation
-2. Edit redis.conf file, e.g. /usr/local/redis.conf for maxmemory size and policy keys (allkeys-lru), https://redis.io/topics/lru-cache
-3. Run `(sudo if required) redis-server` in alternate terminal window
+3. Run `bundle exec rails server` to launch the app on http://localhost:3000
+4. (optional) Run `./bin/webpack-dev-server` in a separate shell for faster compilation of assets
 
 ## Whats included in this application?
 
