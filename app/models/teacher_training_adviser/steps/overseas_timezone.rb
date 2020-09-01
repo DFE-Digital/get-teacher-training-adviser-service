@@ -8,8 +8,8 @@ module TeacherTrainingAdviser::Steps
 
     def reviewable_answers
       {
-        "time_zone" => time_zone.to_s,
-        "telephone" => telephone.to_s,
+        "time_zone" => time_zone,
+        "telephone" => telephone,
       }
     end
 
