@@ -55,9 +55,8 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasTimezone do
     it {
       is_expected.to eq({
         "time_zone" => "London",
-        "telephone" => "1234567", # rubocop:disable Rails/Date
+        "telephone" => "1234567",
       })
     }
   end
-
 end
