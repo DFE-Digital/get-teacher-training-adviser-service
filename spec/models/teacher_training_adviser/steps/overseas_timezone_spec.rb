@@ -1,13 +1,19 @@
 require "rails_helper"
 
-RSpec.describe TeacherTrainingAdviser::Steps::OverseasCallback do
+RSpec.describe TeacherTrainingAdviser::Steps::OverseasTimezone do
   include_context "wizard step"
   it_behaves_like "a wizard step"
 
-  it { expect(described_class).to be TeacherTrainingAdviser::Steps::OverseasCallback }
+  it { expect(described_class).to be TeacherTrainingAdviser::Steps::OverseasTimezone }
 
   context "attributes" do
-    it { is_expected.to respond_to :phone_call_scheduled_at }
+    it { is_expected.to respond_to :time_zone }
+    it { is_expected.to respond_to :telephone }
+  end
+
+  context "time_zone" do
+    it { is_expected.to_not allow_values("", nil).for :time_zone }
+    it { is_expected.to allow_values(ActiveSupport::TimeZone.all).for :time_zone }
   end
 
   describe "#skipped?" do
@@ -41,18 +47,17 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasCallback do
   end
 
   describe "#reviewable_answers" do
-    let(:date_time) { DateTime.new(2022, 1, 1, 10, 30) }
     subject { instance.reviewable_answers }
     before do
-      #instance.time_zone = "London"
-      instance.phone_call_scheduled_at = date_time
+      instance.time_zone = "London"
+      instance.telephone = "1234567"
     end
     it {
       is_expected.to eq({
-       # "time_zone" => "London",
-        "callback_date" => date_time.to_date,
-        "callback_time" => date_time.to_time, # rubocop:disable Rails/Date
+        "time_zone" => "London",
+        "telephone" => "1234567", # rubocop:disable Rails/Date
       })
     }
   end
+
 end

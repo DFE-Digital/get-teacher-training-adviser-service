@@ -6,10 +6,17 @@ module TeacherTrainingAdviser::Steps
     validates :time_zone, presence: { message: "Select a time zone" }
     validates :telephone, telephone: true, presence: { message: "Enter a telephone number" }
 
+    #def reviewable_answers
+     # super.tap do |answers|
+    #    answers["time_zone"] = time_zone.to_s
+    #  end
+    #end
+
     def reviewable_answers
-      super.tap do |answers|
-        answers["time_zone"] = time_zone.to_s
-      end
+      {
+        "time_zone" => time_zone.to_s,
+        "telephone" => telephone.to_s,
+      }
     end
 
     def skipped?
