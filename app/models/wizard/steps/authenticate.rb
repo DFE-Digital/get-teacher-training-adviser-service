@@ -2,6 +2,7 @@ module Wizard
   module Steps
     class Authenticate < ::Wizard::Step
       IDENTITY_ATTRS = %i[email first_name last_name date_of_birth].freeze
+      MATCHBACK_ATTRS = %i[candidate_id qualification_id].freeze
 
       attribute :timed_one_time_password
 
@@ -21,6 +22,16 @@ module Wizard
         prepopulate_store if valid?
 
         super
+      end
+
+      def export
+        return {} if skipped?
+
+        @store.fetch(MATCHBACK_ATTRS)
+      end
+
+      def reviewable_answers
+        {}
       end
 
       def timed_one_time_password=(value)
