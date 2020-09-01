@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe TeacherTrainingAdviser::Steps::UkAddress do
   include_context "wizard step"
   it_behaves_like "a wizard step"
+  include_context "sanitize fields", %i[address_line1 address_line2 address_city address_postcode]
 
   it { is_expected.to be_contains_personal_details }
 
