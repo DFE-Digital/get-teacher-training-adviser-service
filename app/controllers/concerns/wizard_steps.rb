@@ -11,7 +11,6 @@ module WizardSteps
   end
 
   def show
-    byebug
     # current_step loaded via before_action
   end
 
