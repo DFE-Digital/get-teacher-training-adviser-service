@@ -4,7 +4,13 @@ module TeacherTrainingAdviser::Steps
 
     attribute :uk_degree_grade_id, :integer
 
-    validates :uk_degree_grade_id, types: { method: :get_qualification_uk_degree_grades, message: "You must select an option" }
+    def self.options
+      result = generate_api_options(GetIntoTeachingApiClient::TypesApi.new.get_qualification_uk_degree_grades)
+      # remove third class and grade unknown from options
+      result.reject { |_k, v| %w[222750004 222750005].include? v }
+    end
+
+    validates :uk_degree_grade_id, inclusion: { in: TeacherTrainingAdviser::Steps::WhatDegreeClass.options.map { |_k, v| v.to_i }, message: "Select an option from the list" }
 
     def skipped?
       returning_teacher = @store["returning_to_teaching"]
@@ -18,10 +24,6 @@ module TeacherTrainingAdviser::Steps
 
     def studying?
       @store["degree_options"] == TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
-    end
-
-    def self.options
-      generate_api_options(GetIntoTeachingApiClient::TypesApi.new.get_qualification_uk_degree_grades)
     end
 
     def reviewable_answers

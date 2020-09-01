@@ -1,14 +1,16 @@
-<% 
+<%
 if f.object.studying?
   text = "What degree class are you predicted to get?"
 else
   text = "Which class is your degree?"
-end 
+end
 %>
 
-<%= f.govuk_collection_select :uk_degree_grade_id,
-  GetIntoTeachingApiClient::TypesApi.new.get_qualification_uk_degree_grades,
-  :id,
-  :value,
-  label: { text: text, tag: "h1", size: "m" }
-%>
+<div class="govuk-form-group">
+  <%= f.label :uk_degree_grade_id, text, class: "govuk-label govuk-label--m" %>
+  <%= f.select :uk_degree_grade_id,
+    options_for_select(TeacherTrainingAdviser::Steps::WhatDegreeClass.options),
+    {},
+    { class: "govuk-select" }
+  %>
+</div>
