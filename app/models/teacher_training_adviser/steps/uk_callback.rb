@@ -6,6 +6,10 @@ module TeacherTrainingAdviser::Steps
     validates :telephone, telephone: true, presence: { message: "Enter a telephone number" }
     validates :phone_call_scheduled_at, presence: true
 
+    before_validation if: :telephone do
+      self.telephone = telephone.to_s.strip.presence
+    end
+
     def reviewable_answers
       {
         "callback_date" => phone_call_scheduled_at.to_date,

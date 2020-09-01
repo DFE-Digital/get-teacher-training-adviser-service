@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe TeacherTrainingAdviser::Steps::UkCallback do
   include_context "wizard step"
   it_behaves_like "a wizard step"
+  include_context "sanitize fields", %i[telephone]
 
   context "attributes" do
     it { is_expected.to respond_to :phone_call_scheduled_at }
