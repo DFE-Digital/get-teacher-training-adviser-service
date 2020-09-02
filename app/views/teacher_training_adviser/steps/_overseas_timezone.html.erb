@@ -8,7 +8,7 @@
 
 <div class="govuk-form-group">
   <%= f.label 'Select your time zone', class: "govuk-label" %>
-  <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.all.drop(1), {}, { class: "govuk-select" }  %>
+  <%= f.time_zone_select :time_zone, f.object.filtered_time_zones, {}, { class: "govuk-select" }  %>
 </div>
 
 <% end %>
