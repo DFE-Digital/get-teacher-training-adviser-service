@@ -1,7 +1,0 @@
-<%= f.govuk_radio_buttons_fieldset(:degree_status_id, legend: { text: 'In which year are you studying?'} ) do %>
-  <%= f.govuk_radio_button :degree_status_id, Studying::StageOfDegree::options["Final year"], label: { text: 'Final year' } %>
-  <%= f.govuk_radio_button :degree_status_id, Studying::StageOfDegree::options["Second year"], label: { text: 'Second year' } %>
-  <%= f.govuk_radio_button :degree_status_id, Studying::StageOfDegree::options["First year"], label: { text: "First year" } %>
-  <%= f.govuk_radio_button :degree_status_id, Studying::StageOfDegree::options["Other"], label: { text: 'Other' } %>
-<% end %>
-<%= f.govuk_submit%>
