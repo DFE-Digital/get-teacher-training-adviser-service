@@ -63,7 +63,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasTimezone do
   describe "#filtered_time_zones" do
     subject { instance.filtered_time_zones }
     it "removes 'International Date Line West' value from ActiveSupport::TimeZones" do
-      expect(subject.first.name).to eq("American Samoa")
+      expect(subject.map(&:name)).not_to include("International Date Line West")
       expect(subject.count).to eq(150)
     end
   end
