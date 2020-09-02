@@ -38,4 +38,20 @@ RSpec.describe PagesController, type: :request do
       expect(response).to have_http_status(200)
     end
   end
+
+  context "#show" do
+    subject { response }
+
+    context "for known page" do
+      before { get "/home" }
+      it { is_expected.to have_http_status :success }
+      it { expect(response.body).to match "Sign up to get an adviser" }
+    end
+
+    context "for unknown page" do
+      before { get "/unknown" }
+      it { is_expected.to have_http_status :not_found }
+      it { expect(response.body).to match "The page you were looking for doesn't exist" }
+    end
+  end
 end
