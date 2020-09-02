@@ -4,8 +4,8 @@ module CallbackHelper
       quotas.map do |quota|
         start_at = quota.start_at.in_time_zone(time_zone)
         end_at = quota.end_at.in_time_zone(time_zone)
-
-        ["#{start_at.strftime('%I:%M %P')} - #{end_at.strftime('%I:%M %P')}", quota.start_at.in_time_zone(time_zone)]
+#byebug
+        ["#{start_at.strftime('%I:%M %P')} - #{end_at.strftime('%I:%M %P')} #{quota.start_at.in_time_zone(time_zone).strftime("%a, %d %b")}", quota.start_at.in_time_zone(time_zone)]
       end
     end
   end
