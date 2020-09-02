@@ -34,7 +34,7 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
         TeacherTrainingAdviser::Steps::OverseasCountry,
         TeacherTrainingAdviser::Steps::OverseasTelephone,
         TeacherTrainingAdviser::Steps::UkCallback,
-        TeacherTrainingAdviser::Steps::OverseasTimezone,
+        TeacherTrainingAdviser::Steps::OverseasTimeZone,
         TeacherTrainingAdviser::Steps::OverseasCallback,
         TeacherTrainingAdviser::Steps::ReviewAnswers,
         TeacherTrainingAdviser::Steps::AcceptPrivacyPolicy,

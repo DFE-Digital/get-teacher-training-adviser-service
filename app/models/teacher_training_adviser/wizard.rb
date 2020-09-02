@@ -31,7 +31,7 @@ module TeacherTrainingAdviser
       Steps::OverseasCountry,
       Steps::OverseasTelephone,
       Steps::UkCallback,
-      Steps::OverseasTimezone,
+      Steps::OverseasTimeZone,
       Steps::OverseasCallback,
       Steps::ReviewAnswers,
       Steps::AcceptPrivacyPolicy,
