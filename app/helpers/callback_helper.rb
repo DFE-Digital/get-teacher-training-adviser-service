@@ -6,7 +6,6 @@ module CallbackHelper
       r.start_at = r.start_at.in_time_zone(time_zone)
       arr << r
     end
-    arr
     barr = arr.group_by(&:day).reject do |day|
       Date.parse(day) == Time.zone.today
     end
