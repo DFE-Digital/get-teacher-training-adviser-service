@@ -3,7 +3,7 @@ module TeacherTrainingAdviser::Steps
     attribute :phone_call_scheduled_at, :datetime
 
     validates :phone_call_scheduled_at, presence: true
-
+    # need to show timezonedd time in review answers
     def reviewable_answers
       {
         "callback_date" => phone_call_scheduled_at.to_date,
