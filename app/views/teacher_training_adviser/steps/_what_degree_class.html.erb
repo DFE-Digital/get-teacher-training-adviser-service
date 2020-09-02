@@ -9,7 +9,7 @@ end
 <div class="govuk-form-group">
   <%= f.label :uk_degree_grade_id, text, class: "govuk-label govuk-label--m" %>
   <%= f.select :uk_degree_grade_id,
-    options_for_select(TeacherTrainingAdviser::Steps::WhatDegreeClass.options),
+    options_for_select(TeacherTrainingAdviser::Steps::WhatDegreeClass.options, selected: f.object.uk_degree_grade_id),
     {},
     { class: "govuk-select" }
   %>
