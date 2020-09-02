@@ -111,6 +111,10 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       select "(GMT-10:00) Hawaii"
       click_on "Continue"
 
+      expect(page).to have_text "Choose a time"
+      select "10:00 pm - 10:30 pm", match: :first
+      click_on "Continue"
+
       expect(page).to have_text "Check your answers before you continue"
       click_on "Continue"
 

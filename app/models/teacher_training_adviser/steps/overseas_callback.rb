@@ -1,13 +1,14 @@
 module TeacherTrainingAdviser::Steps
-  class OverseasCallback < UkCallback
-    attribute :time_zone, :string
+  class OverseasCallback < Wizard::Step
+    attribute :phone_call_scheduled_at, :datetime
 
-    validates :time_zone, presence: { message: "Select a time zone" }
+    validates :phone_call_scheduled_at, presence: true
 
     def reviewable_answers
-      super.tap do |answers|
-        answers["time_zone"] = time_zone.to_s
-      end
+      {
+        "callback_date" => phone_call_scheduled_at.to_date,
+        "callback_time" => phone_call_scheduled_at.to_time, # rubocop:disable Rails/Date
+      }
     end
 
     def skipped?
@@ -16,6 +17,14 @@ module TeacherTrainingAdviser::Steps
       not_overseas = @store["uk_or_overseas"] != TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:overseas]
 
       returning_teacher || not_equivalent_degree || not_overseas
+    end
+
+    class << self
+      def grouped_quotas
+        GetIntoTeachingApiClient::CallbackBookingQuotasApi.new.get_callback_booking_quotas.group_by(&:day).reject do |day|
+          Date.parse(day) == Time.zone.today
+        end
+      end
     end
   end
 end
