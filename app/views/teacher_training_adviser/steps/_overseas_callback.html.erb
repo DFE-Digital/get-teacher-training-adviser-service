@@ -2,7 +2,7 @@
 
 <div class="govuk-form-group">
   <%= f.label :phone_call_scheduled_at, "Select your preferred day and time for a callback", class: "govuk-label" %>
-  <%= f.select :phone_call_scheduled_at, format_booking_quotas(TeacherTrainingAdviser::Steps::OverseasCallback::grouped_quotas, @wizard.export_data["time_zone"]), {}, { class: "govuk-select" } %>
+  <%= f.select :phone_call_scheduled_at, format_booking_quotas(GetIntoTeachingApiClient::CallbackBookingQuotasApi.new.get_callback_booking_quotas, @wizard.export_data["time_zone"]), {}, { class: "govuk-select" } %>
 </div>
 
 <% end %>

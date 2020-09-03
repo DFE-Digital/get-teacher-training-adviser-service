@@ -24,13 +24,5 @@ module TeacherTrainingAdviser::Steps
 
       overseas || not_equivalent_degree || returning_teacher
     end
-
-    class << self
-      def grouped_quotas
-        GetIntoTeachingApiClient::CallbackBookingQuotasApi.new.get_callback_booking_quotas.group_by(&:day).reject do |day|
-          Date.parse(day) == Time.zone.today
-        end
-      end
-    end
   end
 end
