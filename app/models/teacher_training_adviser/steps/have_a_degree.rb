@@ -24,7 +24,7 @@ module TeacherTrainingAdviser::Steps
 
     def reviewable_answers
       {
-        "degree_options" => I18n.t("have_a_degree.degree_options.#{degree_options}"),
+        "degree_options" => degree_options ? I18n.t("have_a_degree.degree_options.#{degree_options}") : nil,
       }
     end
 
