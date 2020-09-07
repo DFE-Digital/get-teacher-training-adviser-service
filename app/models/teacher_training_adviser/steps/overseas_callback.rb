@@ -1,5 +1,7 @@
 module TeacherTrainingAdviser::Steps
   class OverseasCallback < Wizard::Step
+    extend CallbackBookingQuotas
+    
     attribute :phone_call_scheduled_at, :datetime
 
     validates :phone_call_scheduled_at, presence: true

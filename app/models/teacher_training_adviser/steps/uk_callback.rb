@@ -1,5 +1,7 @@
 module TeacherTrainingAdviser::Steps
   class UkCallback < Wizard::Step
+    extend CallbackBookingQuotas
+
     attribute :telephone, :string
     attribute :phone_call_scheduled_at, :datetime
 

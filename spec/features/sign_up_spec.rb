@@ -112,7 +112,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_text "Choose a time"
-      select "10:00 pm - 10:30 pm", match: :first
+      select_first_option "Select your preferred day and time for a callback"
       click_on "Continue"
 
       expect(page).to have_text "Check your answers before you continue"
@@ -407,5 +407,9 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
     fill_in "Address line 2", with: "Main Street"
     fill_in "Town or City *", with: "Edinburgh"
     fill_in "Postcode *", with: "EH12 8JF"
+  end
+
+  def select_first_option(field_label)
+    find_field(field_label).first("option").select_option
   end
 end
