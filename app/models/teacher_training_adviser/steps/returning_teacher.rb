@@ -6,7 +6,7 @@ module TeacherTrainingAdviser::Steps
     attribute :degree_options, :string
     attribute :preferred_education_phase_id
 
-    validates :returning_to_teaching, inclusion: { in: [true, false], message: "You must select either yes or no" }
+    validates :returning_to_teaching, inclusion: { in: [true, false], message: "Select yes if you are returning to teaching" }
 
     def returning_to_teaching=(value)
       super
