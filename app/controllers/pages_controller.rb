@@ -1,4 +1,6 @@
 class PagesController < ApplicationController
+  rescue_from ActionView::MissingTemplate, with: :rescue_missing_template
+
   def show
     render template: "pages/#{params[:page]}"
   end
@@ -19,5 +21,21 @@ class PagesController < ApplicationController
                       end
 
     render template: "pages/privacy_policy"
+  end
+
+private
+
+  def rescue_missing_template
+    respond_to do |format|
+      format.html do
+        render \
+          template: "errors/not_found",
+          status: :not_found
+      end
+
+      format.all do
+        render status: :not_found, body: nil
+      end
+    end
   end
 end
