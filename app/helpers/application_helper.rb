@@ -7,13 +7,14 @@ module ApplicationHelper
       "analytics-hotjar-id".to_sym => ENV["HOTJAR_ID"],
       "analytics-snapchat-id".to_sym => ENV["SNAPCHAT_ID"],
       "analytics-pinterest-id".to_sym => ENV["PINTEREST_ID"],
+      "analytics-facebook-id".to_sym => ENV["FACEBOOK_ID"],
     }
 
     attributes[:data] ||= {}
     attributes[:data] = attributes[:data].merge(analytics)
 
     attributes[:data][:controller] =
-      "gtm hotjar snapchat pinterest #{attributes[:data][:controller]}"
+      "gtm hotjar snapchat pinterest facebook #{attributes[:data][:controller]}"
 
     tag.body attributes, &block
   end
