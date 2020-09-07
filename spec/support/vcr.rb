@@ -1,6 +1,6 @@
 VCR.configure do |config|
   config.cassette_library_dir = "spec/vcr"
-  config.hook_into :typhoeus
+  config.hook_into :faraday
   config.configure_rspec_metadata!
   config.before_record do |i|
     i.response.body.force_encoding("UTF-8")

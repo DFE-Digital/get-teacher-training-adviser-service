@@ -6,4 +6,6 @@ GetIntoTeachingApiClient.configure do |config|
   end
 
   config.api_key["Authorization"] = ENV["GIT_API_TOKEN"].presence || Rails.application.credentials.config[:api_key].presence
+
+  config.cache_store = Rails.cache
 end
