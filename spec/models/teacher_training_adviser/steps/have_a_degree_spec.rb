@@ -83,5 +83,10 @@ RSpec.describe TeacherTrainingAdviser::Steps::HaveADegree do
     subject { instance.reviewable_answers }
     before { instance.degree_options = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying] }
     it { is_expected.to eq({ "degree_options" => "I'm studying for a degree" }) }
+
+    context "when degree_options is nil" do
+      before { instance.degree_options = nil }
+      it { is_expected.to eq({ "degree_options" => nil }) }
+    end
   end
 end

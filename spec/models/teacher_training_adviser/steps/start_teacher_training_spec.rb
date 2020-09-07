@@ -76,5 +76,10 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
     end
 
     it { is_expected.to eq({ "initial_teacher_training_year_id" => "Value" }) }
+
+    context "when initial_teacher_training_year_id is nil" do
+      before { instance.initial_teacher_training_year_id = nil }
+      it { is_expected.to eq({ "initial_teacher_training_year_id" => nil }) }
+    end
   end
 end

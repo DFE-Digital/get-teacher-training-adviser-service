@@ -15,7 +15,7 @@ module TeacherTrainingAdviser::Steps
 
     def reviewable_answers
       super.tap do |answers|
-        answers["initial_teacher_training_year_id"] = year_range.find { |y| y.id.to_s == initial_teacher_training_year_id.to_s }.value
+        answers["initial_teacher_training_year_id"] = year_range.find { |y| y.id.to_s == initial_teacher_training_year_id.to_s }&.value
       end
     end
 
