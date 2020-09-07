@@ -2,7 +2,7 @@ module TeacherTrainingAdviser::Steps
   class RetakeGcseMathsEnglish < Wizard::Step
     attribute :planning_to_retake_gcse_maths_and_english_id, :integer
 
-    validates :planning_to_retake_gcse_maths_and_english_id, types: { method: :get_candidate_retake_gcse_status, message: "Select yes if you are planning to retake English or Maths (or both) GCSE or equivalent" }
+    validates :planning_to_retake_gcse_maths_and_english_id, types: { method: :get_candidate_retake_gcse_status, message: "Select yes if you are planning to retake either English or maths (or both) GCSEs, or equivalent" }
 
     OPTIONS = Crm::OPTIONS
 
