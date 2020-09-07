@@ -8,7 +8,7 @@
 
 <div class="govuk-form-group">
   <%= f.label :phone_call_scheduled_at, "Select your preferred day and time for a callback", class: "govuk-label" %>
-  <%= f.select :phone_call_scheduled_at, format_booking_quotas(f.object.class.callback_booking_quotas, "London"), {}, { class: "govuk-select" } %>
+  <%= f.select :phone_call_scheduled_at, callback_options(f.object.class.callback_booking_quotas), {}, { class: "govuk-select" } %>
 </div>
 
 <% end %>
