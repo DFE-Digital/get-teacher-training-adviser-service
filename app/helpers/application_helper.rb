@@ -5,13 +5,14 @@ module ApplicationHelper
     analytics = {
       "analytics-gtm-id".to_sym => ENV["GOOGLE_TAG_MANAGER_ID"],
       "analytics-hotjar-id".to_sym => ENV["HOTJAR_ID"],
+      "analytics-snapchat-id".to_sym => ENV["SNAPCHAT_ID"],
     }
 
     attributes[:data] ||= {}
     attributes[:data] = attributes[:data].merge(analytics)
 
     attributes[:data][:controller] =
-      "gtm hotjar #{attributes[:data][:controller]}"
+      "gtm hotjar snapchat #{attributes[:data][:controller]}"
 
     tag.body attributes, &block
   end
