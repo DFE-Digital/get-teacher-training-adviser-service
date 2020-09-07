@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   rescue_from ActionView::MissingTemplate, with: :rescue_missing_template
 
   def show
-    render template: "pages/#{params[:page]}"
+    render template: page_template
   end
 
   def session_expired
@@ -26,6 +26,11 @@ class PagesController < ApplicationController
   end
 
 private
+
+  def page_template
+    safepage = params[:page].to_s.gsub(%r{[^a-z_\-/]}, "")
+    "pages/#{safepage}"
+  end
 
   def rescue_missing_template
     respond_to do |format|
