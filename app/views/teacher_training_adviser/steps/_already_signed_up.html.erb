@@ -1,0 +1,10 @@
+<div class="govuk-form-group">
+  <h1 class="govuk-heading-l">You have already signed up to this service</h1>
+    
+  <p class="govuk-body">The email address <%= mail_to(session["sign_up"]["email"], nil, class: "govuk-link") %> has already been used to sign up for the Get an adviser service.</p>
+
+  <h2>Get support</h2>
+
+  <p class="govuk-body">Send an email to: <%= mail_to("getintoteaching.helpdesk@education.gov.uk", nil, class: "govuk-link") %> or call Freephone <%= link_to("0800 389 2500", "tel://0800 389 2500", class: "govuk-link") %>.</p>
+
+</div>

@@ -5,6 +5,7 @@ module TeacherTrainingAdviser
     self.steps = [
       Steps::Identity,
       Steps::Authenticate,
+      Steps::AlreadySignedUp,
       Steps::ReturningTeacher,
       Steps::HaveADegree,
       Steps::NoDegree,
