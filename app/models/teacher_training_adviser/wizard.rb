@@ -37,6 +37,10 @@ module TeacherTrainingAdviser
       Steps::AcceptPrivacyPolicy,
     ].freeze
 
+    def time_zone
+      find(Steps::OverseasTimeZone.key).time_zone || "London"
+    end
+
     def complete!
       super.tap do |result|
         break unless result
