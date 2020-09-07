@@ -5,12 +5,14 @@ RSpec.describe ApplicationHelper do
     let(:gtm_id) { "1234" }
     let(:hotjar_id) { "5678" }
     let(:snapchat_id) { "3456" }
+    let(:pinterest_id) { "6543" }
 
     before do
       allow(ENV).to receive(:[]).and_call_original
       allow(ENV).to receive(:[]).with("GOOGLE_TAG_MANAGER_ID").and_return gtm_id
       allow(ENV).to receive(:[]).with("HOTJAR_ID").and_return hotjar_id
       allow(ENV).to receive(:[]).with("SNAPCHAT_ID").and_return snapchat_id
+      allow(ENV).to receive(:[]).with("PINTEREST_ID").and_return pinterest_id
     end
 
     subject { analytics_body_tag { "<h1>TEST</h1>".html_safe } }
@@ -21,12 +23,14 @@ RSpec.describe ApplicationHelper do
       it { is_expected.to have_css "body[data-controller~=gtm]" }
       it { is_expected.to have_css "body[data-controller~=hotjar]" }
       it { is_expected.to have_css "body[data-controller~=snapchat]" }
+      it { is_expected.to have_css "body[data-controller~=pinterest]" }
     end
 
     context "assigns service ids" do
       it { is_expected.to have_css "body[data-analytics-gtm-id=1234]" }
       it { is_expected.to have_css "body[data-analytics-hotjar-id=5678]" }
       it { is_expected.to have_css "body[data-analytics-snapchat-id=3456]" }
+      it { is_expected.to have_css "body[data-analytics-pinterest-id=6543]" }
     end
 
     context "with blank service ids" do
