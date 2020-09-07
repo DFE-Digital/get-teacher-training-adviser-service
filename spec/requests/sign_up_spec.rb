@@ -97,9 +97,13 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
     end
 
     subject do
-      get resend_verification_teacher_training_adviser_steps_path(redirect_path: "redirect/path")
+      get resend_verification_teacher_training_adviser_steps_path
       response
     end
-    it { is_expected.to redirect_to("redirect/path") }
+
+    it do
+      is_expected.to redirect_to \
+        controller.send(:authenticate_path, verification_resent: true)
+    end
   end
 end

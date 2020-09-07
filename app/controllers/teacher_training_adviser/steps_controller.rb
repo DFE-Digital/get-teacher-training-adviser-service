@@ -16,8 +16,8 @@ module TeacherTrainingAdviser
       Time.zone = old_time_zone
     end
 
-    def step_path(step = params[:id])
-      teacher_training_adviser_step_path step
+    def step_path(step = params[:id], params = {})
+      teacher_training_adviser_step_path step, params
     end
     helper_method :step_path
 
