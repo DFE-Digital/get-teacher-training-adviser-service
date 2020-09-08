@@ -1,11 +1,12 @@
 require "rails_helper"
 
 RSpec.describe CallbackHelper, type: :helper do
-  before { Timecop.freeze(Time.utc(2020, 4, 6, 10, 30)) }
-  after { Timecop.return }
+  around do |example|
+    travel_to(utc_today) { example.run }
+  end
 
   let(:time_zone) { "UTC" }
-  let(:utc_today) { DateTime.now.utc }
+  let(:utc_today) { Time.utc(2020, 4, 6, 10, 30) }
   let(:utc_tomorrow) { Time.utc(2020, 4, 7, 10) }
   let(:quota_today) do
     GetIntoTeachingApiClient::CallbackBookingQuota.new(

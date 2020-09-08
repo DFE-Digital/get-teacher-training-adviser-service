@@ -71,7 +71,6 @@ end
 
 group :test do
   gem "shoulda-matchers"
-  gem "timecop"
   gem "vcr"
   gem "webdrivers", "~> 4.3"
 end
