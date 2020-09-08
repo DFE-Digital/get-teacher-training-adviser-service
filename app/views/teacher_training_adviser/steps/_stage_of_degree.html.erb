@@ -1,5 +1,5 @@
 <%= f.govuk_radio_buttons_fieldset(:degree_status_id, legend: { text: 'In which year are you studying?'} ) do %>
-  <%= f.govuk_radio_button :degree_status_id, TeacherTrainingAdviser::Steps::StageOfDegree::options["Final year"], label: { text: 'Final year' } %>
+  <%= f.govuk_radio_button :degree_status_id, TeacherTrainingAdviser::Steps::StageOfDegree::options["Final year"], label: { text: 'Final year' }, link_errors: true %>
   <%= f.govuk_radio_button :degree_status_id, TeacherTrainingAdviser::Steps::StageOfDegree::options["Second year"], label: { text: 'Second year' } %>
   <%= f.govuk_radio_button :degree_status_id, TeacherTrainingAdviser::Steps::StageOfDegree::options["First year"], label: { text: "First year" } %>
   <%= f.govuk_radio_button :degree_status_id, TeacherTrainingAdviser::Steps::StageOfDegree::options["Other"], label: { text: 'Other' } %>
