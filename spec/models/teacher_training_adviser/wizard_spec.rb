@@ -34,7 +34,7 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
         TeacherTrainingAdviser::Steps::OverseasCountry,
         TeacherTrainingAdviser::Steps::OverseasTelephone,
         TeacherTrainingAdviser::Steps::UkCallback,
-        TeacherTrainingAdviser::Steps::OverseasTimezone,
+        TeacherTrainingAdviser::Steps::OverseasTimeZone,
         TeacherTrainingAdviser::Steps::OverseasCallback,
         TeacherTrainingAdviser::Steps::ReviewAnswers,
         TeacherTrainingAdviser::Steps::AcceptPrivacyPolicy,
@@ -42,7 +42,7 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
     end
   end
 
-  describe "#complete!" do
+  describe "instance methods" do
     let(:store) do
       {
         "email" => "email@address.com",
@@ -51,22 +51,36 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
       }
     end
     let(:wizardstore) { Wizard::Store.new store }
-    let(:request) do
-      GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.new(
-        { email: "email@address.com", firstName: "Joe", lastName: "Joseph" },
-      )
-    end
 
     subject { described_class.new wizardstore, "accept_privacy_policy" }
 
-    before do
-      expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
-        receive(:sign_up_teacher_training_adviser_candidate).with(request).once
-    end
-    before { allow(subject).to receive(:valid?).and_return true }
-    before { subject.complete! }
+    describe "#time_zone" do
+      it "defaults to London" do
+        expect(subject.time_zone).to eq("London")
+      end
 
-    it { is_expected.to have_received(:valid?) }
-    it { expect(store).to eql({}) }
+      it "returns the time_zone from the store" do
+        wizardstore["time_zone"] = "Hawaii"
+        expect(subject.time_zone).to eq("Hawaii")
+      end
+    end
+
+    describe "#complete!" do
+      let(:request) do
+        GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.new(
+          { email: "email@address.com", firstName: "Joe", lastName: "Joseph" },
+        )
+      end
+
+      before do
+        expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
+          receive(:sign_up_teacher_training_adviser_candidate).with(request).once
+      end
+      before { allow(subject).to receive(:valid?).and_return true }
+      before { subject.complete! }
+
+      it { is_expected.to have_received(:valid?) }
+      it { expect(store).to eql({}) }
+    end
   end
 end

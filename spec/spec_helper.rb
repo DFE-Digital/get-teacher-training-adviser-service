@@ -13,6 +13,8 @@
 # it.
 
 require "simplecov"
+require "active_support/testing/time_helpers"
+
 SimpleCov.start "rails" do
   add_filter "/bin/"
   add_filter "/db/"
@@ -21,6 +23,8 @@ end
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  config.include ActiveSupport::Testing::TimeHelpers
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

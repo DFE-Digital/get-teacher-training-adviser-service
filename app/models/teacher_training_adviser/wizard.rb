@@ -31,11 +31,15 @@ module TeacherTrainingAdviser
       Steps::OverseasCountry,
       Steps::OverseasTelephone,
       Steps::UkCallback,
-      Steps::OverseasTimezone,
+      Steps::OverseasTimeZone,
       Steps::OverseasCallback,
       Steps::ReviewAnswers,
       Steps::AcceptPrivacyPolicy,
     ].freeze
+
+    def time_zone
+      find(Steps::OverseasTimeZone.key).time_zone || "London"
+    end
 
     def complete!
       super.tap do |result|

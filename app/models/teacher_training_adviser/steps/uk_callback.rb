@@ -1,5 +1,7 @@
 module TeacherTrainingAdviser::Steps
   class UkCallback < Wizard::Step
+    extend CallbackBookingQuotas
+
     attribute :telephone, :string
     attribute :phone_call_scheduled_at, :datetime
 
@@ -23,14 +25,6 @@ module TeacherTrainingAdviser::Steps
       returning_teacher = @store["returning_to_teaching"]
 
       overseas || not_equivalent_degree || returning_teacher
-    end
-
-    class << self
-      def grouped_quotas
-        GetIntoTeachingApiClient::CallbackBookingQuotasApi.new.get_callback_booking_quotas.group_by(&:day).reject do |day|
-          Date.parse(day) == Time.zone.today
-        end
-      end
     end
   end
 end

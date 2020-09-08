@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class OverseasTimezone < Wizard::Step
+  class OverseasTimeZone < Wizard::Step
     attribute :time_zone, :string
     attribute :telephone, :string
 

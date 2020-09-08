@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe TeacherTrainingAdviser::Steps::OverseasCallback do
+  it_behaves_like "exposes callback booking quotas"
   include_context "wizard step"
   it_behaves_like "a wizard step"
 

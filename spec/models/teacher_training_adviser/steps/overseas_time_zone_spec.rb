@@ -1,10 +1,10 @@
 require "rails_helper"
 
-RSpec.describe TeacherTrainingAdviser::Steps::OverseasTimezone do
+RSpec.describe TeacherTrainingAdviser::Steps::OverseasTimeZone do
   include_context "wizard step"
   it_behaves_like "a wizard step"
 
-  it { expect(described_class).to be TeacherTrainingAdviser::Steps::OverseasTimezone }
+  it { expect(described_class).to be TeacherTrainingAdviser::Steps::OverseasTimeZone }
 
   context "attributes" do
     it { is_expected.to respond_to :time_zone }
