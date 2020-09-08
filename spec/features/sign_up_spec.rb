@@ -352,7 +352,16 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
   context "an existing candidate" do
     let(:valid_code) { "123456" }
     let(:invalid_code) { "111111" }
-    let(:existing_candidate) { GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.new }
+    let(:existing_candidate) do
+      GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.new(
+        preferredEducationPhaseId: TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary],
+        addressLine1: "7 Main Street",
+        addressCity: "Manchester",
+        addressPostcode: "TE7 1NG",
+        dateOfBirth: Date.new(1999, 4, 27),
+        telephone: "123456789",
+      )
+    end
 
     before do
       allow_any_instance_of(GetIntoTeachingApiClient::CandidatesApi).to \
@@ -387,6 +396,59 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_text "Are you returning to teaching?"
+      choose "No"
+      click_on "Continue"
+
+      expect(page).to have_text "Do you have a degree?"
+      choose "I have an equivalent qualification from another country"
+      click_on "Continue"
+
+      expect(page).to have_text "Which stage are you interested in teaching?"
+      expect(find_field("Secondary")).to be_checked
+      click_on "Continue"
+
+      expect(page).to have_text "Which subject would you like to teach?"
+      select "Physics"
+      click_on "Continue"
+
+      expect(page).to have_text "When do you want to start your teacher training?"
+      select "2022"
+      click_on "Continue"
+
+      expect(page).to have_text "Enter your date of birth"
+      expect(find_field("Day").value).to eq("27")
+      expect(find_field("Month").value).to eq("4")
+      expect(find_field("Year").value).to eq("1999")
+      click_on "Continue"
+
+      expect(page).to have_text "Where do you live?"
+      choose "UK"
+      click_on "Continue"
+
+      expect(page).to have_text "What is your address?"
+      expect(find_field("Address line 1 *").value).to eq("7 Main Street")
+      expect(find_field("Town or City *").value).to eq("Manchester")
+      expect(find_field("Postcode *").value).to eq("TE7 1NG")
+      click_on "Continue"
+
+      expect(page).to have_text "You told us you live in the United Kingdom"
+      expect(find_field("Contact telephone number *").value).to eq("123456789")
+      select_first_option "Select your preferred day and time for a callback"
+      click_on "Continue"
+
+      expect(page).to have_text "Check your answers before you continue"
+      click_on "Continue"
+
+      expect(page).to have_text "Read and accept the privacy policy"
+      check "Accept the privacy policy"
+
+      expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
+        receive(:sign_up_teacher_training_adviser_candidate).once
+
+      click_on "Complete"
+
+      expect(page).to have_text "Thank you"
+      expect(page).to have_text "Sign up complete"
     end
   end
 
