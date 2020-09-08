@@ -2,13 +2,9 @@ require "rails_helper"
 
 RSpec.describe AnswerHelper, type: :helper do
   describe "#format_answer" do
-    let(:export) { {} }
+    let(:time_zone) { "UTC" }
 
-    before do
-      mock_wizard = double
-      allow(mock_wizard).to receive(:export_data).and_return(export)
-      helper.instance_variable_set(:@wizard, mock_wizard)
-    end
+    before { Time.zone = time_zone }
 
     it "correctly formats a date" do
       answer = Date.new(2011, 1, 24)
@@ -26,7 +22,7 @@ RSpec.describe AnswerHelper, type: :helper do
     end
 
     context "when a time zone has been set" do
-      let(:export) { { "time_zone" => "Hawaii" } }
+      let(:time_zone) { "Hawaii" }
 
       it "correctly formats a time" do
         answer = Time.utc(2011, 1, 24, 10, 30)
