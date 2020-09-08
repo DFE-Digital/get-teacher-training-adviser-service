@@ -3,12 +3,17 @@ module ApplicationHelper
     attributes = attributes.symbolize_keys
 
     analytics = {
-      "analytics-gtm-id".to_sym => ENV["GOOGLE_TAG_MANAGER_ID"],
-      "analytics-hotjar-id".to_sym => ENV["HOTJAR_ID"],
-      "analytics-snapchat-id".to_sym => ENV["SNAPCHAT_ID"],
-      "analytics-pinterest-id".to_sym => ENV["PINTEREST_ID"],
-      "analytics-facebook-id".to_sym => ENV["FACEBOOK_ID"],
-    }
+      "analytics-gtm-id" => ENV["GOOGLE_TAG_MANAGER_ID"],
+      "analytics-hotjar-id" => ENV["HOTJAR_ID"],
+      "analytics-snapchat-id" => ENV["SNAPCHAT_ID"],
+      "analytics-pinterest-id" => ENV["PINTEREST_ID"],
+      "analytics-facebook-id" => ENV["FACEBOOK_ID"],
+      "pinterest-action" => "page",
+      "snapchat-action" => "track",
+      "snapchat-event" => "PAGE_VIEW",
+      "facebook-action" => "track",
+      "facebook-event" => "PageView",
+    }.symbolize_keys
 
     attributes[:data] ||= {}
     attributes[:data] = attributes[:data].merge(analytics)
