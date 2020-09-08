@@ -2,7 +2,7 @@ module TeacherTrainingAdviser::Steps
   class HasTeacherId < Wizard::Step
     attribute :has_id, :boolean
 
-    validates :has_id, inclusion: { in: [true, false], message: "You must select either yes or no" }
+    validates :has_id, inclusion: { in: [true, false], message: "Select yes if you have a previous teacher reference number" }
 
     def reviewable_answers
       super.tap do |answers|
