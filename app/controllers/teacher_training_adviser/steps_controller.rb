@@ -4,6 +4,7 @@ module TeacherTrainingAdviser
     self.wizard_class = TeacherTrainingAdviser::Wizard
 
     around_action :set_time_zone, only: [:show] # rubocop:disable Rails/LexicallyScopedActionFilter
+    before_action :set_page_title, only: [:show] # rubocop:disable Rails/LexicallyScopedActionFilter
 
   private
 
@@ -26,6 +27,10 @@ module TeacherTrainingAdviser
 
     def session_store
       session[:sign_up] ||= {}
+    end
+
+    def set_page_title
+      @page_title = "#{@current_step.title.downcase} step"
     end
   end
 end

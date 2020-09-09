@@ -17,6 +17,11 @@ RSpec.describe Wizard::Step do
     it { expect(FirstStep.key).to eql "first_step" }
   end
 
+  describe ".title" do
+    it { expect(described_class.title).to eql "Step" }
+    it { expect(FirstStep.title).to eql "First step" }
+  end
+
   describe ".contains_personal_details?" do
     it { expect(described_class).to_not be_contains_personal_details }
     it { expect(FirstStep).to_not be_contains_personal_details }

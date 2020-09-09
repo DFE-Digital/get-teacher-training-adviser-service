@@ -12,9 +12,14 @@ module Wizard
       def contains_personal_details?
         false
       end
+
+      def title
+        key.humanize
+      end
     end
 
     delegate :key, :contains_personal_details?, to: :class
+    delegate :title, to: :class
     alias_method :id, :key
 
     def initialize(wizard, store, attributes = {}, *args)

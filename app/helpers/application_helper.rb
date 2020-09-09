@@ -19,6 +19,14 @@ module ApplicationHelper
     tag.body attributes, &block
   end
 
+  def prefix_title(title)
+    if title
+      "Sign up to get an adviser: #{title}"
+    else
+      "Sign up to get an adviser"
+    end
+  end
+
   def govuk_form_for(*args, **options, &block)
     merged = options.dup
     merged[:builder] = GOVUKDesignSystemFormBuilder::FormBuilder

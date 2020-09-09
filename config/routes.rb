@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   root "pages#home"
 
+  get "/404", to: "errors#not_found", via: :all
+  get "/422", to: "errors#unprocessable_entity", via: :all
+  get "/500", to: "errors#internal_server_error", via: :all
+
   namespace :teacher_training_adviser, path: "/teacher_training_adviser" do
     resources :steps,
               path: "/sign_up",
@@ -17,10 +21,5 @@ Rails.application.routes.draw do
   get "/privacy-policy", to: "pages#privacy_policy", as: :privacy_policy
   get "/session-expired", to: "pages#session_expired", as: :session_expired
 
-  get "/404", to: "errors#not_found", via: :all
-  get "/422", to: "errors#unprocessable_entity", via: :all
-  get "/500", to: "errors#internal_server_error", via: :all
-
-  # This route should remain at the bottom to avoid overriding the above routes
   get "/:page", to: "pages#show"
 end
