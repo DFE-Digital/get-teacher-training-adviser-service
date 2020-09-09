@@ -32,6 +32,5 @@ module TeacherTrainingAdviser
     def set_page_title
       @page_title = "#{@current_step.title.downcase} step"
     end
-
   end
 end
