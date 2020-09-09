@@ -1,15 +1,17 @@
 class PagesController < ApplicationController
   rescue_from ActionView::MissingTemplate, with: :rescue_missing_template
 
-  def show
-    render template: "pages/#{params[:page]}"
+  def home
+    render template: "pages/home"
   end
 
   def session_expired
+    @page_title = "session expired"
     render template: "pages/session_expired"
   end
 
   def privacy_policy
+    @page_title = "privacy policy"
     policy_id = params[:id]
 
     @privacy_policy = if policy_id
