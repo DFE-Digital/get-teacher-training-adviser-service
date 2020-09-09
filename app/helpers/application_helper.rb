@@ -35,6 +35,6 @@ module ApplicationHelper
   end
 
   def link_to_change_answer(step)
-    link_to "Change", teacher_training_adviser_step_path(step.key)
+    link_to "Change", teacher_training_adviser_step_path(step.key), { class: "govuk-link" }
   end
 end

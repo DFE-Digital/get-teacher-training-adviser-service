@@ -85,7 +85,7 @@ RSpec.describe ApplicationHelper do
   describe "#link_to_change_answer" do
     it "returns a link to the sign up step" do
       expect(link_to_change_answer(TeacherTrainingAdviser::Steps::Identity)).to eq(
-        "<a href=\"/teacher_training_adviser/sign_up/identity\">Change</a>",
+        "<a class=\"govuk-link\" href=\"/teacher_training_adviser/sign_up/identity\">Change</a>",
       )
     end
   end
