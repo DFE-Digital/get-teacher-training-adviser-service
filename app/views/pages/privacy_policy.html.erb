@@ -1,6 +1,5 @@
 <div class="content__left">
   <%= link_to 'Back', 'javascript:history.go(-1);', class: "govuk-back-link hidden", id: "backlink" %>
   <h2>Privacy Policy</h2>
-  <h3>Legal information</h3>
-  <%= safe_format @privacy_policy.text %>
+  <%= safe_html_format @privacy_policy.text %>
 </div>
