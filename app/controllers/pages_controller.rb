@@ -1,8 +1,8 @@
 class PagesController < ApplicationController
   rescue_from ActionView::MissingTemplate, with: :rescue_missing_template
 
-  def home
-    render template: "pages/home"
+  def show
+    render template: "pages/#{params[:page]}"
   end
 
   def session_expired
