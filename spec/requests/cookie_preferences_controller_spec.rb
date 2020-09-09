@@ -6,6 +6,6 @@ RSpec.describe CookiePreferencesController do
   describe "#show" do
     before { get cookie_preference_path }
     it { is_expected.to have_http_status :success }
-    it { expect(subject.body).to match "Edit your cookie settings" }
+    it { expect(subject.body).to match "Cookie settings" }
   end
 end
