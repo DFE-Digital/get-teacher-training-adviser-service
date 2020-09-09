@@ -21,9 +21,9 @@ module ApplicationHelper
 
   def prefix_title(title)
     if title
-      "Sign up to get an adviser: #{title}"
+      "Get an adviser: #{title}"
     else
-      "Sign up to get an adviser"
+      "Get an adviser"
     end
   end
 
