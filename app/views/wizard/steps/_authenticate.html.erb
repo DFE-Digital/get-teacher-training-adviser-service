@@ -1,5 +1,5 @@
 <%
-  link = link_to("resend verification", resend_verification_path)
+  link = link_to("resend verification", resend_verification_path, { class: 'govuk-link' })
   hint_text = "Check your junk mail folder or #{link}."
   hint_text += "<br /><b>We've sent you another email.</b>" if params[:verification_resent]
 %>
