@@ -18,3 +18,8 @@ $govuk-image-url-function: frontend-image-url;
 .hidden {
   display: none;
 }
+
+.no-margin {
+  margin: 0;
+  padding: 0;
+}
