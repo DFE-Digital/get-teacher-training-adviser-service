@@ -45,7 +45,7 @@ RSpec.describe PagesController, type: :request do
     context "for known page" do
       before { get "/home" }
       it { is_expected.to have_http_status :success }
-      it { expect(response.body).to match "Sign up to get an adviser" }
+      it { expect(response.body).to match "Get an adviser" }
     end
 
     context "for unknown page" do
