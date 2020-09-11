@@ -111,5 +111,6 @@ Rails.application.configure do
   config.session_store :cache_store,
                        key: "_dfe_session",
                        same_site: :lax,
-                       expire_after: 1.day
+                       expire_after: 1.day,
+                       secure: true
 end
