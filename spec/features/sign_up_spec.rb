@@ -426,13 +426,13 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_text "What is your address?"
-      expect(find_field("Address line 1 *").value).to eq("7 Main Street")
-      expect(find_field("Town or City *").value).to eq("Manchester")
-      expect(find_field("Postcode *").value).to eq("TE7 1NG")
+      expect(find_field("Address line 1").value).to eq("7 Main Street")
+      expect(find_field("Town or City").value).to eq("Manchester")
+      expect(find_field("Postcode").value).to eq("TE7 1NG")
       click_on "Continue"
 
       expect(page).to have_text "You told us you live in the United Kingdom"
-      expect(find_field("Contact telephone number *").value).to eq("123456789")
+      expect(find_field("Contact telephone number").value).to eq("123456789")
       select_first_option "Select your preferred day and time for a callback"
       click_on "Continue"
 
@@ -465,10 +465,10 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
   end
 
   def fill_in_address_step
-    fill_in "Address line 1 *", with: "7"
-    fill_in "Address line 2", with: "Main Street"
-    fill_in "Town or City *", with: "Edinburgh"
-    fill_in "Postcode *", with: "EH12 8JF"
+    fill_in "Address line 1", with: "7"
+    fill_in "Address line 2 (optional)", with: "Main Street"
+    fill_in "Town or City", with: "Edinburgh"
+    fill_in "Postcode", with: "EH12 8JF"
   end
 
   def select_first_option(field_label)
