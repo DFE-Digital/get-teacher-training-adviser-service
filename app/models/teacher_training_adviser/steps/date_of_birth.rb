@@ -1,14 +1,30 @@
 module TeacherTrainingAdviser::Steps
   class DateOfBirth < Wizard::Step
-    attribute :date_of_birth, :date
-    attribute "date_of_birth(3i)", :string
-    attribute "date_of_birth(2i)", :string
-    attribute "date_of_birth(1i)", :string
+    # multi parameter date fields aren't yet support by ActiveModel so we
+    # need to include the support for them from ActiveRecord
+    require "active_record/attribute_assignment"
+    include ::ActiveRecord::AttributeAssignment
 
-    before_validation :make_a_date
+    MIN_AGE = 18
+    MAX_AGE = 70
+
+    attribute :date_of_birth, :date
 
     validates :date_of_birth, presence: { message: "You need to enter your date of birth" }
-    validate :date_cannot_be_in_the_future, :age_limit, :upper_age_limit
+    validates :date_of_birth, timeliness: { on_or_before: MIN_AGE.years.ago, on_or_after: MAX_AGE.years.ago }
+    before_validation :date_of_birth, :add_invalid_error
+
+    # Rescue argument error thrown by
+    # validates_timeliness/extensions/multiparameter_handler.rb
+    # when the user enters a DOB like `-1, -1, -2`.
+    # date of birth will be unset and a custom error message later added
+    def date_of_birth=(value)
+      @date_of_birth_invalid = false
+      super
+    rescue ArgumentError
+      @date_of_birth_invalid = true
+      nil
+    end
 
     def self.contains_personal_details?
       true
@@ -20,35 +36,10 @@ module TeacherTrainingAdviser::Steps
       }
     end
 
-    def date_cannot_be_in_the_future
-      if date_of_birth.present? && date_of_birth > Time.zone.today
-        errors.add(:date_of_birth, "Date can't be in the future")
-      end
-    end
+  private
 
-    def age_limit
-      if date_of_birth.present? && date_of_birth > Time.zone.today.years_ago(18)
-        errors.add(:date_of_birth, "You must be 18 years or older to use this service")
-      end
-    end
-
-    def upper_age_limit
-      if date_of_birth.present? && date_of_birth < Time.zone.today.years_ago(70)
-        errors.add(:date_of_birth, "You must be less than 70 years old")
-      end
-    end
-
-    def make_a_date
-      year = send("date_of_birth(1i)").to_i
-      month = send("date_of_birth(2i)").to_i
-      day = send("date_of_birth(3i)").to_i
-
-      begin
-        self.date_of_birth = Date.new(year, month, day)
-      # catch invalid dates, e.g. 31 Feb
-      rescue ArgumentError
-        nil
-      end
+    def add_invalid_error
+      errors.add(:date_of_birth, "You did not enter a valid date of birth") if @date_of_birth_invalid
     end
   end
 end

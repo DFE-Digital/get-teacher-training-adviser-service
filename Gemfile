@@ -28,6 +28,8 @@ gem "govuk_design_system_formbuilder"
 
 gem "secure_headers"
 
+gem "validates_timeliness"
+
 gem "dotenv-rails"
 
 # redis for session store
