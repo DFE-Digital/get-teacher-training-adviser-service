@@ -11,7 +11,12 @@ module TeacherTrainingAdviser::Steps
     attribute :date_of_birth, :date
 
     validates :date_of_birth, presence: { message: "You need to enter your date of birth" }
-    validates :date_of_birth, timeliness: { on_or_before: MIN_AGE.years.ago, on_or_after: MAX_AGE.years.ago }
+    validates :date_of_birth, timeliness: {
+      on_or_before: MIN_AGE.years.ago,
+      on_or_before_message: "You must be 18 years or older to use this service",
+      on_or_after: MAX_AGE.years.ago,
+      on_or_after_message: "You must be less than 70 years old",
+    }
     before_validation :date_of_birth, :add_invalid_error
 
     # Rescue argument error thrown by
