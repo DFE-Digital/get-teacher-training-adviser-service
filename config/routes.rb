@@ -21,5 +21,7 @@ Rails.application.routes.draw do
   get "/privacy-policy", to: "pages#privacy_policy", as: :privacy_policy
   get "/session-expired", to: "pages#session_expired", as: :session_expired
 
+  resource "cookie_preference", only: %i[show]
+
   get "/:page", to: "pages#show"
 end
