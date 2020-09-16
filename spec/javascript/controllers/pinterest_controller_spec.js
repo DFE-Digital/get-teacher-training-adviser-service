@@ -10,5 +10,6 @@ describe('PinterestController', () => {
   // window appears to not be getting redefined between runs, so remove manually
   afterEach(() => { delete window.pintrk })
 
-  AnalyticsHelper.describeAnalytics('pinterest', PinterestController, 'pintrk')
+  AnalyticsHelper.describeWithCookieSet('pinterest', PinterestController, 'pintrk', 'marketing')
+  AnalyticsHelper.describeWhenEventFires('pinterest', PinterestController, 'pintrk', 'marketing')
 })
