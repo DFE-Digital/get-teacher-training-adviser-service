@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get "/sitemap", to: "sitemaps#index"
   get "/healthcheck.json", to: "healthchecks#show", as: :healthcheck
   get "/privacy-policy", to: "pages#privacy_policy", as: :privacy_policy
+  get "/cookie-policy", to: "pages#cookie_policy", as: :cookie_policy
   get "/session-expired", to: "pages#session_expired", as: :session_expired
 
   resource "cookie_preference", only: %i[show]

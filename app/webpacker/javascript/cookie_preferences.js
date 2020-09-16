@@ -1,7 +1,7 @@
 const Cookies = require('js-cookie') ;
 
 export default class CookiePreferences {
-  static cookieBaseName = "git-cookie-preferences" ;
+  static cookieBaseName = "gta-cookie-preferences" ;
   static cookieVersion = 1 ;
   static cookieLifetimeInDays = 90 ;
   static alwaysOnCategory = 'functional' ;

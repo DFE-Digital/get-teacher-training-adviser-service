@@ -24,7 +24,7 @@ describe('CookiePreferences', () => {
 
   describe("cookieName", () => {
     it("should include version number", () => {
-      expect(CookiePreferences.cookieName).toBe("git-cookie-preferences-v1")
+      expect(CookiePreferences.cookieName).toBe("gta-cookie-preferences-v1")
     })
   })
 
