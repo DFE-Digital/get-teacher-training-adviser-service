@@ -1,15 +1,19 @@
-<p>
-  <%= back_link step_path(wizard.previous_key) if wizard.previous_key %>
-</p>
+<div role="navigation">
+  <p>
+    <%= back_link step_path(wizard.previous_key) if wizard.previous_key %>
+  </p>
+</div>
 
 <main class="govuk-main-wrapper no-margin" id="main-content" role="main">
-  <%= govuk_form_for current_step, url: step_path do |f| %>
-    <%= f.govuk_error_summary %>
+  <div class="govuk-width-container">
+    <%= govuk_form_for current_step, url: step_path do |f| %>
+      <%= f.govuk_error_summary %>
 
-    <%= render current_step.key, current_step: current_step, f: f %>
+      <%= render current_step.key, current_step: current_step, f: f %>
 
-    <% if wizard.can_proceed? %>
-      <%= f.govuk_submit(wizard.last_step? ? "Complete" : "Continue") %>
+      <% if wizard.can_proceed? %>
+        <%= f.govuk_submit(wizard.last_step? ? "Complete" : "Continue") %>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </main>
