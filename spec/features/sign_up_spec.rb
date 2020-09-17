@@ -107,7 +107,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_text "You told us you live overseas"
-      fill_in "Contact telephone number *", with: "1234567"
+      fill_in "Contact telephone number", with: "1234567"
       select "(GMT-10:00) Hawaii"
       click_on "Continue"
 
