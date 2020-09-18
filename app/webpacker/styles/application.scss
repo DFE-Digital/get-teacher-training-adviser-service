@@ -36,4 +36,73 @@ $govuk-image-url-function: frontend-image-url;
 
 @import 'cookie-banner' ;
 
+.footer-bottom {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__logo-container {
+      vertical-align: top;
+      width: 124px;
+      height: 73px;
+
+      img {
+          width: 124px;
+          height: 73px;
+      }
+  }
+
+  &__links-container {
+      text-align: right;
+      vertical-align: top;
+      color: #0b0c0c;
+      font-size: 16px;
+      letter-spacing: 0px;
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+
+      a {
+          color: #0b0c0c;
+          margin-left: 5px;
+          margin-right: 5px;
+          text-decoration: underline;
+          white-space: nowrap;
+          display: block;
+
+          &:hover {
+              text-decoration: none;
+          }
+          &:focus {
+              color: #000;
+              text-decoration: none;
+          }
+          &:before {
+              content: "|";
+              display: inline-block;
+              margin-right: 13px;
+          }
+          &:first-child:before {
+              content: "";
+              display: none;
+              margin: 0;
+          }
+      }
+      &__license {
+          a {
+              display: inline;
+              margin: 0;
+              &:before {
+                  content: "";
+                  display: none;
+              }
+          }
+      }
+  }
+}
+
+
+
 
