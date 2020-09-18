@@ -3,6 +3,7 @@ module TeacherTrainingAdviser::Steps
     attribute :uk_or_overseas, :string
     attribute :country_id, :string
 
+    UK_COUNTRY_ID = "72f5c2e6-74f9-e811-a97a-000d3a2760f2".freeze
     OPTIONS = { uk: "UK", overseas: "Overseas" }.freeze
 
     validates :uk_or_overseas, inclusion: { in: OPTIONS.values, message: "Select if you live in the UK or overseas" }
@@ -16,9 +17,7 @@ module TeacherTrainingAdviser::Steps
 
     def uk_or_overseas=(value)
       super
-      if value == OPTIONS[:uk]
-        self.country_id = GetIntoTeachingApiClient::TypesApi.new.get_country_types.find { |v| v.value = "United Kingdom" }.id
-      end
+      self.country_id = UK_COUNTRY_ID if value == OPTIONS[:uk]
     end
   end
 end
