@@ -55,7 +55,4 @@ module ApplicationHelper
       safe_html_format("Change <span class='visually-hidden'> #{step.key.humanize(capitalize: false)}</span>")
     end
   end
-
-  
-
 end
