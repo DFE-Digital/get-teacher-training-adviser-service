@@ -33,7 +33,10 @@ export default class extends AnalyticsBaseController {
   }
 
   sendEvent() {
-    /* No-op GTM notices the page history update */
+    if (this.serviceAction)
+      super.sendEvent() ;
+
+    /* Otherwise no-op GTM notices the page history update */
   }
 
 }

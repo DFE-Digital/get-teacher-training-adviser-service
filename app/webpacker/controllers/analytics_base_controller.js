@@ -25,7 +25,7 @@ export default class extends Controller {
   }
 
   get isEnabled() {
-    return (this.serviceId && this.data.has('action') && this.data.has('event')) ;
+    return (this.serviceId && this.data.has('action')) ;
   }
 
   triggerEvent() {
