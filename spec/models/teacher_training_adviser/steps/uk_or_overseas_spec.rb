@@ -30,12 +30,8 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkOrOverseas do
 
   describe "#uk_or_overseas=" do
     it "sets country_id when UK" do
-      country = GetIntoTeachingApiClient::TypeEntity.new(id: "abc-123", value: "United Kingdom")
-      allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
-        receive(:get_country_types) { [country] }
-
       subject.uk_or_overseas = TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]
-      expect(subject.country_id).to eq(country.id)
+      expect(subject.country_id).to eq(TeacherTrainingAdviser::Steps::UkOrOverseas::UK_COUNTRY_ID)
     end
 
     it "does nothing when overseas" do
