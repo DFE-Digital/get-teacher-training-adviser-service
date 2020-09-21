@@ -37,8 +37,24 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
 
     let(:years) { subject.year_range }
 
-    it "returns 'Not sure', and the current year plus next 3 years" do
-      expect(years.map(&:value)).to eq(["Not sure", 2020, 2021, 2022, 2023])
+    context "when its on or before 17th September of the current year" do
+      around do |example|
+        travel_to(Date.new(2020, 9, 17)) { example.run }
+      end
+
+      it "returns 'Not sure', and the current year plus next 2 years" do
+        expect(years.map(&:value)).to eq(["Not sure", 2020, 2021, 2022])
+      end
+    end
+
+    context "when its after 17th September of the current year" do
+      around do |example|
+        travel_to(Date.new(2020, 9, 18)) { example.run }
+      end
+
+      it "returns 'Not sure', and the next 3 years" do
+        expect(years.map(&:value)).to eq(["Not sure", 2021, 2022, 2023])
+      end
     end
   end
 
