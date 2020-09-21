@@ -50,6 +50,9 @@ group :development, :test do
   gem "rubocop-govuk"
   gem "scss_lint-govuk"
 
+  # Static security scanner
+  gem "brakeman", require: false
+
   # Debugging
   gem "pry-byebug"
 

@@ -1,8 +1,11 @@
 class PagesController < ApplicationController
-  rescue_from ActionView::MissingTemplate, with: :rescue_missing_template
+  PAGE_TEMPLATE_FILTER = %r{\A[a-zA-Z0-9][a-zA-Z0-9_\-/]*(\.[a-zA-Z]+)?\z}.freeze
+  class InvalidTemplateName < RuntimeError; end
+
+  rescue_from ActionView::MissingTemplate, InvalidTemplateName, with: :rescue_missing_template
 
   def show
-    render template: "pages/#{params[:page]}"
+    render template: page_template
   end
 
   def session_expired
@@ -26,6 +29,16 @@ class PagesController < ApplicationController
   end
 
 private
+
+  def page_template
+    "pages/#{filtered_page_template}"
+  end
+
+  def filtered_page_template(page_param = :page)
+    params[page_param].to_s.tap do |page|
+      raise InvalidTemplateName if page !~ PAGE_TEMPLATE_FILTER
+    end
+  end
 
   def rescue_missing_template
     respond_to do |format|

@@ -53,5 +53,11 @@ RSpec.describe PagesController, type: :request do
       it { is_expected.to have_http_status :not_found }
       it { expect(response.body).to match "The page you were looking for doesn't exist" }
     end
+
+    context "for invalid page" do
+      before { get "/!invalid" }
+      it { is_expected.to have_http_status :not_found }
+      it { expect(response.body).to match "The page you were looking for doesn't exist" }
+    end
   end
 end
