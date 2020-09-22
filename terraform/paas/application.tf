@@ -7,7 +7,7 @@ resource "cloudfoundry_app" "adviser_application" {
     memory       = 1024
     timeout      = 1000
     service_binding  {
-            service_instance = cloudfoundry_service_instance.redis.id
+            service_instance = data.cloudfoundry_service_instance.redis.id
     }
     dynamic "service_binding" {
       for_each = data.cloudfoundry_user_provided_service.logging
