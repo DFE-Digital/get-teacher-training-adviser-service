@@ -7,7 +7,7 @@ SecureHeaders::Configuration.default do |config|
   config.x_permitted_cross_domain_policies = "none"
   config.referrer_policy = %w[origin-when-cross-origin strict-origin-when-cross-origin]
 
-  google_analytcs = "https://www.google-analytics.com"
+  google_analytcs = "www.google-analytics.com"
 
   config.csp = {
     default_src: %w['none'],
