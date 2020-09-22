@@ -36,7 +36,7 @@ variable "paas_logging_endpoint_port" {
 }
 
 variable "paas_redis_1_name" {
-    default = "get-into-teaching-adviser-dev-red-svc"
+    default = "get-into-teaching-dev-redis-svc"
 }
 
 variable "paas_space" {
