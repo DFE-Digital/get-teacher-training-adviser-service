@@ -109,6 +109,45 @@ RSpec.describe ApplicationHelper do
     end
   end
 
+  describe "link_to_git" do
+    let(:url) { "http://test.url/" }
+    subject { link_to_git_site }
+
+    before do
+      allow(ENV).to receive(:[]).and_call_original
+      allow(ENV).to receive(:[]).with("GIT_URL").and_return url
+    end
+
+    context "without text" do
+      it { is_expected.to have_css 'a[href="http://test.url/"]' }
+      it { is_expected.to have_css "a", text: "Get into Teaching" }
+    end
+
+    context "with text" do
+      subject { link_to_git_site "Teaching site" }
+      it { is_expected.to have_css 'a[href="http://test.url/"]' }
+      it { is_expected.to have_css "a", text: "Teaching site" }
+    end
+
+    context "with attributes" do
+      subject { link_to_git_site "Teaching site", class: "govuk-link" }
+      it { is_expected.to have_css 'a.govuk-link[href="http://test.url/"]' }
+      it { is_expected.to have_css "a.govuk-link", text: "Teaching site" }
+    end
+
+    context "without URL set" do
+      before { allow(ENV).to receive(:[]).with("GIT_URL").and_return nil }
+      it { is_expected.to have_css 'a[href="/url-not-set"]' }
+      it { is_expected.to have_css "a", text: "Get into Teaching" }
+    end
+
+    context "without URL set" do
+      before { allow(ENV).to receive(:[]).with("GIT_URL").and_return "" }
+      it { is_expected.to have_css 'a[href="/url-not-set"]' }
+      it { is_expected.to have_css "a", text: "Get into Teaching" }
+    end
+  end
+
   class StubModel
     include ActiveModel::Model
   end
