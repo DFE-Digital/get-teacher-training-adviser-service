@@ -25,6 +25,55 @@ RSpec.describe Healthcheck do
     end
   end
 
+  describe "test_api" do
+    subject { described_class.new.test_api }
+
+    context "with working api connection" do
+      it { is_expected.to be true }
+    end
+
+    context "with broken connection" do
+      before do
+        allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
+          receive(:get_teaching_subjects).and_raise \
+            Faraday::TimeoutError.new("Timeout")
+      end
+
+      it { is_expected.to be false }
+    end
+  end
+
+  describe "#test_redis" do
+    before do
+      allow(ENV).to receive(:[]).and_call_original
+      allow(ENV).to receive(:[]).with("REDIS_URL").and_return \
+        "redis://localhost:6379/1"
+    end
+
+    subject { described_class.new.test_redis }
+
+    context "with working connection" do
+      before do
+        allow(Redis).to receive(:current).and_return double(Redis, ping: "PONG")
+      end
+
+      it { is_expected.to be true }
+    end
+
+    context "with broken connection" do
+      before do
+        allow(Redis).to receive(:current).and_raise Redis::CannotConnectError
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context "with no configured connection" do
+      before { allow(ENV).to receive(:[]).with("REDIS_URL").and_return nil }
+      it { is_expected.to be nil }
+    end
+  end
+
   describe "#to_h" do
     subject { described_class.new.to_h }
     it { is_expected.to include :app_sha }
