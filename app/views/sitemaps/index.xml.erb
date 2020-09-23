@@ -4,7 +4,7 @@
     <loc><%= @host %></loc>
     <lastmod><%= Time.now.strftime("%Y-%m-%dT%H:%M:%S")%></lastmod>
   </url>
-  <% static_urls = ["/privacy_policy", "/cookie_policy"] %>
+  <% static_urls = ["/privacy_policy", "/cookies"] %>
   <% static_urls.each do |static_url| %>
   <url>
     <loc><%= "#{@host}" + "#{static_url}" %></loc>
