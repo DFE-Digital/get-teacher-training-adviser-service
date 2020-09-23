@@ -5,7 +5,7 @@ on:
 
 env:
   DOCKERHUB_REPOSITORY: dfedigital/get-teacher-training-adviser-service
-  TF_VAR_RAILS_ENV:     "Production"
+  TF_VAR_RAILS_ENV:     "production"
   CF_PROVIDER_DIR:     "$HOME/.terraform.d/plugins/linux_amd64/terraform-provider-cloudfoundry"
   CF_PROVIDER_URL:     https://github.com/cloudfoundry-community/terraform-provider-cloudfoundry/releases/download/v0.12.3/terraform-provider-cloudfoundry_v0.12.3_linux_amd64
 
