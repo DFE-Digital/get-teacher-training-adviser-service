@@ -1,7 +1,9 @@
 <div role="navigation">
-  <p>
-    <%= back_link step_path(wizard.previous_key) if wizard.previous_key %>
-  </p>
+  <div class="govuk-width-container">
+    <p>
+      <%= back_link step_path(wizard.previous_key) if wizard.previous_key %>
+    </p>
+  </div>
 </div>
 
 <main class="govuk-main-wrapper no-margin" id="main-content" role="main">
