@@ -1,18 +1,11 @@
 module TeacherTrainingAdviser::Steps
   class OverseasTimeZone < Wizard::Step
-    attribute :time_zone, :string
     attribute :telephone, :string
 
-    validates :time_zone, presence: { message: "Select a time zone" }
     validates :telephone, telephone: true, presence: { message: "Enter a telephone number" }
-
-    def filtered_time_zones
-      ActiveSupport::TimeZone.all.drop(1)
-    end
 
     def reviewable_answers
       {
-        "time_zone" => time_zone,
         "telephone" => telephone,
       }
     end

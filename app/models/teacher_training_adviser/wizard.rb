@@ -32,13 +32,12 @@ module TeacherTrainingAdviser
       Steps::OverseasTelephone,
       Steps::UkCallback,
       Steps::OverseasTimeZone,
-      Steps::OverseasCallback,
       Steps::ReviewAnswers,
       Steps::AcceptPrivacyPolicy,
     ].freeze
 
     def time_zone
-      find(Steps::OverseasTimeZone.key).time_zone || "London"
+      "London"
     end
 
     def complete!
