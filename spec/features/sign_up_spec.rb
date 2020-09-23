@@ -106,7 +106,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       select "Argentina"
       click_on "Continue"
 
-      expect(page).to have_text "You told us you live overseas"
+      expect(page).to have_text "You told us you have an equivalent degree and live overseas"
       fill_in "Contact telephone number", with: "1234567"
       select "(GMT-10:00) Hawaii"
       click_on "Continue"
@@ -431,7 +431,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       expect(find_field("Postcode").value).to eq("TE7 1NG")
       click_on "Continue"
 
-      expect(page).to have_text "You told us you live in the United Kingdom"
+      expect(page).to have_text "You told us you have an equivalent degree and live in the United Kingdom"
       expect(find_field("Contact telephone number").value).to eq("123456789")
       select_first_option "Select your preferred day and time for a callback"
       click_on "Continue"
