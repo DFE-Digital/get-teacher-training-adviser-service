@@ -25,7 +25,7 @@ SecureHeaders::Configuration.default do |config|
     script_src: %W['self' 'unsafe-inline' *.googleapis.com *.gov.uk code.jquery.com #{google_analytcs} *.facebook.net *.googletagmanager.com *.hotjar.com *.pinimg.com sc-static.net static.ads-twitter.com analytics.twitter.com],
     style_src: %w['self' 'unsafe-inline' *.gov.uk *.googleapis.com],
     worker_src: %w['self'],
-    upgrade_insecure_requests: true, # see https://www.w3.org/TR/upgrade-insecure-requests/
+    upgrade_insecure_requests: !Rails.env.development?, # see https://www.w3.org/TR/upgrade-insecure-requests/
     report_uri: [ENV["SENTRY_CSP_REPORT_URI"]],
   }
 end
