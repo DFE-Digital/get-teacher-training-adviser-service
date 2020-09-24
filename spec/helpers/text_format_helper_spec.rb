@@ -35,7 +35,7 @@ RSpec.describe TextFormatHelper, type: :helper do
     subject { safe_html_format html }
 
     context "with allowed HTML" do
-      let(:html) { "<p><strong>hello</strong> <a href=\"http://test.com\">world</a></p><ul><li>test</li></ul>" }
+      let(:html) { "<p><strong>hello</strong><br><a href=\"http://test.com\">world</a></p><ul><li>test</li></ul>" }
       it { is_expected.to eql html }
     end
 

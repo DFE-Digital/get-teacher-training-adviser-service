@@ -7,6 +7,6 @@ module TextFormatHelper
   end
 
   def safe_html_format(html)
-    sanitize html, tags: %w[strong a ul li p b span], attributes: %w[href class]
+    sanitize html, tags: %w[strong a ul li p b span br], attributes: %w[href class]
   end
 end
