@@ -2,7 +2,7 @@ require "rails_helper"
 require "webmock"
 
 contract_fixture_files = []
-Dir.glob("tmp/contracts/candidate_*.json") do |filename|
+Dir.glob("contracts/candidate_*.json") do |filename|
   contract_fixture_files.push filename
 end
 
@@ -24,16 +24,16 @@ unless contract_fixture_files.empty?
   signup_for_teacher_training_adviser_api = "#{Rails.application.config.x.git_api_endpoint}#{signup_for_teacher_training_adviser_api_uri}"
 
   # load the reference data files for the API responses
-  privacy_policy_body = JSON.parse(File.read("tmp/contracts/privacy_policy.json"))
-  degree_status_body = JSON.parse(File.read("tmp/contracts/degree_status.json"))
-  teaching_subjects_body = JSON.parse(File.read("tmp/contracts/teaching_subjects.json"))
-  countries_body = JSON.parse(File.read("tmp/contracts/countries.json"))
-  uk_degree_grades_body = JSON.parse(File.read("tmp/contracts/uk_degree_grades.json"))
-  education_phases_body = JSON.parse(File.read("tmp/contracts/education_phases.json"))
-  retake_gcse_status_body = JSON.parse(File.read("tmp/contracts/retake_gcse_status.json"))
-  initial_teacher_training_years_body = JSON.parse(File.read("tmp/contracts/initial_teacher_training_years.json"))
-  qualification_types_body = JSON.parse(File.read("tmp/contracts/qualification_types.json"))
-  booking_quotas_body = JSON.parse(File.read("tmp/contracts/booking_quotas.json"))
+  privacy_policy_body = JSON.parse(File.read("contracts/privacy_policy.json"))
+  degree_status_body = JSON.parse(File.read("contracts/degree_status.json"))
+  teaching_subjects_body = JSON.parse(File.read("contracts/teaching_subjects.json"))
+  countries_body = JSON.parse(File.read("contracts/countries.json"))
+  uk_degree_grades_body = JSON.parse(File.read("contracts/uk_degree_grades.json"))
+  education_phases_body = JSON.parse(File.read("contracts/education_phases.json"))
+  retake_gcse_status_body = JSON.parse(File.read("contracts/retake_gcse_status.json"))
+  initial_teacher_training_years_body = JSON.parse(File.read("contracts/initial_teacher_training_years.json"))
+  qualification_types_body = JSON.parse(File.read("contracts/qualification_types.json"))
+  booking_quotas_body = JSON.parse(File.read("contracts/booking_quotas.json"))
 end
 
 def yes_no_options(option)
