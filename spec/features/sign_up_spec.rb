@@ -107,12 +107,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_text "You told us you have an equivalent degree and live overseas"
-      fill_in "Contact telephone number", with: "1234567"
-      select "(GMT-10:00) Hawaii"
-      click_on "Continue"
-
-      expect(page).to have_text "Choose a time"
-      select_first_option "Select your preferred day and time for a callback"
+      fill_in "Contact telephone number", with: "123456789"
       click_on "Continue"
 
       expect(page).to have_text "Check your answers before you continue"

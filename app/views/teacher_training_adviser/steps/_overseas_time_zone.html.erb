@@ -1,14 +1,8 @@
 <%= f.govuk_fieldset legend: { text: 'You told us you have an equivalent degree and live overseas' } do %>
 
-<p class="govuk-body">You need to book a callback with us.  We will contact you once your call is booked.</p>
+<p class="govuk-body">You need to book a callback with us. We will contact you once your call is booked. If you use an international phone number there may be a short delay in one of us contacting you. </p>
 <p class="govuk-body">You must have the details of your overseas qualifications when we contact you.</p>
 
 <%= f.govuk_phone_field :telephone, width: 20,
   label: { text: 'Contact telephone number' } %>
-
-<div class="govuk-form-group">
-  <%= f.label 'Select your time zone', class: "govuk-label" %>
-  <%= f.time_zone_select :time_zone, f.object.filtered_time_zones, {}, { class: "govuk-select" }  %>
-</div>
-
 <% end %>
