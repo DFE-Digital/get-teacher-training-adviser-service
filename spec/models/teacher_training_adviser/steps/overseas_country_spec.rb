@@ -9,6 +9,23 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasCountry do
     it { is_expected.to respond_to :country_id }
   end
 
+  describe ".options" do
+    it "does not return the ignored countries" do
+      types = [
+        GetIntoTeachingApiClient::TypeEntity.new(id: "1", value: "one"),
+      ]
+
+      types += described_class::IGNORE_COUNTRY_IDS.map do |id|
+        GetIntoTeachingApiClient::TypeEntity.new(id: id, value: "ignored")
+      end
+
+      allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
+        receive(:get_country_types) { types }
+
+      expect(described_class.options.values).to contain_exactly("1")
+    end
+  end
+
   describe "country_id" do
     it "allows a valid country id" do
       country = GetIntoTeachingApiClient::TypeEntity.new(id: "abc-123")
