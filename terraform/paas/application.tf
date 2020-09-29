@@ -21,9 +21,7 @@ resource "cloudfoundry_app" "adviser_application" {
         route = routes.value["id"]
       }
     }
-    routes {
-        route = cloudfoundry_route.adviser_route.id
-    }    
+
     environment = {
        HTTPAUTH_PASSWORD = var.HTTPAUTH_PASSWORD
        HTTPAUTH_USERNAME = var.HTTPAUTH_USERNAME
@@ -33,14 +31,3 @@ resource "cloudfoundry_app" "adviser_application" {
     }    
 }
 
-resource "cloudfoundry_route" "adviser_route" {
-    domain = data.cloudfoundry_domain.cloudapps.id
-    space = data.cloudfoundry_space.space.id
-    hostname =  var.paas_adviser_route_name
-}
-
-data "cloudfoundry_route" "app_route_internet" {
-    count = var.additional_routes
-    domain = data.cloudfoundry_domain.internet.id
-    hostname = var.paas_additional_route_name
-}
