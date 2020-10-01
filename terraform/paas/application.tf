@@ -15,11 +15,20 @@ resource "cloudfoundry_app" "adviser_application" {
         service_instance = service_binding.value["id"]
       }
     }
+
     dynamic "routes" {
       for_each = data.cloudfoundry_route.app_route_internet
       content {
         route = routes.value["id"]
       }
+    }
+
+    routes {
+      route = cloudfoundry_route.adviser_route.id
+    }
+
+    routes {
+      route = cloudfoundry_route.app_route_internal.id
     }
 
     environment = {
@@ -30,4 +39,5 @@ resource "cloudfoundry_app" "adviser_application" {
        SECRET_KEY_BASE   = var.RAILS_MASTER_KEY
     }    
 }
+
 
