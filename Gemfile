@@ -35,6 +35,8 @@ gem "dotenv-rails"
 # redis for session store
 gem "redis"
 
+gem "prometheus-client"
+
 gem "country_select", "~> 4.0"
 
 # api client
