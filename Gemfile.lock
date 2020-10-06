@@ -159,6 +159,7 @@ GEM
     parallel (1.19.2)
     parser (2.7.1.4)
       ast (~> 2.4.1)
+    prometheus-client (2.1.0)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -343,6 +344,7 @@ DEPENDENCIES
   get_into_teaching_api_client_faraday!
   govuk_design_system_formbuilder
   listen (>= 3.0.5, < 3.3)
+  prometheus-client
   pry-byebug
   puma (~> 4.3)
   rails (~> 6.0.3)
