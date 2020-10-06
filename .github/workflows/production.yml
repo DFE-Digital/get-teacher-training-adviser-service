@@ -2,6 +2,10 @@
 name: Release to Production
 on: 
   workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Release Tag'
+        required: true
 
 env:
   DOCKERHUB_REPOSITORY: dfedigital/get-teacher-training-adviser-service
@@ -17,12 +21,25 @@ jobs:
       run:
         shell: bash
     steps:
+
+       - name: Check Tag is a Release
+         run: |
+               rval=$(curl -s -X GET https://api.github.com/repos/DFE-Digital/get-teacher-training-adviser-service/releases/tags/${{ github.event.inputs.tags }} | jq -r ".message")
+               if [ "${rval}" = "Not Found" ]
+               then
+                   echo "Tag ${{ github.event.inputs.tags }} cannot be found in releases"
+                   exit 1
+               fi
+               exit 0
+
        - name: Checkout
          uses: actions/checkout@v2
+         with:
+             ref: "${{ github.event.inputs.tags }}"
 
        - name: Get Short SHA
          id: sha
-         run: echo ::set-output name=short::$(git rev-parse --short $GITHUB_SHA)
+         run: echo ::set-output name=short::$(git rev-parse --short HEAD)
 
        - uses: hashicorp/setup-terraform@v1
          with:
@@ -63,39 +80,39 @@ jobs:
               TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
               ARM_ACCESS_KEY:           "${{ secrets.PROD_ARM_ACCESS_KEY  }}"
 
-       - name: Terraform Apply
-         run: |
-             cd terraform/paas && pwd
-             terraform apply -auto-approve plan
-         env:
-              TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
-              TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
-              ARM_ACCESS_KEY:           "${{ secrets.PROD_ARM_ACCESS_KEY  }}"
-
-       - name: Smoke tests
-         run: |
-             tests/confidence/healthcheck.sh  "get-teacher-training-adviser-service-prod"  "${{ steps.sha.outputs.short }}"
-         env:
-             HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
-             HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
-   
-       - name: Create Sentry release
-         if: success()
-         uses: getsentry/action-release@v1.0.0
-         env:
-           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-         with:
-           environment:  production
-           
-       - name: Slack Notification
-         if: failure()
-         uses: rtCamp/action-slack-notify@master
-         env:
-           SLACK_CHANNEL: getintoteaching_tech
-           SLACK_COLOR: '#3278BD'
-           SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_MESSAGE: ':disappointed_relieved: Pipeline Failure carrying out job ${{github.job}} :disappointed_relieved:'
-           SLACK_TITLE: 'Failure: ${{ github.workflow }}'
-           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+#      - name: Terraform Apply
+#        run: |
+#            cd terraform/paas && pwd
+#            terraform apply -auto-approve plan
+#        env:
+#             TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
+#             TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
+#             ARM_ACCESS_KEY:           "${{ secrets.PROD_ARM_ACCESS_KEY  }}"
+#
+#      - name: Smoke tests
+#        run: |
+#            tests/confidence/healthcheck.sh  "get-teacher-training-adviser-service-prod"  "${{ steps.sha.outputs.short }}"
+#        env:
+#            HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
+#            HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
+#  
+#      - name: Create Sentry release
+#        if: success()
+#        uses: getsentry/action-release@v1.0.0
+#        env:
+#          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+#          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+#          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+#        with:
+#          environment:  production
+#          
+#      - name: Slack Notification
+#        if: failure()
+#        uses: rtCamp/action-slack-notify@master
+#        env:
+#          SLACK_CHANNEL: getintoteaching_tech
+#          SLACK_COLOR: '#3278BD'
+#          SLACK_ICON: https://github.com/rtCamp.png?size=48
+#          SLACK_MESSAGE: 'Pipeline has failed carrying out job ${{github.job}}'
+#          SLACK_TITLE: 'Failed to release Teacher Training Adviser Application to Production'
+#          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
