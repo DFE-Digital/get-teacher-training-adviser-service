@@ -6,11 +6,9 @@ else
 end
 %>
 
-<div class="govuk-form-group">
-  <%= f.label :uk_degree_grade_id, text, class: "govuk-label govuk-label--m" %>
-  <%= f.select :uk_degree_grade_id,
-    options_for_select(TeacherTrainingAdviser::Steps::WhatDegreeClass.options, selected: f.object.uk_degree_grade_id),
-    {},
-    { class: "govuk-select" }
-  %>
-</div>
+<%= f.govuk_collection_select :uk_degree_grade_id,
+  f.object.class.options,
+  :last,
+  :first,
+  label: { text: text, tag: "h1", size: "m" }
+%>

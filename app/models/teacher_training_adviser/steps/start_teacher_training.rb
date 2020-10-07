@@ -1,17 +1,12 @@
 module TeacherTrainingAdviser::Steps
   class StartTeacherTraining < Wizard::Step
-    extend ApiOptions
-
     attribute :initial_teacher_training_year_id, :integer
 
     validates :initial_teacher_training_year_id, types: { method: :get_candidate_initial_teacher_training_years, message: "You must select an option from the list" }
-    validate :date_cannot_be_in_the_past, unless: :dont_know
+    validate :date_cannot_be_in_the_past, unless: :not_sure?
 
     NUMBER_OF_YEARS = 3
-
-    def self.options
-      generate_api_options(GetIntoTeachingApiClient::TypesApi.new.get_candidate_initial_teacher_training_years)
-    end
+    NOT_SURE_ID = 12_917
 
     def reviewable_answers
       super.tap do |answers|
@@ -19,7 +14,6 @@ module TeacherTrainingAdviser::Steps
       end
     end
 
-    # sets year range for view, this must be within api range!
     def year_range
       years = GetIntoTeachingApiClient::TypesApi.new.get_candidate_initial_teacher_training_years
       years.select { |year| year.id.to_i == 12_917 || year.value.to_i.between?(first_year, first_year + (NUMBER_OF_YEARS - 1)) }
@@ -31,8 +25,8 @@ module TeacherTrainingAdviser::Steps
       end
     end
 
-    def dont_know
-      initial_teacher_training_year_id == self.class.options["Not sure"].to_i
+    def not_sure?
+      initial_teacher_training_year_id == NOT_SURE_ID
     end
 
     def skipped?

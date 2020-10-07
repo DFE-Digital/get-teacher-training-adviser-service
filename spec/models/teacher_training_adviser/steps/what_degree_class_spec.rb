@@ -3,7 +3,8 @@ require "rails_helper"
 RSpec.describe TeacherTrainingAdviser::Steps::WhatDegreeClass do
   include_context "wizard step"
   it_behaves_like "a wizard step"
-  it_behaves_like "a wizard step that exposes API types as options", :get_qualification_uk_degree_grades
+  it_behaves_like "a wizard step that exposes API types as options",
+                  :get_qualification_uk_degree_grades, described_class::OMIT_GRADE_IDS
 
   context "attributes" do
     it { is_expected.to respond_to :uk_degree_grade_id }
@@ -48,12 +49,6 @@ RSpec.describe TeacherTrainingAdviser::Steps::WhatDegreeClass do
     it "returns false if degree_options is not studying" do
       wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree]
       expect(subject).to_not be_studying
-    end
-  end
-
-  describe "#self.options" do
-    it "returns a hash of filtered options" do
-      expect(TeacherTrainingAdviser::Steps::WhatDegreeClass.options).to eq({ "Not applicable" => "222750000", "First class" => "222750001", "2:1" => "222750002", "2:2" => "222750003" })
     end
   end
 

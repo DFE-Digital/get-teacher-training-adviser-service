@@ -15,7 +15,7 @@ RSpec.shared_examples "a wizard step" do
   it { is_expected.to respond_to :save! }
 end
 
-RSpec.shared_examples "a wizard step that exposes API types as options" do |api_method|
+RSpec.shared_examples "a wizard step that exposes API types as options" do |api_method, omit_ids|
   it { expect(subject.class).to respond_to :options }
 
   it "it exposes API types as options" do
@@ -28,6 +28,17 @@ RSpec.shared_examples "a wizard step that exposes API types as options" do |api_
       receive(api_method) { types }
 
     expect(described_class.options).to eq({ "one" => "1", "two" => "2" })
+  end
+
+  if omit_ids
+    it "omits options with the ids #{omit_ids}" do
+      omitted_types = omit_ids.map { |id| GetIntoTeachingApiClient::TypeEntity.new(id: id, value: "omit-#{id}") }
+
+      allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
+        receive(api_method) { omitted_types }
+
+      expect(described_class.options).to be_empty
+    end
   end
 end
 

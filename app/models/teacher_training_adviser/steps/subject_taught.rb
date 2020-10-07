@@ -2,16 +2,16 @@ module TeacherTrainingAdviser::Steps
   class SubjectTaught < Wizard::Step
     extend ApiOptions
 
-    NO_PREFERENCE_ID = "bc68e0c1-7212-e911-a974-000d3a206976".freeze
+    OMIT_SUBJECT_IDS = [
+      "bc68e0c1-7212-e911-a974-000d3a206976", # No Preference
+    ].freeze
 
     attribute :subject_taught_id, :string
 
     validates :subject_taught_id, types: { method: :get_teaching_subjects }
 
     def self.options
-      generate_api_options(GetIntoTeachingApiClient::TypesApi.new.get_teaching_subjects).reject do |_, value|
-        value == NO_PREFERENCE_ID
-      end
+      generate_api_options(:get_teaching_subjects, OMIT_SUBJECT_IDS)
     end
 
     def skipped?

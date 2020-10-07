@@ -3,24 +3,11 @@ require "rails_helper"
 RSpec.describe TeacherTrainingAdviser::Steps::SubjectTaught do
   include_context "wizard step"
   it_behaves_like "a wizard step"
-  it_behaves_like "a wizard step that exposes API types as options", :get_teaching_subjects
+  it_behaves_like "a wizard step that exposes API types as options",
+                  :get_teaching_subjects, described_class::OMIT_SUBJECT_IDS
 
   context "attributes" do
     it { is_expected.to respond_to :subject_taught_id }
-  end
-
-  describe ".options" do
-    it "does not return the No Preference option" do
-      types = [
-        GetIntoTeachingApiClient::TypeEntity.new(id: "1", value: "one"),
-        GetIntoTeachingApiClient::TypeEntity.new(id: described_class::NO_PREFERENCE_ID, value: "two"),
-      ]
-
-      allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
-        receive(:get_teaching_subjects) { types }
-
-      expect(described_class.options.values).to_not include(described_class::NO_PREFERENCE_ID)
-    end
   end
 
   describe "#subject_taught_id" do
