@@ -7,7 +7,7 @@ class PolicyValidator < ActiveModel::EachValidator
     end
 
     unless policy
-      record.errors[attribute] << (options[:message] || "is not included in the list")
+      record.errors.add(attribute, :invalid_policy)
     end
   end
 end

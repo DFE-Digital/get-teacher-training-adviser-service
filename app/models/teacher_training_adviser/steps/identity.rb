@@ -6,9 +6,9 @@ module TeacherTrainingAdviser::Steps
     attribute :last_name, :string
     attribute :email, :string
 
-    validates :first_name, presence: { message: "You need to enter your first name" }, length: { maximum: 256 }
-    validates :last_name, presence: { message: "You need to enter your surname" }, length: { maximum: 256 }
-    validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: "You need to enter your email address" }, length: { maximum: 100 }
+    validates :first_name, presence: true, length: { maximum: 256 }
+    validates :last_name, presence: true, length: { maximum: 256 }
+    validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, length: { maximum: 100 }
 
     before_validation :sanitize_input
 

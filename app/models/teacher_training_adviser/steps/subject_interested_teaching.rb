@@ -4,7 +4,7 @@ module TeacherTrainingAdviser::Steps
 
     attribute :preferred_teaching_subject_id, :string
 
-    validates :preferred_teaching_subject_id, types: { method: :get_teaching_subjects, message: "Please select a subject" }
+    validates :preferred_teaching_subject_id, types: { method: :get_teaching_subjects }
 
     OMIT_SUBJECT_IDS = [
       "bc2655a1-2afa-e811-a981-000d3a276620", # Other

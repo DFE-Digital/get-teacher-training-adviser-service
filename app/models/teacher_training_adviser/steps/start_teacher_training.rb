@@ -2,7 +2,7 @@ module TeacherTrainingAdviser::Steps
   class StartTeacherTraining < Wizard::Step
     attribute :initial_teacher_training_year_id, :integer
 
-    validates :initial_teacher_training_year_id, types: { method: :get_candidate_initial_teacher_training_years, message: "You must select an option from the list" }
+    validates :initial_teacher_training_year_id, types: { method: :get_candidate_initial_teacher_training_years }
     validate :date_cannot_be_in_the_past, unless: :not_sure?
 
     NUMBER_OF_YEARS = 3

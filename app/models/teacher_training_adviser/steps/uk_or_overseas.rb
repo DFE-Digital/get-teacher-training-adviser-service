@@ -6,7 +6,7 @@ module TeacherTrainingAdviser::Steps
     UK_COUNTRY_ID = "72f5c2e6-74f9-e811-a97a-000d3a2760f2".freeze
     OPTIONS = { uk: "UK", overseas: "Overseas" }.freeze
 
-    validates :uk_or_overseas, inclusion: { in: OPTIONS.values, message: "Select if you live in the UK or overseas" }
+    validates :uk_or_overseas, inclusion: { in: OPTIONS.values }
     validates :country_id, types: { method: :get_country_types }, allow_nil: true
 
     def reviewable_answers

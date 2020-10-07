@@ -2,7 +2,7 @@ module TeacherTrainingAdviser::Steps
   class RetakeGcseScience < Wizard::Step
     attribute :planning_to_retake_gcse_science_id, :integer
 
-    validates :planning_to_retake_gcse_science_id, types: { method: :get_candidate_retake_gcse_status, message: "Select yes if you are planning to retake Science GCSE or equivalent" }
+    validates :planning_to_retake_gcse_science_id, types: { method: :get_candidate_retake_gcse_status }
 
     OPTIONS = Crm::OPTIONS
 

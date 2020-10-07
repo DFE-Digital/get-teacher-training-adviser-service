@@ -6,8 +6,8 @@ module Wizard
 
       attribute :timed_one_time_password
 
-      validates :timed_one_time_password, length: { is: 6, message: "The verification code should be 6 digits" },
-                                          format: { with: /\A[0-9]*\z/, message: "Please enter the latest verification code sent to your email address" }
+      validates :timed_one_time_password, length: { is: 6 },
+                                          format: { with: /\A[0-9]*\z/ }
       validate :timed_one_time_password_is_correct, if: :perform_api_check?
 
       before_validation if: :timed_one_time_password do
@@ -74,7 +74,10 @@ module Wizard
         request = GetIntoTeachingApiClient::ExistingCandidateRequest.new(candidate_identity_data)
         @totp_response ||= perform_existing_candidate_request(request)
       rescue GetIntoTeachingApiClient::ApiError
-        errors.add(:timed_one_time_password, "Please enter the latest verification code sent to your email address")
+        errors.add(
+          :timed_one_time_password,
+          I18n.t("activemodel.errors.models.wizard/steps/authenticate.attributes.timed_one_time_password.invalid"),
+        )
       end
 
       def prepopulate_store
