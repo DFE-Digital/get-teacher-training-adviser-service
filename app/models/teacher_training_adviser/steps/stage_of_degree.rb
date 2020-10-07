@@ -4,7 +4,7 @@ module TeacherTrainingAdviser::Steps
     # overwrites session[:sign_up]["degree_status_id"]
     attribute :degree_status_id, :integer
 
-    validates :degree_status_id, types: { method: :get_qualification_degree_status, message: "Select which year you are currently studying" }
+    validates :degree_status_id, types: { method: :get_qualification_degree_status }
 
     def skipped?
       returning_teacher = @store["returning_to_teaching"]

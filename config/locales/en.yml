@@ -29,6 +29,11 @@
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
 
+telephone_errors: &telephone_errors
+  invalid: "Enter a telephone number in the correct format"
+  too_short: "Telephone number is too short (minimum is 5 characters)"
+  too_long: "Telephone number is too long (maximum is 20 characters)"
+
 en:
   have_a_degree:
     degree_options:
@@ -91,3 +96,112 @@ en:
       uk_degree_grade_id: "Which class is your degree?"
     what_subject_degree:
       degree_subject: "Which subject is your degree?"
+  activemodel:
+    errors:
+      models:
+        wizard/steps/authenticate:
+          attributes:
+            timed_one_time_password:
+              invalid: Please enter the latest verification code sent to your email address
+              wrong_length: The verification code should be 6 digits 
+        teacher_training_adviser/steps/identity:
+          attributes:
+            first_name:
+              blank: "You need to enter your first name"
+            last_name:
+              blank: "You need to enter your surname"
+            email:
+              invalid: "You need to enter your email address"
+        teacher_training_adviser/steps/what_degree_class:
+          attributes:
+            uk_degree_grade_id:
+              inclusion: "Select an option from the list"
+        teacher_training_adviser/steps/uk_or_overseas:
+          attributes:
+            uk_or_overseas:
+              inclusion: "Select if you live in the UK or overseas"
+        teacher_training_adviser/steps/uk_callback:
+          attributes:
+            telephone:
+              <<: *telephone_errors
+              blank: "Enter a telephone number"
+        teacher_training_adviser/steps/uk_telephone:
+          attributes:
+            telephone:
+              <<: *telephone_errors
+        teacher_training_adviser/steps/uk_address:
+          attributes:
+            address_line1:
+              blank: Enter the first line of your address"
+            address_city:
+              blank: "Enter your town or city"
+            address_postcode:
+              invalid: "Enter a real postcode"
+        teacher_training_adviser/steps/subject_like_to_teach:
+          attributes:
+            preferred_teaching_subject_id:
+              invalid_type: "Please select maths, physics or modern foreign language"
+        teacher_training_adviser/steps/subject_interested_teaching:
+          attributes:
+            preferred_teaching_subject_id:
+              invalid_type: "Please select a subject"
+        teacher_training_adviser/steps/start_teacher_training:
+          attributes:
+            initial_teacher_training_year_id:
+              invalid_type: "You must select an option from the list"
+        teacher_training_adviser/steps/stage_of_degree:
+          attributes:
+            degree_status_id:
+              invalid_type: "Select which year you are currently studying"
+        teacher_training_adviser/steps/stage_interested_teaching:
+          attributes:
+            preferred_education_phase_id:
+              invalid_type: "You must select either primary or secondary"
+        teacher_training_adviser/steps/returning_teacher:
+          attributes:
+            returning_to_teaching:
+              inclusion: "Select yes if you are returning to teaching"
+        teacher_training_adviser/steps/retake_gcse_science:
+          attributes:
+            planning_to_retake_gcse_science_id:
+              invalid_type: "Select yes if you are planning to retake Science GCSE or equivalent"
+        teacher_training_adviser/steps/retake_gcse_maths_english:
+          attributes:
+            planning_to_retake_gcse_maths_and_english_id:
+              invalid_type: "Select yes if you are planning to retake either English or maths (or both) GCSEs, or equivalent"
+        teacher_training_adviser/steps/overseas_time_zone:
+          attributes:
+            telephone:
+              <<: *telephone_errors
+              blank: "Enter a telephone number"
+        teacher_training_adviser/steps/overseas_telephone:
+          attributes:
+            telephone:
+              <<: *telephone_errors
+        teacher_training_adviser/steps/has_teacher_id:
+          attributes:
+            has_id:
+              inclusion: "Select yes if you have a previous teacher reference number"
+        teacher_training_adviser/steps/gcse_science:
+          attributes:
+            has_gcse_science_id:
+              invalid_type: "Select yes if you have Science GCSE or equivalent"
+        teacher_training_adviser/steps/gcse_maths_english:
+          attributes:
+            has_gcse_maths_and_english_id:
+              invalid_type: "Select yes if you have grade 4(C) or above in English and Maths GCSE or equivalent"
+        teacher_training_adviser/steps/accept_privacy_policy:
+          attributes:
+            accepted_policy_id:
+              invalid_policy: "You must accept the privacy policy in order to talk to a teacher training adviser"
+        teacher_training_adviser/steps/have_a_degree:
+          attributes:
+            degree_options:
+              inclusion: "Select an option from the list"
+        teacher_training_adviser/steps/date_of_birth:
+          attributes:
+            date_of_birth:
+              blank: "You need to enter your date of birth"
+              on_or_before: "You must be 18 years or older to use this service"
+              on_or_after: "You must be less than 70 years old"
+              invalid: "You did not enter a valid date of birth"

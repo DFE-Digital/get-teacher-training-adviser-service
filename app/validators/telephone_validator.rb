@@ -6,9 +6,9 @@ class TelephoneValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     return if value.blank?
 
-    record.errors.add(attribute, "Enter a telephone number in the correct format") if invalid_format?(value)
-    record.errors.add(attribute, "Telephone number is too short (minimum is 5 characters)") if too_short?(value)
-    record.errors.add(attribute, "Telephone number is too long (maximum is 20 characters)") if too_long?(value)
+    record.errors.add(attribute, :invalid) if invalid_format?(value)
+    record.errors.add(attribute, :too_short) if too_short?(value)
+    record.errors.add(attribute, :too_long) if too_long?(value)
   end
 
 private

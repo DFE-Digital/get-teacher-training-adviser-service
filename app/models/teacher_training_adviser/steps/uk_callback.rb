@@ -5,7 +5,7 @@ module TeacherTrainingAdviser::Steps
     attribute :telephone, :string
     attribute :phone_call_scheduled_at, :datetime
 
-    validates :telephone, telephone: true, presence: { message: "Enter a telephone number" }
+    validates :telephone, telephone: true, presence: true
     validates :phone_call_scheduled_at, presence: true
 
     before_validation if: :telephone do

@@ -3,7 +3,7 @@ class TypesValidator < ActiveModel::EachValidator
     types = GetIntoTeachingApiClient::TypesApi.new.send(options[:method])
 
     unless types.map { |type| type.id.to_s }.include?(value.to_s)
-      record.errors[attribute] << (options[:message] || "is not included in the list")
+      record.errors.add(attribute, :invalid_type)
     end
   end
 end

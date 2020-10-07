@@ -2,7 +2,7 @@ module TeacherTrainingAdviser::Steps
   class OverseasTimeZone < Wizard::Step
     attribute :telephone, :string
 
-    validates :telephone, telephone: true, presence: { message: "Enter a telephone number" }
+    validates :telephone, telephone: true, presence: true
 
     def reviewable_answers
       {
