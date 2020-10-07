@@ -6,15 +6,13 @@ module TeacherTrainingAdviser::Steps
 
     validates :country_id, types: { method: :get_country_types }
 
-    IGNORE_COUNTRY_IDS = [
+    OMIT_COUNTRY_IDS = [
       "76f5c2e6-74f9-e811-a97a-000d3a2760f2", # Unknown
       "72f5c2e6-74f9-e811-a97a-000d3a2760f2", # United Kingdom
     ].freeze
 
     def self.options
-      generate_api_options(GetIntoTeachingApiClient::TypesApi.new.get_country_types).reject do |_, id|
-        IGNORE_COUNTRY_IDS.include?(id)
-      end
+      generate_api_options(:get_country_types, OMIT_COUNTRY_IDS)
     end
 
     def skipped?

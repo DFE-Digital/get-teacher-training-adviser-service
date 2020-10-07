@@ -3,7 +3,6 @@ require "rails_helper"
 RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
   include_context "wizard step"
   it_behaves_like "a wizard step"
-  it_behaves_like "a wizard step that exposes API types as options", :get_candidate_initial_teacher_training_years
 
   context "attributes" do
     it { is_expected.to respond_to :initial_teacher_training_year_id }
@@ -58,15 +57,15 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
     end
   end
 
-  describe "#dont_know" do
+  describe "#not_sure?" do
     it "returns true if the set year is 'Dont know'" do
-      subject.initial_teacher_training_year_id = TeacherTrainingAdviser::Steps::StartTeacherTraining.options["Not sure"]
-      expect(subject.dont_know).to be_truthy
+      subject.initial_teacher_training_year_id = TeacherTrainingAdviser::Steps::StartTeacherTraining::NOT_SURE_ID
+      expect(subject.not_sure?).to be_truthy
     end
 
     it "returns false if the set year is not 'Dont know'" do
       subject.initial_teacher_training_year_id = -1
-      expect(subject.dont_know).to be_falsy
+      expect(subject.not_sure?).to be_falsy
     end
   end
 

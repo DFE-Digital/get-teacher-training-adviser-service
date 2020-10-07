@@ -3,27 +3,11 @@ require "rails_helper"
 RSpec.describe TeacherTrainingAdviser::Steps::OverseasCountry do
   include_context "wizard step"
   it_behaves_like "a wizard step"
-  it_behaves_like "a wizard step that exposes API types as options", :get_country_types
+  it_behaves_like "a wizard step that exposes API types as options",
+                  :get_country_types, described_class::OMIT_COUNTRY_IDS
 
   context "attributes" do
     it { is_expected.to respond_to :country_id }
-  end
-
-  describe ".options" do
-    it "does not return the ignored countries" do
-      types = [
-        GetIntoTeachingApiClient::TypeEntity.new(id: "1", value: "one"),
-      ]
-
-      types += described_class::IGNORE_COUNTRY_IDS.map do |id|
-        GetIntoTeachingApiClient::TypeEntity.new(id: id, value: "ignored")
-      end
-
-      allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
-        receive(:get_country_types) { types }
-
-      expect(described_class.options.values).to contain_exactly("1")
-    end
   end
 
   describe "country_id" do

@@ -6,15 +6,13 @@ module TeacherTrainingAdviser::Steps
 
     validates :preferred_teaching_subject_id, types: { method: :get_teaching_subjects, message: "Please select a subject" }
 
-    IGNORED_SUBJECT_IDS = [
+    OMIT_SUBJECT_IDS = [
       "bc2655a1-2afa-e811-a981-000d3a276620", # Other
       "bc68e0c1-7212-e911-a974-000d3a206976", # No Preference
     ].freeze
 
     def self.options
-      generate_api_options(GetIntoTeachingApiClient::TypesApi.new.get_teaching_subjects).reject do |_, id|
-        IGNORED_SUBJECT_IDS.include?(id)
-      end
+      generate_api_options(:get_teaching_subjects, OMIT_SUBJECT_IDS)
     end
 
     def reviewable_answers

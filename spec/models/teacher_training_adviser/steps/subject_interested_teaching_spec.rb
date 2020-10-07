@@ -3,27 +3,11 @@ require "rails_helper"
 RSpec.describe TeacherTrainingAdviser::Steps::SubjectInterestedTeaching do
   include_context "wizard step"
   it_behaves_like "a wizard step"
-  it_behaves_like "a wizard step that exposes API types as options", :get_teaching_subjects
+  it_behaves_like "a wizard step that exposes API types as options",
+                  :get_teaching_subjects, described_class::OMIT_SUBJECT_IDS
 
   context "attributes" do
     it { is_expected.to respond_to :preferred_teaching_subject_id }
-  end
-
-  describe ".options" do
-    it "does not return the ignored subjects" do
-      types = [
-        GetIntoTeachingApiClient::TypeEntity.new(id: "1", value: "one"),
-      ]
-
-      types += described_class::IGNORED_SUBJECT_IDS.map do |id|
-        GetIntoTeachingApiClient::TypeEntity.new(id: id, value: "ignored")
-      end
-
-      allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
-        receive(:get_teaching_subjects) { types }
-
-      expect(described_class.options.values).to contain_exactly("1")
-    end
   end
 
   describe "#preferred_teaching_subject_id" do
