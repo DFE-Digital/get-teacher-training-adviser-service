@@ -4,10 +4,23 @@ module TeacherTrainingAdviser::Steps
     attribute :degree_status_id, :integer
     attribute :degree_type_id, :integer
 
-    DEGREE_OPTIONS = { degree: "degree", no: "no", studying: "studying", equivalent: "equivalent" }.freeze
-    STUDYING = -1 # degree_status_id will be overriden on subsequent step.
-    DEGREE_STATUS_OPTIONS = { yes: 222_750_000, no: 222_750_004, studying: STUDYING, first_year: 222_750_003, second_year: 222_750_002, final_year: 222_750_001, equivalent: 222_750_005 }.freeze
-    DEGREE_TYPE = { degree: 222_750_000, equivalent: 222_750_005 }.freeze
+    DEGREE_OPTIONS = {
+      yes: "yes",
+      no: "no",
+      studying: "studying",
+      equivalent: "equivalent",
+    }.freeze
+
+    DEGREE_STATUS_OPTIONS = {
+      has_degree: 222_750_000,
+      no_degree: 222_750_004,
+      studying: -1, # degree_status_id is set on the subsequent step.
+    }.freeze
+
+    DEGREE_TYPE_OPTIONS = {
+      has_degree: 222_750_000,
+      has_degree_equivalent: 222_750_005,
+    }.freeze
 
     validates :degree_options, inclusion: { in: DEGREE_OPTIONS.values }
 
@@ -32,20 +45,20 @@ module TeacherTrainingAdviser::Steps
     def set_degree_status
       self.degree_status_id = case degree_options
                               when DEGREE_OPTIONS[:no]
-                                DEGREE_STATUS_OPTIONS[:no]
+                                DEGREE_STATUS_OPTIONS[:no_degree]
                               when DEGREE_OPTIONS[:studying]
                                 DEGREE_STATUS_OPTIONS[:studying]
                               else
-                                DEGREE_STATUS_OPTIONS[:yes]
+                                DEGREE_STATUS_OPTIONS[:has_degree]
                               end
     end
 
     def set_degree_type
       self.degree_type_id = case degree_options
                             when DEGREE_OPTIONS[:equivalent]
-                              DEGREE_TYPE[:equivalent]
+                              DEGREE_TYPE_OPTIONS[:has_degree_equivalent]
                             else
-                              DEGREE_TYPE[:degree]
+                              DEGREE_TYPE_OPTIONS[:has_degree]
                             end
     end
   end

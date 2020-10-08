@@ -17,7 +17,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::GcseMathsEnglish do
     it "returns false if degree_options is studying/degree" do
       wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
       expect(subject).to_not be_skipped
-      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree]
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:yes]
       expect(subject).to_not be_skipped
     end
 
