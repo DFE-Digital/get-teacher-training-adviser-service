@@ -1,6 +1,18 @@
 require "rails_helper"
 
 RSpec.feature "Sign up for a teacher training adviser", type: :feature do
+  EDUCATION_PHASE_PRIMARY = 222_750_000
+  EDUCATION_PHASE_SECONDARY = 222_750_001
+  DEGREE_STATUS_HAS_DEGREE = 222_750_000
+  DEGREE_TYPE_EQUIVALENT = 222_750_005
+  DEGREE_TYPE_DEGREE = 222_750_000
+  TEACHER_TRAINING_YEAR_2022 = 22_304
+  UK_DEGREE_GRADE_2_2 = 222_750_003
+  DEGREE_STATUS_FIRST_YEAR = 222_750_003
+  HAS_GCSE = 222_750_000
+  SUBJECT_PHYSICS = "ac2655a1-2afa-e811-a981-000d3a276620".freeze
+  SUBJECT_PSYCHOLOGY = "b22655a1-2afa-e811-a981-000d3a276620".freeze
+
   context "a new candidate" do
     before do
       # Emulate an unsuccessful matchback response from the API.
@@ -58,8 +70,13 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       expect(page).to have_text "Read and accept the privacy policy"
       check "Accept the privacy policy"
 
-      expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
-        receive(:sign_up_teacher_training_adviser_candidate).once
+      request_attributes = uk_candidate_request_attributes({
+        subject_taught_id: SUBJECT_PSYCHOLOGY,
+        preferred_teaching_subject_id: SUBJECT_PHYSICS,
+        preferred_education_phase_id: EDUCATION_PHASE_SECONDARY,
+        teacher_id: "1234",
+      })
+      expect_sign_up_with_attributes(request_attributes)
 
       click_on "Complete"
 
@@ -116,8 +133,14 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       expect(page).to have_text "Read and accept the privacy policy"
       check "Accept the privacy policy"
 
-      expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
-        receive(:sign_up_teacher_training_adviser_candidate).once
+      request_attributes = overseas_candidate_request_attributes({
+        preferred_teaching_subject_id: SUBJECT_PHYSICS,
+        degree_status_id: DEGREE_STATUS_HAS_DEGREE,
+        degree_type_id: DEGREE_TYPE_EQUIVALENT,
+        initial_teacher_training_year_id: TEACHER_TRAINING_YEAR_2022,
+        preferred_education_phase_id: EDUCATION_PHASE_SECONDARY,
+      })
+      expect_sign_up_with_attributes(request_attributes)
 
       click_on "Complete"
 
@@ -190,8 +213,17 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       expect(page).to have_text "Read and accept the privacy policy"
       check "Accept the privacy policy"
 
-      expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
-        receive(:sign_up_teacher_training_adviser_candidate).once
+      request_attributes = overseas_candidate_request_attributes({
+        uk_degree_grade_id: UK_DEGREE_GRADE_2_2,
+        degree_status_id: DEGREE_STATUS_FIRST_YEAR,
+        degree_type_id: DEGREE_TYPE_DEGREE,
+        initial_teacher_training_year_id: TEACHER_TRAINING_YEAR_2022,
+        preferred_education_phase_id: EDUCATION_PHASE_PRIMARY,
+        has_gcse_maths_and_english_id: HAS_GCSE,
+        has_gcse_science_id: HAS_GCSE,
+        degree_subject: "Maths",
+      })
+      expect_sign_up_with_attributes(request_attributes)
 
       click_on "Complete"
 
@@ -437,8 +469,20 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       expect(page).to have_text "Read and accept the privacy policy"
       check "Accept the privacy policy"
 
-      expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
-        receive(:sign_up_teacher_training_adviser_candidate).once
+      request_attributes = uk_candidate_request_attributes({
+        preferred_education_phase_id: EDUCATION_PHASE_SECONDARY,
+        preferred_teaching_subject_id: SUBJECT_PHYSICS,
+        degree_status_id: DEGREE_STATUS_HAS_DEGREE,
+        degree_type_id: DEGREE_TYPE_EQUIVALENT,
+        initial_teacher_training_year_id: TEACHER_TRAINING_YEAR_2022,
+        phone_call_scheduled_at: "2020-08-19T08:00:00.000Z",
+        date_of_birth: "1999-04-27",
+        address_line1: "7 Main Street",
+        address_line2: nil,
+        address_city: "Manchester",
+        address_postcode: "TE7 1NG",
+      })
+      expect_sign_up_with_attributes(request_attributes)
 
       click_on "Complete"
 
@@ -468,5 +512,48 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
 
   def select_first_option(field_label)
     find_field(field_label).first("option").select_option
+  end
+
+  def expect_sign_up_with_attributes(request_attributes)
+    expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
+      receive(:sign_up_teacher_training_adviser_candidate)
+      .with(having_attributes(request_attributes))
+      .once
+  end
+
+  def uk_candidate_request_attributes(attributes = {})
+    {
+      email: "john@doe.com",
+      first_name: "John",
+      last_name: "Doe",
+      date_of_birth: "1966-03-24",
+      telephone: "123456789",
+      address_line1: "7",
+      address_line2: "Main Street",
+      address_city: "Edinburgh",
+      address_postcode: "EH12 8JF",
+      country_id: "72f5c2e6-74f9-e811-a97a-000d3a2760f2",
+      accepted_policy_id: "0a203956-e935-ea11-a813-000d3a44a8e9",
+    }
+    .merge(shared_request_attributes)
+    .merge(attributes)
+  end
+
+  def overseas_candidate_request_attributes(attributes = {})
+    {
+      country_id: "09f4c2e6-74f9-e811-a97a-000d3a2760f2",
+    }
+    .merge(shared_request_attributes)
+    .merge(attributes)
+  end
+
+  def shared_request_attributes
+    {
+      email: "john@doe.com",
+      first_name: "John",
+      last_name: "Doe",
+      date_of_birth: "1966-03-24",
+      telephone: "123456789",
+    }
   end
 end
