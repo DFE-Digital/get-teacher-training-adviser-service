@@ -2,8 +2,10 @@ require "rails_helper"
 
 RSpec.describe ApplicationHelper do
   include TextFormatHelper
+
   describe "#analytics_body_tag" do
     let(:gtm_id) { "1234" }
+    let(:adwords_id) { "7890" }
     let(:hotjar_id) { "5678" }
     let(:snapchat_id) { "3456" }
     let(:pinterest_id) { "6543" }
@@ -13,6 +15,7 @@ RSpec.describe ApplicationHelper do
     before do
       allow(ENV).to receive(:[]).and_call_original
       allow(ENV).to receive(:[]).with("GOOGLE_TAG_MANAGER_ID").and_return gtm_id
+      allow(ENV).to receive(:[]).with("GOOGLE_AD_WORDS_ID").and_return adwords_id
       allow(ENV).to receive(:[]).with("HOTJAR_ID").and_return hotjar_id
       allow(ENV).to receive(:[]).with("SNAPCHAT_ID").and_return snapchat_id
       allow(ENV).to receive(:[]).with("PINTEREST_ID").and_return pinterest_id
@@ -35,6 +38,7 @@ RSpec.describe ApplicationHelper do
 
     context "assigns service ids" do
       it { is_expected.to have_css "body[data-analytics-gtm-id=1234]" }
+      it { is_expected.to have_css "body[data-analytics-adwords-id=7890]" }
       it { is_expected.to have_css "body[data-analytics-hotjar-id=5678]" }
       it { is_expected.to have_css "body[data-analytics-snapchat-id=3456]" }
       it { is_expected.to have_css "body[data-analytics-pinterest-id=6543]" }
@@ -44,15 +48,19 @@ RSpec.describe ApplicationHelper do
 
     context "with blank service ids" do
       let(:gtm_id) { "" }
+      let(:adwords_id) { "" }
       let(:twitter_id) { "" }
       it { is_expected.to have_css "body[data-analytics-gtm-id=\"\"]" }
+      it { is_expected.to have_css "body[data-analytics-adwords-id=\"\"]" }
       it { is_expected.to have_css "body[data-analytics-twitter-id=\"\"]" }
     end
 
     context "with no service ids" do
       let(:gtm_id) { nil }
+      let(:adwords_id) { nil }
       let(:twitter_id) { nil }
       it { is_expected.not_to have_css "body[data-analytics-gtm-id]" }
+      it { is_expected.not_to have_css "body[data-analytics-adwords-id]" }
       it { is_expected.not_to have_css "body[data-analytics-twitter-id]" }
     end
 

@@ -26,6 +26,13 @@ export default class extends AnalyticsBaseController {
     window.gtag = function() {
       window.dataLayer.push(arguments);
     }
+
+    window.gtag('config', this.serviceId);
+
+    if (this.adWordsId) {
+      window.gtag('js', new Date());
+      window.gtag('config', this.adWordsId);
+    }
   }
 
   get isEnabled() {
@@ -37,6 +44,10 @@ export default class extends AnalyticsBaseController {
       super.sendEvent() ;
 
     /* Otherwise no-op GTM notices the page history update */
+  }
+
+  get adWordsId() {
+    return this.getServiceId('adwords-id') ;
   }
 
 }
