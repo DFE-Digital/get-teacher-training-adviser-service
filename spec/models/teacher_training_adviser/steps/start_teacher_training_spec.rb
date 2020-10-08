@@ -19,7 +19,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
     it { is_expected.to_not allow_values("", nil, 456).for :initial_teacher_training_year_id }
   end
 
-  describe "#year_range" do
+  describe "#years" do
     before do
       years = [
         GetIntoTeachingApiClient::TypeEntity.new(id: 12_917, value: "Not sure"),
@@ -34,7 +34,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
         receive(:get_candidate_initial_teacher_training_years) { years }
     end
 
-    let(:years) { subject.year_range }
+    let(:years) { subject.years }
 
     context "when its on or before 17th September of the current year" do
       around do |example|
@@ -54,18 +54,6 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
       it "returns 'Not sure', and the next 3 years" do
         expect(years.map(&:value)).to eq(["Not sure", 2021, 2022, 2023])
       end
-    end
-  end
-
-  describe "#not_sure?" do
-    it "returns true if the set year is 'Dont know'" do
-      subject.initial_teacher_training_year_id = TeacherTrainingAdviser::Steps::StartTeacherTraining::NOT_SURE_ID
-      expect(subject.not_sure?).to be_truthy
-    end
-
-    it "returns false if the set year is not 'Dont know'" do
-      subject.initial_teacher_training_year_id = -1
-      expect(subject.not_sure?).to be_falsy
     end
   end
 
