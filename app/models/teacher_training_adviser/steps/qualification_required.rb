@@ -5,21 +5,15 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      equivalent_degree = @store["degree_options"] == "equivalent"
-      returning_teacher = @store["returning_to_teaching"]
-      has_gcse_maths_english = @store["has_gcse_maths_and_english_id"] != TeacherTrainingAdviser::Steps::GcseMathsEnglish::OPTIONS[:no]
-      retaking_gcse_maths_english = @store["planning_to_retake_gcse_maths_and_english_id"] != TeacherTrainingAdviser::Steps::RetakeGcseMathsEnglish::OPTIONS[:no]
-      phase_is_primary = @store["preferred_education_phase_id"] == TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:primary]
-      phase_is_secondary = @store["preferred_education_phase_id"] == TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
-      has_gcse_science = @store["has_gcse_science_id"] != TeacherTrainingAdviser::Steps::GcseScience::OPTIONS[:no]
-      retaking_gcse_science = @store["planning_to_retake_gcse_science_id"] != TeacherTrainingAdviser::Steps::RetakeGcseScience::OPTIONS[:no]
-      has_or_retaking_gcse_maths_english = has_gcse_maths_english || retaking_gcse_maths_english
-      has_or_retaking_gcse_science = has_gcse_science || retaking_gcse_science
+      retake_gcse_maths_english_skipped = @wizard.all_skipped?(RetakeGcseMathsEnglish.key)
+      retake_gcse_science_skipped = @wizard.all_skipped?(RetakeGcseScience.key)
+      planning_to_retake_gcse_maths_and_english_id = @wizard.find(RetakeGcseMathsEnglish.key).planning_to_retake_gcse_maths_and_english_id
+      planning_to_retake_gcse_science_id = @wizard.find(RetakeGcseScience.key).planning_to_retake_gcse_science_id
+      retaking_gcse_maths_english = planning_to_retake_gcse_maths_and_english_id != TeacherTrainingAdviser::Steps::RetakeGcseMathsEnglish::OPTIONS[:no]
+      retaking_gcse_science = planning_to_retake_gcse_science_id != TeacherTrainingAdviser::Steps::RetakeGcseScience::OPTIONS[:no]
 
-      equivalent_degree ||
-        returning_teacher ||
-        (phase_is_secondary && has_or_retaking_gcse_maths_english) ||
-        (phase_is_primary && has_or_retaking_gcse_maths_english && has_or_retaking_gcse_science)
+      (retake_gcse_maths_english_skipped || retaking_gcse_maths_english) &&
+        (retake_gcse_science_skipped || retaking_gcse_science)
     end
   end
 end

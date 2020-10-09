@@ -22,10 +22,11 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      returning_teacher = @store["returning_to_teaching"]
-      phase_is_not_secondary = @store["preferred_education_phase_id"] != TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
+      stage_interested_teaching_skipped = @wizard.all_skipped?(StageInterestedTeaching.key)
+      preferred_education_phase_id = @wizard.find(StageInterestedTeaching.key).preferred_education_phase_id
+      phase_is_not_secondary = preferred_education_phase_id != StageInterestedTeaching::OPTIONS[:secondary]
 
-      returning_teacher || phase_is_not_secondary
+      stage_interested_teaching_skipped || phase_is_not_secondary
     end
   end
 end

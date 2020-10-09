@@ -7,10 +7,10 @@ module TeacherTrainingAdviser::Steps
     validates :degree_status_id, types: { method: :get_qualification_degree_status }
 
     def skipped?
-      returning_teacher = @store["returning_to_teaching"]
-      studying = @store["degree_options"] == TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
+      studying = @wizard.find(HaveADegree.key).degree_options == HaveADegree::DEGREE_OPTIONS[:studying]
+      have_a_degree_skipped = @wizard.all_skipped?(HaveADegree.key)
 
-      returning_teacher || !studying
+      have_a_degree_skipped || !studying
     end
 
     def reviewable_answers

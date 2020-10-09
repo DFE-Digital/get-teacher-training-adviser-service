@@ -17,9 +17,7 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      overseas = @store["uk_or_overseas"] != TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]
-
-      overseas
+      @wizard.find(UkOrOverseas.key).uk_or_overseas != UkOrOverseas::OPTIONS[:uk]
     end
 
     def reviewable_answers

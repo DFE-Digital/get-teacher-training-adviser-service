@@ -14,11 +14,11 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      returning_teacher = @store["returning_to_teaching"]
-      equivalent_degree = @store["degree_options"] == TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
-      has_gcse_maths_english = @store["has_gcse_maths_and_english_id"] != TeacherTrainingAdviser::Steps::GcseMathsEnglish::OPTIONS[:no]
+      gcse_maths_english_skipped = @wizard.all_skipped?(GcseMathsEnglish.key)
+      has_gcse_maths_and_english_id = @wizard.find(GcseMathsEnglish.key).has_gcse_maths_and_english_id
+      has_gcse_maths_english = has_gcse_maths_and_english_id != GcseMathsEnglish::OPTIONS[:no]
 
-      returning_teacher || equivalent_degree || has_gcse_maths_english
+      gcse_maths_english_skipped || has_gcse_maths_english
     end
   end
 end

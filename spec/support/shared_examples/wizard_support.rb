@@ -6,7 +6,10 @@ end
 RSpec.shared_context "wizard step" do
   include_context "wizard store"
   let(:attributes) { {} }
-  let(:instance) { described_class.new nil, wizardstore, attributes }
+  let(:instance) do
+    wizard = TeacherTrainingAdviser::Wizard.new(wizardstore, described_class.key)
+    described_class.new wizard, wizardstore, attributes
+  end
   subject { instance }
 end
 

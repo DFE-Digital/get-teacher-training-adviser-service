@@ -11,9 +11,7 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      returning_teacher = @store["returning_to_teaching"]
-
-      !returning_teacher
+      !@wizard.find(ReturningTeacher.key).returning_to_teaching
     end
   end
 end

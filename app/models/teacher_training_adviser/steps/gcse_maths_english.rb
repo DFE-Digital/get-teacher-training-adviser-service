@@ -13,12 +13,7 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      not_studying_or_have_a_degree = [
-        TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying],
-        TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:yes],
-      ].none?(@store["degree_options"])
-
-      not_studying_or_have_a_degree
+      @wizard.all_skipped?(WhatSubjectDegree.key)
     end
   end
 end

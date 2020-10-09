@@ -16,9 +16,7 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      returning_teacher = @store["returning_to_teaching"]
-
-      returning_teacher
+      @wizard.all_skipped?(HaveADegree.key)
     end
 
     def export

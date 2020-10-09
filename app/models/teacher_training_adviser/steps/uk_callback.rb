@@ -20,11 +20,11 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      overseas = @store["uk_or_overseas"] != TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]
-      not_equivalent_degree = @store["degree_options"] != TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
-      returning_teacher = @store["returning_to_teaching"]
+      uk_address_skipped = @wizard.all_skipped?(UkAddress.key)
+      degree_options = @wizard.find(HaveADegree.key).degree_options
+      equivalent_degree = degree_options == HaveADegree::DEGREE_OPTIONS[:equivalent]
 
-      overseas || not_equivalent_degree || returning_teacher
+      uk_address_skipped || !equivalent_degree
     end
   end
 end

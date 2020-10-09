@@ -14,32 +14,18 @@ RSpec.describe TeacherTrainingAdviser::Steps::RetakeGcseScience do
   end
 
   describe "#skipped?" do
-    it "returns false if has_gcse_science_id is no" do
+    it "returns false if GcseScience step was shown and has_gcse_science_id is no" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::GcseScience).to receive(:skipped?) { false }
       wizardstore["has_gcse_science_id"] = TeacherTrainingAdviser::Steps::GcseScience::OPTIONS[:no]
       expect(subject).to_not be_skipped
     end
 
-    it "returns true if returning_to_teaching is true" do
-      wizardstore["returning_to_teaching"] = true
+    it "returns true if GcseScience was skipped" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::GcseScience).to receive(:skipped?) { true }
       expect(subject).to be_skipped
     end
 
-    it "returns true if preferred_education_phase_id is secondary" do
-      wizardstore["preferred_education_phase_id"] = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
-      expect(subject).to be_skipped
-    end
-
-    it "returns true if degree_options is equivalent" do
-      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
-      expect(subject).to be_skipped
-    end
-
-    it "returns true if planning_to_retake_gcse_maths_and_english_id is no" do
-      wizardstore["planning_to_retake_gcse_maths_and_english_id"] = TeacherTrainingAdviser::Steps::RetakeGcseMathsEnglish::OPTIONS[:no]
-      expect(subject).to be_skipped
-    end
-
-    it "returns true if has_gcse_science_id is not not no" do
+    it "returns true if has_gcse_science_id is not no" do
       wizardstore["has_gcse_science_id"] = nil
       expect(subject).to be_skipped
       wizardstore["has_gcse_science_id"] = TeacherTrainingAdviser::Steps::GcseScience::OPTIONS[:yes]
