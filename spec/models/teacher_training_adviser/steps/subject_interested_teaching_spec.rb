@@ -22,21 +22,19 @@ RSpec.describe TeacherTrainingAdviser::Steps::SubjectInterestedTeaching do
   end
 
   describe "#skipped?" do
-    it "returns false if returning_to_teaching is false and preferred_education_phase_id is secondary" do
-      wizardstore["returning_to_teaching"] = false
+    it "returns false if StageInterestedTeaching step was shown and preferred_education_phase_id is secondary" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::StageInterestedTeaching).to receive(:skipped?) { false }
       wizardstore["preferred_education_phase_id"] = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
       expect(subject).to_not be_skipped
     end
 
-    it "returns true if preferred_education_phase_id is not secondary" do
-      wizardstore["returning_to_teaching"] = false
-      wizardstore["preferred_education_phase_id"] = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:primary]
+    it "returns true if StageInterestedTeaching was skipped" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::StageInterestedTeaching).to receive(:skipped?) { true }
       expect(subject).to be_skipped
     end
 
-    it "returns true if returning_to_teaching is not false" do
-      wizardstore["returning_to_teaching"] = true
-      wizardstore["preferred_education_phase_id"] = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
+    it "returns true if education phase is primary" do
+      wizardstore["preferred_education_phase_id"] = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:primary]
       expect(subject).to be_skipped
     end
   end

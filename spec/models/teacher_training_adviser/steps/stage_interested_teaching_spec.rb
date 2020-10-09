@@ -14,13 +14,13 @@ RSpec.describe TeacherTrainingAdviser::Steps::StageInterestedTeaching do
   end
 
   describe "#skipped?" do
-    it "returns false if returning_to_teaching is false" do
-      wizardstore["returning_to_teaching"] = false
+    it "returns false if HaveADegree step was shown" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?) { false }
       expect(subject).to_not be_skipped
     end
 
-    it "returns true if returning_to_teaching is true" do
-      wizardstore["returning_to_teaching"] = true
+    it "returns true if HaveADegree was skipped" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?) { true }
       expect(subject).to be_skipped
     end
   end
