@@ -14,7 +14,7 @@ module TeacherTrainingAdviser::Steps
       returning_teacher = @store["returning_to_teaching"]
       not_studying_or_have_a_degree = [
         TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying],
-        TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree],
+        TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:yes],
       ].none?(@store["degree_options"])
 
       returning_teacher || not_studying_or_have_a_degree

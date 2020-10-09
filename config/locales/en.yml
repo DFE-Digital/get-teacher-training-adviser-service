@@ -37,7 +37,7 @@ telephone_errors: &telephone_errors
 en:
   have_a_degree:
     degree_options:
-      degree: "Yes"
+      yes: "Yes"
       no: "No"
       studying: "I'm studying for a degree"
       equivalent: "I have an equivalent qualification from another country"
