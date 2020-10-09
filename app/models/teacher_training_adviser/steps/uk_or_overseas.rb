@@ -7,7 +7,6 @@ module TeacherTrainingAdviser::Steps
     OPTIONS = { uk: "UK", overseas: "Overseas" }.freeze
 
     validates :uk_or_overseas, inclusion: { in: OPTIONS.values }
-    validates :country_id, types: { method: :get_country_types }, allow_nil: true
 
     def reviewable_answers
       {

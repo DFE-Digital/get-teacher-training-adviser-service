@@ -15,32 +15,6 @@ RSpec.describe TeacherTrainingAdviser::Steps::HaveADegree do
     it { is_expected.to allow_values(*TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS.values).for :degree_options }
   end
 
-  describe "degree_status_id" do
-    context "when degree_options is set" do
-      before { subject.degree_options = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree] }
-
-      it { is_expected.to_not allow_values(1234, nil).for :degree_status_id }
-      it { is_expected.to allow_values(*TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_STATUS_OPTIONS.values).for :degree_status_id }
-    end
-
-    context "when degree_options is not set" do
-      it { is_expected.to allow_values(1234, nil).for :degree_status_id }
-    end
-  end
-
-  describe "degree_type_id" do
-    context "when degree_options is set" do
-      before { subject.degree_options = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree] }
-
-      it { is_expected.to_not allow_values(1234, nil).for :degree_type_id }
-      it { is_expected.to allow_values(*TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_TYPE.values).for :degree_type_id }
-    end
-
-    context "when degree_options is not set" do
-      it { is_expected.to allow_values(1234, nil).for :degree_type_id }
-    end
-  end
-
   describe "#degree_option=" do
     it "sets the correct degree_status_id/degree_type_id for value of degree" do
       subject.degree_options = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:degree]

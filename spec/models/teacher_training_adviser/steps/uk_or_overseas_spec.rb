@@ -16,18 +16,6 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkOrOverseas do
     it { is_expected.to allow_values(*TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS.values).for :uk_or_overseas }
   end
 
-  describe "#country_id" do
-    it "allows a valid country_id" do
-      country = GetIntoTeachingApiClient::TypeEntity.new(id: "abc-123")
-      allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
-        receive(:get_country_types) { [country] }
-      expect(subject).to allow_value(country.id).for :country_id
-    end
-
-    it { is_expected.to allow_values(nil).for :country_id }
-    it { is_expected.to_not allow_value("").for :country_id }
-  end
-
   describe "#uk_or_overseas=" do
     it "sets country_id when UK" do
       subject.uk_or_overseas = TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]

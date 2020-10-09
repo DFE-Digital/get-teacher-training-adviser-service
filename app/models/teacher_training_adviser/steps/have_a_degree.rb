@@ -11,11 +11,6 @@ module TeacherTrainingAdviser::Steps
 
     validates :degree_options, inclusion: { in: DEGREE_OPTIONS.values }
 
-    with_options if: -> { degree_options.present? } do |degree_option|
-      degree_option.validates :degree_status_id, inclusion: { in: DEGREE_STATUS_OPTIONS.values }
-      degree_option.validates :degree_type_id, inclusion: { in: DEGREE_TYPE.values }
-    end
-
     def degree_options=(value)
       super
       set_degree_status
