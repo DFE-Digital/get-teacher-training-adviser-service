@@ -3,7 +3,8 @@ require "rails_helper"
 RSpec.describe TeacherTrainingAdviser::Steps::WhatSubjectDegree do
   include_context "wizard step"
   it_behaves_like "a wizard step"
-  it_behaves_like "a wizard step that exposes API types as options", :get_teaching_subjects
+  it_behaves_like "a wizard step that exposes API types as options",
+                  :get_teaching_subjects, described_class::OMIT_SUBJECT_IDS
 
   context "attributes" do
     it { is_expected.to respond_to :degree_subject }
