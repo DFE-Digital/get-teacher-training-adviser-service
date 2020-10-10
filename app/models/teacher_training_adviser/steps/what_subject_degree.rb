@@ -2,12 +2,16 @@ module TeacherTrainingAdviser::Steps
   class WhatSubjectDegree < Wizard::Step
     extend ApiOptions
 
+    OMIT_SUBJECT_IDS = [
+      "bc68e0c1-7212-e911-a974-000d3a206976", # No Preference
+    ].freeze
+
     attribute :degree_subject, :string
 
     validates :degree_subject, presence: true
 
     def self.options
-      generate_api_options(:get_teaching_subjects)
+      generate_api_options(:get_teaching_subjects, OMIT_SUBJECT_IDS)
     end
 
     def skipped?
