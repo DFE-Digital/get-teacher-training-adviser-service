@@ -7,18 +7,18 @@ SecureHeaders::Configuration.default do |config|
   config.x_permitted_cross_domain_policies = "none"
   config.referrer_policy = %w[origin-when-cross-origin strict-origin-when-cross-origin]
 
-  google_analytics = %w[www.google-analytics.com ssl.google-analytics.com *.googletagmanager.com tagmanager.google.com *.googleusercontent.com *.gstatic.com s.ytimg.com]
+  google_analytics = %w[www.google-analytics.com ssl.google-analytics.com *.googletagmanager.com tagmanager.google.com *.googleusercontent.com *.gstatic.com s.ytimg.com https://www.googleadservices.com https://www.google.com https://googleads.g.doubleclick.net]
 
   config.csp = {
     default_src: %w['none'],
     base_uri: %w['self'],
     block_all_mixed_content: true, # see http://www.w3.org/TR/mixed-content/
-    child_src: %w['self' ct.pinterest.com tr.snapchat.com *.hotjar.com],
-    connect_src: %W['self' ct.pinterest.com *.hotjar.com www.facebook.com] + google_analytics,
+    child_src: %w['self' *.youtube.com ct.pinterest.com tr.snapchat.com *.hotjar.com],
+    connect_src: %W['self' ct.pinterest.com *.hotjar.com vc.hotjar.io wss://*.hotjar.com www.facebook.com] + google_analytics,
     font_src: %w['self' *.gov.uk fonts.gstatic.com],
     form_action: %w['self' tr.snapchat.com www.facebook.com],
     frame_ancestors: %w['self'],
-    frame_src: %w['self' tr.snapchat.com www.facebook.com *.hotjar.com *.doubleclick.net],
+    frame_src: %w['self' tr.snapchat.com www.facebook.com www.youtube.com *.hotjar.com *.doubleclick.net],
     img_src: %W['self' *.gov.uk data: *.googleapis.com www.facebook.com ct.pinterest.com t.co www.facebook.com cx.atdmt.com ad.doubleclick.net] + google_analytics,
     manifest_src: %w['self'],
     media_src: %w['self'],
