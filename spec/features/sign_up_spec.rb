@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "Sign up for a teacher training adviser", type: :feature do
+  PRIMARY_SUBJECT_ID = "b02655a1-2afa-e811-a981-000d3a276620".freeze
   EDUCATION_PHASE_PRIMARY = 222_750_000
   EDUCATION_PHASE_SECONDARY = 222_750_001
   DEGREE_STATUS_HAS_DEGREE = 222_750_000
@@ -219,6 +220,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
         degree_type_id: DEGREE_TYPE_DEGREE,
         initial_teacher_training_year_id: TEACHER_TRAINING_YEAR_2022,
         preferred_education_phase_id: EDUCATION_PHASE_PRIMARY,
+        preferred_teaching_subject_id: PRIMARY_SUBJECT_ID,
         has_gcse_maths_and_english_id: HAS_GCSE,
         has_gcse_science_id: HAS_GCSE,
         degree_subject: "Maths",
