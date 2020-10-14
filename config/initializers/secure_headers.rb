@@ -19,7 +19,7 @@ SecureHeaders::Configuration.default do |config|
     form_action: %w['self' tr.snapchat.com www.facebook.com],
     frame_ancestors: %w['self'],
     frame_src: %w['self' tr.snapchat.com www.facebook.com www.youtube.com *.hotjar.com *.doubleclick.net],
-    img_src: %W['self' *.gov.uk data: *.googleapis.com www.facebook.com ct.pinterest.com t.co www.facebook.com cx.atdmt.com ad.doubleclick.net i.ytimg.com adservice.google.com] + google_analytics,
+    img_src: %W['self' *.gov.uk data: *.googleapis.com www.facebook.com ct.pinterest.com t.co www.facebook.com cx.atdmt.com ad.doubleclick.net i.ytimg.com adservice.google.com adservice.google.co.uk] + google_analytics,
     manifest_src: %w['self'],
     media_src: %w['self'],
     script_src: %W['self' 'unsafe-inline' 'unsafe-eval' *.googleapis.com *.gov.uk code.jquery.com *.youtube.com *.facebook.net *.hotjar.com *.pinimg.com sc-static.net static.ads-twitter.com analytics.twitter.com ad.doubleclick.com] + google_analytics,
