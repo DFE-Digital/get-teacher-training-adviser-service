@@ -1,4 +1,3 @@
-# FROM ruby:2.7.2-alpine3.11
 FROM ruby:2.6.6-alpine3.11
 
 ENV RAILS_ENV=production \

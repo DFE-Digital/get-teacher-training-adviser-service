@@ -26,6 +26,9 @@ variable "strategy" {
    default = "blue-green"
 }
 
+variable "instances" {
+  default = 1
+}
 
 variable "paas_logging_name" {
    default = "logit-ssl-drain"

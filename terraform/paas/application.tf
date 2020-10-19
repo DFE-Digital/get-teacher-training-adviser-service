@@ -6,6 +6,7 @@ resource "cloudfoundry_app" "adviser_application" {
     strategy     = var.strategy
     memory       = 1024
     timeout      = 1000
+    instances    = var.instances
     service_binding  {
             service_instance = data.cloudfoundry_service_instance.redis.id
     }
