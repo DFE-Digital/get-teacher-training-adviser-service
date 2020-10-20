@@ -1,4 +1,4 @@
-FROM ruby:2.6.6-alpine3.11
+FROM ruby:2.6.6-alpine3.12
 
 ENV RAILS_ENV=production \
     NODE_ENV=production \
@@ -15,7 +15,7 @@ ENTRYPOINT ["bundle", "exec"]
 CMD ["rails", "server" ]
 
 # hadolint ignore=DL3018
-RUN apk add --no-cache build-base tzdata nodejs yarn
+RUN apk add --no-cache build-base tzdata git nodejs yarn
 
 # install NPM packages removign artifacts
 COPY package.json yarn.lock ./
@@ -23,8 +23,6 @@ RUN yarn install && yarn cache clean
 
 # Install bundler
 RUN gem install bundler --version=2.1.4
-# Install git
-RUN apk add --no-cache git=2.24.3-r0
 
 ARG APP_SHA
 RUN echo "${APP_SHA}" > /etc/get-teacher-training-adviser-service-sha
