@@ -34,7 +34,7 @@ jobs:
              dockerfile: "Dockerfile"
 
       - name: Setup sonarqube
-        uses: warchant/setup-sonar-scanner@v1 
+        uses: warchant/setup-sonar-scanner@v3
       
       - name: Set up Docker Buildx
         id: buildx
