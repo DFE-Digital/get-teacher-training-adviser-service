@@ -47,7 +47,7 @@ jobs:
         run: |
               echo ::set-output name=short::$(echo "${{ github.sha }}" | cut -c -7)
               echo ::set-output name=image::${{ env.APP_REPOSITORY }}:sha-$(echo "${{ github.sha }}" | cut -c -7)
-              echo ::set-output name=local::localhost:5000/${{env.APP_REPOSITORY}}:latest
+              echo ::set-output name=local::localhost:5000/${{env.APP_REPOSITORY}}:sha-$(echo "${{ github.sha }}" | cut -c -7)
 
       - name: Cache Docker layers
         uses: actions/cache@v2
