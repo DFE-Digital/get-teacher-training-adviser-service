@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resource :csp_reports, only: %i[create]
+
   get "/sitemap", to: "sitemaps#index"
   get "/healthcheck.json", to: "healthchecks#show", as: :healthcheck
   get "/privacy-policy", to: "pages#privacy_policy", as: :privacy_policy
