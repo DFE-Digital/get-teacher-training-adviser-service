@@ -32,6 +32,8 @@ gem "validates_timeliness"
 
 gem "dotenv-rails"
 
+gem "rack-attack"
+
 # redis for session store
 gem "redis"
 
