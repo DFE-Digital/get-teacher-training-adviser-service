@@ -113,7 +113,7 @@ jobs:
       - name: Run Javascript Tests
         run: |-
           docker run -t --rm -e RAILS_ENV=test -e NODE_ENV=test -e CI=true \
-            $DOCKER_IMAGE "yarn && yarn spec"
+            ${{ steps.sha.outputs.local }} "yarn && yarn spec"
 
       - name: Lint Ruby
         run: |-
