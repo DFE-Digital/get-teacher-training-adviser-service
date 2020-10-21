@@ -64,7 +64,7 @@ RSpec.describe "Instrumentation" do
         {
           "blocked-uri" => "blocked-uri",
           "document-uri" => "document-uri",
-          "violated-directive": "violated-directive",
+          "violated-directive": "violated-directive extra-info",
         },
       }
     end
