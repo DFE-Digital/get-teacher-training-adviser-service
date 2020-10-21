@@ -54,3 +54,16 @@ ActiveSupport::Notifications.subscribe "cache_read.active_support" do |*args|
   metric = prometheus.get(:tta_cache_read_total)
   metric.increment(labels: labels)
 end
+
+ActiveSupport::Notifications.subscribe "tta.csp_violation" do |*args|
+  event = ActiveSupport::Notifications::Event.new(*args)
+  report = event.payload.transform_keys(&:underscore).symbolize_keys
+
+  prometheus = Prometheus::Client.registry
+
+  labels = { blocked_uri: nil, document_uri: nil, violated_directive: nil }
+  labels.merge!(report.slice(*labels.keys))
+
+  metric = prometheus.get(:tta_csp_violations_total)
+  metric.increment(labels: labels)
+end
