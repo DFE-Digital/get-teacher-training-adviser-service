@@ -62,8 +62,8 @@ RSpec.describe "Instrumentation" do
       {
         "csp-report" =>
         {
-          "blocked-uri" => "blocked-uri",
-          "document-uri" => "document-uri",
+          "blocked-uri" => "http://document-uri.com/script.js?param=test",
+          "document-uri" => "http://document-uri.com?param=test",
           "violated-directive": "violated-directive extra-info",
         },
       }
@@ -75,8 +75,8 @@ RSpec.describe "Instrumentation" do
       metric = registry.get(:tta_csp_violations_total)
       expect(metric).to receive(:increment).with(labels:
         {
-          blocked_uri: "blocked-uri",
-          document_uri: "document-uri",
+          blocked_uri: "http://document-uri.com/script.js",
+          document_uri: "http://document-uri.com",
           violated_directive: "violated-directive",
         }).once
     end
