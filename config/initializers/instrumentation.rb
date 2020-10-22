@@ -63,7 +63,10 @@ ActiveSupport::Notifications.subscribe "tta.csp_violation" do |*args|
 
   labels = { blocked_uri: nil, document_uri: nil, violated_directive: nil }
   labels.merge!(report.slice(*labels.keys))
+
   labels[:violated_directive] = labels[:violated_directive].split.first if labels[:violated_directive]
+  labels[:blocked_uri] = labels[:blocked_uri].split("?").first if labels[:blocked_uri]
+  labels[:document_uri] = labels[:document_uri].split("?").first if labels[:document_uri]
 
   metric = prometheus.get(:tta_csp_violations_total)
   metric.increment(labels: labels)
