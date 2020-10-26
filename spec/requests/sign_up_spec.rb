@@ -8,6 +8,12 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
     before { get step_path }
     subject { response }
     it { is_expected.to have_http_status :success }
+
+    context "with an invalid step" do
+      let(:step_path) { teacher_training_adviser_step_path(:invalid) }
+
+      it { is_expected.to have_http_status :not_found }
+    end
   end
 
   describe "#update" do

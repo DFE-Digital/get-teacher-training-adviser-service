@@ -3,8 +3,17 @@ class ApplicationController < ActionController::Base
   before_action :http_basic_authenticate
 
   rescue_from ActionController::InvalidAuthenticityToken, with: :session_expired
+  rescue_from ActionController::RoutingError, with: :render_not_found
+
+  def raise_not_found
+    raise ActionController::RoutingError, "Not Found"
+  end
 
 private
+
+  def render_not_found
+    render template: "errors/not_found", status: :not_found
+  end
 
   def http_basic_authenticate
     return true if ENV["HTTPAUTH_USERNAME"].blank?
