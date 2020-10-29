@@ -3,18 +3,18 @@
 
 
 variable api_url {
-     default = "https://api.london.cloud.service.gov.uk"
+  default = "https://api.london.cloud.service.gov.uk"
 }
 
 variable user {}
 variable password {}
 
 variable "application_stopped" {
-   default =  false
+  default = false
 }
 
 variable "logging" {
-   default = "0"
+  default = "0"
 }
 
 variable "additional_routes" {
@@ -23,7 +23,7 @@ variable "additional_routes" {
 
 
 variable "strategy" {
-   default = "blue-green"
+  default = "blue-green"
 }
 
 variable "instances" {
@@ -31,44 +31,47 @@ variable "instances" {
 }
 
 variable "paas_logging_name" {
-   default = "logit-ssl-drain"
+  default = "logit-ssl-drain"
 }
 
 variable "paas_logging_endpoint_port" {
-    default = ""
+  default = ""
 }
 
 variable "paas_redis_1_name" {
-    default = "get-into-teaching-dev-redis-svc"
+  default = "get-into-teaching-dev-redis-svc"
 }
 
 variable "paas_space" {
-   default = "sandbox"
+  default = "sandbox"
 }
 
 variable "paas_org_name" {
-   default = "dfe-teacher-services"
+  default = "dfe-teacher-services"
 }
 
 variable "paas_adviser_application_name" {
-   default = "dfe-teacher-services-tta"
+  default = "dfe-teacher-services-tta"
 }
 
 variable "paas_adviser_docker_image" {
-   default = "dfedigital/get-teacher-training-adviser-service:latest"
+  default = "dfedigital/get-teacher-training-adviser-service:latest"
 }
 
+variable "docker_username" {}
+variable "docker_password" {}
+
 variable "paas_adviser_route_name" {
-   default = "dfe-teacher-services-sb-tta"
+  default = "dfe-teacher-services-sb-tta"
 }
 
 variable "paas_additional_route_name" {
-   default = ""
+  default = ""
 }
 
 
-variable    "HTTPAUTH_PASSWORD"  {}
-variable    "HTTPAUTH_USERNAME"  {}
-variable    "RAILS_ENV" {}
-variable    "RAILS_MASTER_KEY" {}
+variable "HTTPAUTH_PASSWORD" {}
+variable "HTTPAUTH_USERNAME" {}
+variable "RAILS_ENV" {}
+variable "RAILS_MASTER_KEY" {}
 
