@@ -1,38 +1,38 @@
 require "rails_helper"
 
 RSpec.describe "Rate limiting" do
-  let(:memory_store) { ActiveSupport::Cache.lookup_store(:memory_store) }
+  let(:ip) { "1.2.3.4" }
 
-  before { allow(Rack::Attack.cache).to receive(:store) { memory_store } }
+  before do
+    allow_any_instance_of(GetIntoTeachingApiClient::CandidatesApi).to \
+      receive(:create_candidate_access_token)
+  end
 
-  describe "POST /csp_reports" do
-    let(:limit) { 1 }
-    let(:ip) { "1.2.3.4" }
-
-    before { limit.times { post csp_reports_path, params: {}.to_json, headers: { "REMOTE_ADDR" => ip } } }
-
-    subject { response.status }
-
-    context "when fewer than rate limit" do
-      let(:limit) { 4 }
-
-      it { is_expected.to_not eq(429) }
+  it_behaves_like "an IP-based rate limited endpoint", "POST /csp_reports", 5, 1.minute do
+    def perform_request
+      post csp_reports_path, params: {}.to_json, headers: { "REMOTE_ADDR" => ip }
     end
+  end
 
-    context "when more than rate limit" do
-      let(:limit) { 6 }
+  it_behaves_like "an IP-based rate limited endpoint", "PATCH /teacher_training_adviser/sign_up/identity", 5, 1.minute do
+    def perform_request
+      key = TeacherTrainingAdviser::Steps::Identity.model_name.param_key
+      params = { key => { first_name: "first", last_name: "last", email: "email@address.com" } }
+      patch teacher_training_adviser_step_path(:identity), params: params, headers: { "REMOTE_ADDR" => ip }
+    end
+  end
 
-      it do
-        is_expected.to eq(429)
-      end
+  it_behaves_like "an IP-based rate limited endpoint", "GET */resend_verification", 5, 1.minute do
+    def perform_request
+      get resend_verification_teacher_training_adviser_steps_path(redirect_path: "redirect/path"), headers: { "REMOTE_ADDR" => ip }
+    end
+  end
 
-      context "when time restriction has passed" do
-        it "allows another request" do
-          travel 1.minute
-          post csp_reports_path, params: {}.to_json, headers: { "REMOTE_ADDR" => ip }
-          expect(response.status).to_not eq(429)
-        end
-      end
+  it_behaves_like "an IP-based rate limited endpoint", "PATCH */teacher_training_adviser/sign_up/accept_privacy_policy", 5, 1.minute do
+    def perform_request
+      key = TeacherTrainingAdviser::Steps::AcceptPrivacyPolicy.model_name.param_key
+      params = { key => { accepted_policy_id: "0a203956-e935-ea11-a813-000d3a44a8e9" } }
+      patch teacher_training_adviser_step_path(:accept_privacy_policy), params: params, headers: { "REMOTE_ADDR" => ip }
     end
   end
 end
