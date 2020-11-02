@@ -161,7 +161,7 @@ jobs:
          id: sha
          run: echo ::set-output name=short::$(echo "${{ github.sha }}" | cut -c -7)
 
-       - uses: hashicorp/setup-terraform@v1
+       - uses: hashicorp/setup-terraform@v1.2.1
          with:
               terraform_version: 0.13.4
 
