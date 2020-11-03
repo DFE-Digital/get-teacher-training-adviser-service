@@ -29,6 +29,7 @@ module Rack
 
     html = ApplicationController.render(
       template: "errors/too_many_requests",
+      layout: "application",
     )
 
     [429, { "Content-Type" => "text/html; charset=utf-8" }, [html]]
