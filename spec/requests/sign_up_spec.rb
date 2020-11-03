@@ -97,19 +97,25 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
   end
 
   describe "#resend_verification" do
-    before do
+    it "redirects to the authentication_path with verification_resent: true" do
       expect_any_instance_of(GetIntoTeachingApiClient::CandidatesApi).to \
         receive(:create_candidate_access_token)
-    end
-
-    subject do
       get resend_verification_teacher_training_adviser_steps_path
-      response
+      expect(response).to redirect_to controller.send(:authenticate_path, verification_resent: true)
     end
 
-    it do
-      is_expected.to redirect_to \
-        controller.send(:authenticate_path, verification_resent: true)
+    context "when the API returns 429 too many requests" do
+      let(:too_many_requests_error) { GetIntoTeachingApiClient::ApiError.new(code: 429) }
+
+      subject! do
+        allow_any_instance_of(GetIntoTeachingApiClient::CandidatesApi).to \
+          receive(:create_candidate_access_token).and_raise(too_many_requests_error)
+        get resend_verification_teacher_training_adviser_steps_path
+        response.body
+      end
+
+      it { is_expected.to match(/Too many requests/) }
+      it { is_expected.to match(/You have tried to access a page too often/) }
     end
   end
 end
