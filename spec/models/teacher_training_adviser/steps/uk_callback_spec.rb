@@ -61,5 +61,11 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkCallback do
         "callback_time" => date_time.to_time, # rubocop:disable Rails/Date
       })
     }
+
+    context "when the phone_call_scheduled_at is nil" do
+      let(:date_time) { nil }
+
+      it { is_expected.to eq({ "callback_date" => nil, "callback_time" => nil }) }
+    end
   end
 end
