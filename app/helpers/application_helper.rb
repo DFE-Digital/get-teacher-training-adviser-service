@@ -60,4 +60,12 @@ module ApplicationHelper
   def link_to_git_site(text = "Get into Teaching", attributes = {})
     link_to text, (ENV["GIT_URL"].presence || "/url-not-set"), attributes
   end
+
+  def internal_referer
+    referer = request.referer
+    internal = referer.to_s.include?(root_url)
+    return nil unless internal
+
+    referer
+  end
 end

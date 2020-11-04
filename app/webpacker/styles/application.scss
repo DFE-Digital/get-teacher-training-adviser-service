@@ -104,6 +104,23 @@ $govuk-global-styles: true;
   }
 }
 
+[data-controller="cookie-preferences"] {
+  .save-with-confirmation button {
+    vertical-align: baseline;
+    @include govuk-responsive-margin(2, "bottom");
+    @include govuk-responsive-margin(2, "right");
+  }
 
+  .save-with-confirmation__message {
+    display: none;
+    vertical-align: baseline;
+    color: govuk-colour("green") ;
+    @include govuk-responsive-margin(5, "bottom");
+  }
+
+  &[data-cookie-preferences-save-state="saved"] .save-with-confirmation__message {
+    display: inline-block ;
+  }
+}
 
 
