@@ -117,5 +117,17 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
       it { is_expected.to match(/Too many requests/) }
       it { is_expected.to match(/You have tried to access a page too often/) }
     end
+
+    context "when the API returns 400 bad request" do
+      let(:bad_request_error) { GetIntoTeachingApiClient::ApiError.new(code: 400) }
+
+      subject! do
+        allow_any_instance_of(GetIntoTeachingApiClient::CandidatesApi).to \
+          receive(:create_candidate_access_token).and_raise(bad_request_error)
+        get resend_verification_teacher_training_adviser_steps_path
+      end
+
+      it { is_expected.to redirect_to(teacher_training_adviser_step_path(:identity)) }
+    end
   end
 end

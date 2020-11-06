@@ -33,6 +33,10 @@ module WizardSteps
     request = GetIntoTeachingApiClient::ExistingCandidateRequest.new(camelized_identity_data)
     GetIntoTeachingApiClient::CandidatesApi.new.create_candidate_access_token(request)
     redirect_to authenticate_path(verification_resent: true)
+  rescue GetIntoTeachingApiClient::ApiError => e
+    redirect_to teacher_training_adviser_step_path(:identity) and return if e.code == 400
+
+    raise
   end
 
 private
