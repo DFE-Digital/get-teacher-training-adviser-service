@@ -14,8 +14,9 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      gcse_maths_english_skipped = @wizard.all_skipped?(GcseMathsEnglish.key)
-      has_gcse_maths_and_english_id = @wizard.find(GcseMathsEnglish.key).has_gcse_maths_and_english_id
+      gcse_maths_english_step = other_step(:gcse_maths_english)
+      gcse_maths_english_skipped = gcse_maths_english_step.skipped?
+      has_gcse_maths_and_english_id = gcse_maths_english_step.has_gcse_maths_and_english_id
       has_gcse_maths_english = has_gcse_maths_and_english_id != GcseMathsEnglish::OPTIONS[:no]
 
       gcse_maths_english_skipped || has_gcse_maths_english

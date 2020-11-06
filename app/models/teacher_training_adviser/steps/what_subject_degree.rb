@@ -15,8 +15,9 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      have_a_degree_skipped = @wizard.all_skipped?(HaveADegree.key)
-      degree_options = @wizard.find(HaveADegree.key).degree_options
+      have_a_degree_step = other_step(:have_a_degree)
+      have_a_degree_skipped = have_a_degree_step.skipped?
+      degree_options = have_a_degree_step.degree_options
       not_studying_or_have_a_degree = [
         HaveADegree::DEGREE_OPTIONS[:studying],
         HaveADegree::DEGREE_OPTIONS[:yes],

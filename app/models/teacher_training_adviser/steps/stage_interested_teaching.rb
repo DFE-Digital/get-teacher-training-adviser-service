@@ -16,7 +16,7 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      @wizard.all_skipped?(HaveADegree.key)
+      other_step(:have_a_degree).skipped?
     end
 
     def export

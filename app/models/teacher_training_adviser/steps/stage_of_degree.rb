@@ -7,8 +7,9 @@ module TeacherTrainingAdviser::Steps
     validates :degree_status_id, types: { method: :get_qualification_degree_status }
 
     def skipped?
-      studying = @wizard.find(HaveADegree.key).degree_options == HaveADegree::DEGREE_OPTIONS[:studying]
-      have_a_degree_skipped = @wizard.all_skipped?(HaveADegree.key)
+      have_a_degree_step = other_step(:have_a_degree)
+      studying = have_a_degree_step.degree_options == HaveADegree::DEGREE_OPTIONS[:studying]
+      have_a_degree_skipped = have_a_degree_step.skipped?
 
       have_a_degree_skipped || !studying
     end

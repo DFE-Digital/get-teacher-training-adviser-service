@@ -25,7 +25,7 @@ module TeacherTrainingAdviser::Steps
     validates :preferred_teaching_subject_id, inclusion: { in: sanitized_options.values }
 
     def skipped?
-      !@wizard.find(ReturningTeacher.key).returning_to_teaching
+      !other_step(:returning_teacher).returning_to_teaching
     end
 
     def reviewable_answers

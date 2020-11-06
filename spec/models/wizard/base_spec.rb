@@ -210,20 +210,6 @@ RSpec.describe Wizard::Base do
     end
   end
 
-  describe "#all_skipped?" do
-    it "returns true if all steps are skipped" do
-      allow_any_instance_of(TestWizard::Name).to receive(:skipped?) { true }
-      allow_any_instance_of(TestWizard::Age).to receive(:skipped?) { true }
-      expect(wizard).to be_all_skipped(TestWizard::Name.key, TestWizard::Age.key)
-    end
-
-    it "returns false if any of the steps are not skipped" do
-      allow_any_instance_of(TestWizard::Name).to receive(:skipped?) { true }
-      allow_any_instance_of(TestWizard::Age).to receive(:skipped?) { false }
-      expect(wizard).to_not be_all_skipped(TestWizard::Name.key, TestWizard::Age.key)
-    end
-  end
-
   describe "#reviewable_answers_by_step" do
     subject { wizard.reviewable_answers_by_step }
 

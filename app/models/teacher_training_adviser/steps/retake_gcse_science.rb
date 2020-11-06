@@ -14,8 +14,9 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      gcse_science_skipped = @wizard.all_skipped?(GcseScience.key)
-      has_gcse_science_id = @wizard.find(GcseScience.key).has_gcse_science_id
+      gcse_science_step = other_step(:gcse_science)
+      gcse_science_skipped = gcse_science_step.skipped?
+      has_gcse_science_id = gcse_science_step.has_gcse_science_id
       has_gcse_science = has_gcse_science_id != GcseMathsEnglish::OPTIONS[:no]
 
       gcse_science_skipped || has_gcse_science

@@ -9,8 +9,14 @@ RSpec.describe Wizard::Step do
     validates :name, presence: true
   end
 
+  class StubWizard < Wizard::Base
+    self.steps = [FirstStep].freeze
+  end
+
   let(:attributes) { {} }
-  subject { FirstStep.new nil, wizardstore, attributes }
+  let(:wizard) { StubWizard.new(wizardstore, "first_step") }
+
+  subject { FirstStep.new wizard, wizardstore, attributes }
 
   describe ".key" do
     it { expect(described_class.key).to eql "step" }
@@ -40,6 +46,11 @@ RSpec.describe Wizard::Step do
 
   describe "#can_proceed" do
     it { expect(subject).to be_can_proceed }
+  end
+
+  describe "#other_step" do
+    it { expect(subject.other_step(:first_step)).to be_kind_of(FirstStep) }
+    it { expect(subject.other_step(FirstStep)).to be_kind_of(FirstStep) }
   end
 
   describe "#save!" do

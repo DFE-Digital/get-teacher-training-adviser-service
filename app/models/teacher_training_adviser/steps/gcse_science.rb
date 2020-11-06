@@ -13,11 +13,12 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      gcse_maths_english_skipped = @wizard.all_skipped?(GcseMathsEnglish.key)
-      preferred_education_phase_id = @wizard.find(StageInterestedTeaching.key).preferred_education_phase_id
+      gcse_maths_english_step = other_step(:gcse_maths_english)
+      gcse_maths_english_skipped = gcse_maths_english_step.skipped?
+      preferred_education_phase_id = other_step(:stage_interested_teaching).preferred_education_phase_id
       phase_is_secondary = preferred_education_phase_id == StageInterestedTeaching::OPTIONS[:secondary]
-      has_gcse_maths_and_english_id = @wizard.find(GcseMathsEnglish.key).has_gcse_maths_and_english_id
-      planning_to_retake_gcse_maths_and_english_id = @wizard.find(RetakeGcseMathsEnglish.key).planning_to_retake_gcse_maths_and_english_id
+      has_gcse_maths_and_english_id = gcse_maths_english_step.has_gcse_maths_and_english_id
+      planning_to_retake_gcse_maths_and_english_id = other_step(:retake_gcse_maths_english).planning_to_retake_gcse_maths_and_english_id
       no_gcse_maths_english = has_gcse_maths_and_english_id == GcseMathsEnglish::OPTIONS[:no] &&
         planning_to_retake_gcse_maths_and_english_id == RetakeGcseMathsEnglish::OPTIONS[:no]
 

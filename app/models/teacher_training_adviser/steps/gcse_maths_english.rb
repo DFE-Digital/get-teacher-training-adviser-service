@@ -13,7 +13,7 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      @wizard.all_skipped?(WhatSubjectDegree.key)
+      other_step(:what_subject_degree).skipped?
     end
   end
 end

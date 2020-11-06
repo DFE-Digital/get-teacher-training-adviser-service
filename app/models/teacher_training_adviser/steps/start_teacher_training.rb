@@ -23,7 +23,7 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      @wizard.find(ReturningTeacher.key).returning_to_teaching
+      other_step(:returning_teacher).returning_to_teaching
     end
 
   private

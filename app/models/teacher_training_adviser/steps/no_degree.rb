@@ -5,7 +5,7 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      @wizard.find(HaveADegree.key).degree_options != HaveADegree::DEGREE_OPTIONS[:no]
+      other_step(:have_a_degree).degree_options != HaveADegree::DEGREE_OPTIONS[:no]
     end
   end
 end

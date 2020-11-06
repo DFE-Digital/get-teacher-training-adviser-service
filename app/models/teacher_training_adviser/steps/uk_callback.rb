@@ -20,8 +20,8 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      uk_address_skipped = @wizard.all_skipped?(UkAddress.key)
-      degree_options = @wizard.find(HaveADegree.key).degree_options
+      uk_address_skipped = other_step(:uk_address).skipped?
+      degree_options = other_step(:have_a_degree).degree_options
       equivalent_degree = degree_options == HaveADegree::DEGREE_OPTIONS[:equivalent]
 
       uk_address_skipped || !equivalent_degree
