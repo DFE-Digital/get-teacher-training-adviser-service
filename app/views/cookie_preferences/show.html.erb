@@ -1,6 +1,6 @@
 <main class="govuk-main-wrapper no-margin" id="main-content" role="main">
   <div class="govuk-width-container">
-    <%= back_link %>
+    <%= back_link internal_referer || root_path %>
 
     <h1>Cookies on Get into Teaching</h1>
 
@@ -81,7 +81,7 @@
                 </label>
               </div>
               <div class="govuk-radios__item">
-                <input id="cookies-non-functional-no" class="govuk-radios__input" type="radio" value="0" name="cookies-non-functional"  data-action="cookie-preferences#toggle" />
+                <input id="cookies-non-functional-no" class="govuk-radios__input" type="radio" value="0" name="cookies-non-functional" data-action="cookie-preferences#toggle" />
                 <label for="cookies-non-functional-no" class="govuk-label govuk-radios__label">
                   No
                 </label>
@@ -161,12 +161,29 @@
 
               <p>They always need to be on.</p>
 
-              <p>
-                <%= link_to "Find out more", cookies_path %>
-                about cookies on this service
-              </p>
+
             </div>
           </fieldset>
+
+          <p class="save-with-confirmation">
+            <button type="button"
+              data-action="cookie-preferences#save"
+              class="govuk-button">
+              Save
+            </button>
+
+            <span data-target="cookie-preferences.flash" class="save-with-confirmation__message">
+              Your cookie preferences have been saved
+            </span>
+
+            <br />
+            <%= link_to "Back to page", internal_referer || root_path, class: "govuk-button govuk-button--secondary" %>
+          </p>
+
+          <p>
+            <%= link_to "Find out more", cookies_path %>
+            about cookies on this service
+          </p>
         </div>
       </form>
 

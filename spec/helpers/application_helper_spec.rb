@@ -156,6 +156,28 @@ RSpec.describe ApplicationHelper do
     end
   end
 
+  describe "#internal_referer" do
+    it "returns nil if the referrer is not set" do
+      helper.request = double("request", referer: nil)
+      expect(helper.internal_referer).to be_nil
+    end
+
+    it "returns nil if the referrer is empty" do
+      helper.request = double("request", referer: " ")
+      expect(helper.internal_referer).to be_nil
+    end
+
+    it "returns nil if the referrer is external" do
+      helper.request = double("request", referer: " ")
+      expect(helper.internal_referer).to be_nil
+    end
+
+    it "returns the referrer if internal" do
+      helper.request = double("request", referer: root_url)
+      expect(helper.internal_referer).to eql(root_url)
+    end
+  end
+
   class StubModel
     include ActiveModel::Model
   end
