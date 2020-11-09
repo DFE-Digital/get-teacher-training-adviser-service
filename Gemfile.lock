@@ -278,10 +278,11 @@ GEM
       faraday (>= 1.0)
     shoulda-matchers (4.4.1)
       activesupport (>= 4.2.0)
-    simplecov (0.19.1)
+    simplecov (0.17.1)
       docile (~> 1.1)
-      simplecov-html (~> 0.11)
-    simplecov-html (0.12.3)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.2)
     sixarm_ruby_unaccent (1.2.0)
     sort_alphabetical (1.1.0)
       unicode_utils (>= 1.2.2)
@@ -358,7 +359,7 @@ DEPENDENCIES
   secure_headers
   sentry-raven
   shoulda-matchers
-  simplecov (<= 0.20)
+  simplecov (~> 0.17.1)
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
