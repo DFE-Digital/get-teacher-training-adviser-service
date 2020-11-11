@@ -137,7 +137,6 @@ jobs:
            -Dsonar.ruby.rubocop.reportPaths=${PWD}/out/rubocop-result.json
 
       - name: Trigger Development Deployment
-        if: github.ref != 'refs/heads/master'
         uses: benc-uk/workflow-dispatch@v1.1
         with:
           workflow: Deploy to PaaS
