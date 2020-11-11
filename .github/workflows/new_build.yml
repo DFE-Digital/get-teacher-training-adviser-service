@@ -152,4 +152,5 @@ jobs:
            SLACK_COLOR: '#3278BD'
            SLACK_ICON: https://github.com/rtCamp.png?size=48
            SLACK_TITLE: 'Failure: Building Teacher Training Adviser'
+           SLACK_TEXT: 'The build has failed please click on the Actions URL to investigate the problem.'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
