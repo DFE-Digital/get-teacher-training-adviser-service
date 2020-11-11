@@ -1,0 +1,156 @@
+name: Build Docker Image
+on:
+  workflow_dispatch:
+
+env:
+  APP_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
+  CONTAINER:       get-teacher-training-adviser-service
+  DOMAIN:          london.cloudapps.digital
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    services:
+      registry:
+        image: registry:2
+        ports: 
+          - 5000:5000
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+        with:
+             fetch-depth: 0
+
+      - name: Lint Dockerfile
+        uses: brpaz/hadolint-action@master
+        with:
+             dockerfile: "Dockerfile"
+
+      - name: Setup sonarqube
+        uses: warchant/setup-sonar-scanner@v3
+      
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@master
+        with:
+          driver-opts: network=host  
+
+      - name: Get Short SHA
+        id: sha
+        run: |
+              echo ::set-output name=short::$(echo "${{ github.sha }}" | cut -c -7)
+              echo ::set-output name=image::${{ env.APP_REPOSITORY }}:sha-$(echo "${{ github.sha }}" | cut -c -7)
+              echo ::set-output name=local::localhost:5000/${{env.APP_REPOSITORY}}:sha-$(echo "${{ github.sha }}" | cut -c -7)
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+             ${{ runner.os }}-buildx-
+             
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PERSONAL_ACCESS_TOKEN }}
+        
+      - name: Build and push to Docker Hub
+        if: github.ref == 'refs/heads/master'
+        uses: docker/build-push-action@v2
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+          tags: |
+                 ${{ steps.sha.outputs.image }}
+                 ${{ steps.sha.outputs.local }}
+          push: true
+          build-args: |
+                      APP_SHA=${{ steps.sha.outputs.short }}
+
+      - name: Build locally Only
+        if: github.ref != 'refs/heads/master'
+        uses: docker/build-push-action@v2
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+          tags: |
+                 ${{ steps.sha.outputs.local }}
+          push: true
+          build-args: |
+                      APP_SHA=${{ steps.sha.outputs.short }}
+                      
+      - name: Run Specs
+        run: |-
+          docker run -t --rm -v ${PWD}/out:/app/out -v ${PWD}/coverage:/app/coverage -e RAILS_ENV=test ${{ steps.sha.outputs.local }} \
+            rspec --format RspecSonarqubeFormatter --out /app/out/test-report.xml --format documentation
+
+      - name: Fixup report file paths
+        run: sudo sed -i "s?\"/app/?\"${PWD}/?" coverage/.resultset.json
+
+      - name:  Keep Code Coverage Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: Code_Coverage
+          path: ${{ github.workspace }}/coverage/*
+
+      - name:  Keep Unit Tests Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: unit_tests 
+          path: ${{ github.workspace }}/out/*
+
+      - name: Run Javascript Tests
+        run: |-
+          docker run -t --rm -e RAILS_ENV=test -e NODE_ENV=test -e CI=true \
+            ${{ steps.sha.outputs.local }} "yarn && yarn spec"
+
+      - name: Lint Ruby
+        run: |-
+          docker run -t --rm -v ${PWD}/out:/app/out -e RAILS_ENV=test ${{ steps.sha.outputs.local }} \
+            rubocop app config db lib spec Gemfile --format json --out=/app/out/rubocop-result.json
+
+      - name:  Keep Rubocop output
+        uses: actions/upload-artifact@v2
+        with:
+          name: Rubocop_results
+          path: ${{ github.workspace }}/rubocop-result.json
+
+      - name: Run Brakeman static security scanner
+        run: |-
+          docker run -t --rm -e RAILS_ENV=test ${{ steps.sha.outputs.local }} brakeman --no-pager
+
+      - name: Run sonarqube
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: sonar-scanner
+           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+           -Dsonar.organization=dfe-digital
+           -Dsonar.host.url=https://sonarcloud.io/
+           -Dsonar.projectKey=get-teacher-training-adviser-service
+           -Dsonar.testExecutionReportPaths=${PWD}/out/test-report.xml
+           -Dsonar.ruby.coverage.reportPaths=${PWD}/coverage/.resultset.json
+           -Dsonar.ruby.rubocop.reportPaths=${PWD}/out/rubocop-result.json
+
+      - name: Trigger Development Deployment
+        if: github.ref != 'refs/heads/master'
+        uses: benc-uk/workflow-dispatch@v1.1
+        with:
+          workflow: Deploy to PaaS
+          token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
+          inputs: '{"environment": "Development", "sha": "${{ github.sha }}"}'
+          ref: ${{ github.sha }}
+
+      - name: Slack Notification
+        if: failure()
+        uses: rtCamp/action-slack-notify@master
+        env:
+           SLACK_CHANNEL: getintoteaching_tech
+           SLACK_COLOR: '#3278BD'
+           SLACK_ICON: https://github.com/rtCamp.png?size=48
+           SLACK_TITLE: 'Failure: Building Teacher Training Adviser'
+           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
