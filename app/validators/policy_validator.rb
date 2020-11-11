@@ -1,9 +1,9 @@
 class PolicyValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     begin
-      policy = GetIntoTeachingApiClient::PrivacyPoliciesApi.new.send(options[:method], value) if value.present?
+      policy = GetIntoTeachingApiClient::PrivacyPoliciesApi.new.get_privacy_policy(value) if value.present?
     rescue GetIntoTeachingApiClient::ApiError => e
-      Rails.logger.error e # how do we handle a Bad Request ?
+      raise unless e.code == 400
     end
 
     unless policy

@@ -7,12 +7,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::AcceptPrivacyPolicy do
   it { is_expected.to respond_to :accepted_policy_id }
 
   context "accepted_policy_id" do
-    it "allows a valid privacy policy id" do
-      policy = GetIntoTeachingApiClient::PrivacyPolicy.new(id: "invalid-id")
-      allow_any_instance_of(GetIntoTeachingApiClient::PrivacyPoliciesApi).to \
-        receive(:get_privacy_policy).with(policy.id) { policy }
-      expect(subject).to allow_value(policy.id).for :accepted_policy_id
-    end
+    it { is_expected.to allow_value("0a203956-e935-ea11-a813-000d3a44a8e9").for :accepted_policy_id }
     it { is_expected.to_not allow_value("invalid-id").for :accepted_policy_id }
   end
 

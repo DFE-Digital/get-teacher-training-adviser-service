@@ -5,7 +5,7 @@ class PolicyValidatable
 
   attr_accessor :policy_id
 
-  validates :policy_id, policy: { method: :get_privacy_policy }
+  validates :policy_id, policy: true
 end
 
 RSpec.describe PolicyValidator, type: :validator do
@@ -22,8 +22,9 @@ RSpec.describe PolicyValidator, type: :validator do
   end
 
   it "is invalid when does not match a policy" do
+    bad_request_error = GetIntoTeachingApiClient::ApiError.new(code: 400)
     expect_any_instance_of(GetIntoTeachingApiClient::PrivacyPoliciesApi).to \
-      receive(:get_privacy_policy).with("def-678").and_raise(GetIntoTeachingApiClient::ApiError)
+      receive(:get_privacy_policy).with("def-678").and_raise(bad_request_error)
 
     subject.policy_id = "def-678"
     expect(subject).to be_invalid
