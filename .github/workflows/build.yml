@@ -1,7 +1,10 @@
 name: Build Docker Image
 on:
-  workflow_dispatch:
-
+  pull_request:
+    types: [assigned, opened, synchronize, reopened]
+  push:
+    branches:
+      - master
 env:
   APP_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
   CONTAINER:       get-teacher-training-adviser-service
