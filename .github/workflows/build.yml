@@ -1,11 +1,7 @@
-name: Build and Deploy
+name: Build Docker Image
 on:
-  repository_dispatch:
-  pull_request:
-    types: [assigned, opened, synchronize, reopened]
-  push:
-    branches:
-      - master
+  workflow_dispatch:
+
 env:
   APP_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
   CONTAINER:       get-teacher-training-adviser-service
@@ -13,7 +9,7 @@ env:
 
 jobs:
   build:
-    name: Build and push to DockerHub
+    name: Build and Test
     runs-on: ubuntu-latest
     services:
       registry:
@@ -122,7 +118,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Rubocop_results
-          path: ${{ github.workspace }}/rubocop-result.json
+          path: ${PWD}/out/rubocop-result.json
 
       - name: Run Brakeman static security scanner
         run: |-
@@ -140,116 +136,13 @@ jobs:
            -Dsonar.ruby.coverage.reportPaths=${PWD}/coverage/.resultset.json
            -Dsonar.ruby.rubocop.reportPaths=${PWD}/out/rubocop-result.json
 
-      - name: Slack Notification
-        if: failure()
-        uses: rtCamp/action-slack-notify@master
-        env:
-           SLACK_CHANNEL: getintoteaching_tech
-           SLACK_COLOR: '#3278BD'
-           SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_MESSAGE: ':disappointed_relieved: Pipeline Failure carrying out job ${{github.job}} :disappointed_relieved:'
-           SLACK_TITLE: 'Failure: ${{ github.workflow }}'
-           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-
-  deploy:
-    name: 'Deploy to Development'
-    runs-on: ubuntu-latest
-    needs:
-         build
-    defaults:
-      run:
-        shell: bash
-    if: github.ref == 'refs/heads/master'
-    steps:
-       - name: Checkout
-         uses: actions/checkout@v2
-
-       - name: Get Short SHA
-         id: sha
-         run: echo ::set-output name=short::$(echo "${{ github.sha }}" | cut -c -7)
-
-       - uses: hashicorp/setup-terraform@v1.2.1
-         with:
-              terraform_version: 0.13.4
-
-       - name: Wait for any previous runs to complete
-         uses: softprops/turnstyle@v1
-         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-         with:
-           continue-after-seconds: 180
-   
-       - name: Terraform Init
-         run: |
-             cd terraform/paas && pwd
-             terraform init -backend-config=dev.bk.vars
-         env:
-             TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
-             TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
-             ARM_ACCESS_KEY:           "${{ secrets.DEV_ARM_ACCESS_KEY  }}"
-
-       - name: Terraform Plan
-         run: |
-             cd terraform/paas && pwd
-             terraform plan -var-file=dev.env.tfvars -out plan
-         env:
-             TF_VAR_RAILS_ENV:         "rolling"
-             TF_VAR_paas_adviser_docker_image: ${{env.APP_REPOSITORY}}:sha-${{ steps.sha.outputs.short}} 
-             TF_VAR_RAILS_MASTER_KEY:  "${{ secrets.RAILS_MASTER_KEY_ROLLING }}"
-             TF_VAR_HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
-             TF_VAR_HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
-             TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
-             TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
-             ARM_ACCESS_KEY:           "${{ secrets.DEV_ARM_ACCESS_KEY  }}"
-             TF_VAR_docker_username:   "${{ secrets.DOCKERHUB_USERNAME }}"
-             TF_VAR_docker_password:   "${{ secrets.DOCKERHUB_PERSONAL_ACCESS_TOKEN }}"
-
-
-       - name: Terraform Apply
-         run: |
-             cd terraform/paas && pwd
-             terraform apply -auto-approve plan
-         env:
-             TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
-             TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
-             ARM_ACCESS_KEY:           "${{ secrets.DEV_ARM_ACCESS_KEY  }}"
-
-       - name: Smoke tests
-         run: |
-             tests/confidence/healthcheck.sh  "get-teacher-training-adviser-service-dev"  "${{ steps.sha.outputs.short }}"
-         env:
-             HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
-             HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
-
-       - name: Slack Notification
-         if: failure()
-         uses: rtCamp/action-slack-notify@master
-         env:
-           SLACK_CHANNEL: getintoteaching_tech
-           SLACK_COLOR: '#3278BD'
-           SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_MESSAGE: ':disappointed_relieved: Pipeline Failure carrying out job ${{github.job}} :disappointed_relieved:'
-           SLACK_TITLE: 'Failure: ${{ github.workflow }}'
-           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-
-
-  owasp:
-    name: OWASP Test
-    runs-on: ubuntu-latest
-    if: always()
-    needs: deploy
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: ZAP Scan
-        uses: zaproxy/action-full-scan@v0.2.0
+      - name: Trigger Development Deployment
+        if: github.ref == 'refs/heads/master'
+        uses: benc-uk/workflow-dispatch@v1.1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          docker_name: 'owasp/zap2docker-stable'
-          target: 'https://${{ secrets.HTTPAUTH_USERNAME }}:${{ secrets.HTTPAUTH_PASSWORD }}@${{env.CONTAINER}}-dev.${{env.DOMAIN}}/'
-          rules_file_name: '.zap/rules.tsv'
-          cmd_options: '-a'
+          workflow: Deploy to PaaS
+          token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
+          inputs: '{"environment": "Development", "sha": "${{ github.sha }}"}'
 
       - name: Slack Notification
         if: failure()
@@ -258,8 +151,6 @@ jobs:
            SLACK_CHANNEL: getintoteaching_tech
            SLACK_COLOR: '#3278BD'
            SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_MESSAGE: ':disappointed_relieved: Pipeline Failure carrying out job ${{github.job}} :disappointed_relieved:'
-           SLACK_TITLE: 'Failure: ${{ github.workflow }}'
+           SLACK_TITLE: 'Failure: Building Teacher Training Adviser'
+           SLACK_TEXT: 'The build has failed please click on the Actions URL to investigate the problem.'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-
-
