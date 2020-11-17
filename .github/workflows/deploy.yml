@@ -76,21 +76,21 @@ jobs:
              TF_VAR_docker_password:   "${{ secrets.DOCKERHUB_PERSONAL_ACCESS_TOKEN }}"
 
 
-#       - name: Terraform Apply
-#        run: |
-#            cd terraform/paas && pwd
-#            terraform apply -auto-approve plan
-#        env:
-#            TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
-#            TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
-#            ARM_ACCESS_KEY:           "${{ secrets.DEV_ARM_ACCESS_KEY  }}"
-#
-#      - name: Smoke tests
-#        run: |
-#            tests/confidence/healthcheck.sh  "get-teacher-training-adviser-service-dev"  "${{ steps.sha.outputs.short }}"
-#        env:
-#            HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
-#            HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
+       - name: Terraform Apply
+         run: |
+             cd terraform/paas && pwd
+             terraform apply -auto-approve plan
+         env:
+             TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
+             TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
+             ARM_ACCESS_KEY:           "${{ secrets.DEV_ARM_ACCESS_KEY  }}"
+ 
+       - name: Smoke tests
+         run: |
+             tests/confidence/healthcheck.sh  "get-teacher-training-adviser-service-dev"  "${{ steps.sha.outputs.short }}"
+         env:
+             HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
+             HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
 
        - name: Update ${{ github.event.inputs.environment }} status
          if: always() 
@@ -102,6 +102,14 @@ jobs:
            status: ${{ job.status }}
            deployment_id: ${{ steps.deployment.outputs.deployment_id }}
            ref: ${{ github.event.inputs.sha }}
+
+       - name: Trigger OWASP Testing
+         if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Development'
+         uses: benc-uk/workflow-dispatch@v1.1
+         with:
+           workflow: owasp
+           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
+           inputs: '{"environment": "dev"}'
 
        - name: Slack Notification
          if: failure()
