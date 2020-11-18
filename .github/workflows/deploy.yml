@@ -38,6 +38,8 @@ jobs:
                  echo ::set-output name=ARM_ACCESS_KEY::$(echo "${{ secrets.DEV_ARM_ACCESS_KEY  }}" )
                  echo ::set-output name=RAILS_ENV::$(echo "rolling" )
                  echo ::set-output name=RAILS_MASTER_KEY::$(echo "${{ secrets.RAILS_MASTER_KEY_ROLLING }}" )
+                 echo ::set-output name=HTTP_PASSWORD::$(echo "${{ secrets.HTTPAUTH_PASSWORD }}" )
+                 echo ::set-output name=HTTP_USERNAME::$(echo "${{ secrets.HTTPAUTH_USERNAME }}" )
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Test" ]
@@ -45,6 +47,8 @@ jobs:
                  echo ::set-output name=ARM_ACCESS_KEY::$(echo "${{ secrets.TEST_ARM_ACCESS_KEY  }}" )
                  echo ::set-output name=RAILS_ENV::$(echo "preprod" )
                  echo ::set-output name=RAILS_MASTER_KEY::$(echo "${{ secrets.RAILS_MASTER_KEY_PREPROD }}" )
+                 echo ::set-output name=HTTP_PASSWORD::$(echo "${{ secrets.HTTPAUTH_PASSWORD }}" )
+                 echo ::set-output name=HTTP_USERNAME::$(echo "${{ secrets.HTTPAUTH_USERNAME }}" )
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Production" ]
@@ -52,6 +56,8 @@ jobs:
                  echo ::set-output name=ARM_ACCESS_KEY::$(echo "${{ secrets.PROD_ARM_ACCESS_KEY  }}" )
                  echo ::set-output name=RAILS_ENV::$(echo "production" )
                  echo ::set-output name=RAILS_MASTER_KEY::$(echo "${{ secrets.RAILS_MASTER_KEY_PRODUCTION }}" )
+                 echo ::set-output name=HTTP_PASSWORD::$(echo "" )
+                 echo ::set-output name=HTTP_USERNAME::$(echo "" )
              fi
 
        - uses: hashicorp/setup-terraform@v1.2.1
@@ -92,8 +98,8 @@ jobs:
              TF_VAR_RAILS_ENV:         "${{ steps.variables.outputs.RAILS_ENV  }}"
              TF_VAR_paas_adviser_docker_image: ${{env.APP_REPOSITORY}}:sha-${{ steps.sha.outputs.short}} 
              TF_VAR_RAILS_MASTER_KEY:  "${{ steps.variables.outputs.RAILS_MASTER_KEY  }}"
-             TF_VAR_HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
-             TF_VAR_HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
+             TF_VAR_HTTPAUTH_PASSWORD: "${{ steps.variables.outputs.HTTP_PASSWORD  }}"
+             TF_VAR_HTTPAUTH_USERNAME: "${{ steps.variables.outputs.HTTP_USERNAME  }}"
              TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
              TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
              TF_VAR_docker_username:   "${{ secrets.DOCKERHUB_USERNAME }}"
@@ -113,8 +119,8 @@ jobs:
          run: |
              tests/confidence/healthcheck.sh  "get-teacher-training-adviser-service-dev"  "${{ steps.sha.outputs.short }}"
          env:
-             HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
-             HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
+             HTTPAUTH_PASSWORD: "${{ steps.variables.outputs.HTTP_PASSWORD }}"
+             HTTPAUTH_USERNAME: "${{ steps.variables.outputs.HTTP_USERNAME }}"
 
        - name: Update ${{ github.event.inputs.environment }} status
          if: always() 
