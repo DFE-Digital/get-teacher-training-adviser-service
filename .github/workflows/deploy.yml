@@ -40,6 +40,7 @@ jobs:
                  echo ::set-output name=RAILS_MASTER_KEY::$(echo "${{ secrets.RAILS_MASTER_KEY_ROLLING }}" )
                  echo ::set-output name=HTTP_PASSWORD::$(echo "${{ secrets.HTTPAUTH_PASSWORD }}" )
                  echo ::set-output name=HTTP_USERNAME::$(echo "${{ secrets.HTTPAUTH_USERNAME }}" )
+                 echo ::set-output name=control::$(echo "dev" )
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Test" ]
@@ -49,6 +50,7 @@ jobs:
                  echo ::set-output name=RAILS_MASTER_KEY::$(echo "${{ secrets.RAILS_MASTER_KEY_PREPROD }}" )
                  echo ::set-output name=HTTP_PASSWORD::$(echo "${{ secrets.HTTPAUTH_PASSWORD }}" )
                  echo ::set-output name=HTTP_USERNAME::$(echo "${{ secrets.HTTPAUTH_USERNAME }}" )
+                 echo ::set-output name=control::$(echo "test" )
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Production" ]
@@ -58,6 +60,7 @@ jobs:
                  echo ::set-output name=RAILS_MASTER_KEY::$(echo "${{ secrets.RAILS_MASTER_KEY_PRODUCTION }}" )
                  echo ::set-output name=HTTP_PASSWORD::$(echo "" )
                  echo ::set-output name=HTTP_USERNAME::$(echo "" )
+                 echo ::set-output name=control::$(echo "production" )
              fi
 
        - uses: hashicorp/setup-terraform@v1.2.1
@@ -83,7 +86,7 @@ jobs:
        - name: Terraform Init
          run: |
              cd terraform/paas && pwd
-             terraform init -backend-config=dev.bk.vars
+             terraform init -backend-config="${{steps.variables.outputs.control}}".bk.vars
          env:
              TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
              TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
@@ -92,7 +95,7 @@ jobs:
        - name: Terraform Plan
          run: |
              cd terraform/paas && pwd
-             terraform plan -var-file=dev.env.tfvars -out plan
+             terraform plan -var-file="${{steps.variables.outputs.control}}".env.tfvars -out plan
          env:
              ARM_ACCESS_KEY:           "${{ steps.variables.outputs.ARM_ACCESS_KEY  }}"
              TF_VAR_RAILS_ENV:         "${{ steps.variables.outputs.RAILS_ENV  }}"
