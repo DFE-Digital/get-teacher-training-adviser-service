@@ -33,21 +33,21 @@ jobs:
        - name: Setup Environment Variables
          id:  variables
          run: |
-             if [ "${{github.event.inputs.environment }}" == "Development"]
+             if [ "${{github.event.inputs.environment }}" == "Development" ]
              then
                  echo ::set-output name=ARM_ACCESS_KEY::$(echo "${{ secrets.DEV_ARM_ACCESS_KEY  }}" )
                  echo ::set-output name=RAILS_ENV::$(echo "rolling" )
                  echo ::set-output name=RAILS_MASTER_KEY::$(echo "${{ secrets.RAILS_MASTER_KEY_ROLLING }}" )
              fi
 
-             if [ "${{github.event.inputs.environment }}" == "Test"]
+             if [ "${{github.event.inputs.environment }}" == "Test" ]
              then
                  echo ::set-output name=ARM_ACCESS_KEY::$(echo "${{ secrets.TEST_ARM_ACCESS_KEY  }}" )
                  echo ::set-output name=RAILS_ENV::$(echo "preprod" )
                  echo ::set-output name=RAILS_MASTER_KEY::$(echo "${{ secrets.RAILS_MASTER_KEY_PREPROD }}" )
              fi
 
-             if [ "${{github.event.inputs.environment }}" == "Production"]
+             if [ "${{github.event.inputs.environment }}" == "Production" ]
              then
                  echo ::set-output name=ARM_ACCESS_KEY::$(echo "${{ secrets.PROD_ARM_ACCESS_KEY  }}" )
                  echo ::set-output name=RAILS_ENV::$(echo "production" )
