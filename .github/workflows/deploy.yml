@@ -30,6 +30,30 @@ jobs:
          id: sha
          run: echo ::set-output name=short::$(echo "${{ github.event.inputs.sha }}" | cut -c -7)
 
+       - name: Setup Environment Variables
+         id:  variables
+         run: |
+             if [ "${{github.event.inputs.environment }}" == "Development"]
+             then
+                 echo ::set-output name=ARM_ACCESS_KEY::$(echo "${{ secrets.DEV_ARM_ACCESS_KEY  }}" )
+                 echo ::set-output name=RAILS_ENV::$(echo "rolling" )
+                 echo ::set-output name=RAILS_MASTER_KEY::$(echo "${{ secrets.RAILS_MASTER_KEY_ROLLING }}" )
+             fi
+
+             if [ "${{github.event.inputs.environment }}" == "Test"]
+             then
+                 echo ::set-output name=ARM_ACCESS_KEY::$(echo "${{ secrets.TEST_ARM_ACCESS_KEY  }}" )
+                 echo ::set-output name=RAILS_ENV::$(echo "preprod" )
+                 echo ::set-output name=RAILS_MASTER_KEY::$(echo "${{ secrets.RAILS_MASTER_KEY_PREPROD }}" )
+             fi
+
+             if [ "${{github.event.inputs.environment }}" == "Production"]
+             then
+                 echo ::set-output name=ARM_ACCESS_KEY::$(echo "${{ secrets.PROD_ARM_ACCESS_KEY  }}" )
+                 echo ::set-output name=RAILS_ENV::$(echo "production" )
+                 echo ::set-output name=RAILS_MASTER_KEY::$(echo "${{ secrets.RAILS_MASTER_KEY_PRODUCTION }}" )
+             fi
+
        - uses: hashicorp/setup-terraform@v1.2.1
          with:
               terraform_version: 0.13.4
@@ -40,7 +64,7 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
          with:
            continue-after-seconds: 180
-   
+
        - name: Start ${{ github.event.inputs.environment }} Deployment
          uses: bobheadxi/deployments@v0.4.2
          id: deployment
@@ -57,21 +81,21 @@ jobs:
          env:
              TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
              TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
-             ARM_ACCESS_KEY:           "${{ secrets.DEV_ARM_ACCESS_KEY  }}"
+             ARM_ACCESS_KEY:           "${{ steps.variables.outputs.ARM_ACCESS_KEY  }}"
 
        - name: Terraform Plan
          run: |
              cd terraform/paas && pwd
              terraform plan -var-file=dev.env.tfvars -out plan
          env:
-             TF_VAR_RAILS_ENV:         "rolling"
+             ARM_ACCESS_KEY:           "${{ steps.variables.outputs.ARM_ACCESS_KEY  }}"
+             TF_VAR_RAILS_ENV:         "${{ steps.variables.outputs.RAILS_ENV  }}"
              TF_VAR_paas_adviser_docker_image: ${{env.APP_REPOSITORY}}:sha-${{ steps.sha.outputs.short}} 
-             TF_VAR_RAILS_MASTER_KEY:  "${{ secrets.RAILS_MASTER_KEY_ROLLING }}"
+             TF_VAR_RAILS_MASTER_KEY:  "${{ steps.variables.outputs.RAILS_MASTER_KEY  }}"
              TF_VAR_HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
              TF_VAR_HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
              TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
              TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
-             ARM_ACCESS_KEY:           "${{ secrets.DEV_ARM_ACCESS_KEY  }}"
              TF_VAR_docker_username:   "${{ secrets.DOCKERHUB_USERNAME }}"
              TF_VAR_docker_password:   "${{ secrets.DOCKERHUB_PERSONAL_ACCESS_TOKEN }}"
 
@@ -81,9 +105,9 @@ jobs:
              cd terraform/paas && pwd
              terraform apply -auto-approve plan
          env:
+             ARM_ACCESS_KEY:           "${{ steps.variables.outputs.ARM_ACCESS_KEY  }}"
              TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
              TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
-             ARM_ACCESS_KEY:           "${{ secrets.DEV_ARM_ACCESS_KEY  }}"
  
        - name: Smoke tests
          run: |
