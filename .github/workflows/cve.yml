@@ -1,22 +1,28 @@
-name: Run CVE scanner 
+name: cve
 on:
   workflow_dispatch:
+    inputs:
+      image:
+        description: 'The environment to test to eg: dev/test/prod etc'
+        required: true
+
+env:
+  APP_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
+  CONTAINER:       get-teacher-training-adviser-service
+  DOMAIN:          london.cloudapps.digital
 
 jobs:
   cve:
-    name: CVE scanner 
+    name: 'CVE Test'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag localbuild/testimage:latest
-
       - name: Scan image
         uses: anchore/scan-action@v2
         with:
-             image:  localbuild/testimage:latest
+             image: ${{github.event.inputs.image}}
              fail-build: true
              severity-cutoff: high
              acs-report-enable: true
@@ -34,6 +40,6 @@ jobs:
            SLACK_CHANNEL: getintoteaching_tech
            SLACK_COLOR: '#3278BD'
            SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_MESSAGE: ':disappointed_relieved: Pipeline Failure carrying out job ${{github.job}} :disappointed_relieved:'
-           SLACK_TITLE: 'Failure: ${{ github.workflow }}'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+           SLACK_MESSAGE: 'Pipeline Failure carrying out CVE Testing on ${{ github.event.inputs.image }}'
+           SLACK_TITLE: 'Failure: CVE Testing has failed'

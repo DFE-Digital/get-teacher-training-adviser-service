@@ -1,0 +1,66 @@
+name: Destroy Review Instance 
+on:
+  pull_request:
+    types: [closed]
+
+env:
+  APP_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
+  CONTAINER:       get-teacher-training-adviser-service
+  DOMAIN:          london.cloudapps.digital
+
+jobs:
+  deploy:
+    name: 'Deploy ${{ github.event.inputs.environment }}'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+    steps:
+       - name: Checkout
+         uses: actions/checkout@v2
+
+       - name: Setup Environment Variables
+         id:  variables
+         run: |
+                 echo ::set-output name=ARM_ACCESS_KEY::$(echo "${{ secrets.DEV_ARM_ACCESS_KEY  }}" )
+                 echo ::set-output name=pr_name::review-teacher-training-adviser-${{github.event.number}}
+                 echo ::set-output name=url::"https://review-teacher-training-adviser-${{github.event.number}}.${{env.DOMAIN}}"
+
+       - uses: hashicorp/setup-terraform@v1.2.1
+         with:
+              terraform_version: 0.13.4
+
+       - name: Wait for any previous runs to complete
+         uses: softprops/turnstyle@v1
+         env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         with:
+           continue-after-seconds: 180
+
+       - name: Terraform Destroy
+         run: |
+             cd terraform/paas && pwd
+             terraform init -backend-config=review.bk.vars -backend-config="key=${{steps.variables.outputs.pr_name}}.tfstate"
+             terraform destroy -var-file=review.env.tfvars -auto-approve
+         env:
+             ARM_ACCESS_KEY: "${{ steps.variables.outputs.ARM_ACCESS_KEY  }}"
+
+       - name: Trigger Development QA
+         if: github.ref == 'refs/heads/master'
+         uses: benc-uk/workflow-dispatch@v1.1
+         with:
+           workflow: Deploy to PaaS
+           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
+           inputs: '{"environment": "Test", "sha": "${{ github.sha }}"}'
+
+       - name: Slack Notification
+         if: failure()
+         uses: rtCamp/action-slack-notify@master
+         env:
+           SLACK_CHANNEL: getintoteaching_tech
+           SLACK_COLOR: '#B90E0A'
+           SLACK_ICON: https://github.com/rtCamp.png?size=48
+           SLACK_TITLE: 'Failure:  Closing Review'
+           SLACK_MESSAGE: 'Failure with  Closing Teacher Training Adviser Review'
+           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
