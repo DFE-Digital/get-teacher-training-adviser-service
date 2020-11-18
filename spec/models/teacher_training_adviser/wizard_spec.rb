@@ -27,6 +27,7 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
         TeacherTrainingAdviser::Steps::PreviousTeacherId,
         TeacherTrainingAdviser::Steps::SubjectTaught,
         TeacherTrainingAdviser::Steps::SubjectLikeToTeach,
+        TeacherTrainingAdviser::Steps::SubjectNotFound,
         TeacherTrainingAdviser::Steps::DateOfBirth,
         TeacherTrainingAdviser::Steps::UkOrOverseas,
         TeacherTrainingAdviser::Steps::UkAddress,

@@ -24,6 +24,7 @@ module TeacherTrainingAdviser
       Steps::PreviousTeacherId,
       Steps::SubjectTaught,
       Steps::SubjectLikeToTeach,
+      Steps::SubjectNotFound,
       Steps::DateOfBirth,
       Steps::UkOrOverseas,
       Steps::UkAddress,
