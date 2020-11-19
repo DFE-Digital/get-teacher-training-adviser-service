@@ -197,6 +197,14 @@ jobs:
                --data '{"body": "Review app deployed to ${{steps.variables.outputs.url}}"}'  \
                https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.inputs.pr }}/comments
 
+       - name: Trigger Deployment to  QA
+         if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Development'
+         uses: benc-uk/workflow-dispatch@v1.1
+         with:
+           workflow: Deploy to PaaS
+           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
+           inputs: '{"environment": "Test", "sha": "${{ github.event.inputs.sha }}"}'
+
        - name: Slack Notification
          if: failure()
          uses: rtCamp/action-slack-notify@master
