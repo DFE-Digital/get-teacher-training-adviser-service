@@ -140,7 +140,7 @@ jobs:
            -Dsonar.ruby.rubocop.reportPaths=${PWD}/out/rubocop-result.json
 
       - name: Trigger CVE Testing
-        if: github.ref == 'refs/heads/master' 
+        if: github.ref != 'refs/heads/master' 
         uses: benc-uk/workflow-dispatch@v1.1
         with:
            workflow: cve
