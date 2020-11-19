@@ -164,7 +164,7 @@ jobs:
         with:
           workflow: Deploy to PaaS
           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
-          inputs: '{"environment": "Review", "sha": "${{ github.sha }}" , "pr": "${{github.event.number}}"  }'
+          inputs: '{"environment": "Review", "sha": "${{ github.sha }}" , "pr": "${{github.event.number}}" , "title": "${{github.event.pull_request.title}}" }'
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Slack Notification

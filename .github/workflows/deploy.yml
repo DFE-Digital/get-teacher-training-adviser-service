@@ -11,6 +11,9 @@ on:
       pr:
         description: 'Pull Request Reference'
         required: false
+      title:
+        description: 'Pull Request Title'
+        required: false
 
 env:
   APP_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
@@ -173,13 +176,16 @@ jobs:
 
        - name: Review Ready Notification
          if: github.event.inputs.environment == 'Review'
-         uses: rtCamp/action-slack-notify@master
+         uses: rtCamp/action-slack-notify@v2
          env:
+           SLACK_USERNAME: "GiT Review"
            SLACK_CHANNEL: getintoteaching_tech
            SLACK_COLOR: '#03AC13'
            SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_TITLE: 'Review Pending'
-           SLACK_MESSAGE: 'Pull Request https://github.com/${{ github.repository }}/pull/${{github.event.inputs.pr}} is available for review. URL can be found at ${{steps.variables.outputs.url}}'
+           SLACK_TITLE:   'Review Pending for : ${{github.event.inputs.title}}'
+           SLACK_MESSAGE: 'Review Application can be found at ${{steps.variables.outputs.url}}' 
+           SLACK_FOOTER: "Get Into Teaching Adviser"
+           MSG_MINIMAL: true
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
        - name: Post PR comment
