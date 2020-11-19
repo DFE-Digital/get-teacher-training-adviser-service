@@ -150,9 +150,6 @@ jobs:
       - name: Trigger Development Deployment
         if: github.ref == 'refs/heads/master'
         uses: benc-uk/workflow-dispatch@v1.1
-      - name: Trigger Development Deployment
-        if: github.ref == 'refs/heads/master'
-        uses: benc-uk/workflow-dispatch@v1.1
         with:
           workflow: Deploy to PaaS
           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
