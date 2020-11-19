@@ -213,6 +213,7 @@ jobs:
            tag_name: ${{ steps.tag_version.outputs.new_tag }}
            release_name: Release ${{ steps.tag_version.outputs.new_tag }}
            body: ${{ steps.tag_version.outputs.changelog }}
+           commitish: ${{ github.event.inputs.sha }}
             
        - name: Trigger Deployment to  QA
          if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Development'
@@ -229,6 +230,6 @@ jobs:
            SLACK_CHANNEL: getintoteaching_tech
            SLACK_COLOR: '#B90E0A'
            SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_TITLE: 'Failure:  Deploying'
-           SLACK_MESSAGE: 'Failure with  Deployment for Teacher Training Adviser to ${{ github.event.inputs.environment }}'
+           SLACK_TITLE: 'Failure: Deploying to ${{ github.event.inputs.environment }}'
+           SLACK_MESSAGE: 'Failure with Deployment for Teacher Training Adviser to ${{ github.event.inputs.environment }} SHA: ${{steps.sha.outputs.short}}'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
