@@ -139,14 +139,26 @@ jobs:
            -Dsonar.ruby.coverage.reportPaths=${PWD}/coverage/.resultset.json
            -Dsonar.ruby.rubocop.reportPaths=${PWD}/out/rubocop-result.json
 
-      - name: Trigger CVE Testing
+      - name: Trigger CVE Testing (Review)
         if: github.ref != 'refs/heads/master' 
         uses: benc-uk/workflow-dispatch@v1.1
         with:
            workflow: cve
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
            inputs: '{"image": "${{ steps.sha.outputs.pr_image }}"}'
+           ref:   ${{ github.event.pull_request.head.ref }}  
 
+      - name: Trigger CVE Testing ( None Review)
+        if: github.ref == 'refs/heads/master' 
+        uses: benc-uk/workflow-dispatch@v1.1
+        with:
+           workflow: cve
+           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
+           inputs: '{"image": "${{ steps.sha.outputs.image }}"}'
+
+      - name: Trigger Development Deployment
+        if: github.ref == 'refs/heads/master'
+        uses: benc-uk/workflow-dispatch@v1.1
       - name: Trigger Development Deployment
         if: github.ref == 'refs/heads/master'
         uses: benc-uk/workflow-dispatch@v1.1
