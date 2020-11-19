@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       image:
-        description: 'The environment to test to eg: dev/test/prod etc'
+        description: 'Image Name to be Tested'
         required: true
 
 env:
