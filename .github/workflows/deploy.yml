@@ -176,14 +176,14 @@ jobs:
 
        - name: Review Ready Notification
          if: github.event.inputs.environment == 'Review'
-         uses: rtCamp/action-slack-notify@v2
+         uses: rtCamp/action-slack-notify@master
          env:
            SLACK_USERNAME: "GiT Review"
            SLACK_CHANNEL: getintoteaching_tech
            SLACK_COLOR: '#03AC13'
            SLACK_ICON: https://github.com/rtCamp.png?size=48
            SLACK_TITLE:   'Review Pending for : ${{github.event.inputs.title}}'
-           SLACK_MESSAGE: 'Review Application can be found at ${{steps.variables.outputs.url}}\n Pull request can be found at https://github.com/${{env.CONTAINER}}/pull/${{ github.event.inputs.pr }}'
+           SLACK_MESSAGE: 'Review Application can be found at ${{steps.variables.outputs.url}}\n Pull request can be found at https://github.com/DFE-Digital/${{env.CONTAINER}}/pull/${{ github.event.inputs.pr }}'
            SLACK_FOOTER: "Get Into Teaching Adviser"
            MSG_MINIMAL: true
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
@@ -196,6 +196,31 @@ jobs:
                --request POST \
                --data '{"body": "Review app deployed to ${{steps.variables.outputs.url}}"}'  \
                https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.inputs.pr }}/comments
+
+       - name: Bump version and push tag
+         if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Development'
+         id: tag_version
+         uses: mathieudutour/github-tag-action@v5
+         with:
+           github_token: ${{ secrets.GITHUB_TOKEN }}
+
+       - name: Create a GitHub release
+         if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Development'
+         uses: actions/create-release@v1
+         env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         with:
+           tag_name: ${{ steps.tag_version.outputs.new_tag }}
+           release_name: Release ${{ steps.tag_version.outputs.new_tag }}
+           body: ${{ steps.tag_version.outputs.changelog }}
+            
+       - name: Trigger Deployment to  QA
+         if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Development'
+         uses: benc-uk/workflow-dispatch@v1.1
+         with:
+           workflow: Deploy to PaaS
+           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
+           inputs: '{"environment": "Test", "sha": "${{ github.event.inputs.sha }}"}'
 
        - name: Slack Notification
          if: failure()

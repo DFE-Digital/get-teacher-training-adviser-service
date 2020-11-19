@@ -23,7 +23,7 @@ jobs:
         uses: anchore/scan-action@v2
         with:
              image: ${{github.event.inputs.image}}
-             fail-build: true
+             fail-build: false
              severity-cutoff: high
              acs-report-enable: true
            
