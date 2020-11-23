@@ -19,6 +19,7 @@ env:
   APP_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
   CONTAINER:       get-teacher-training-adviser-service
   DOMAIN:          london.cloudapps.digital
+  SLACK:           off
 
 jobs:
   deploy:
@@ -31,6 +32,8 @@ jobs:
     steps:
        - name: Checkout
          uses: actions/checkout@v2
+         with:
+            ref: "${{ github.event.inputs.sha }}"
 
        - name: Get Short SHA
          id: sha
@@ -167,7 +170,7 @@ jobs:
            env_url: ${{ steps.variables.outputs.url  }}
 
        - name: Trigger OWASP Testing
-         if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Review'
+         if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Development'
          uses: benc-uk/workflow-dispatch@v1.1
          with:
            workflow: owasp
@@ -183,7 +186,7 @@ jobs:
            SLACK_COLOR: '#03AC13'
            SLACK_ICON: https://github.com/rtCamp.png?size=48
            SLACK_TITLE:   'Review Pending for : ${{github.event.inputs.title}}'
-           SLACK_MESSAGE: 'Review Application can be found at ${{steps.variables.outputs.url}}\n Pull request can be found at https://github.com/DFE-Digital/${{env.CONTAINER}}/pull/${{ github.event.inputs.pr }}'
+           SLACK_MESSAGE: 'Review Application can be found at ${{steps.variables.outputs.url}} Pull request can be found at https://github.com/DFE-Digital/${{env.CONTAINER}}/pull/${{ github.event.inputs.pr }}'
            SLACK_FOOTER: "Get Into Teaching Adviser"
            MSG_MINIMAL: true
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
@@ -191,21 +194,35 @@ jobs:
        - name: Post PR comment
          if: github.event.inputs.environment == 'Review'
          run: |
-          curl --header "Accept: application/vnd.github.v3+json" \
+          curl --silent 
+               --header "Accept: application/vnd.github.v3+json" \
                --header "Authorization: Bearer ${{ github.token }}" \
                --request POST \
                --data '{"body": "Review app deployed to ${{steps.variables.outputs.url}}"}'  \
                https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.inputs.pr }}/comments
 
-       - name: Bump version and push tag
+       - name: Generate Tag from PR Number
          if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Development'
          id: tag_version
-         uses: mathieudutour/github-tag-action@v5
-         with:
-           github_token: ${{ secrets.GITHUB_TOKEN }}
+         run: |
+           MATCH="Merge pull request #[0-9]+"
+           STRING=$(curl -s -X GET "https://api.github.com/repos/${{github.repository}}/commits/${{github.event.inputs.sha}}" | jq ".commit.message")
+
+           if [[ ${STRING}  =~ ${MATCH} ]] ;
+           then
+              echo "Pull request merge"
+              TAG=$( echo ${STRING} | grep -oh "[0-9]\+" | head -1 )
+              BODY=$(curl -s -X GET "https://api.github.com/repos/${REPO}/pulls/${TAG}" | jq ".body")
+           else
+              echo "Not a pull request merge"
+              TAG="0"
+              BODY="Nothing"
+           fi
+           echo ::set-output name=new_tag::"PR-${TAG}"
+           echo ::set-output name=changelog::"${BODY}"
 
        - name: Create a GitHub release
-         if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Development'
+         if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Development' && steps.tag_version.outputs.new_tag != '0'
          uses: actions/create-release@v1
          env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -224,7 +241,7 @@ jobs:
            inputs: '{"environment": "Test", "sha": "${{ github.event.inputs.sha }}"}'
 
        - name: Slack Notification
-         if: failure()
+         if: failure() && env.SLACK == 'on'
          uses: rtCamp/action-slack-notify@master
          env:
            SLACK_CHANNEL: getintoteaching_tech
