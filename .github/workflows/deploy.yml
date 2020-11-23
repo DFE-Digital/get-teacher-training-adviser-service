@@ -201,7 +201,6 @@ jobs:
                https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.inputs.pr }}/comments
 
        - name: Generate Tag from PR Number
-         if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Development'
          id: tag_version
          run: |
            MATCH="Merge pull request #[0-9]+"
@@ -213,9 +212,9 @@ jobs:
               TAG= $( echo ${STRING} | grep -oh "[0-9]\+" | head -1 )
               BODY=$(curl -s -X GET "https://api.github.com/repos/${REPO}/pulls/${TAG}" | jq ".body")
            else
+              echo "Not a pull request merge"
               TAG=0
               BODY="Nothing"
-              echo "Not a pull request merge"
            fi
            echo ::set-output name=new_tag::"PR-${TAG}"
            echo ::set-output name=changelog::"${BODY}"
