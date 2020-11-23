@@ -157,7 +157,7 @@ en:
         teacher_training_adviser/steps/subject_like_to_teach:
           attributes:
             preferred_teaching_subject_id:
-              invalid_type: "Please select maths, physics or modern foreign language"
+              inclusion: "Choose a subject or other"
         teacher_training_adviser/steps/subject_interested_teaching:
           attributes:
             preferred_teaching_subject_id:

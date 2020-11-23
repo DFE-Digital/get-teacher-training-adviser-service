@@ -117,7 +117,7 @@ RSpec.describe ApplicationHelper do
     end
   end
 
-  describe "link_to_git" do
+  describe "#link_to_git" do
     let(:url) { "http://test.url/" }
     subject { link_to_git_site }
 
@@ -145,14 +145,62 @@ RSpec.describe ApplicationHelper do
 
     context "without URL set" do
       before { allow(ENV).to receive(:[]).with("GIT_URL").and_return nil }
-      it { is_expected.to have_css 'a[href="/url-not-set"]' }
+      it { is_expected.to have_css 'a[href="/url-not-set/"]' }
       it { is_expected.to have_css "a", text: "Get into Teaching" }
     end
 
     context "without URL set" do
       before { allow(ENV).to receive(:[]).with("GIT_URL").and_return "" }
-      it { is_expected.to have_css 'a[href="/url-not-set"]' }
+      it { is_expected.to have_css 'a[href="/url-not-set/"]' }
       it { is_expected.to have_css "a", text: "Get into Teaching" }
+    end
+  end
+
+  describe "#link_to_git_mailing_list" do
+    let(:url) { "http://test.url/" }
+    subject { link_to_git_mailing_list("join the mailing list", class: "govuk-link") }
+
+    before { allow(ENV).to receive(:[]).with("GIT_URL") { url } }
+
+    it { is_expected.to have_css "a[href=\"http://test.url/mailinglist/signup\"]" }
+    it { is_expected.to have_css "a.govuk-link", text: "join the mailing list" }
+
+    context "when the GIT_URL is nil" do
+      before { allow(ENV).to receive(:[]).with("GIT_URL") { nil } }
+
+      it { is_expected.to have_css "a[href=\"/url-not-set/mailinglist/signup\"]" }
+      it { is_expected.to have_css "a", text: "join the mailing list" }
+    end
+
+    context "when the GIT_URL is an empty string" do
+      before { allow(ENV).to receive(:[]).with("GIT_URL") { " " } }
+
+      it { is_expected.to have_css "a[href=\"/url-not-set/mailinglist/signup\"]" }
+      it { is_expected.to have_css "a", text: "join the mailing list" }
+    end
+  end
+
+  describe "#link_to_git_events" do
+    let(:url) { "http://test.url/" }
+    subject { link_to_git_events("find an event", class: "govuk-link") }
+
+    before { allow(ENV).to receive(:[]).with("GIT_URL") { url } }
+
+    it { is_expected.to have_css "a[href=\"http://test.url/events\"]" }
+    it { is_expected.to have_css "a.govuk-link", text: "find an event" }
+
+    context "when the GIT_URL is nil" do
+      before { allow(ENV).to receive(:[]).with("GIT_URL") { nil } }
+
+      it { is_expected.to have_css "a[href=\"/url-not-set/events\"]" }
+      it { is_expected.to have_css "a", text: "find an event" }
+    end
+
+    context "when the GIT_URL is an empty string" do
+      before { allow(ENV).to receive(:[]).with("GIT_URL") { " " } }
+
+      it { is_expected.to have_css "a[href=\"/url-not-set/events\"]" }
+      it { is_expected.to have_css "a", text: "find an event" }
     end
   end
 

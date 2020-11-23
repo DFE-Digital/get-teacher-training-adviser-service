@@ -376,6 +376,33 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       expect(page).to have_text "Get the right GCSEs or equivalent qualifications"
       expect(page).to_not have_text "Continue"
     end
+
+    scenario "can't find subject like to teach" do
+      visit teacher_training_adviser_steps_path
+
+      expect(page).to have_text "About you"
+      fill_in_identity_step
+      click_on "Continue"
+
+      expect(page).to have_text "Are you returning to teaching?"
+      choose "Yes"
+      click_on "Continue"
+
+      expect(page).to have_text "Do you have your previous teacher reference number?"
+      choose "No"
+      click_on "Continue"
+
+      expect(page).to have_text "Which main subject did you previously teach?"
+      select "Physics"
+      click_on "Continue"
+
+      expect(page).to have_text "Which subject would you like to teach if you return to teaching?"
+      choose "Other"
+      click_on "Continue"
+
+      expect(page).to have_text "Get support"
+      expect(page).to_not have_text "Continue"
+    end
   end
 
   context "an existing candidate" do

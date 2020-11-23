@@ -58,7 +58,15 @@ module ApplicationHelper
   end
 
   def link_to_git_site(text = "Get into Teaching", attributes = {})
-    link_to text, (ENV["GIT_URL"].presence || "/url-not-set"), attributes
+    link_to text, git_url, attributes
+  end
+
+  def link_to_git_mailing_list(text, attributes = {})
+    link_to text, git_url("mailinglist/signup"), attributes
+  end
+
+  def link_to_git_events(text, attributes = {})
+    link_to text, git_url("events"), attributes
   end
 
   def internal_referer
@@ -67,5 +75,14 @@ module ApplicationHelper
     return nil unless internal
 
     referer
+  end
+
+private
+
+  def git_url(path = "")
+    url = ENV["GIT_URL"].presence
+    return "/url-not-set/#{path}" unless url
+
+    "#{url.chomp('/')}/#{path}"
   end
 end

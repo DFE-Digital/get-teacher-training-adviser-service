@@ -15,19 +15,24 @@ RSpec.shared_examples "a wizard step" do
   it { is_expected.to respond_to :save! }
 end
 
-RSpec.shared_examples "a wizard step that exposes API types as options" do |api_method, omit_ids|
+RSpec.shared_examples "a wizard step that exposes API types as options" do |api_method, omit_ids, include_ids|
+  let(:types) do
+    [
+      GetIntoTeachingApiClient::TypeEntity.new(id: "1", value: "one"),
+      GetIntoTeachingApiClient::TypeEntity.new(id: "2", value: "two"),
+    ]
+  end
+  let(:type_ids) { types.map(&:id) }
+
   it { expect(subject.class).to respond_to :options }
 
-  it "it exposes API types as options" do
-    types = [
-      GetIntoTeachingApiClient::TypeEntity.new(id: 1, value: "one"),
-      GetIntoTeachingApiClient::TypeEntity.new(id: 2, value: "two"),
-    ]
+  unless include_ids
+    it "it exposes API types as options" do
+      allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
+        receive(api_method) { types }
 
-    allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
-      receive(api_method) { types }
-
-    expect(described_class.options).to eq({ "one" => "1", "two" => "2" })
+      expect(described_class.options.values).to eq(type_ids)
+    end
   end
 
   if omit_ids
@@ -35,9 +40,21 @@ RSpec.shared_examples "a wizard step that exposes API types as options" do |api_
       omitted_types = omit_ids.map { |id| GetIntoTeachingApiClient::TypeEntity.new(id: id, value: "omit-#{id}") }
 
       allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
-        receive(api_method) { omitted_types }
+        receive(api_method) { omitted_types + types }
 
-      expect(described_class.options).to be_empty
+      expect(described_class.options.values).to eq(type_ids)
+    end
+  end
+
+  if include_ids
+    it "includes only options with the ids #{include_ids}" do
+      included_types = include_ids.map { |id| GetIntoTeachingApiClient::TypeEntity.new(id: id, value: "include-#{id}") }
+      included_type_ids = included_types.map(&:id)
+
+      allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
+        receive(api_method) { included_types + types }
+
+      expect(described_class.options.values).to eq(included_type_ids)
     end
   end
 end
