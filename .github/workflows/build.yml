@@ -7,7 +7,7 @@ on:
       - master
 env:
   APP_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
-  SLACK:           off
+  SKIP:            on
 
 jobs:
   build:
@@ -25,11 +25,13 @@ jobs:
              fetch-depth: 0
 
       - name: Lint Dockerfile
+        if: env.SKIP == 'off'
         uses: brpaz/hadolint-action@master
         with:
              dockerfile: "Dockerfile"
 
       - name: Setup sonarqube
+        if: env.SKIP == 'off'
         uses: warchant/setup-sonar-scanner@v3
       
       - name: Set up Docker Buildx
@@ -89,46 +91,55 @@ jobs:
                       APP_SHA=${{ steps.sha.outputs.short }}
                       
       - name: Run Specs
+        if: env.SKIP == 'off'
         run: |-
           docker run -t --rm -v ${PWD}/out:/app/out -v ${PWD}/coverage:/app/coverage -e RAILS_ENV=test ${{ steps.sha.outputs.local }} \
             rspec --format RspecSonarqubeFormatter --out /app/out/test-report.xml --format documentation
 
       - name: Fixup report file paths
+        if: env.SKIP == 'off'
         run: sudo sed -i "s?\"/app/?\"${PWD}/?" coverage/.resultset.json
 
       - name:  Keep Code Coverage Report
+        if: env.SKIP == 'off'
         uses: actions/upload-artifact@v2
         with:
           name: Code_Coverage
           path: ${{ github.workspace }}/coverage/*
 
       - name:  Keep Unit Tests Results
+        if: env.SKIP == 'off'
         uses: actions/upload-artifact@v2
         with:
           name: unit_tests 
           path: ${{ github.workspace }}/out/*
 
       - name: Run Javascript Tests
+        if: env.SKIP == 'off'
         run: |-
           docker run -t --rm -e RAILS_ENV=test -e NODE_ENV=test -e CI=true \
             ${{ steps.sha.outputs.local }} "yarn && yarn spec"
 
       - name: Lint Ruby
+        if: env.SKIP == 'off'
         run: |-
           docker run -t --rm -v ${PWD}/out:/app/out -e RAILS_ENV=test ${{ steps.sha.outputs.local }} \
             rubocop app config db lib spec Gemfile --format json --out=/app/out/rubocop-result.json
 
       - name:  Keep Rubocop output
+        if: env.SKIP == 'off'
         uses: actions/upload-artifact@v2
         with:
           name: Rubocop_results
           path: ${PWD}/out/rubocop-result.json
 
       - name: Run Brakeman static security scanner
+        if: env.SKIP == 'off'
         run: |-
           docker run -t --rm -e RAILS_ENV=test ${{ steps.sha.outputs.local }} brakeman --no-pager
 
       - name: Run sonarqube
+        if: env.SKIP == 'off'
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: sonar-scanner
@@ -141,7 +152,7 @@ jobs:
            -Dsonar.ruby.rubocop.reportPaths=${PWD}/out/rubocop-result.json
 
       - name: Trigger CVE Testing
-        if: github.ref == 'refs/heads/master' 
+        if: github.ref == 'refs/heads/master' && env.SKIP == 'off'
         uses: benc-uk/workflow-dispatch@v1.1
         with:
            workflow: cve
@@ -166,7 +177,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Slack Notification
-        if: failure() && env.SLACK == 'on'
+        if: failure() && env.SKIP == 'off'
         uses: rtCamp/action-slack-notify@master
         env:
            SLACK_CHANNEL: getintoteaching_tech
