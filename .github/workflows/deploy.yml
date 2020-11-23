@@ -205,13 +205,14 @@ jobs:
          id: tag_version
          run: |
            MATCH="Merge pull request #[0-9]+"
-           STRING=$(curl -s -X GET "https://api.github.com/repos/${{github.repository}}/commits/${{github.event.inputs.sha}}" | jq ".commit.message")
+           STRING=$(curl -s -X GET "https://api.github.com/repos/${{github.repository}}/commits/${{github.event.inputs.sha}}" | jq -r  ".commit.message")
 
            if [[ ${STRING}  =~ ${MATCH} ]] ;
            then
               echo "Pull request merge"
               TAG=$( echo ${STRING} | grep -oh "[0-9]\+" | head -1 )
-              BODY=$(curl -s -X GET "https://api.github.com/repos/${REPO}/pulls/${TAG}" | jq ".body")
+              echo "PR Number ${TAG}"
+              BODY=$(curl -s -X GET "https://api.github.com/repos/${REPO}/pulls/${TAG}" | jq -r ".body")
            else
               echo "Not a pull request merge"
               TAG="0"
