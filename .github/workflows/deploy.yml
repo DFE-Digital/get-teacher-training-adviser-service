@@ -194,7 +194,7 @@ jobs:
        - name: Post PR comment
          if: github.event.inputs.environment == 'Review'
          run: |
-          curl --silent 
+          curl --silent  \
                --header "Accept: application/vnd.github.v3+json" \
                --header "Authorization: Bearer ${{ github.token }}" \
                --request POST \
