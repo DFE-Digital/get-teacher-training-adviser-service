@@ -19,7 +19,6 @@ env:
   APP_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
   CONTAINER:       get-teacher-training-adviser-service
   DOMAIN:          london.cloudapps.digital
-  SLACK:           off
 
 jobs:
   deploy:
@@ -241,7 +240,7 @@ jobs:
            inputs: '{"environment": "Test", "sha": "${{ github.event.inputs.sha }}"}'
 
        - name: Slack Notification
-         if: failure() && env.SLACK == 'on'
+         if: failure() 
          uses: rtCamp/action-slack-notify@master
          env:
            SLACK_CHANNEL: getintoteaching_tech
