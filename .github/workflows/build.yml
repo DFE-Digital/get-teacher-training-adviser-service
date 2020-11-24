@@ -165,7 +165,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Slack Notification
-        if: failure()
+        if: failure() 
         uses: rtCamp/action-slack-notify@master
         env:
            SLACK_CHANNEL: getintoteaching_tech
