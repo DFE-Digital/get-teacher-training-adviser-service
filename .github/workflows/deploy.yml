@@ -200,7 +200,7 @@ jobs:
        - name: Bump version and push tag
          if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Development'
          id: tag_version
-         uses: mathieudutour/github-tag-action@v5
+         uses: mathieudutour/github-tag-action@v5.1
          with:
            github_token: ${{ secrets.GITHUB_TOKEN }}
 
