@@ -212,7 +212,7 @@ jobs:
               echo "Pull request merge"
               TAG=$( echo ${STRING} | grep -oh "[0-9]\+" | head -1 )
               echo "PR Number ${TAG}"
-              BODY=$(curl -s -X GET "https://api.github.com/repos/${REPO}/pulls/${TAG}" | jq -r ".body")
+              BODY=$(curl -s -X GET "https://api.github.com/repos/${{github.repository}}/pulls/${TAG}" | jq -r ".body")
            else
               echo "Not a pull request merge"
               TAG="0"
