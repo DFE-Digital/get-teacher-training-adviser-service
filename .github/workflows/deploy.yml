@@ -17,6 +17,10 @@ on:
       release_tag:
         description: 'Name of Release Tag'
         required: false
+      stop:
+        description: 'Stop workflow after release'
+        required: true
+        default:  "no"
 
 env:
   APP_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
@@ -260,6 +264,7 @@ jobs:
            draft:      true
 
        - name: Trigger Deployment to QA
+         if: github.event.inputs.stop == 'no'
          uses: benc-uk/workflow-dispatch@v1.1
          with:
            workflow: Deploy to PaaS
@@ -300,7 +305,8 @@ jobs:
          with:
            release_id: ${{steps.tag_id.outputs.tag_id}}
 
-       - name: Trigger Deployment to ${{ github.event.inputs.environment }}
+       - name: Trigger Deployment to Production
+         if: github.event.inputs.stop == 'no'
          uses: benc-uk/workflow-dispatch@v1.1
          with:
            workflow: Deploy to PaaS
