@@ -14,6 +14,9 @@ on:
       title:
         description: 'Pull Request Title'
         required: false
+      release_tag:
+        description: 'Name of Release Tag'
+        required: false
 
 env:
   APP_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
@@ -24,6 +27,8 @@ jobs:
   deploy:
     name: 'Deploy ${{ github.event.inputs.environment }}'
     runs-on: ubuntu-latest
+    outputs:
+       url: ${{steps.variables.outputs.url}} 
 
     defaults:
       run:
@@ -168,16 +173,24 @@ jobs:
            deployment_id: ${{ steps.deployment.outputs.deployment_id }}
            env_url: ${{ steps.variables.outputs.url  }}
 
-       - name: Trigger OWASP Testing
-         if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Development'
-         uses: benc-uk/workflow-dispatch@v1.1
-         with:
-           workflow: owasp
-           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
-           inputs: '{"environment": "dev"}'
+       - name: Slack Notification
+         if: failure() 
+         uses: rtCamp/action-slack-notify@master
+         env:
+           SLACK_CHANNEL: getintoteaching_tech
+           SLACK_COLOR: '#B90E0A'
+           SLACK_ICON: https://github.com/rtCamp.png?size=48
+           SLACK_TITLE: 'Failure: Deploying to ${{ github.event.inputs.environment }}'
+           SLACK_MESSAGE: 'Failure with Deployment for Teacher Training Adviser to ${{ github.event.inputs.environment }} SHA: ${{steps.sha.outputs.short}}'
+           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
+  review:
+    name: 'Prepare for Review'
+    runs-on: ubuntu-latest
+    if: github.event.inputs.environment == 'Review'
+    needs: deploy
+    steps:
        - name: Review Ready Notification
-         if: github.event.inputs.environment == 'Review'
          uses: rtCamp/action-slack-notify@master
          env:
            SLACK_USERNAME: "GiT Review"
@@ -185,7 +198,7 @@ jobs:
            SLACK_COLOR: '#03AC13'
            SLACK_ICON: https://github.com/rtCamp.png?size=48
            SLACK_TITLE:   'Review Pending for : ${{github.event.inputs.title}}'
-           SLACK_MESSAGE: 'Review Application can be found at ${{steps.variables.outputs.url}} Pull request can be found at https://github.com/DFE-Digital/${{env.CONTAINER}}/pull/${{ github.event.inputs.pr }}'
+           SLACK_MESSAGE: 'Review Application can be found at ${{needs.deploy.outputs.url}} Pull request can be found at https://github.com/DFE-Digital/${{env.CONTAINER}}/pull/${{ github.event.inputs.pr }}'
            SLACK_FOOTER: "Get Into Teaching Adviser"
            MSG_MINIMAL: true
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
@@ -197,11 +210,23 @@ jobs:
                --header "Accept: application/vnd.github.v3+json" \
                --header "Authorization: Bearer ${{ github.token }}" \
                --request POST \
-               --data '{"body": "Review app deployed to ${{steps.variables.outputs.url}}"}'  \
+               --data '{"body": "Review app deployed to ${{needs.deploy.outputs.url}}"}'  \
                https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.inputs.pr }}/comments
 
+  development:
+    name: 'Post Development Deploy Process'
+    runs-on: ubuntu-latest
+    if:  github.event.inputs.environment == 'Development'
+    needs: deploy
+    steps:
+       - name: Trigger OWASP Testing
+         uses: benc-uk/workflow-dispatch@v1.1
+         with:
+           workflow: owasp
+           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
+           inputs: '{"environment": "dev"}'
+
        - name: Generate Tag from PR Number
-         if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Development'
          id: tag_version
          run: |
            MATCH="Merge pull request #[0-9]+"
@@ -221,8 +246,8 @@ jobs:
            echo ::set-output name=new_tag::"PR-${TAG}"
            echo ::set-output name=changelog::"${BODY}"
 
-       - name: Create a GitHub release
-         if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Development' && steps.tag_version.outputs.new_tag != '0'
+       - name: Create a GitHub Pre-Release
+         if: steps.tag_version.outputs.new_tag != '0'
          uses: actions/create-release@v1
          env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -231,22 +256,54 @@ jobs:
            release_name: Release ${{ steps.tag_version.outputs.new_tag }}
            body: ${{ steps.tag_version.outputs.changelog }}
            commitish: ${{ github.event.inputs.sha }}
-            
-       - name: Trigger Deployment to  QA
-         if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Development'
+           prerelease: false
+           draft:      true
+
+       - name: Trigger Deployment to QA
          uses: benc-uk/workflow-dispatch@v1.1
          with:
            workflow: Deploy to PaaS
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
-           inputs: '{"environment": "Test", "sha": "${{ github.event.inputs.sha }}"}'
+           inputs: '{"environment": "Test", "sha": "${{ github.event.inputs.sha }}" , "release_tag": "${{steps.tag_version.outputs.new_tag}}" }'
+  qa:
+    name: 'Post QA Deployment process'
+    runs-on: ubuntu-latest
+    if: github.event.inputs.environment == 'Test'
+    needs: deploy
+    steps:
+       - name: Checkout
+         uses: actions/checkout@v2
+         with:
+             repository: DFE-Digital/get-into-teaching-frontend-tests
 
-       - name: Slack Notification
-         if: failure() 
-         uses: rtCamp/action-slack-notify@master
+       - name: Run the Tests for Adviser
+         run: |
+             docker run -i --shm-size=1g   -e CYPRESS_HTTPAUTH_PASSWORD -e CYPRESS_HTTPAUTH_USERNAME  -v $PWD:/test -w /test dfedigital/dfecypress:latest \
+                           --spec cypress/integration/teacher-training-adviser.spec.js  --headless --browser chrome  \
+                           --spec cypress/integration/teacher-training-adviser.spec.js  \
+                           --headless \
+                           --browser chrome
          env:
-           SLACK_CHANNEL: getintoteaching_tech
-           SLACK_COLOR: '#B90E0A'
-           SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_TITLE: 'Failure: Deploying to ${{ github.event.inputs.environment }}'
-           SLACK_MESSAGE: 'Failure with Deployment for Teacher Training Adviser to ${{ github.event.inputs.environment }} SHA: ${{steps.sha.outputs.short}}'
-           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+              CYPRESS_HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
+              CYPRESS_HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
+
+       - name: Get Release Id from Tag
+         id:   tag_id
+         run: |
+              ID=$(curl -s -X GET https://api.github.com/repos/${{ github.repository }}/releases/tags/${{github.event.inputs.release_tag}} | jq -r .id )
+              echo ::set-output name=tag_id::"${ID}"
+
+       - name: Publish Release  
+         uses: eregon/publish-release@v1
+         env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         with:
+           release_id: ${{steps.tag_id.outputs.tag_id}}
+
+       - name: Trigger Deployment to ${{ github.event.inputs.environment }}
+         uses: benc-uk/workflow-dispatch@v1.1
+         with:
+           workflow: Deploy to PaaS
+           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
+           inputs: '{"environment": "Production" , "sha": "${{github.event.inputs.sha}}" , "release_tag": "${{github.event.inputs.release_tag}}" }'
+
