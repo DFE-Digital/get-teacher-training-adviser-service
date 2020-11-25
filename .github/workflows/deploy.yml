@@ -17,7 +17,7 @@ on:
       release_tag:
         description: 'Name of Release Tag'
         required: false
-      stop:
+      stop_after_release:
         description: 'Stop workflow after release'
         required: true
         default:  "no"
@@ -250,7 +250,7 @@ jobs:
            echo ::set-output name=new_tag::"PR-${TAG}"
            echo ::set-output name=changelog::"${BODY}"
 
-       - name: Create a GitHub Pre-Release
+       - name: Create a GitHub Draft Release
          if: steps.tag_version.outputs.new_tag != '0'
          uses: actions/create-release@v1
          env:
@@ -264,7 +264,7 @@ jobs:
            draft:      true
 
        - name: Trigger Deployment to QA
-         if: github.event.inputs.stop == 'no'
+         if: github.event.inputs.stop_after_release == 'no'
          uses: benc-uk/workflow-dispatch@v1.1
          with:
            workflow: Deploy to PaaS
@@ -306,7 +306,7 @@ jobs:
            release_id: ${{steps.tag_id.outputs.tag_id}}
 
        - name: Trigger Deployment to Production
-         if: github.event.inputs.stop == 'no'
+         if: github.event.inputs.stop_after_release == 'no'
          uses: benc-uk/workflow-dispatch@v1.1
          with:
            workflow: Deploy to PaaS
