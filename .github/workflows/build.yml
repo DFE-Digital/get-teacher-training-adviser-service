@@ -156,7 +156,7 @@ jobs:
           inputs: '{"environment": "Development", "sha": "${{ github.sha }}"}'
 
       - name: Trigger Review Deployment
-        if: github.ref != 'refs/heads/master'
+        if: github.ref != 'refs/heads/master' && github.event.pull_request.draft == false
         uses: benc-uk/workflow-dispatch@v1.1
         with:
           workflow: Deploy to PaaS
