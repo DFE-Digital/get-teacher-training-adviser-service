@@ -23,6 +23,7 @@ on:
         default:  "no"
 
 env:
+  PROJECT:         Teacher Training Adviser
   APP_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
   CONTAINER:       get-teacher-training-adviser-service
   DOMAIN:          london.cloudapps.digital
@@ -185,8 +186,9 @@ jobs:
            SLACK_COLOR: '#B90E0A'
            SLACK_ICON: https://github.com/rtCamp.png?size=48
            SLACK_TITLE: 'Failure: Deploying to ${{ github.event.inputs.environment }}'
-           SLACK_MESSAGE: 'Failure with Deployment for Teacher Training Adviser to ${{ github.event.inputs.environment }} SHA: ${{steps.sha.outputs.short}}'
+           SLACK_MESSAGE: 'Failure with Deployment for ${{env.project}} to ${{ github.event.inputs.environment }} SHA: ${{steps.sha.outputs.short}}'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+           SLACK_FOOTER: "${{env.project}}"
 
   review:
     name: 'Prepare for Review'
@@ -202,8 +204,10 @@ jobs:
            SLACK_COLOR: '#03AC13'
            SLACK_ICON: https://github.com/rtCamp.png?size=48
            SLACK_TITLE:   'Review Pending for : ${{github.event.inputs.title}}'
-           SLACK_MESSAGE: 'Review Application can be found at ${{needs.deploy.outputs.url}} Pull request can be found at https://github.com/DFE-Digital/${{env.CONTAINER}}/pull/${{ github.event.inputs.pr }}'
-           SLACK_FOOTER: "Get Into Teaching Adviser"
+           SLACK_MESSAGE: |
+                          'Review Application can be found at ${{needs.deploy.outputs.url}}'
+                          'Pull request can be found at https://github.com/DFE-Digital/${{env.CONTAINER}}/pull/${{ github.event.inputs.pr }}'
+           SLACK_FOOTER: "${{env.project}}"
            MSG_MINIMAL: true
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
@@ -216,6 +220,18 @@ jobs:
                --request POST \
                --data '{"body": "Review app deployed to ${{needs.deploy.outputs.url}}"}'  \
                https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.inputs.pr }}/comments
+
+       - name: Slack Notification
+         if: failure() 
+         uses: rtCamp/action-slack-notify@master
+         env:
+           SLACK_CHANNEL: getintoteaching_tech
+           SLACK_COLOR: '#B90E0A'
+           SLACK_ICON: https://github.com/rtCamp.png?size=48
+           SLACK_TITLE: 'Failure: Preparing from Preview'
+           SLACK_MESSAGE: 'Failure with Review preperation for ${{env.project}}'
+           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+           SLACK_FOOTER: "${{env.project}}"
 
   development:
     name: 'Post Development Deploy Process'
@@ -270,6 +286,19 @@ jobs:
            workflow: Deploy to PaaS
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
            inputs: '{"environment": "Test", "sha": "${{ github.event.inputs.sha }}" , "release_tag": "${{steps.tag_version.outputs.new_tag}}" }'
+
+       - name: Slack Notification
+         if: failure() 
+         uses: rtCamp/action-slack-notify@master
+         env:
+           SLACK_CHANNEL: getintoteaching_tech
+           SLACK_COLOR: '#B90E0A'
+           SLACK_ICON: https://github.com/rtCamp.png?size=48
+           SLACK_TITLE: 'Failure: Starting QA Deployment'
+           SLACK_MESSAGE: 'Failure with initialising QA deployment  for ${{env.project}}'
+           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+           SLACK_FOOTER: "${{env.project}}"
+
   qa:
     name: 'Post QA Deployment process'
     runs-on: ubuntu-latest
@@ -312,4 +341,16 @@ jobs:
            workflow: Deploy to PaaS
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
            inputs: '{"environment": "Production" , "sha": "${{github.event.inputs.sha}}" , "release_tag": "${{github.event.inputs.release_tag}}" }'
+
+       - name: Slack Notification
+         if: failure() 
+         uses: rtCamp/action-slack-notify@master
+         env:
+           SLACK_CHANNEL: getintoteaching_tech
+           SLACK_COLOR: '#B90E0A'
+           SLACK_ICON: https://github.com/rtCamp.png?size=48
+           SLACK_TITLE: 'Failure: Starting Production Deployment'
+           SLACK_MESSAGE: 'Failure with initialising Production deployment  for ${{env.project}}'
+           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+           SLACK_FOOTER: "${{env.project}}"
 
