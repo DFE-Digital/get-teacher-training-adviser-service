@@ -11,6 +11,7 @@ RSpec.describe ApplicationHelper do
     let(:pinterest_id) { "6543" }
     let(:facebook_id) { "4321" }
     let(:twitter_id) { "1289" }
+    let(:lid_id) { "7698" }
 
     before do
       allow(ENV).to receive(:[]).and_call_original
@@ -21,6 +22,7 @@ RSpec.describe ApplicationHelper do
       allow(ENV).to receive(:[]).with("PINTEREST_ID").and_return pinterest_id
       allow(ENV).to receive(:[]).with("FACEBOOK_ID").and_return facebook_id
       allow(ENV).to receive(:[]).with("TWITTER_ID").and_return twitter_id
+      allow(ENV).to receive(:[]).with("LID_ID").and_return lid_id
     end
 
     subject { analytics_body_tag { "<h1>TEST</h1>".html_safe } }
@@ -44,24 +46,29 @@ RSpec.describe ApplicationHelper do
       it { is_expected.to have_css "body[data-analytics-pinterest-id=6543]" }
       it { is_expected.to have_css "body[data-analytics-facebook-id=4321]" }
       it { is_expected.to have_css "body[data-analytics-twitter-id=1289]" }
+      it { is_expected.to have_css "body[data-analytics-lid-id=7698]" }
     end
 
     context "with blank service ids" do
       let(:gtm_id) { "" }
       let(:adwords_id) { "" }
       let(:twitter_id) { "" }
+      let(:lid_id) { "" }
       it { is_expected.to have_css "body[data-analytics-gtm-id=\"\"]" }
       it { is_expected.to have_css "body[data-analytics-adwords-id=\"\"]" }
       it { is_expected.to have_css "body[data-analytics-twitter-id=\"\"]" }
+      it { is_expected.to have_css "body[data-analytics-lid-id=\"\"]" }
     end
 
     context "with no service ids" do
       let(:gtm_id) { nil }
       let(:adwords_id) { nil }
       let(:twitter_id) { nil }
+      let(:lid_id) { nil }
       it { is_expected.not_to have_css "body[data-analytics-gtm-id]" }
       it { is_expected.not_to have_css "body[data-analytics-adwords-id]" }
       it { is_expected.not_to have_css "body[data-analytics-twitter-id]" }
+      it { is_expected.not_to have_css "body[data-analytics-lid-id]" }
     end
 
     context "default events" do
