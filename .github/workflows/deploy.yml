@@ -52,7 +52,6 @@ jobs:
                  echo ::set-output name=control::$(echo "dev" )
                  echo ::set-output name=healthcheck::"review-teacher-training-adviser-${{github.event.inputs.pr}}"
                  echo ::set-output name=pr_name::review-teacher-training-adviser-${{github.event.inputs.pr}}
-                 echo ::set-output name=url::"https://review-teacher-training-adviser-${{github.event.inputs.pr}}.${{env.DOMAIN}}"
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Development" ]
@@ -64,7 +63,6 @@ jobs:
                  echo ::set-output name=HTTP_USERNAME::$(echo "${{ secrets.HTTPAUTH_USERNAME }}" )
                  echo ::set-output name=control::$(echo "dev" )
                  echo ::set-output name=healthcheck::$(echo "get-teacher-training-adviser-service-dev" )
-                 echo ::set-output name=url::"https://${{env.CONTAINER}}-dev.${{env.DOMAIN}}"
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Test" ]
@@ -76,7 +74,6 @@ jobs:
                  echo ::set-output name=HTTP_USERNAME::$(echo "${{ secrets.HTTPAUTH_USERNAME }}" )
                  echo ::set-output name=control::$(echo "test" )
                  echo ::set-output name=healthcheck::$(echo "get-teacher-training-adviser-service-test" )
-                 echo ::set-output name=url::"https://${{env.CONTAINER}}-test.${{env.DOMAIN}}"
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Production" ]
@@ -88,8 +85,6 @@ jobs:
                  echo ::set-output name=HTTP_USERNAME::$(echo "" )
                  echo ::set-output name=control::$(echo "production" )
                  echo ::set-output name=healthcheck::$(echo "get-teacher-training-adviser-service-prod" )
-                 echo ::set-output name=url::"https://review-teacher-training-adviser-${{github.event.inputs.pr}}.${{env.DOMAIN}}"
-                 echo ::set-output name=url::"https://${{env.CONTAINER}}-production.${{env.DOMAIN}}"
              fi
 
        - uses: hashicorp/setup-terraform@v1.2.1
@@ -167,4 +162,3 @@ jobs:
            token: ${{ secrets.GITHUB_TOKEN }}
            status: ${{ job.status }}
            deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-           env_url: ${{ steps.variables.outputs.url  }}

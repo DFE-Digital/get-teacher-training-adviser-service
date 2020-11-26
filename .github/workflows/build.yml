@@ -8,6 +8,7 @@ on:
 env:
   APP_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
   PROJECT:         Teacher Training Adviser Service
+  DOMAIN:          london.cloudapps.digital
 jobs:
   build:
     name: Build and Test
@@ -187,14 +188,14 @@ jobs:
       - name: Review Ready Notification
         uses: rtCamp/action-slack-notify@master
         env:
-           SLACK_USERNAME: "GiT Review"
+           SLACK_USERNAME: GiT Review
            SLACK_CHANNEL: getintoteaching_tech
            SLACK_COLOR: '#03AC13'
            SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_TITLE:   'Review Pending for : ${{github.event.pull_request.title}}'
+           SLACK_TITLE:   Review Pending for : ${{github.event.pull_request.title}}
            SLACK_MESSAGE: |
-                          'Review Application can be found at ${{needs.deploy.outputs.url}}'
-                          'Pull request can be found at https://github.com/DFE-Digital/${{env.CONTAINER}}/pull/${{ github.event.number }}'
+                          Review Application can be found at https://review-teacher-training-adviser-${{github.event.number}}.${{env.DOMAIN}}
+                          Pull request can be found at https://github.com/DFE-Digital/${{env.CONTAINER}}/pull/${{ github.event.number }}
            SLACK_FOOTER: "${{env.project}}"
            MSG_MINIMAL: true
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
