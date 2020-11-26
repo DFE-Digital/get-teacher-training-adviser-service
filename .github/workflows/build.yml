@@ -177,7 +177,7 @@ jobs:
         id: wait-for-review
         with:
           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
-          checkName: Deploy
+          checkName: Deploy Review
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Check if Review Deployment has returned with a failure
@@ -241,7 +241,7 @@ jobs:
          id: wait-for-deploy
          with:
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
-           checkName: Deploy
+           checkName: Deploy Development
            ref: ${{github.sha}}
 
        - name: Check if  Deployment has returned with a failure
@@ -307,7 +307,7 @@ jobs:
          id: wait-for-deploy
          with:
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
-           checkName: Deploy
+           checkName: Deploy Test
            ref: ${{github.sha}}
 
        - name: Check if QA Deployment has returned with a failure
@@ -378,7 +378,7 @@ jobs:
          id: wait-for-deploy
          with:
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
-           checkName: Deploy
+           checkName: Deploy Production
            ref: ${{github.sha}}
 
        - name: Check if Production Deployment has returned with a failure
