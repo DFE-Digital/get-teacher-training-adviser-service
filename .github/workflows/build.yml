@@ -172,7 +172,13 @@ jobs:
           inputs: '{"environment": "Review", "sha": "${{ github.sha }}" , "pr": "${{github.event.number}}"  }'
           ref: ${{ github.event.pull_request.head.ref }}
              
-            øøøøøøøøøø wait
+      - name: Wait for Deployment to Review
+        uses: fountainhead/action-wait-for-check@v1.0.0
+        id: wait-for-review
+        with:
+          token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
+          checkName: Deploy
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Review Ready Notification
         uses: rtCamp/action-slack-notify@master
