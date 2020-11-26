@@ -168,15 +168,3 @@ jobs:
            status: ${{ job.status }}
            deployment_id: ${{ steps.deployment.outputs.deployment_id }}
            env_url: ${{ steps.variables.outputs.url  }}
-
-       - name: Slack Notification
-         if: failure() 
-         uses: rtCamp/action-slack-notify@master
-         env:
-           SLACK_CHANNEL: getintoteaching_tech
-           SLACK_COLOR: '#B90E0A'
-           SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_TITLE: 'Failure: Deploying to ${{ github.event.inputs.environment }}'
-           SLACK_MESSAGE: 'Failure with Deployment for ${{env.project}} to ${{ github.event.inputs.environment }} SHA: ${{steps.sha.outputs.short}}'
-           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-           SLACK_FOOTER: "${{github.event.inputs.project}}"

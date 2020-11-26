@@ -180,6 +180,10 @@ jobs:
           checkName: Deploy
           ref: ${{ github.event.pull_request.head.ref }}
 
+      - name: Check if Review Deployment has returned with a failure
+        if: steps.wait-for-review.outputs.conclusion == 'failure'
+        run: exit 1
+
       - name: Review Ready Notification
         uses: rtCamp/action-slack-notify@master
         env:
@@ -224,21 +228,25 @@ jobs:
     outputs:
       tag: ${{steps.tag_version.outputs.tag}}
     steps:
-      - name: Trigger Development Deployment
-        uses: benc-uk/workflow-dispatch@v1.1
-        with:
-          workflow: Deploy to PaaS
-          token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
-          inputs: '{"environment": "Development", "sha": "${{ github.sha }}"}'
-          ref: ${{github.sha}}
+       - name: Trigger Development Deployment
+         uses: benc-uk/workflow-dispatch@v1.1
+         with:
+           workflow: Deploy to PaaS
+           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
+           inputs: '{"environment": "Development", "sha": "${{ github.sha }}"}'
+           ref: ${{github.sha}}
 
-      - name: Wait for Deployment to Development
-        uses: fountainhead/action-wait-for-check@v1.0.0
-        id: wait-for-deploy
-        with:
-          token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
-          checkName: Deploy
-          ref: ${{github.sha}}
+       - name: Wait for Deployment to Development
+         uses: fountainhead/action-wait-for-check@v1.0.0
+         id: wait-for-deploy
+         with:
+           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
+           checkName: Deploy
+           ref: ${{github.sha}}
+
+       - name: Check if  Deployment has returned with a failure
+         if: steps.wait-for-deploy.outputs.conclusion == 'failure'
+         run: exit 1
 
        - name: Trigger OWASP Testing
          uses: benc-uk/workflow-dispatch@v1.1
@@ -271,14 +279,14 @@ jobs:
          if: steps.tag_version.outputs.new_tag != '0'
          uses: actions/create-release@v1
          env:
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
          with:
-           tag_name: ${{ steps.tag_version.outputs.new_tag }}
-           release_name: Release ${{ steps.tag_version.outputs.new_tag }}
-           body: ${{ steps.tag_version.outputs.changelog }}
-           commitish: ${{ github.sha }}
-           prerelease: false
-           draft:      true
+            tag_name: ${{ steps.tag_version.outputs.new_tag }}
+            release_name: Release ${{ steps.tag_version.outputs.new_tag }}
+            body: ${{ steps.tag_version.outputs.changelog }}
+            commitish: ${{ github.sha }}
+            prerelease: false
+            draft:      true
 
   qa:
     name: Quality Assurance Deployment
@@ -294,13 +302,17 @@ jobs:
            inputs: '{"environment": "Test", "sha": "${{ github.sha }}" , "release_tag": "${{ needs.development.outputs.tag }}" }'
            ref: ${{github.sha}}
 
-      - name: Wait for Deployment to QA
-        uses: fountainhead/action-wait-for-check@v1.0.0
-        id: wait-for-deploy
-        with:
-          token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
-          checkName: Deploy
-          ref: ${{github.sha}}
+       - name: Wait for Deployment to QA
+         uses: fountainhead/action-wait-for-check@v1.0.0
+         id: wait-for-deploy
+         with:
+           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
+           checkName: Deploy
+           ref: ${{github.sha}}
+
+       - name: Check if QA Deployment has returned with a failure
+         if: steps.wait-for-deploy.outputs.conclusion == 'failure'
+         run: exit 1
 
        - name: Slack Notification
          if: failure() 
@@ -360,13 +372,17 @@ jobs:
            inputs: '{"environment": "Production" , "sha": "${{github.sha}}" , "release_tag": "${{needs.development.outputs.tag}}" }'
            ref: ${{github.sha}}
 
-      - name: Wait for Deployment to Production
-        uses: fountainhead/action-wait-for-check@v1.0.0
-        id: wait-for-deploy
-        with:
-          token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
-          checkName: Deploy
-          ref: ${{github.sha}}
+       - name: Wait for Deployment to Production
+         uses: fountainhead/action-wait-for-check@v1.0.0
+         id: wait-for-deploy
+         with:
+           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
+           checkName: Deploy
+           ref: ${{github.sha}}
+
+       - name: Check if Production Deployment has returned with a failure
+         if: steps.wait-for-deploy.outputs.conclusion == 'failure'
+         run: exit 1
 
        - name: Slack Notification
          if: failure() 
