@@ -300,7 +300,7 @@ jobs:
          with:
            workflow: Deploy to PaaS
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
-           inputs: '{"environment": "Test", "sha": "${{ github.sha }}" , "release_tag": "${{ needs.development.outputs.tag }}" }'
+           inputs: '{"environment": "Test", "sha": "${{ github.sha }}" }'
            ref: refs/heads/master
 
        - name: Wait for Deployment to QA
@@ -371,7 +371,7 @@ jobs:
          with:
            workflow: Deploy to PaaS
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
-           inputs: '{"environment": "Production" , "sha": "${{github.sha}}" , "release_tag": "${{needs.development.outputs.tag}}" }'
+           inputs: '{"environment": "Production ", "sha": "${{ github.sha }}" }'
            ref: refs/heads/master
 
        - name: Wait for Deployment to Production
