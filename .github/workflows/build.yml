@@ -227,8 +227,8 @@ jobs:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     outputs:
-      tag: ${{steps.tag_version.outputs.tag}}
-      release_sha: ${{ steps.tag_version.outputs.sha }}
+      release_tag: ${{steps.tag_version.outputs.tag}}
+      release_sha: ${{steps.tag_version.outputs.sha}}
     steps:
        - name: Trigger Development Deployment
          uses: benc-uk/workflow-dispatch@v1.1
@@ -358,7 +358,7 @@ jobs:
        - name: Get Release Id from Tag
          id:   tag_id
          run: |
-              ID=$(curl -s -X GET https://api.github.com/repos/${{ github.repository }}/releases/tags/${{needs.development.outputs.tag}} | jq -r .id )
+              ID=$(curl -s -X GET "https://api.github.com/repos/${{github.repository}}/releases/tags/${{needs.development.outputs.release_tag}}" | jq -r .id )
               echo ::set-output name=tag_id::"${ID}"
 
        - name: Publish Release  
