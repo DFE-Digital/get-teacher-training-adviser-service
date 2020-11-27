@@ -1,0 +1,7 @@
+Ruby:
+  - **/**/*.rb
+
+DevOps:
+  - terraform/**/*
+  - .github/**/*.yml
+
