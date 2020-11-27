@@ -196,7 +196,7 @@ jobs:
            SLACK_MESSAGE: |
                           Review Application can be found at https://review-teacher-training-adviser-${{github.event.number}}.${{env.DOMAIN}}
                           Pull request can be found at https://github.com/DFE-Digital/${{env.CONTAINER}}/pull/${{ github.event.number }}
-           SLACK_FOOTER: "${{env.project}}"
+           SLACK_FOOTER: "${{env.PROJECT}}"
            MSG_MINIMAL: true
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
@@ -217,9 +217,9 @@ jobs:
            SLACK_COLOR: '#B90E0A'
            SLACK_ICON: https://github.com/rtCamp.png?size=48
            SLACK_TITLE: 'Failure: Preparing from Preview'
-           SLACK_MESSAGE: 'Failure with Review preperation for {{env.project}}'
+           SLACK_MESSAGE: 'Failure with Review preperation for {{env.PROJECT}}'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-           SLACK_FOOTER: "${{env.project}}"
+           SLACK_FOOTER: "${{env.PROJECT}}"
 
   development:
     name: Development Deployment
@@ -325,9 +325,9 @@ jobs:
            SLACK_COLOR: '#B90E0A'
            SLACK_ICON: https://github.com/rtCamp.png?size=48
            SLACK_TITLE: 'Failure: Failure in Post-Development Deploy'
-           SLACK_MESSAGE: 'Failure with initialising QA deployment  for ${{env.project}}'
+           SLACK_MESSAGE: 'Failure with initialising QA deployment  for ${{env.PROJECT}}'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-           SLACK_FOOTER: "${{env.project}}"
+           SLACK_FOOTER: "${{env.PROJECT}}"
 
   cypress:
      name: Run Cypress Tests on QA
@@ -353,7 +353,7 @@ jobs:
   production:
      name: Production Deployment
      runs-on: ubuntu-latest
-     needs: cypress
+     needs: [cypress , development]
      steps:
        - name: Get Release Id from Tag
          id:   tag_id
@@ -395,8 +395,8 @@ jobs:
            SLACK_CHANNEL: getintoteaching_tech
            SLACK_COLOR: '#B90E0A'
            SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_TITLE: 'Failure: Failure in Production  Deploy'
-           SLACK_MESSAGE: 'Failure with initialising Production deployment  for ${{env.project}}'
+           SLACK_TITLE: 'Failure: Failure in Production Deployment'
+           SLACK_MESSAGE: 'Failure with initialising Production deployment for ${{env.PROJECT}}'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-           SLACK_FOOTER: "${{env.project}}"
+           SLACK_FOOTER: "${{env.PROJECT}}"
 
