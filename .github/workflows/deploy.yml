@@ -22,9 +22,21 @@ env:
   DOMAIN:          london.cloudapps.digital
 
 jobs:
+  turnstyle:
+    name: Wait for any previous deployments
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+       - name: Turnstyle
+         uses: softprops/turnstyle@v1
+         with:
+            continue-after-seconds: 300
+            same-branch-only: false
+
   deploy:
     name: 'Deploy ${{ github.event.inputs.environment }}'
     runs-on: ubuntu-latest
+    needs: turnstyle
 
     defaults:
       run:
