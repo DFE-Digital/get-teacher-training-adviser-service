@@ -235,7 +235,7 @@ jobs:
            workflow: Deploy to PaaS
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
            inputs: '{"environment": "Development", "sha": "${{ github.sha }}"}'
-           ref: ${{github.sha}}
+           ref: refs/heads/master
 
        - name: Wait for Deployment to Development
          uses: fountainhead/action-wait-for-check@v1.0.0
@@ -243,7 +243,7 @@ jobs:
          with:
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
            checkName: Deploy Development
-           ref: ${{github.sha}}
+           ref: refs/heads/master
 
        - name: Check if Development Deployment has returned with a failure
          if: steps.wait-for-deploy.outputs.conclusion == 'failure'
@@ -301,7 +301,7 @@ jobs:
            workflow: Deploy to PaaS
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
            inputs: '{"environment": "Test", "sha": "${{ github.sha }}" , "release_tag": "${{ needs.development.outputs.tag }}" }'
-           ref: ${{github.sha}}
+           ref: refs/heads/master
 
        - name: Wait for Deployment to QA
          uses: fountainhead/action-wait-for-check@v1.0.0
@@ -309,7 +309,7 @@ jobs:
          with:
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
            checkName: Deploy Test
-           ref: ${{github.sha}}
+           ref: refs/heads/master
 
        - name: Check if QA Deployment has returned with a failure
          if: steps.wait-for-deploy.outputs.conclusion == 'failure'
@@ -372,7 +372,7 @@ jobs:
            workflow: Deploy to PaaS
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
            inputs: '{"environment": "Production" , "sha": "${{github.sha}}" , "release_tag": "${{needs.development.outputs.tag}}" }'
-           ref: ${{github.sha}}
+           ref: refs/heads/master
 
        - name: Wait for Deployment to Production
          uses: fountainhead/action-wait-for-check@v1.0.0
@@ -380,7 +380,7 @@ jobs:
          with:
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
            checkName: Deploy Production
-           ref: ${{github.sha}}
+           ref: refs/heads/master
 
        - name: Check if Production Deployment has returned with a failure
          if: steps.wait-for-deploy.outputs.conclusion == 'failure'
