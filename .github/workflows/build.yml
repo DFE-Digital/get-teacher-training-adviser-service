@@ -274,18 +274,18 @@ jobs:
               TAG="0"
               BODY="Nothing"
            fi
-           echo ::set-output name=new_tag::"PR-${TAG}"
+           echo ::set-output name=tag::"PR-${TAG}"
            echo ::set-output name=changelog::"${BODY}"
            echo ::set-output name=sha::"${{github.sha}}"
 
        - name: Create a GitHub Draft Release
-         if: steps.tag_version.outputs.new_tag != '0'
+         if: steps.tag_version.outputs.tag != '0'
          uses: actions/create-release@v1
          env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
          with:
-            tag_name: ${{ steps.tag_version.outputs.new_tag }}
-            release_name: Release ${{ steps.tag_version.outputs.new_tag }}
+            tag_name: ${{ steps.tag_version.outputs.tag }}
+            release_name: Release ${{ steps.tag_version.outputs.tag }}
             body: ${{ steps.tag_version.outputs.changelog }}
             commitish: ${{ steps.tag_version.outputs.sha}} 
             prerelease: false
@@ -296,13 +296,7 @@ jobs:
     needs: development
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
-    outputs:
-      tag: ${{steps.tag.outputs.tag}}
     steps:
-       - name: "Pass through Release ${{needs.development.outputs.tag}}"
-         id:    tag
-         run:   echo ::set-output name=tag::"${{needs.development.outputs.tag}}"  
-
        - name: Trigger Deployment to QA
          uses: benc-uk/workflow-dispatch@v1.1
          with:
@@ -339,13 +333,7 @@ jobs:
      name: Run Cypress Tests on QA
      runs-on: ubuntu-latest
      needs: qa
-     outputs:
-       tag: ${{steps.tag.outputs.tag}}
      steps:
-       - name: "Pass through Release ${{needs.development.outputs.tag}}"
-         id:    tag
-         run:   echo ::set-output name=tag::"${{needs.qa.outputs.tag}}"  
-
        - name: Checkout
          uses: actions/checkout@v2
          with:
@@ -370,7 +358,7 @@ jobs:
        - name: Get Release Id from Tag
          id:   tag_id
          run: |
-              ID=$(curl -s -X GET https://api.github.com/repos/${{ github.repository }}/releases/tags/${{needs.cypress.outputs.tag}} | jq -r .id )
+              ID=$(curl -s -X GET https://api.github.com/repos/${{ github.repository }}/releases/tags/${{needs.development.outputs.tag}} | jq -r .id )
               echo ::set-output name=tag_id::"${ID}"
 
        - name: Publish Release  
@@ -400,7 +388,7 @@ jobs:
          if: steps.wait-for-deploy.outputs.conclusion == 'failure'
          run: exit 1
 
-       - name: Review Ready Notification
+       - name: Release  Notification
          if: success() 
          uses: rtCamp/action-slack-notify@master
          env:
@@ -410,19 +398,20 @@ jobs:
            SLACK_ICON: https://github.com/rtCamp.png?size=48
            SLACK_TITLE:  "Production Release : ${{github.event.title}}"
            SLACK_MESSAGE: "Release ${{needs.cypress.outputs.tag}} has been released to production"
+           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
            SLACK_FOOTER: "${{env.PROJECT}}"
            MSG_MINIMAL: true
-           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
        - name: Slack Notification
          if: failure() 
          uses: rtCamp/action-slack-notify@master
          env:
+           SLACK_USERNAME: GiT Deployment
            SLACK_CHANNEL: getintoteaching_tech
            SLACK_COLOR: '#B90E0A'
            SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_TITLE: 'Failure: Failure in Production Deployment'
-           SLACK_MESSAGE: 'Failure with initialising Production deployment for ${{env.PROJECT}}'
+           SLACK_TITLE: "Production Release : ${{github.event.title}}"
+           SLACK_MESSAGE: 'Failure deploying Production release'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
            SLACK_FOOTER: "${{env.PROJECT}}"
 
