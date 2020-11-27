@@ -13,7 +13,6 @@ module TeacherTrainingAdviser::Steps
       return unless returning_to_teaching
 
       self.degree_options = DEGREE_OPTIONS[:returner]
-      self.preferred_education_phase_id = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary].to_i
     end
 
     def reviewable_answers
