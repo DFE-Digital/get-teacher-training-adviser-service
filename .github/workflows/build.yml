@@ -278,7 +278,7 @@ jobs:
            echo ::set-output name=changelog::"${BODY}"
            echo ::set-output name=sha::"${{github.sha}}"
 
-       - name: Create a GitHub Draft Release
+       - name: Create a GitHub Release
          if: steps.tag_version.outputs.tag != '0'
          uses: actions/create-release@v1
          env:
@@ -289,7 +289,7 @@ jobs:
             body: ${{ steps.tag_version.outputs.changelog }}
             commitish: ${{ steps.tag_version.outputs.sha}} 
             prerelease: false
-            draft:      true
+            draft:      false
 
   qa:
     name: Quality Assurance Deployment
