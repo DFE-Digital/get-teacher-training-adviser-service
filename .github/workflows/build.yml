@@ -245,7 +245,7 @@ jobs:
            checkName: Deploy Development
            ref: ${{github.sha}}
 
-       - name: Check if  Deployment has returned with a failure
+       - name: Check if Development Deployment has returned with a failure
          if: steps.wait-for-deploy.outputs.conclusion == 'failure'
          run: exit 1
 
