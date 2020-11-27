@@ -276,7 +276,7 @@ jobs:
            fi
            echo ::set-output name=new_tag::"PR-${TAG}"
            echo ::set-output name=changelog::"${BODY}"
-           echo ::set-output name=sha::"${github.sha}"
+           echo ::set-output name=sha::"${{github.sha}}"
 
        - name: Create a GitHub Draft Release
          if: steps.tag_version.outputs.new_tag != '0'
