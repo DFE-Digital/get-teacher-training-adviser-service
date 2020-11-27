@@ -228,6 +228,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       tag: ${{steps.tag_version.outputs.tag}}
+      release_sha: ${{ steps.tag_version.outputs.sha }}
     steps:
        - name: Trigger Development Deployment
          uses: benc-uk/workflow-dispatch@v1.1
@@ -275,6 +276,7 @@ jobs:
            fi
            echo ::set-output name=new_tag::"PR-${TAG}"
            echo ::set-output name=changelog::"${BODY}"
+           echo ::set-output name=sha::"${github.sha}"
 
        - name: Create a GitHub Draft Release
          if: steps.tag_version.outputs.new_tag != '0'
@@ -285,7 +287,7 @@ jobs:
             tag_name: ${{ steps.tag_version.outputs.new_tag }}
             release_name: Release ${{ steps.tag_version.outputs.new_tag }}
             body: ${{ steps.tag_version.outputs.changelog }}
-            commitish: ${{ github.sha }}
+            commitish: ${{ steps.tag_version.outputs.sha}} 
             prerelease: false
             draft:      true
 
@@ -301,7 +303,7 @@ jobs:
            workflow: Deploy to PaaS
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
            inputs: '{"environment": "Test", "sha": "${{ github.sha }}" }'
-           ref: refs/heads/master
+           ref: "${{ github.sha }}" 
 
        - name: Wait for Deployment to QA
          uses: fountainhead/action-wait-for-check@v1.0.0
@@ -309,7 +311,7 @@ jobs:
          with:
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
            checkName: Deploy Test
-           ref: refs/heads/master
+           ref: "${{ github.sha }}" 
 
        - name: Check if QA Deployment has returned with a failure
          if: steps.wait-for-deploy.outputs.conclusion == 'failure'
@@ -372,7 +374,7 @@ jobs:
            workflow: Deploy to PaaS
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
            inputs: '{"environment": "Production ", "sha": "${{ github.sha }}" }'
-           ref: refs/heads/master
+           ref: "${{ github.sha }}" 
 
        - name: Wait for Deployment to Production
          uses: fountainhead/action-wait-for-check@v1.0.0
@@ -380,7 +382,7 @@ jobs:
          with:
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
            checkName: Deploy Production
-           ref: refs/heads/master
+           ref: "${{ github.sha }}" 
 
        - name: Check if Production Deployment has returned with a failure
          if: steps.wait-for-deploy.outputs.conclusion == 'failure'
