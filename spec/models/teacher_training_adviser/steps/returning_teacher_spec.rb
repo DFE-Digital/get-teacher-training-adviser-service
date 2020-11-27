@@ -16,16 +16,14 @@ RSpec.describe TeacherTrainingAdviser::Steps::ReturningTeacher do
   end
 
   describe "#returning_to_teaching=" do
-    it "sets degree_options and preferred_education_phase_id if returning_to_teaching is true" do
+    it "sets degree_options if returning_to_teaching is true" do
       subject.returning_to_teaching = true
       expect(subject.degree_options).to eq(TeacherTrainingAdviser::Steps::ReturningTeacher::DEGREE_OPTIONS[:returner])
-      expect(subject.preferred_education_phase_id).to eq(TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary])
     end
 
-    it "does not set degree_options or preferred_education_phase_id if returning_to_teaching is false" do
+    it "does not set degree_options if returning_to_teaching is false" do
       subject.returning_to_teaching = false
       expect(subject.degree_options).to be_nil
-      expect(subject.preferred_education_phase_id).to be_nil
     end
   end
 

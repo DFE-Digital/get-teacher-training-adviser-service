@@ -74,7 +74,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       request_attributes = uk_candidate_request_attributes({
         subject_taught_id: SUBJECT_PSYCHOLOGY,
         preferred_teaching_subject_id: SUBJECT_PHYSICS,
-        preferred_education_phase_id: EDUCATION_PHASE_SECONDARY,
         teacher_id: "1234",
       })
       expect_sign_up_with_attributes(request_attributes)
