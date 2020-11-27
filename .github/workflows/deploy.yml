@@ -11,9 +11,10 @@ on:
       pr:
         description: 'Pull Request Reference'
         required: false
-      title:
-        description: 'Pull Request Title'
+      project:
+        description: 'Name of Release Project'
         required: false
+        default: 'Teacher Training Adviser'
 
 env:
   APP_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
@@ -51,7 +52,6 @@ jobs:
                  echo ::set-output name=control::$(echo "dev" )
                  echo ::set-output name=healthcheck::"review-teacher-training-adviser-${{github.event.inputs.pr}}"
                  echo ::set-output name=pr_name::review-teacher-training-adviser-${{github.event.inputs.pr}}
-                 echo ::set-output name=url::"https://review-teacher-training-adviser-${{github.event.inputs.pr}}.${{env.DOMAIN}}"
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Development" ]
@@ -63,7 +63,6 @@ jobs:
                  echo ::set-output name=HTTP_USERNAME::$(echo "${{ secrets.HTTPAUTH_USERNAME }}" )
                  echo ::set-output name=control::$(echo "dev" )
                  echo ::set-output name=healthcheck::$(echo "get-teacher-training-adviser-service-dev" )
-                 echo ::set-output name=url::"https://${{env.CONTAINER}}-dev.${{env.DOMAIN}}"
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Test" ]
@@ -75,7 +74,6 @@ jobs:
                  echo ::set-output name=HTTP_USERNAME::$(echo "${{ secrets.HTTPAUTH_USERNAME }}" )
                  echo ::set-output name=control::$(echo "test" )
                  echo ::set-output name=healthcheck::$(echo "get-teacher-training-adviser-service-test" )
-                 echo ::set-output name=url::"https://${{env.CONTAINER}}-test.${{env.DOMAIN}}"
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Production" ]
@@ -87,8 +85,6 @@ jobs:
                  echo ::set-output name=HTTP_USERNAME::$(echo "" )
                  echo ::set-output name=control::$(echo "production" )
                  echo ::set-output name=healthcheck::$(echo "get-teacher-training-adviser-service-prod" )
-                 echo ::set-output name=url::"https://review-teacher-training-adviser-${{github.event.inputs.pr}}.${{env.DOMAIN}}"
-                 echo ::set-output name=url::"https://${{env.CONTAINER}}-production.${{env.DOMAIN}}"
              fi
 
        - uses: hashicorp/setup-terraform@v1.2.1
@@ -166,87 +162,3 @@ jobs:
            token: ${{ secrets.GITHUB_TOKEN }}
            status: ${{ job.status }}
            deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-           env_url: ${{ steps.variables.outputs.url  }}
-
-       - name: Trigger OWASP Testing
-         if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Development'
-         uses: benc-uk/workflow-dispatch@v1.1
-         with:
-           workflow: owasp
-           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
-           inputs: '{"environment": "dev"}'
-
-       - name: Review Ready Notification
-         if: github.event.inputs.environment == 'Review'
-         uses: rtCamp/action-slack-notify@master
-         env:
-           SLACK_USERNAME: "GiT Review"
-           SLACK_CHANNEL: getintoteaching_tech
-           SLACK_COLOR: '#03AC13'
-           SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_TITLE:   'Review Pending for : ${{github.event.inputs.title}}'
-           SLACK_MESSAGE: 'Review Application can be found at ${{steps.variables.outputs.url}} Pull request can be found at https://github.com/DFE-Digital/${{env.CONTAINER}}/pull/${{ github.event.inputs.pr }}'
-           SLACK_FOOTER: "Get Into Teaching Adviser"
-           MSG_MINIMAL: true
-           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-
-       - name: Post PR comment
-         if: github.event.inputs.environment == 'Review'
-         run: |
-          curl --silent  \
-               --header "Accept: application/vnd.github.v3+json" \
-               --header "Authorization: Bearer ${{ github.token }}" \
-               --request POST \
-               --data '{"body": "Review app deployed to ${{steps.variables.outputs.url}}"}'  \
-               https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.inputs.pr }}/comments
-
-       - name: Generate Tag from PR Number
-         if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Development'
-         id: tag_version
-         run: |
-           MATCH="Merge pull request #[0-9]+"
-           STRING=$(curl -s -X GET "https://api.github.com/repos/${{github.repository}}/commits/${{github.event.inputs.sha}}" | jq -r  ".commit.message")
-
-           if [[ ${STRING}  =~ ${MATCH} ]] ;
-           then
-              echo "Pull request merge"
-              TAG=$( echo ${STRING} | grep -oh "[0-9]\+" | head -1 )
-              echo "PR Number ${TAG}"
-              BODY=$(curl -s -X GET "https://api.github.com/repos/${{github.repository}}/pulls/${TAG}" | jq -r ".body")
-           else
-              echo "Not a pull request merge"
-              TAG="0"
-              BODY="Nothing"
-           fi
-           echo ::set-output name=new_tag::"PR-${TAG}"
-           echo ::set-output name=changelog::"${BODY}"
-
-       - name: Create a GitHub release
-         if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Development' && steps.tag_version.outputs.new_tag != '0'
-         uses: actions/create-release@v1
-         env:
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-         with:
-           tag_name: ${{ steps.tag_version.outputs.new_tag }}
-           release_name: Release ${{ steps.tag_version.outputs.new_tag }}
-           body: ${{ steps.tag_version.outputs.changelog }}
-           commitish: ${{ github.event.inputs.sha }}
-            
-       - name: Trigger Deployment to  QA
-         if: github.ref == 'refs/heads/master' && github.event.inputs.environment == 'Development'
-         uses: benc-uk/workflow-dispatch@v1.1
-         with:
-           workflow: Deploy to PaaS
-           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
-           inputs: '{"environment": "Test", "sha": "${{ github.event.inputs.sha }}"}'
-
-       - name: Slack Notification
-         if: failure() 
-         uses: rtCamp/action-slack-notify@master
-         env:
-           SLACK_CHANNEL: getintoteaching_tech
-           SLACK_COLOR: '#B90E0A'
-           SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_TITLE: 'Failure: Deploying to ${{ github.event.inputs.environment }}'
-           SLACK_MESSAGE: 'Failure with Deployment for Teacher Training Adviser to ${{ github.event.inputs.environment }} SHA: ${{steps.sha.outputs.short}}'
-           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}

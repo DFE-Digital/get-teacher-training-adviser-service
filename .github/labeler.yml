@@ -1,0 +1,14 @@
+Ruby:
+  - app/**/*.rb
+  - db/**/*.rb
+  - config/**/*.rb
+
+Test:
+  - spec/**/*
+
+DevOps:
+  - terraform/**/*
+  - .github/**/*.yml
+
+Docker:
+  - Dockerfile 

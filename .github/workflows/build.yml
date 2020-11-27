@@ -7,7 +7,8 @@ on:
       - master
 env:
   APP_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
-
+  PROJECT:         Teacher Training Adviser Service
+  DOMAIN:          london.cloudapps.digital
 jobs:
   build:
     name: Build and Test
@@ -147,23 +148,6 @@ jobs:
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
            inputs: '{"image": "${{ steps.sha.outputs.image }}"}'
 
-      - name: Trigger Development Deployment
-        if: github.ref == 'refs/heads/master'
-        uses: benc-uk/workflow-dispatch@v1.1
-        with:
-          workflow: Deploy to PaaS
-          token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
-          inputs: '{"environment": "Development", "sha": "${{ github.sha }}"}'
-
-      - name: Trigger Review Deployment
-        if: github.ref != 'refs/heads/master'
-        uses: benc-uk/workflow-dispatch@v1.1
-        with:
-          workflow: Deploy to PaaS
-          token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
-          inputs: '{"environment": "Review", "sha": "${{ github.sha }}" , "pr": "${{github.event.number}}" , "title": "${{github.event.pull_request.title}}" }'
-          ref: ${{ github.event.pull_request.head.ref }}
-
       - name: Slack Notification
         if: failure() 
         uses: rtCamp/action-slack-notify@master
@@ -174,3 +158,243 @@ jobs:
            SLACK_TITLE: 'Failure: Building Teacher Training Adviser ${{github.ref}}'
            SLACK_TEXT: 'The build has failed please click on the Actions URL to investigate the problem.'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+  review:
+    name: Review Deployment Process
+    needs: build
+    if: github.ref != 'refs/heads/master' && github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Review Deployment
+        uses: benc-uk/workflow-dispatch@v1.1
+        with:
+          workflow: Deploy to PaaS
+          token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
+          inputs: '{"environment": "Review", "sha": "${{ github.sha }}" , "pr": "${{github.event.number}}"  }'
+          ref: ${{ github.event.pull_request.head.ref }}
+             
+      - name: Wait for Deployment to Review
+        uses: fountainhead/action-wait-for-check@v1.0.0
+        id: wait-for-review
+        with:
+          token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
+          checkName: Deploy Review
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Check if Review Deployment has returned with a failure
+        if: steps.wait-for-review.outputs.conclusion == 'failure'
+        run: exit 1
+
+      - name: Review Ready Notification
+        uses: rtCamp/action-slack-notify@master
+        env:
+           SLACK_USERNAME: GiT Review
+           SLACK_CHANNEL: getintoteaching_tech
+           SLACK_COLOR: '#03AC13'
+           SLACK_ICON: https://github.com/rtCamp.png?size=48
+           SLACK_TITLE:  "Review Pending for : ${{github.event.pull_request.title}}"
+           SLACK_MESSAGE: |
+                          Review Application can be found at https://review-teacher-training-adviser-${{github.event.number}}.${{env.DOMAIN}}
+                          Pull request can be found at https://github.com/DFE-Digital/${{env.CONTAINER}}/pull/${{ github.event.number }}
+           SLACK_FOOTER: "${{env.project}}"
+           MSG_MINIMAL: true
+           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+      - name: Post PR comment
+        run: |
+          curl --silent  \
+               --header "Accept: application/vnd.github.v3+json" \
+               --header "Authorization: Bearer ${{ github.token }}" \
+               --request POST \
+               --data '{"body": "Review app deployed to ${{needs.deploy.outputs.url}}"}'  \
+               https://api.github.com/repos/${{ github.repository }}/issues/${{github.event.number }}/comments
+
+      - name: Slack Notification
+        if: failure() 
+        uses: rtCamp/action-slack-notify@master
+        env:
+           SLACK_CHANNEL: getintoteaching_tech
+           SLACK_COLOR: '#B90E0A'
+           SLACK_ICON: https://github.com/rtCamp.png?size=48
+           SLACK_TITLE: 'Failure: Preparing from Preview'
+           SLACK_MESSAGE: 'Failure with Review preperation for {{env.project}}'
+           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+           SLACK_FOOTER: "${{env.project}}"
+
+  development:
+    name: Development Deployment
+    needs: build
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{steps.tag_version.outputs.tag}}
+    steps:
+       - name: Trigger Development Deployment
+         uses: benc-uk/workflow-dispatch@v1.1
+         with:
+           workflow: Deploy to PaaS
+           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
+           inputs: '{"environment": "Development", "sha": "${{ github.sha }}"}'
+           ref: ${{github.sha}}
+
+       - name: Wait for Deployment to Development
+         uses: fountainhead/action-wait-for-check@v1.0.0
+         id: wait-for-deploy
+         with:
+           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
+           checkName: Deploy Development
+           ref: ${{github.sha}}
+
+       - name: Check if Development Deployment has returned with a failure
+         if: steps.wait-for-deploy.outputs.conclusion == 'failure'
+         run: exit 1
+
+       - name: Trigger OWASP Testing
+         uses: benc-uk/workflow-dispatch@v1.1
+         with:
+           workflow: owasp
+           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
+           inputs: '{"environment": "dev"}'
+
+       - name: Generate Tag from PR Number
+         id: tag_version
+         run: |
+           MATCH="Merge pull request #[0-9]+"
+           STRING=$(curl -s -X GET "https://api.github.com/repos/${{github.repository}}/commits/${{github.sha}}" | jq -r  ".commit.message")
+
+           if [[ ${STRING}  =~ ${MATCH} ]] ;
+           then
+              echo "Pull request merge"
+              TAG=$( echo ${STRING} | grep -oh "[0-9]\+" | head -1 )
+              echo "PR Number ${TAG}"
+              BODY=$(curl -s -X GET "https://api.github.com/repos/${{github.repository}}/pulls/${TAG}" | jq -r ".body")
+           else
+              echo "Not a pull request merge"
+              TAG="0"
+              BODY="Nothing"
+           fi
+           echo ::set-output name=new_tag::"PR-${TAG}"
+           echo ::set-output name=changelog::"${BODY}"
+
+       - name: Create a GitHub Draft Release
+         if: steps.tag_version.outputs.new_tag != '0'
+         uses: actions/create-release@v1
+         env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         with:
+            tag_name: ${{ steps.tag_version.outputs.new_tag }}
+            release_name: Release ${{ steps.tag_version.outputs.new_tag }}
+            body: ${{ steps.tag_version.outputs.changelog }}
+            commitish: ${{ github.sha }}
+            prerelease: false
+            draft:      true
+
+  qa:
+    name: Quality Assurance Deployment
+    needs: development
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+       - name: Trigger Deployment to QA
+         uses: benc-uk/workflow-dispatch@v1.1
+         with:
+           workflow: Deploy to PaaS
+           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
+           inputs: '{"environment": "Test", "sha": "${{ github.sha }}" , "release_tag": "${{ needs.development.outputs.tag }}" }'
+           ref: ${{github.sha}}
+
+       - name: Wait for Deployment to QA
+         uses: fountainhead/action-wait-for-check@v1.0.0
+         id: wait-for-deploy
+         with:
+           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
+           checkName: Deploy Test
+           ref: ${{github.sha}}
+
+       - name: Check if QA Deployment has returned with a failure
+         if: steps.wait-for-deploy.outputs.conclusion == 'failure'
+         run: exit 1
+
+       - name: Slack Notification
+         if: failure() 
+         uses: rtCamp/action-slack-notify@master
+         env:
+           SLACK_CHANNEL: getintoteaching_tech
+           SLACK_COLOR: '#B90E0A'
+           SLACK_ICON: https://github.com/rtCamp.png?size=48
+           SLACK_TITLE: 'Failure: Failure in Post-Development Deploy'
+           SLACK_MESSAGE: 'Failure with initialising QA deployment  for ${{env.project}}'
+           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+           SLACK_FOOTER: "${{env.project}}"
+
+  cypress:
+     name: Run Cypress Tests on QA
+     runs-on: ubuntu-latest
+     needs: qa
+     steps:
+       - name: Checkout
+         uses: actions/checkout@v2
+         with:
+             repository: DFE-Digital/get-into-teaching-frontend-tests
+
+       - name: Run the Tests for Adviser
+         run: |
+             docker run -i --shm-size=1g   -e CYPRESS_HTTPAUTH_PASSWORD -e CYPRESS_HTTPAUTH_USERNAME  -v $PWD:/test -w /test dfedigital/dfecypress:latest \
+                           --spec cypress/integration/teacher-training-adviser.spec.js  --headless --browser chrome  \
+                           --spec cypress/integration/teacher-training-adviser.spec.js  \
+                           --headless \
+                           --browser chrome
+         env:
+              CYPRESS_HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
+              CYPRESS_HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
+
+  production:
+     name: Production Deployment
+     runs-on: ubuntu-latest
+     needs: cypress
+     steps:
+       - name: Get Release Id from Tag
+         id:   tag_id
+         run: |
+              ID=$(curl -s -X GET https://api.github.com/repos/${{ github.repository }}/releases/tags/${{needs.development.outputs.tag}} | jq -r .id )
+              echo ::set-output name=tag_id::"${ID}"
+
+       - name: Publish Release  
+         uses: eregon/publish-release@v1
+         env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         with:
+           release_id: ${{steps.tag_id.outputs.tag_id}}
+
+       - name: Trigger Deployment to Production
+         uses: benc-uk/workflow-dispatch@v1.1
+         with:
+           workflow: Deploy to PaaS
+           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
+           inputs: '{"environment": "Production" , "sha": "${{github.sha}}" , "release_tag": "${{needs.development.outputs.tag}}" }'
+           ref: ${{github.sha}}
+
+       - name: Wait for Deployment to Production
+         uses: fountainhead/action-wait-for-check@v1.0.0
+         id: wait-for-deploy
+         with:
+           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
+           checkName: Deploy Production
+           ref: ${{github.sha}}
+
+       - name: Check if Production Deployment has returned with a failure
+         if: steps.wait-for-deploy.outputs.conclusion == 'failure'
+         run: exit 1
+
+       - name: Slack Notification
+         if: failure() 
+         uses: rtCamp/action-slack-notify@master
+         env:
+           SLACK_CHANNEL: getintoteaching_tech
+           SLACK_COLOR: '#B90E0A'
+           SLACK_ICON: https://github.com/rtCamp.png?size=48
+           SLACK_TITLE: 'Failure: Failure in Production  Deploy'
+           SLACK_MESSAGE: 'Failure with initialising Production deployment  for ${{env.project}}'
+           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+           SLACK_FOOTER: "${{env.project}}"
+
