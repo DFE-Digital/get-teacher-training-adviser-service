@@ -353,7 +353,7 @@ jobs:
   production:
      name: Production Deployment
      runs-on: ubuntu-latest
-     needs: cypress 
+     needs: [ cypress , development ] 
      steps:
        - name: Get Release Id from Tag
          id:   tag_id
