@@ -210,7 +210,7 @@ jobs:
                --header "Accept: application/vnd.github.v3+json" \
                --header "Authorization: Bearer ${{ github.token }}" \
                --request POST \
-               --data '{"body": "Review app deployed to ${{needs.deploy.outputs.url}}"}'  \
+               --data '{"body": "Review app deployed to https://${{env.REVIEW_APPLICATION}}-${{github.event.number}}.${{env.DOMAIN}} "}'  \
                https://api.github.com/repos/${{ github.repository }}/issues/${{github.event.number }}/comments
 
       - name: Slack Notification
