@@ -2,6 +2,8 @@ Ruby:
   - app/**/*.rb
   - db/**/*.rb
   - config/**/*.rb
+  - lib/**/*.rb
+  - lib/**/*.rake
 
 Test:
   - spec/**/*
