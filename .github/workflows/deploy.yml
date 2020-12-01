@@ -17,11 +17,11 @@ on:
         default: 'Teacher Training Adviser'
 
 env:
-  DOCKERHUB_REPOSITORY: dfedigital/get-teacher-training-adviser-service
-  DOMAIN:               london.cloudapps.digital
-  PROJECT:              Teacher Training Adviser Service
-  REVIEW_APPLICATION:   review-teacher-training-adviser
-  APPLICATION_NAME:     get-teacher-training-adviser-service
+  DOCKERHUB_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
+  DOMAIN:                london.cloudapps.digital
+  APPLICATION:           Teacher Training Adviser Service
+  REVIEW_APPLICATION:    review-teacher-training-adviser
+  PAAS_APPLICATION_NAME: get-teacher-training-adviser-service
 
 jobs:
   turnstyle:
@@ -76,7 +76,7 @@ jobs:
                  echo ::set-output name=HTTP_PASSWORD::$(echo "${{ secrets.HTTPAUTH_PASSWORD }}" )
                  echo ::set-output name=HTTP_USERNAME::$(echo "${{ secrets.HTTPAUTH_USERNAME }}" )
                  echo ::set-output name=control::$(echo "dev" )
-                 echo ::set-output name=healthcheck::$(echo "${{env.APPLICATION_NAME}}-dev" )
+                 echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-dev" )
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Test" ]
@@ -87,7 +87,7 @@ jobs:
                  echo ::set-output name=HTTP_PASSWORD::$(echo "${{ secrets.HTTPAUTH_PASSWORD }}" )
                  echo ::set-output name=HTTP_USERNAME::$(echo "${{ secrets.HTTPAUTH_USERNAME }}" )
                  echo ::set-output name=control::$(echo "test" )
-                 echo ::set-output name=healthcheck::$(echo "${{env.APPLICATION_NAME}}-test" )
+                 echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-test" )
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Production" ]
@@ -98,7 +98,7 @@ jobs:
                  echo ::set-output name=HTTP_PASSWORD::$(echo "" )
                  echo ::set-output name=HTTP_USERNAME::$(echo "" )
                  echo ::set-output name=control::$(echo "production" )
-                 echo ::set-output name=healthcheck::$(echo "${{env.APPLICATION_NAME}}-prod" )
+                 echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-prod" )
              fi
 
        - uses: hashicorp/setup-terraform@v1.2.1

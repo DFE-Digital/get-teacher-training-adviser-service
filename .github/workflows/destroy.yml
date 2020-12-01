@@ -4,11 +4,11 @@ on:
     types: [closed]
 
 env:
-  DOCKERHUB_REPOSITORY: dfedigital/get-teacher-training-adviser-service
-  DOMAIN:               london.cloudapps.digital
-  PROJECT:              Teacher Training Adviser Service
-  REVIEW_APPLICATION:   review-teacher-training-adviser
-  APPLICATION_NAME:     get-teacher-training-adviser-service
+  DOCKERHUB_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
+  DOMAIN:                london.cloudapps.digital
+  APPLICATION:           Teacher Training Adviser Service
+  REVIEW_APPLICATION:    review-teacher-training-adviser
+  PAAS_APPLICATION_NAME: get-teacher-training-adviser-service
 
 jobs:
   destroy:
@@ -70,5 +70,6 @@ jobs:
            SLACK_COLOR: '#B90E0A'
            SLACK_ICON: https://github.com/rtCamp.png?size=48
            SLACK_TITLE: 'Failure:  Closing Review'
-           SLACK_MESSAGE: 'Failure with  Closing ${{env.PROJECT}} Review'
+           SLACK_MESSAGE: 'Failure with  Closing ${{env.APPLICATION}} Review'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+           SLACK_FOOTER: ${{env.APPLICATION}}
