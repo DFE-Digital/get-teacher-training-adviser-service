@@ -7,9 +7,11 @@ on:
         required: true
 
 env:
-  APP_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
-  CONTAINER:       get-teacher-training-adviser-service
-  DOMAIN:          london.cloudapps.digital
+  DOCKERHUB_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
+  DOMAIN:                london.cloudapps.digital
+  APPLICATION:           Teacher Training Adviser Service
+  REVIEW_APPLICATION:    review-teacher-training-adviser
+  PAAS_APPLICATION_NAME: get-teacher-training-adviser-service
 
 jobs:
   cve:
@@ -43,3 +45,4 @@ jobs:
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
            SLACK_MESSAGE: 'Pipeline Failure carrying out CVE Testing on ${{ github.event.inputs.image }}'
            SLACK_TITLE: 'Failure: CVE Testing has failed'
+           SLACK_FOOTER: "${{env.APPLICATION}}"

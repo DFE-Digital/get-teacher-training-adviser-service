@@ -17,9 +17,11 @@ on:
         default: 'Teacher Training Adviser'
 
 env:
-  APP_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
-  CONTAINER:       get-teacher-training-adviser-service
-  DOMAIN:          london.cloudapps.digital
+  DOCKERHUB_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
+  DOMAIN:                london.cloudapps.digital
+  APPLICATION:           Teacher Training Adviser Service
+  REVIEW_APPLICATION:    review-teacher-training-adviser
+  PAAS_APPLICATION_NAME: get-teacher-training-adviser-service
 
 jobs:
   turnstyle:
@@ -62,8 +64,8 @@ jobs:
                  echo ::set-output name=HTTP_PASSWORD::$(echo "${{ secrets.HTTPAUTH_PASSWORD }}" )
                  echo ::set-output name=HTTP_USERNAME::$(echo "${{ secrets.HTTPAUTH_USERNAME }}" )
                  echo ::set-output name=control::$(echo "dev" )
-                 echo ::set-output name=healthcheck::"review-teacher-training-adviser-${{github.event.inputs.pr}}"
-                 echo ::set-output name=pr_name::review-teacher-training-adviser-${{github.event.inputs.pr}}
+                 echo ::set-output name=healthcheck::"${{env.REVIEW_APPLICATION}}-${{github.event.inputs.pr}}"
+                 echo ::set-output name=pr_name::${{env.REVIEW_APPLICATION}}-${{github.event.inputs.pr}}
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Development" ]
@@ -74,7 +76,7 @@ jobs:
                  echo ::set-output name=HTTP_PASSWORD::$(echo "${{ secrets.HTTPAUTH_PASSWORD }}" )
                  echo ::set-output name=HTTP_USERNAME::$(echo "${{ secrets.HTTPAUTH_USERNAME }}" )
                  echo ::set-output name=control::$(echo "dev" )
-                 echo ::set-output name=healthcheck::$(echo "get-teacher-training-adviser-service-dev" )
+                 echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-dev" )
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Test" ]
@@ -85,7 +87,7 @@ jobs:
                  echo ::set-output name=HTTP_PASSWORD::$(echo "${{ secrets.HTTPAUTH_PASSWORD }}" )
                  echo ::set-output name=HTTP_USERNAME::$(echo "${{ secrets.HTTPAUTH_USERNAME }}" )
                  echo ::set-output name=control::$(echo "test" )
-                 echo ::set-output name=healthcheck::$(echo "get-teacher-training-adviser-service-test" )
+                 echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-test" )
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Production" ]
@@ -96,7 +98,7 @@ jobs:
                  echo ::set-output name=HTTP_PASSWORD::$(echo "" )
                  echo ::set-output name=HTTP_USERNAME::$(echo "" )
                  echo ::set-output name=control::$(echo "production" )
-                 echo ::set-output name=healthcheck::$(echo "get-teacher-training-adviser-service-prod" )
+                 echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-prod" )
              fi
 
        - uses: hashicorp/setup-terraform@v1.2.1
@@ -133,7 +135,7 @@ jobs:
              TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
              TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
              TF_VAR_RAILS_ENV:         "${{ steps.variables.outputs.RAILS_ENV  }}"
-             TF_VAR_paas_adviser_docker_image: ${{env.APP_REPOSITORY}}:review-${{ steps.sha.outputs.short}} 
+             TF_VAR_paas_adviser_docker_image: ${{env.DOCKERHUB_REPOSITORY}}:review-${{ steps.sha.outputs.short}} 
              TF_VAR_RAILS_MASTER_KEY:  "${{ steps.variables.outputs.RAILS_MASTER_KEY  }}"
              TF_VAR_HTTPAUTH_PASSWORD: "${{ steps.variables.outputs.HTTP_PASSWORD  }}"
              TF_VAR_HTTPAUTH_USERNAME: "${{ steps.variables.outputs.HTTP_USERNAME  }}"
@@ -152,7 +154,7 @@ jobs:
              TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
              TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
              TF_VAR_RAILS_ENV:         "${{ steps.variables.outputs.RAILS_ENV  }}"
-             TF_VAR_paas_adviser_docker_image: ${{env.APP_REPOSITORY}}:sha-${{ steps.sha.outputs.short}} 
+             TF_VAR_paas_adviser_docker_image: ${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}} 
              TF_VAR_RAILS_MASTER_KEY:  "${{ steps.variables.outputs.RAILS_MASTER_KEY  }}"
              TF_VAR_HTTPAUTH_PASSWORD: "${{ steps.variables.outputs.HTTP_PASSWORD  }}"
              TF_VAR_HTTPAUTH_USERNAME: "${{ steps.variables.outputs.HTTP_USERNAME  }}"

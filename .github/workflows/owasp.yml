@@ -7,9 +7,11 @@ on:
         required: true
 
 env:
-  APP_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
-  CONTAINER:       get-teacher-training-adviser-service
-  DOMAIN:          london.cloudapps.digital
+  DOCKERHUB_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
+  DOMAIN:                london.cloudapps.digital
+  APPLICATION:           Teacher Training Adviser Service
+  REVIEW_APPLICATION:    review-teacher-training-adviser
+  PAAS_APPLICATION_NAME: get-teacher-training-adviser-service
 
 jobs:
   owasp:
@@ -24,7 +26,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           docker_name: 'owasp/zap2docker-stable'
-          target: 'https://${{ secrets.HTTPAUTH_USERNAME }}:${{ secrets.HTTPAUTH_PASSWORD }}@${{env.CONTAINER}}-${{ github.event.inputs.environment }}.${{env.DOMAIN}}/'
+          target: 'https://${{ secrets.HTTPAUTH_USERNAME }}:${{ secrets.HTTPAUTH_PASSWORD }}@${{env.PAAS_APPLICATION_NAME}}-${{ github.event.inputs.environment }}.${{env.DOMAIN}}/'
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a'
 
@@ -35,6 +37,7 @@ jobs:
            SLACK_CHANNEL: getintoteaching_tech
            SLACK_COLOR: '#3278BD'
            SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_MESSAGE: 'Pipeline Failure carrying out OWASP Testing on https://${{env.CONTAINER}}-${{ github.event.inputs.environment }}.${{env.DOMAIN}}/'
+           SLACK_MESSAGE: 'Pipeline Failure carrying out OWASP Testing on https://${{env.PAAS_APPLICATION_NAME}}-${{ github.event.inputs.environment }}.${{env.DOMAIN}}/'
            SLACK_TITLE: 'Failure: OWSAP Testing has failed on ${{ github.event.inputs.environment }}'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+           SLACK_FOOTER: "${{env.APPLICATION}}"

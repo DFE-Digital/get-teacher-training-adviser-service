@@ -4,13 +4,15 @@ on:
     types: [closed]
 
 env:
-  APP_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
-  CONTAINER:       get-teacher-training-adviser-service
-  DOMAIN:          london.cloudapps.digital
+  DOCKERHUB_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
+  DOMAIN:                london.cloudapps.digital
+  APPLICATION:           Teacher Training Adviser Service
+  REVIEW_APPLICATION:    review-teacher-training-adviser
+  PAAS_APPLICATION_NAME: get-teacher-training-adviser-service
 
 jobs:
-  deploy:
-    name: 'Deploy ${{ github.event.inputs.environment }}'
+  destroy:
+    name: 'Destroy ${{ github.event.inputs.environment }}'
     runs-on: ubuntu-latest
 
     defaults:
@@ -24,14 +26,14 @@ jobs:
          id:  variables
          run: |
                  echo ::set-output name=ARM_ACCESS_KEY::$(echo "${{ secrets.DEV_ARM_ACCESS_KEY  }}" )
-                 echo ::set-output name=pr_name::review-teacher-training-adviser-${{github.event.number}}
-                 echo ::set-output name=url::"https://review-teacher-training-adviser-${{github.event.number}}.${{env.DOMAIN}}"
+                 echo ::set-output name=pr_name::${{env.REVIEW_APPLICATION}}-${{github.event.number}}
+                 echo ::set-output name=url::"https://${{env.REVIEW_APPLICATION}}-${{github.event.number}}.${{env.DOMAIN}}"
                  echo ::set-output name=RAILS_ENV::$(echo "rolling" )
                  echo ::set-output name=RAILS_MASTER_KEY::$(echo "${{ secrets.RAILS_MASTER_KEY_ROLLING }}" )
                  echo ::set-output name=HTTP_PASSWORD::$(echo "${{ secrets.HTTPAUTH_PASSWORD }}" )
                  echo ::set-output name=HTTP_USERNAME::$(echo "${{ secrets.HTTPAUTH_USERNAME }}" )
                  echo ::set-output name=control::$(echo "dev" )
-                 echo ::set-output name=healthcheck::"review-teacher-training-adviser-${{github.event.inputs.pr}}"
+                 echo ::set-output name=healthcheck::"${{env.REVIEW_APPLICATION}}-${{github.event.inputs.pr}}"
 
        - uses: hashicorp/setup-terraform@v1.2.1
          with:
@@ -68,5 +70,6 @@ jobs:
            SLACK_COLOR: '#B90E0A'
            SLACK_ICON: https://github.com/rtCamp.png?size=48
            SLACK_TITLE: 'Failure:  Closing Review'
-           SLACK_MESSAGE: 'Failure with  Closing Teacher Training Adviser Review'
+           SLACK_MESSAGE: 'Failure with  Closing ${{env.APPLICATION}} Review'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+           SLACK_FOOTER: ${{env.APPLICATION}}
