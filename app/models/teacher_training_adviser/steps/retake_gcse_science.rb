@@ -14,13 +14,12 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      returning_teacher = @store["returning_to_teaching"]
-      equivalent_degree = @store["degree_options"] == TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
-      phase_is_secondary = @store["preferred_education_phase_id"] == TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
-      has_gcse_science = @store["has_gcse_science_id"] != TeacherTrainingAdviser::Steps::GcseScience::OPTIONS[:no]
-      not_retaking_gcse_maths_english = @store["planning_to_retake_gcse_maths_and_english_id"] == TeacherTrainingAdviser::Steps::RetakeGcseMathsEnglish::OPTIONS[:no]
+      gcse_science_step = other_step(:gcse_science)
+      gcse_science_skipped = gcse_science_step.skipped?
+      has_gcse_science_id = gcse_science_step.has_gcse_science_id
+      has_gcse_science = has_gcse_science_id != GcseMathsEnglish::OPTIONS[:no]
 
-      returning_teacher || equivalent_degree || phase_is_secondary || has_gcse_science || not_retaking_gcse_maths_english
+      gcse_science_skipped || has_gcse_science
     end
   end
 end

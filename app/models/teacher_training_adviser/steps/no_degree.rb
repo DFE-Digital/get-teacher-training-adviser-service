@@ -5,9 +5,7 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      has_degree = @store["degree_options"] != TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:no]
-
-      has_degree
+      other_step(:have_a_degree).degree_options != HaveADegree::DEGREE_OPTIONS[:no]
     end
   end
 end

@@ -13,16 +13,16 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      returning_teacher = @store["returning_to_teaching"]
-      phase_is_secondary = @store["preferred_education_phase_id"] == TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
-      no_gcse_maths_science = @store["has_gcse_maths_and_english_id"] == TeacherTrainingAdviser::Steps::GcseMathsEnglish::OPTIONS[:no] &&
-        @store["planning_to_retake_gcse_maths_and_english_id"] == TeacherTrainingAdviser::Steps::RetakeGcseMathsEnglish::OPTIONS[:no]
-      not_studying_or_have_a_degree = [
-        TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying],
-        TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:yes],
-      ].none?(@store["degree_options"])
+      gcse_maths_english_step = other_step(:gcse_maths_english)
+      gcse_maths_english_skipped = gcse_maths_english_step.skipped?
+      preferred_education_phase_id = other_step(:stage_interested_teaching).preferred_education_phase_id
+      phase_is_secondary = preferred_education_phase_id == StageInterestedTeaching::OPTIONS[:secondary]
+      has_gcse_maths_and_english_id = gcse_maths_english_step.has_gcse_maths_and_english_id
+      planning_to_retake_gcse_maths_and_english_id = other_step(:retake_gcse_maths_english).planning_to_retake_gcse_maths_and_english_id
+      no_gcse_maths_english = has_gcse_maths_and_english_id == GcseMathsEnglish::OPTIONS[:no] &&
+        planning_to_retake_gcse_maths_and_english_id == RetakeGcseMathsEnglish::OPTIONS[:no]
 
-      returning_teacher || phase_is_secondary || no_gcse_maths_science || not_studying_or_have_a_degree
+      gcse_maths_english_skipped || no_gcse_maths_english || phase_is_secondary
     end
   end
 end

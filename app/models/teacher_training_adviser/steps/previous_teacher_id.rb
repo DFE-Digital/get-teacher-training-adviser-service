@@ -3,10 +3,11 @@ module TeacherTrainingAdviser::Steps
     attribute :teacher_id, :string
 
     def skipped?
-      returning_teacher = @store["returning_to_teaching"]
-      has_id = @store["has_id"] == true
+      has_teacher_id_step = other_step(:has_teacher_id)
+      has_teacher_id_skipped = has_teacher_id_step.skipped?
+      has_id = has_teacher_id_step.has_id
 
-      !returning_teacher || !has_id
+      has_teacher_id_skipped || !has_id
     end
   end
 end

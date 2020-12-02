@@ -13,10 +13,11 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      equivalent_degree = @store["degree_options"] == "equivalent"
-      in_uk = @store["uk_or_overseas"] == TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]
+      overseas_country_skippped = other_step(:overseas_country).skipped?
+      degree_options = other_step(:have_a_degree).degree_options
+      equivalent_degree = degree_options == HaveADegree::DEGREE_OPTIONS[:equivalent]
 
-      equivalent_degree || in_uk
+      overseas_country_skippped || equivalent_degree
     end
   end
 end

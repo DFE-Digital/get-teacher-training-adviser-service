@@ -11,31 +11,19 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasTimeZone do
   end
 
   describe "#skipped?" do
-    it "returns false if degree_options is equivalent and uk_or_overseas is overseas" do
+    it "returns false if OverseasCountry was shown and they have an equivalent degree" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::OverseasCountry).to receive(:skipped?) { false }
       wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
-      wizardstore["uk_or_overseas"] = TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:overseas]
-      wizardstore["returning_to_teaching"] = false
       expect(subject).to_not be_skipped
+    end
+
+    it "returns true if OverseasCountry was skipped" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::OverseasCountry).to receive(:skipped?) { true }
+      expect(subject).to be_skipped
     end
 
     it "returns true if degree_options is not equivalent" do
       wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:yes]
-      wizardstore["uk_or_overseas"] = TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:overseas]
-      wizardstore["returning_to_teaching"] = false
-      expect(subject).to be_skipped
-    end
-
-    it "returns true if uk_or_overseas is not overseas" do
-      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
-      wizardstore["uk_or_overseas"] = TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]
-      wizardstore["returning_to_teaching"] = false
-      expect(subject).to be_skipped
-    end
-
-    it "returns true if returning_to_teaching is true" do
-      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
-      wizardstore["uk_or_overseas"] = TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]
-      wizardstore["returning_to_teaching"] = true
       expect(subject).to be_skipped
     end
   end

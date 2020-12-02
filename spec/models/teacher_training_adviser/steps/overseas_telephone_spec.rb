@@ -17,18 +17,19 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasTelephone do
   end
 
   describe "#skipped?" do
-    it "returns false if uk_or_overseas is Overseas" do
-      wizardstore["uk_or_overseas"] = TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:overseas]
+    it "returns false if OverseasCountry was shown and they don't have an equivalent degree" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::OverseasCountry).to receive(:skipped?) { false }
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:yes]
       expect(subject).to_not be_skipped
     end
 
-    it "returns true if uk_or_overseas is UK" do
-      wizardstore["uk_or_overseas"] = TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]
+    it "returns true if OverseasCountry was skipped" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::OverseasCountry).to receive(:skipped?) { true }
       expect(subject).to be_skipped
     end
 
-    it "returns true if degree_options is equivalent is true" do
-      wizardstore["degree_options"] = "equivalent"
+    it "returns true if degree_options is equivalent" do
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
       expect(subject).to be_skipped
     end
   end

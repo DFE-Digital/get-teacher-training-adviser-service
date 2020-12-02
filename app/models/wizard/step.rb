@@ -48,6 +48,11 @@ module Wizard
       false
     end
 
+    def other_step(key_or_class)
+      key = key_or_class.respond_to?(:key) ? key_or_class.key : key_or_class.to_s
+      @wizard.find(key)
+    end
+
     def export
       return {} if skipped?
 

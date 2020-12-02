@@ -16,9 +16,7 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      in_uk = @store["uk_or_overseas"] == TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]
-
-      in_uk
+      other_step(:uk_or_overseas).uk_or_overseas == UkOrOverseas::OPTIONS[:uk]
     end
 
     def reviewable_answers
