@@ -4,7 +4,6 @@ module TeacherTrainingAdviser::Steps
 
     attribute :returning_to_teaching, :boolean
     attribute :degree_options, :string
-    attribute :preferred_education_phase_id
 
     validates :returning_to_teaching, inclusion: { in: [true, false] }
 
