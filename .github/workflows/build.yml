@@ -345,16 +345,16 @@ jobs:
            repo: DFE-Digital/get-into-teaching-frontend-tests
            workflow: Cypress
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
-           inputs: '{"application": "TTA" }'
-           ref: "${{github.ref}}" 
+           inputs: '{"application": "TTA" , "sha": "${{ github.sha }}" }'
+           ref:  refs/heads/master
 
        - name: Wait for Cypress Tests
          uses: fountainhead/action-wait-for-check@v1.0.0
          id: wait-for-deploy
          with:
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
-           checkName: Run Cypress Tests (teacher-training-adviser)
-           ref: "${{github.ref}}" 
+           checkName: "${{ github.sha }}" 
+           ref: refs/heads/master
            repo: DFE-Digital/get-into-teaching-frontend-tests
 
   production:
