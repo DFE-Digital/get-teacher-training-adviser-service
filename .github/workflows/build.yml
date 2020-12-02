@@ -354,7 +354,7 @@ jobs:
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
            checkName: "${{ github.sha }}" 
            ref: refs/heads/master
-           repo: DFE-Digital/get-into-teaching-frontend-tests
+           repo: get-into-teaching-frontend-tests
 
   production:
      name: Production Deployment
