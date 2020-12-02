@@ -355,6 +355,7 @@ jobs:
            checkName: "${{ github.sha }}" 
            ref: refs/heads/master
            repo: get-into-teaching-frontend-tests
+           intervalSeconds: 30
 
   production:
      name: Production Deployment
