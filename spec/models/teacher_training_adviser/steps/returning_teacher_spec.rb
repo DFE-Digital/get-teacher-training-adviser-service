@@ -7,7 +7,6 @@ RSpec.describe TeacherTrainingAdviser::Steps::ReturningTeacher do
   context "attributes" do
     it { is_expected.to respond_to :returning_to_teaching }
     it { is_expected.to respond_to :degree_options }
-    it { is_expected.to respond_to :preferred_education_phase_id }
   end
 
   describe "#returning_to_teaching" do
