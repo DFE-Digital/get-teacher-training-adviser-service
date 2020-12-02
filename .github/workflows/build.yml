@@ -336,9 +336,10 @@ jobs:
   cypress:
      name: Run Cypress Tests on QA
      runs-on: ubuntu-latest
+     needs: qa  
      steps:
 
-       - name: Trigger Cypress Tests 
+       - name: Trigger Cypress Tests (DFE-Digital/get-into-teaching-frontend-tests )
          uses: benc-uk/workflow-dispatch@v1.1
          with:
            repo: DFE-Digital/get-into-teaching-frontend-tests
