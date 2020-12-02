@@ -336,7 +336,6 @@ jobs:
   cypress:
      name: Run Cypress Tests on QA
      runs-on: ubuntu-latest
-     needs: build
      steps:
 
        - name: Trigger Cypress Tests 
@@ -345,7 +344,7 @@ jobs:
            repo: DFE-Digital/get-into-teaching-frontend-tests
            workflow: Cypress
            token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
-           inputs: '{"application": "TTA" , "sha": "${{ github.sha }}" }'
+           inputs: '{"application": "TTA" , "reference": "${{ github.sha }}" }'
            ref:  refs/heads/master
 
        - name: Wait for Cypress Tests
