@@ -18,13 +18,5 @@ module TeacherTrainingAdviser::Steps
     def skipped?
       other_step(:have_a_degree).skipped?
     end
-
-    def export
-      if preferred_education_phase_id == OPTIONS[:primary] && !skipped?
-        super.merge("preferred_teaching_subject_id" => PRIMARY_SUBJECT_ID)
-      else
-        super
-      end
-    end
   end
 end
