@@ -336,23 +336,31 @@ jobs:
   cypress:
      name: Run Cypress Tests on QA
      runs-on: ubuntu-latest
-     needs: qa
+     needs: qa  
      steps:
-       - name: Checkout
-         uses: actions/checkout@v2
-         with:
-             repository: DFE-Digital/get-into-teaching-frontend-tests
 
-       - name: Run the Tests for Adviser
-         run: |
-             docker run -i --shm-size=1g   -e CYPRESS_HTTPAUTH_PASSWORD -e CYPRESS_HTTPAUTH_USERNAME  -v $PWD:/test -w /test dfedigital/dfecypress:latest \
-                           --spec cypress/integration/teacher-training-adviser.spec.js  --headless --browser chrome  \
-                           --spec cypress/integration/teacher-training-adviser.spec.js  \
-                           --headless \
-                           --browser chrome
-         env:
-              CYPRESS_HTTPAUTH_PASSWORD: "${{ secrets.HTTPAUTH_PASSWORD }}"
-              CYPRESS_HTTPAUTH_USERNAME: "${{ secrets.HTTPAUTH_USERNAME }}"
+       - name: Trigger Cypress Tests (DFE-Digital/get-into-teaching-frontend-tests )
+         uses: benc-uk/workflow-dispatch@v1.1
+         with:
+           repo: DFE-Digital/get-into-teaching-frontend-tests
+           workflow: Cypress
+           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
+           inputs: '{"application": "TTA" , "reference": "${{ github.sha }}" }'
+           ref:  refs/heads/master
+
+       - name: Wait for Cypress Tests
+         uses: fountainhead/action-wait-for-check@v1.0.0
+         id: wait-for-deploy
+         with:
+           token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN}}
+           checkName: "${{ github.sha }}" 
+           ref: refs/heads/master
+           repo: get-into-teaching-frontend-tests
+           intervalSeconds: 30
+
+       - name: Check for test failure
+         if: steps.wait-for-build.outputs.conclusion == 'failure'
+         run: exit 1
 
   production:
      name: Production Deployment
