@@ -189,21 +189,6 @@ jobs:
         if: steps.wait-for-review.outputs.conclusion == 'failure'
         run: exit 1
 
-      - name: Review Ready Notification
-        uses: rtCamp/action-slack-notify@master
-        env:
-           SLACK_USERNAME: GiT Review
-           SLACK_CHANNEL: getintoteaching_tech
-           SLACK_COLOR: '#03AC13'
-           SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_TITLE:  "Review Pending for : ${{github.event.pull_request.title}}"
-           SLACK_MESSAGE: |
-                          Review Application can be found at https://${{env.REVIEW_APPLICATION}}-${{github.event.number}}.${{env.DOMAIN}}
-                          Pull request can be found at https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
-           SLACK_FOOTER: "${{env.APPLICATION}}"
-           MSG_MINIMAL: true
-           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-
       - name: Post PR comment
         run: |
           curl --silent  \
@@ -399,20 +384,6 @@ jobs:
        - name: Check if Production Deployment has returned with a failure
          if: steps.wait-for-deploy.outputs.conclusion == 'failure'
          run: exit 1
-
-       - name: Release  Notification
-         if: success() 
-         uses: rtCamp/action-slack-notify@master
-         env:
-           SLACK_USERNAME: GiT Deployment
-           SLACK_CHANNEL: getintoteaching_tech
-           SLACK_COLOR: '#03AC13'
-           SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_TITLE:  "Production Release"
-           SLACK_MESSAGE: "Release ${{needs.development.outputs.release_tag}} has been released to production"
-           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-           SLACK_FOOTER: "${{env.APPLICATION}}"
-           MSG_MINIMAL: true
 
        - name: Slack Notification
          if: failure() 
