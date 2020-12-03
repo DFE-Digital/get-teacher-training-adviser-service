@@ -358,6 +358,10 @@ jobs:
            repo: get-into-teaching-frontend-tests
            intervalSeconds: 30
 
+       - name: Check for test failure
+         if: steps.wait-for-build.outputs.conclusion == 'failure'
+         run: exit 1
+
   production:
      name: Production Deployment
      runs-on: ubuntu-latest
