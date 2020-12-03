@@ -221,7 +221,7 @@ jobs:
            SLACK_COLOR: '#B90E0A'
            SLACK_ICON: https://github.com/rtCamp.png?size=48
            SLACK_TITLE: 'Failure: Preparing from Preview'
-           SLACK_MESSAGE: 'Failure with Review preperation for {{env.APPLICATION}}'
+           SLACK_MESSAGE: 'Failure with Review preperation for ${{env.APPLICATION}}'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
            SLACK_FOOTER: "${{env.APPLICATION}}"
 
