@@ -219,7 +219,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
         degree_type_id: DEGREE_TYPE_DEGREE,
         initial_teacher_training_year_id: TEACHER_TRAINING_YEAR_2022,
         preferred_education_phase_id: EDUCATION_PHASE_PRIMARY,
-        preferred_teaching_subject_id: PRIMARY_SUBJECT_ID,
         has_gcse_maths_and_english_id: HAS_GCSE,
         has_gcse_science_id: HAS_GCSE,
         degree_subject: "Maths",
