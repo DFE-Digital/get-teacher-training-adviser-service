@@ -275,7 +275,8 @@ jobs:
          with:
             tag_name: ${{ steps.tag_version.outputs.tag }}
             release_name: Release ${{ steps.tag_version.outputs.tag }}
-            body: ${{ steps.tag_version.outputs.changelog }}
+            body: |
+                  ${{ steps.tag_version.outputs.changelog }}
             commitish: ${{ steps.tag_version.outputs.sha}} 
             prerelease: false
             draft:      false
