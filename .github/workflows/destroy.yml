@@ -35,7 +35,7 @@ jobs:
                  echo ::set-output name=control::$(echo "dev" )
                  echo ::set-output name=healthcheck::"${{env.REVIEW_APPLICATION}}-${{github.event.inputs.pr}}"
 
-       - uses: hashicorp/setup-terraform@v1.2.1
+       - uses: hashicorp/setup-terraform@v1.3.1
          with:
               terraform_version: 0.13.4
 
