@@ -101,7 +101,7 @@ jobs:
                  echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-prod" )
              fi
 
-       - uses: hashicorp/setup-terraform@v1.2.1
+       - uses: hashicorp/setup-terraform@v1.3.2
          with:
               terraform_version: 0.13.4
 
