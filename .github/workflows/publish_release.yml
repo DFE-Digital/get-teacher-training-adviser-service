@@ -20,9 +20,9 @@ jobs:
            SLACK_CHANNEL: twd_getintoteaching
            SLACK_COLOR: '#B90E0A'
            SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_TITLE: Release Published ${{github.event.release.name}}
+           SLACK_TITLE: ${{github.event.release.name}} Published
            SLACK_MESSAGE: ${{github.event.release.body}}
-           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+           SLACK_WEBHOOK: ${{ secrets.SLACK_RELEASE_NOTE_WEBHOOK }}
            SLACK_FOOTER: ${{env.APPLICATION}}    
            MSG_MINIMAL: true
       
