@@ -348,12 +348,26 @@ jobs:
            TOKEN: ${{secrets.ACTIONS_API_ACCESS_TOKEN}}
 
        - name: Publish Release  
-         if: steps.tag_id.outputs.found == 1
+         if: steps.tag_id.outputs.release_id
          uses: eregon/publish-release@v1
          env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
          with:
            release_id: ${{steps.tag_id.outputs.release_id}}
+     
+       - name: Slack Release Notification
+         if: steps.tag_id.outputs.release_id
+         uses: rtCamp/action-slack-notify@master
+         env:
+           SLACK_USERNAME: GiT Deployment
+           SLACK_CHANNEL: twd_getintoteaching
+           SLACK_COLOR: '#15d448'
+           SLACK_ICON: https://github.com/rtCamp.png?size=48
+           SLACK_TITLE: "Release Published: ${{steps.tag_id.outputs.release_name}}"
+           SLACK_MESSAGE: ${{steps.tag_id.outputs.release_body}}
+           SLACK_WEBHOOK: ${{ secrets.SLACK_RELEASE_NOTE_WEBHOOK }}
+           SLACK_FOOTER: ${{env.APPLICATION}}
+           MSG_MINIMAL: true
 
        - name: Trigger Deployment to Production
          uses: benc-uk/workflow-dispatch@v1.1
