@@ -4,7 +4,7 @@ module TeacherTrainingAdviser::Steps
 
     attribute :preferred_education_phase_id, :integer
 
-    validates :preferred_education_phase_id, types: { method: :get_candidate_preferred_education_phases }
+    validates :preferred_education_phase_id, pick_list_items: { method: :get_candidate_preferred_education_phases }
 
     PRIMARY_SUBJECT_ID = "b02655a1-2afa-e811-a981-000d3a276620".freeze
     OPTIONS = { primary: 222_750_000, secondary: 222_750_001 }.freeze

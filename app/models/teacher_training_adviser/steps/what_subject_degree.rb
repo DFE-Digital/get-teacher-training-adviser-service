@@ -11,7 +11,7 @@ module TeacherTrainingAdviser::Steps
     validates :degree_subject, presence: true
 
     def self.options
-      generate_api_options(:get_teaching_subjects, OMIT_SUBJECT_IDS)
+      generate_api_options(GetIntoTeachingApiClient::LookupItemsApi, :get_teaching_subjects, OMIT_SUBJECT_IDS)
     end
 
     def skipped?

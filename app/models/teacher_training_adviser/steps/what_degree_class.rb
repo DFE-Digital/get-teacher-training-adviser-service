@@ -3,14 +3,14 @@ module TeacherTrainingAdviser::Steps
     extend ApiOptions
 
     OMIT_GRADE_IDS = [
-      "222750004", # Third class or below
-      "222750005", # Unknown
+      222_750_004, # Third class or below
+      222_750_005, # Unknown
     ].freeze
 
     attribute :uk_degree_grade_id, :integer
 
     def self.options
-      generate_api_options(:get_qualification_uk_degree_grades, OMIT_GRADE_IDS)
+      generate_api_options(GetIntoTeachingApiClient::PickListItemsApi, :get_qualification_uk_degree_grades, OMIT_GRADE_IDS)
     end
 
     validates :uk_degree_grade_id, inclusion: { in: options.values.map(&:to_i) }
@@ -25,7 +25,7 @@ module TeacherTrainingAdviser::Steps
 
     def reviewable_answers
       super.tap do |answers|
-        answers["uk_degree_grade_id"] = self.class.options.key(uk_degree_grade_id.to_s)
+        answers["uk_degree_grade_id"] = self.class.options.key(uk_degree_grade_id)
       end
     end
   end

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/teaching_subjects
+    uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/lookup_items/teaching_subjects
     body:
       encoding: US-ASCII
       string: ''
@@ -51,6 +51,6 @@ http_interactions:
         preference"}]'
     http_version: '2'
     adapter_metadata:
-      effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/teaching_subjects
+      effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/lookup_items/teaching_subjects
   recorded_at: Wed, 19 Aug 2020 06:28:35 GMT
 recorded_with: VCR 6.0.0

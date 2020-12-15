@@ -9,17 +9,17 @@ module TeacherTrainingAdviser::Steps
 
     def reviewable_answers
       super.tap do |answers|
-        answers["initial_teacher_training_year_id"] = years.find { |y| y.id.to_s == initial_teacher_training_year_id.to_s }&.value
+        answers["initial_teacher_training_year_id"] = years.find { |y| y.id == initial_teacher_training_year_id }&.value
       end
     end
 
     def years
-      years = GetIntoTeachingApiClient::TypesApi.new.get_candidate_initial_teacher_training_years
-      years.select { |year| year.id.to_i == 12_917 || year.value.to_i.between?(first_year, first_year + (NUMBER_OF_YEARS - 1)) }
+      years = GetIntoTeachingApiClient::PickListItemsApi.new.get_candidate_initial_teacher_training_years
+      years.select { |year| year.id == NOT_SURE_ID || year.value.to_i.between?(first_year, first_year + (NUMBER_OF_YEARS - 1)) }
     end
 
     def year_ids
-      years.map { |year| year.id.to_i }
+      years.map(&:id)
     end
 
     def skipped?

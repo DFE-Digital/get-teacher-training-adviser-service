@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/countries
+    uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/lookup_items/countries
     body:
       encoding: US-ASCII
       string: ''
@@ -83,6 +83,6 @@ http_interactions:
         Zealand"},{"id":"fff3c2e6-74f9-e811-a97a-000d3a2760f2","value":"Albania"}]'
     http_version: '2'
     adapter_metadata:
-      effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/countries
+      effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/lookup_items/countries
   recorded_at: Wed, 19 Aug 2020 06:28:35 GMT
 recorded_with: VCR 6.0.0

@@ -10,8 +10,8 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
 
   describe "#initial_teacher_training_year_id" do
     it "allows a valid initial_teacher_training_year_id" do
-      year = GetIntoTeachingApiClient::TypeEntity.new(id: 12_917)
-      allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
+      year = GetIntoTeachingApiClient::PickListItem.new(id: 12_917)
+      allow_any_instance_of(GetIntoTeachingApiClient::PickListItemsApi).to \
         receive(:get_candidate_initial_teacher_training_years) { [year] }
       expect(subject).to allow_value(12_917).for :initial_teacher_training_year_id
     end
@@ -22,15 +22,15 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
   describe "#years" do
     before do
       years = [
-        GetIntoTeachingApiClient::TypeEntity.new(id: 12_917, value: "Not sure"),
-        GetIntoTeachingApiClient::TypeEntity.new(id: 12_918, value: 2020),
-        GetIntoTeachingApiClient::TypeEntity.new(id: 12_919, value: 2021),
-        GetIntoTeachingApiClient::TypeEntity.new(id: 12_920, value: 2022),
-        GetIntoTeachingApiClient::TypeEntity.new(id: 12_921, value: 2023),
-        GetIntoTeachingApiClient::TypeEntity.new(id: 12_921, value: 2024),
+        GetIntoTeachingApiClient::PickListItem.new(id: 12_917, value: "Not sure"),
+        GetIntoTeachingApiClient::PickListItem.new(id: 12_918, value: 2020),
+        GetIntoTeachingApiClient::PickListItem.new(id: 12_919, value: 2021),
+        GetIntoTeachingApiClient::PickListItem.new(id: 12_920, value: 2022),
+        GetIntoTeachingApiClient::PickListItem.new(id: 12_921, value: 2023),
+        GetIntoTeachingApiClient::PickListItem.new(id: 12_921, value: 2024),
       ]
 
-      allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
+      allow_any_instance_of(GetIntoTeachingApiClient::PickListItemsApi).to \
         receive(:get_candidate_initial_teacher_training_years) { years }
     end
 
@@ -71,11 +71,11 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
 
   describe "#reviewable_answers" do
     subject { instance.reviewable_answers }
-    let(:type) { GetIntoTeachingApiClient::TypeEntity.new(id: 12_917, value: "Value") }
+    let(:pick_list_item) { GetIntoTeachingApiClient::PickListItem.new(id: 12_917, value: "Value") }
     before do
-      allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
-        receive(:get_candidate_initial_teacher_training_years) { [type] }
-      instance.initial_teacher_training_year_id = type.id
+      allow_any_instance_of(GetIntoTeachingApiClient::PickListItemsApi).to \
+        receive(:get_candidate_initial_teacher_training_years) { [pick_list_item] }
+      instance.initial_teacher_training_year_id = pick_list_item.id
     end
 
     it { is_expected.to eq({ "initial_teacher_training_year_id" => "Value" }) }
