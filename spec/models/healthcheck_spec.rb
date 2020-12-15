@@ -34,7 +34,7 @@ RSpec.describe Healthcheck do
 
     context "with broken connection" do
       before do
-        allow_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
+        allow_any_instance_of(GetIntoTeachingApiClient::LookupItemsApi).to \
           receive(:get_teaching_subjects).and_raise \
             Faraday::TimeoutError.new("Timeout")
       end
@@ -44,7 +44,7 @@ RSpec.describe Healthcheck do
 
     context "with an API error" do
       before do
-        expect_any_instance_of(GetIntoTeachingApiClient::TypesApi).to \
+        expect_any_instance_of(GetIntoTeachingApiClient::LookupItemsApi).to \
           receive(:get_teaching_subjects).and_raise(GetIntoTeachingApiClient::ApiError)
       end
 

@@ -4,7 +4,7 @@ module TeacherTrainingAdviser::Steps
     # overwrites UK default
     attribute :country_id, :string
 
-    validates :country_id, types: { method: :get_country_types }
+    validates :country_id, lookup_items: { method: :get_countries }
 
     OMIT_COUNTRY_IDS = [
       "76f5c2e6-74f9-e811-a97a-000d3a2760f2", # Unknown
@@ -12,7 +12,7 @@ module TeacherTrainingAdviser::Steps
     ].freeze
 
     def self.options
-      generate_api_options(:get_country_types, OMIT_COUNTRY_IDS)
+      generate_api_options(GetIntoTeachingApiClient::LookupItemsApi, :get_countries, OMIT_COUNTRY_IDS)
     end
 
     def skipped?

@@ -12,7 +12,7 @@ module TeacherTrainingAdviser::Steps
     ].freeze
 
     def self.options
-      generate_api_options(:get_teaching_subjects, nil, INCLUDE_SUBJECT_IDS)
+      generate_api_options(GetIntoTeachingApiClient::LookupItemsApi, :get_teaching_subjects, nil, INCLUDE_SUBJECT_IDS)
     end
 
     def self.sanitized_options

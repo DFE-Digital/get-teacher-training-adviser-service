@@ -8,10 +8,10 @@ module TeacherTrainingAdviser::Steps
 
     attribute :subject_taught_id, :string
 
-    validates :subject_taught_id, types: { method: :get_teaching_subjects }
+    validates :subject_taught_id, lookup_items: { method: :get_teaching_subjects }
 
     def self.options
-      generate_api_options(:get_teaching_subjects, OMIT_SUBJECT_IDS)
+      generate_api_options(GetIntoTeachingApiClient::LookupItemsApi, :get_teaching_subjects, OMIT_SUBJECT_IDS)
     end
 
     def skipped?
