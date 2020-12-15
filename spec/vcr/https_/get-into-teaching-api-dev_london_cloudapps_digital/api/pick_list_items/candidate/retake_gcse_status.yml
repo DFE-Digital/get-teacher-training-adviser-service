@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/candidate/retake_gcse_status
+    uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/pick_list_items/candidate/retake_gcse_status
     body:
       encoding: US-ASCII
       string: ''
@@ -42,6 +42,6 @@ http_interactions:
         Answered"}]'
     http_version: '2'
     adapter_metadata:
-      effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/candidate/retake_gcse_status
+      effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/pick_list_items/candidate/retake_gcse_status
   recorded_at: Wed, 19 Aug 2020 06:28:35 GMT
 recorded_with: VCR 6.0.0

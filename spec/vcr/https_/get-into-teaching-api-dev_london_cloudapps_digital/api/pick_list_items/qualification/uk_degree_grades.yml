@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/qualification/uk_degree_grades
+    uri: https://get-into-teaching-api-dev.london.cloudapps.digital/api/pick_list_items/qualification/uk_degree_grades
     body:
       encoding: US-ASCII
       string: ''
@@ -43,6 +43,6 @@ http_interactions:
         class or below"},{"id":"222750005","value":"Pass (grade unknown)"}]'
     http_version: '2'
     adapter_metadata:
-      effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/types/qualification/uk_degree_grades
+      effective_url: https://get-into-teaching-api-dev.london.cloudapps.digital/api/pick_list_items/qualification/uk_degree_grades
   recorded_at: Wed, 19 Aug 2020 06:28:35 GMT
 recorded_with: VCR 6.0.0
