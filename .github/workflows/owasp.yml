@@ -6,13 +6,6 @@ on:
         description: 'The environment to test to eg: dev/test/prod etc'
         required: true
 
-env:
-  DOCKERHUB_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
-  DOMAIN:                london.cloudapps.digital
-  APPLICATION:           Teacher Training Adviser Service
-  REVIEW_APPLICATION:    review-teacher-training-adviser
-  PAAS_APPLICATION_NAME: get-teacher-training-adviser-service
-
 jobs:
   owasp:
     name: 'OWASP Test ${{ github.event.inputs.environment }}'
@@ -20,6 +13,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: set-up-environment
+        uses: DFE-Digital/github-actions/set-up-environment@master
 
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.2.0
@@ -34,10 +30,7 @@ jobs:
         if: failure()
         uses: rtCamp/action-slack-notify@master
         env:
-           SLACK_CHANNEL: getintoteaching_tech
-           SLACK_COLOR: '#3278BD'
-           SLACK_ICON: https://github.com/rtCamp.png?size=48
+           SLACK_COLOR: ${{env.SLACK_FAILURE}}
            SLACK_MESSAGE: 'Pipeline Failure carrying out OWASP Testing on https://${{env.PAAS_APPLICATION_NAME}}-${{ github.event.inputs.environment }}.${{env.DOMAIN}}/'
            SLACK_TITLE: 'Failure: OWSAP Testing has failed on ${{ github.event.inputs.environment }}'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-           SLACK_FOOTER: "${{env.APPLICATION}}"

@@ -5,12 +5,6 @@ on:
   push:
     branches:
       - master
-env:
-  DOCKERHUB_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
-  DOMAIN:                london.cloudapps.digital
-  APPLICATION:           Teacher Training Adviser Service
-  REVIEW_APPLICATION:    review-teacher-training-adviser
-  PAAS_APPLICATION_NAME: get-teacher-training-adviser-service
 
 jobs:
   build:
@@ -22,10 +16,11 @@ jobs:
         ports: 
           - 5000:5000
     steps:
-      - name: Check out the repo
+      - name: Checkout
         uses: actions/checkout@v2
-        with:
-             fetch-depth: 0
+
+      - name: set-up-environment
+        uses: DFE-Digital/github-actions/set-up-environment@master
 
       - name: Lint Dockerfile
         uses: brpaz/hadolint-action@master
@@ -152,16 +147,13 @@ jobs:
            inputs: '{"image": "${{ steps.sha.outputs.image }}"}'
 
       - name: Slack Notification
-        if: failure() 
+        if: failure() && github.ref == 'refs/heads/master' 
         uses: rtCamp/action-slack-notify@master
         env:
-           SLACK_CHANNEL: getintoteaching_tech
-           SLACK_COLOR: '#3278BD'
-           SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_TITLE: 'Failure: Building ${{env.APPLICATION}} ${{github.ref}}'
-           SLACK_TEXT: 'The build has failed please click on the Actions URL to investigate the problem.'
+           SLACK_COLOR:   ${{env.SLACK_FAILURE}}
+           SLACK_TITLE:   'Failure: Building Master ${{env.APPLICATION}} ${{github.ref}}'
+           SLACK_TEXT:    'The build has failed please click on the Actions URL to investigate the problem.'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-           SLACK_FOOTER: "${{env.APPLICATION}}"
 
   review:
     name: Review Deployment Process
@@ -202,13 +194,10 @@ jobs:
         if: failure() 
         uses: rtCamp/action-slack-notify@master
         env:
-           SLACK_CHANNEL: getintoteaching_tech
-           SLACK_COLOR: '#B90E0A'
-           SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_TITLE: 'Failure: Preparing from Preview'
+           SLACK_COLOR:   ${{env.SLACK_FAILURE}}
+           SLACK_TITLE:   'Failure: Preparing from Preview'
            SLACK_MESSAGE: 'Failure with Review preperation for ${{env.APPLICATION}}'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-           SLACK_FOOTER: "${{env.APPLICATION}}"
 
   development:
     name: Development Deployment
@@ -296,13 +285,10 @@ jobs:
          if: failure() 
          uses: rtCamp/action-slack-notify@master
          env:
-           SLACK_CHANNEL: getintoteaching_tech
-           SLACK_COLOR: '#B90E0A'
-           SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_TITLE: 'Failure: Failure in Post-Development Deploy'
+           SLACK_COLOR:   ${{env.SLACK_FAILURE}}
+           SLACK_TITLE:   'Failure: Failure in Post-Development Deploy'
            SLACK_MESSAGE: 'Failure with initialising QA deployment  for ${{env.APPLICATION}}'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-           SLACK_FOOTER: "${{env.APPLICATION}}"
 
   cypress:
      name: Run Cypress Tests on QA
@@ -355,20 +341,6 @@ jobs:
          with:
            release_id: ${{steps.tag_id.outputs.release_id}}
      
-       - name: Slack Release Notification
-         if: steps.tag_id.outputs.release_id
-         uses: rtCamp/action-slack-notify@master
-         env:
-           SLACK_USERNAME: GiT Deployment
-           SLACK_CHANNEL: twd_getintoteaching
-           SLACK_COLOR: '#15d448'
-           SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_TITLE: "Release Published: ${{steps.tag_id.outputs.release_name}}"
-           SLACK_MESSAGE: ${{steps.tag_id.outputs.release_body}}
-           SLACK_WEBHOOK: ${{ secrets.SLACK_RELEASE_NOTE_WEBHOOK }}
-           SLACK_FOOTER: ${{env.APPLICATION}}
-           MSG_MINIMAL: true
-
        - name: Trigger Deployment to Production
          uses: benc-uk/workflow-dispatch@v1.1
          with:
@@ -389,16 +361,26 @@ jobs:
          if: steps.wait-for-deploy.outputs.conclusion == 'failure'
          run: exit 1
 
+       - name: Check if Production Deployment has returned with a timeout
+         if: steps.wait-for-deploy.outputs.conclusion == 'timeout'
+         run: exit 1
+
+       - name: Slack Release Notification
+         if: steps.tag_id.outputs.release_id
+         uses: rtCamp/action-slack-notify@master
+         env:
+           SLACK_COLOR:   ${{env.SLACK_SUCCESS}}
+           SLACK_TITLE:   "Release Published: ${{steps.tag_id.outputs.release_name}}"
+           SLACK_MESSAGE: ${{steps.tag_id.outputs.release_body}}
+           SLACK_WEBHOOK: ${{ secrets.SLACK_RELEASE_NOTE_WEBHOOK }}
+           MSG_MINIMAL:   true
+
        - name: Slack Notification
          if: failure() 
          uses: rtCamp/action-slack-notify@master
          env:
-           SLACK_USERNAME: GiT Deployment
-           SLACK_CHANNEL: getintoteaching_tech
-           SLACK_COLOR: '#B90E0A'
-           SLACK_ICON: https://github.com/rtCamp.png?size=48
+           SLACK_COLOR:   ${{env.SLACK_FAILURE}}
            SLACK_TITLE: "Production Release : ${{github.event.title}}"
            SLACK_MESSAGE: 'Failure deploying Production release'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-           SLACK_FOOTER: "${{env.APPLICATION}}"
 

@@ -3,13 +3,6 @@ on:
   pull_request:
     types: [closed]
 
-env:
-  DOCKERHUB_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
-  DOMAIN:                london.cloudapps.digital
-  APPLICATION:           Teacher Training Adviser Service
-  REVIEW_APPLICATION:    review-teacher-training-adviser
-  PAAS_APPLICATION_NAME: get-teacher-training-adviser-service
-
 jobs:
   destroy:
     name: 'Destroy ${{ github.event.inputs.environment }}'
@@ -21,6 +14,9 @@ jobs:
     steps:
        - name: Checkout
          uses: actions/checkout@v2
+
+       - name: set-up-environment
+         uses: DFE-Digital/github-actions/set-up-environment@master
 
        - name: Setup Environment Variables
          id:  variables
@@ -66,10 +62,7 @@ jobs:
          if: failure()
          uses: rtCamp/action-slack-notify@master
          env:
-           SLACK_CHANNEL: getintoteaching_tech
-           SLACK_COLOR: '#B90E0A'
-           SLACK_ICON: https://github.com/rtCamp.png?size=48
-           SLACK_TITLE: 'Failure:  Closing Review'
+           SLACK_COLOR:   ${{env.SLACK_FAILURE}} 
+           SLACK_TITLE:   'Failure:  Closing Review'
            SLACK_MESSAGE: 'Failure with  Closing ${{env.APPLICATION}} Review'
            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-           SLACK_FOOTER: ${{env.APPLICATION}}

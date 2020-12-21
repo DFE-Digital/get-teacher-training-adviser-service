@@ -16,13 +16,6 @@ on:
         required: false
         default: 'Teacher Training Adviser'
 
-env:
-  DOCKERHUB_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
-  DOMAIN:                london.cloudapps.digital
-  APPLICATION:           Teacher Training Adviser Service
-  REVIEW_APPLICATION:    review-teacher-training-adviser
-  PAAS_APPLICATION_NAME: get-teacher-training-adviser-service
-
 jobs:
   turnstyle:
     name: Wait for any previous deployments
@@ -48,6 +41,9 @@ jobs:
          uses: actions/checkout@v2
          with:
             ref: "${{ github.event.inputs.sha }}"
+
+       - name: set-up-environment
+         uses: DFE-Digital/github-actions/set-up-environment@master
 
        - name: Get Short SHA
          id: sha
