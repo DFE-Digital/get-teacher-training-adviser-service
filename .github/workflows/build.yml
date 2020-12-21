@@ -16,11 +16,11 @@ jobs:
         ports: 
           - 5000:5000
     steps:
-       - name: Checkout
-         uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-       - name: set-up-environment
-         uses: DFE-Digital/github-actions/set-up-environment@master
+      - name: set-up-environment
+        uses: DFE-Digital/github-actions/set-up-environment@master
 
       - name: Lint Dockerfile
         uses: brpaz/hadolint-action@master
