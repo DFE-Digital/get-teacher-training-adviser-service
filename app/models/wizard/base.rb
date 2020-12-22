@@ -66,12 +66,16 @@ module Wizard
       next_key.nil?
     end
 
-    def valid?
+    def active_steps_valid?
       active_steps.all?(&:valid?)
     end
 
+    def active_steps_proceedable?
+      active_steps.all?(&:can_proceed?)
+    end
+
     def complete!
-      last_step? && valid?
+      last_step? && active_steps_valid? && active_steps_proceedable?
     end
 
     def invalid_steps
@@ -80,6 +84,10 @@ module Wizard
 
     def first_invalid_step
       active_steps.find(&:invalid?)
+    end
+
+    def first_non_proceedable_step
+      active_steps.find { |step| !step.can_proceed? }
     end
 
     def later_keys(key = current_key)

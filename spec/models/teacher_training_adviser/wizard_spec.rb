@@ -71,10 +71,12 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
         expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
           receive(:sign_up_teacher_training_adviser_candidate).with(request).once
       end
-      before { allow(subject).to receive(:valid?).and_return true }
+      before { allow(subject).to receive(:active_steps_valid?).and_return true }
+      before { allow(subject).to receive(:active_steps_proceedable?).and_return true }
       before { subject.complete! }
 
-      it { is_expected.to have_received(:valid?) }
+      it { is_expected.to have_received(:active_steps_valid?) }
+      it { is_expected.to have_received(:active_steps_proceedable?) }
       it { expect(store).to eql({}) }
     end
   end

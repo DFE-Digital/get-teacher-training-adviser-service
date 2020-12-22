@@ -54,6 +54,8 @@ private
   def next_step_path
     if (next_key = @wizard.next_key)
       step_path next_key
+    elsif (non_proceedable_step = @wizard.first_non_proceedable_step)
+      step_path non_proceedable_step
     elsif (invalid_step = @wizard.first_invalid_step)
       step_path invalid_step
     else # all steps valid so completed

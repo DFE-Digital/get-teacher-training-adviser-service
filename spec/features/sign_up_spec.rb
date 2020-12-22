@@ -231,6 +231,48 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       expect(page).to have_text "Sign up complete"
     end
 
+    scenario "candidate tries to skip past a non-proceedable step" do
+      visit teacher_training_adviser_steps_path
+
+      expect(page).to have_text "About you"
+      fill_in_identity_step
+      click_on "Continue"
+
+      expect(page).to have_text "Are you returning to teaching?"
+      choose "Yes"
+      click_on "Continue"
+
+      expect(page).to have_text "Do you have your previous teacher reference number?"
+      choose "No"
+      click_on "Continue"
+
+      expect(page).to have_text "Which main subject did you previously teach?"
+      select "Physics"
+      click_on "Continue"
+
+      expect(page).to have_text "Which subject would you like to teach if you return to teaching?"
+      choose "Other"
+      click_on "Continue"
+
+      # Hit dead end
+      expect(page).to have_text "Get support"
+      expect(page).to_not have_text "Continue"
+
+      # Manually skip to review answers
+      visit teacher_training_adviser_step_path(:review_answers)
+
+      expect(page).to have_text "Check your answers before you continue"
+      click_on "Continue"
+
+      expect(page).to have_text "Read and accept the privacy policy"
+      check "Accept the privacy policy"
+      click_on "Complete"
+
+      # Forced back to dead end
+      expect(page).to have_text "Get support"
+      expect(page).to_not have_text "Continue"
+    end
+
     scenario "without a degree" do
       visit teacher_training_adviser_steps_path
 
