@@ -27,7 +27,7 @@ module Wizard
     end
 
     delegate :step, :key_index, :indexed_steps, :step_keys, to: :class
-    delegate :can_proceed?, to: :find_current_step
+    delegate :can_proceed?, to: :find_current_step, prefix: :step
     attr_reader :current_key
 
     def initialize(store, current_key)
@@ -66,16 +66,16 @@ module Wizard
       next_key.nil?
     end
 
-    def active_steps_valid?
+    def valid?
       active_steps.all?(&:valid?)
     end
 
-    def active_steps_proceedable?
+    def can_proceed?
       active_steps.all?(&:can_proceed?)
     end
 
     def complete!
-      last_step? && active_steps_valid? && active_steps_proceedable?
+      last_step? && valid? && can_proceed?
     end
 
     def invalid_steps
@@ -86,8 +86,8 @@ module Wizard
       active_steps.find(&:invalid?)
     end
 
-    def first_non_proceedable_step
-      active_steps.find { |step| !step.can_proceed? }
+    def first_exit_step
+      active_steps.find(&:exit?)
     end
 
     def later_keys(key = current_key)

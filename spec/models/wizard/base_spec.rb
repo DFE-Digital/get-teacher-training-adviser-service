@@ -125,7 +125,7 @@ RSpec.describe Wizard::Base do
     end
   end
 
-  describe "#active_steps_valid?" do
+  describe "#valid?" do
     let(:backingstore) { { "age" => 30, "postcode" => "TE571NG" } }
 
     before do
@@ -133,7 +133,7 @@ RSpec.describe Wizard::Base do
         receive(:valid?).and_return name_is_valid
     end
 
-    subject { wizard.active_steps_valid? }
+    subject { wizard.valid? }
 
     context "when all steps valid" do
       let(:name_is_valid) { true }
@@ -146,7 +146,7 @@ RSpec.describe Wizard::Base do
     end
   end
 
-  describe "#active_steps_proceedable?" do
+  describe "#can_proceed?" do
     let(:backingstore) { { "age" => 30, "postcode" => "TE571NG" } }
 
     before do
@@ -154,7 +154,7 @@ RSpec.describe Wizard::Base do
         receive(:can_proceed?).and_return name_can_proceed
     end
 
-    subject { wizard.active_steps_proceedable? }
+    subject { wizard.can_proceed? }
 
     context "when all steps are proceedable" do
       let(:name_can_proceed) { true }
@@ -169,8 +169,8 @@ RSpec.describe Wizard::Base do
 
   describe "complete!" do
     subject { wizardclass.new wizardstore, "postcode" }
-    before { allow(subject).to receive(:active_steps_valid?).and_return steps_valid }
-    before { allow(subject).to receive(:active_steps_proceedable?).and_return steps_can_proceed }
+    before { allow(subject).to receive(:valid?).and_return steps_valid }
+    before { allow(subject).to receive(:can_proceed?).and_return steps_can_proceed }
 
     context "when valid and proceedable" do
       let(:steps_valid) { true }

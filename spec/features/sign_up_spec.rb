@@ -231,7 +231,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       expect(page).to have_text "Sign up complete"
     end
 
-    scenario "candidate tries to skip past a non-proceedable step" do
+    scenario "candidate tries to skip past an exit step" do
       visit teacher_training_adviser_steps_path
 
       expect(page).to have_text "About you"

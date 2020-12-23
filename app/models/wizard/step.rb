@@ -40,6 +40,10 @@ module Wizard
       true
     end
 
+    def exit?
+      !can_proceed?
+    end
+
     def persisted?
       !id.nil?
     end
