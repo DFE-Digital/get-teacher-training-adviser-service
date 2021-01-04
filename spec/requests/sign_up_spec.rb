@@ -44,9 +44,9 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
     context "for last step" do
       let(:steps) { TeacherTrainingAdviser::Wizard.steps }
       let(:model) { steps.last }
-      let(:params) { { accepted_policy_id: "abc-123" } }
+      let(:params) { { accepted_policy_id: "latest" } }
 
-      context "when all valid" do
+      context "when all valid and proceedable" do
         before do
           steps.each do |step|
             allow_any_instance_of(step).to receive(:valid?).and_return true
@@ -74,6 +74,23 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
         end
 
         it { is_expected.to redirect_to teacher_training_adviser_step_path(invalid_step.key) }
+      end
+
+      context "when there is a step that is not proceedable" do
+        let(:non_proceedable_step) { steps.first }
+
+        before do
+          steps.each do |step|
+            allow_any_instance_of(step).to receive(:can_proceed?).and_return true
+
+            expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to_not \
+              receive(:sign_up_teacher_training_adviser_candidate)
+          end
+
+          allow_any_instance_of(non_proceedable_step).to receive(:can_proceed?).and_return false
+        end
+
+        it { is_expected.to redirect_to teacher_training_adviser_step_path(non_proceedable_step.key) }
       end
     end
 

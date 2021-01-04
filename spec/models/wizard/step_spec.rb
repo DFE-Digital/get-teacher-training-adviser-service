@@ -48,6 +48,10 @@ RSpec.describe Wizard::Step do
     it { expect(subject).to be_can_proceed }
   end
 
+  describe "#exit" do
+    it { expect(subject).to_not be_exit }
+  end
+
   describe "#other_step" do
     it { expect(subject.other_step(:first_step)).to be_kind_of(FirstStep) }
     it { expect(subject.other_step(FirstStep)).to be_kind_of(FirstStep) }

@@ -135,13 +135,34 @@ RSpec.describe Wizard::Base do
 
     subject { wizard.valid? }
 
-    context "with all steps completed" do
+    context "when all steps valid" do
       let(:name_is_valid) { true }
       it { is_expected.to be true }
     end
 
-    context "with missing step" do
+    context "when a step is invalid" do
       let(:name_is_valid) { false }
+      it { is_expected.to be false }
+    end
+  end
+
+  describe "#can_proceed?" do
+    let(:backingstore) { { "age" => 30, "postcode" => "TE571NG" } }
+
+    before do
+      allow_any_instance_of(TestWizard::Name).to \
+        receive(:can_proceed?).and_return name_can_proceed
+    end
+
+    subject { wizard.can_proceed? }
+
+    context "when all steps are proceedable" do
+      let(:name_can_proceed) { true }
+      it { is_expected.to be true }
+    end
+
+    context "when a step cannot proceed" do
+      let(:name_can_proceed) { false }
       it { is_expected.to be false }
     end
   end
@@ -149,14 +170,23 @@ RSpec.describe Wizard::Base do
   describe "complete!" do
     subject { wizardclass.new wizardstore, "postcode" }
     before { allow(subject).to receive(:valid?).and_return steps_valid }
+    before { allow(subject).to receive(:can_proceed?).and_return steps_can_proceed }
 
-    context "when valid" do
+    context "when valid and proceedable" do
       let(:steps_valid) { true }
+      let(:steps_can_proceed) { true }
       it { is_expected.to have_attributes complete!: true }
     end
 
-    context "when invalid" do
+    context "when proceedable but not valid" do
       let(:steps_valid) { false }
+      let(:steps_can_proceed) { true }
+      it { is_expected.to have_attributes complete!: false }
+    end
+
+    context "when valid but not proceedable" do
+      let(:steps_valid) { true }
+      let(:steps_can_proceed) { false }
       it { is_expected.to have_attributes complete!: false }
     end
   end

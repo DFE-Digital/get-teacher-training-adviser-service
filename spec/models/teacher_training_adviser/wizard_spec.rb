@@ -72,9 +72,11 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
           receive(:sign_up_teacher_training_adviser_candidate).with(request).once
       end
       before { allow(subject).to receive(:valid?).and_return true }
+      before { allow(subject).to receive(:can_proceed?).and_return true }
       before { subject.complete! }
 
       it { is_expected.to have_received(:valid?) }
+      it { is_expected.to have_received(:can_proceed?) }
       it { expect(store).to eql({}) }
     end
   end
