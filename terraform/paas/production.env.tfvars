@@ -6,3 +6,4 @@ paas_additional_route_name    = "beta-adviser-getintoteaching"
 logging                       = 1
 additional_routes             = 1
 instances                     = 2
+alerts                        = {}
