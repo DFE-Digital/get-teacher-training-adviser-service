@@ -8,7 +8,6 @@ resource statuscake_test alert {
   contact_group = each.value.contact_group
   trigger_rate  = each.value.trigger_rate
   custom_header = each.value.custom_header
-  status_codes  = each.value.status_codes
   basic_user    = var.HTTPAUTH_USERNAME
   basic_pass    = var.HTTPAUTH_PASSWORD
   test_tags     = ["GIT", "BETA"]
