@@ -6,16 +6,4 @@ paas_additional_route_name    = "beta-adviser-getintoteaching"
 logging                       = 1
 additional_routes             = 1
 instances                     = 2
-
-
-alerts = {
-  git = {
-    website_name  = "Get Teacher Training Adviser Service (Production)"
-    website_url   = "https://beta-adviser-getintoteaching.education.gov.uk/healthcheck.json"
-    test_type     = "HTTP"
-    check_rate    = 60
-    contact_group = [185037]
-    trigger_rate  = 0
-    custom_header = "{\"Content-Type\": \"application/x-www-form-urlencoded\"}"
-  }
-}
+alerts                        = {}
