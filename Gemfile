@@ -61,7 +61,7 @@ group :development, :test do
   gem "pry-byebug"
 
   # Testing framework
-  gem "rspec-rails", "~> 4.0.0"
+  gem "rspec-rails", "~> 4.0.2"
   gem "rspec-sonarqube-formatter", "~> 1.4"
   gem "simplecov", "~> 0.17.1"
   # Adds support for Capybara system testing and selenium driver
