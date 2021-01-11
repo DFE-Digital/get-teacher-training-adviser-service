@@ -66,8 +66,8 @@ module ApplicationHelper
     link_to text, git_url("mailinglist/signup"), attributes
   end
 
-  def link_to_git_events(text, attributes = {})
-    link_to text, git_url("events"), attributes
+  def link_to_git_events(text, events_path: nil, **attributes)
+    link_to text, git_url(["events", events_path].compact.join("/")), **attributes
   end
 
   def internal_referer

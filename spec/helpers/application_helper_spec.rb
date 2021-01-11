@@ -209,6 +209,15 @@ RSpec.describe ApplicationHelper do
       it { is_expected.to have_css "a[href=\"/url-not-set/events\"]" }
       it { is_expected.to have_css "a", text: "find an event" }
     end
+
+    context "when provided with a custom events_path" do
+      let(:link_text) { "find a special online event" }
+      let(:link_class) { "special-online-event-link" }
+      let(:events_path) { "online/special" }
+      subject { link_to_git_events(link_text, events_path: events_path, class: link_class) }
+
+      it { is_expected.to have_link(link_text, href: git_url + "events/#{events_path}", class: link_class) }
+    end
   end
 
   describe "#internal_referer" do
