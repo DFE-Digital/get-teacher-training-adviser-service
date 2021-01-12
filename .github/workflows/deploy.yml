@@ -19,7 +19,7 @@ on:
 jobs:
   turnstyle:
     name: Wait for any previous deployments
-    timeout-minutes: 5
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
        - name: Turnstyle
