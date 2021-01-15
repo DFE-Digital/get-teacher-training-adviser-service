@@ -195,6 +195,12 @@ jobs:
                --data '{"body": "Review app deployed to https://${{env.REVIEW_APPLICATION}}-${{github.event.number}}.${{env.DOMAIN}} "}'  \
                https://api.github.com/repos/${{ github.repository }}/issues/${{github.event.number }}/comments
 
+      - name: Add Review Label
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.ACTIONS_API_ACCESS_TOKEN }}
+          labels: Review
+        
       - name: Slack Notification
         if: failure() 
         uses: rtCamp/action-slack-notify@master
