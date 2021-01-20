@@ -35,6 +35,11 @@ $govuk-global-styles: true;
   width: 1px;
 }
 
+.turbolinks-progress-bar {
+  height: 5px;
+  background-color: #0076bd;
+}
+
 @import 'cookie-banner' ;
 
 .footer-bottom {
