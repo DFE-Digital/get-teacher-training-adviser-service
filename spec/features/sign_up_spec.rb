@@ -25,50 +25,50 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
     scenario "that is a returning teacher" do
       visit teacher_training_adviser_steps_path
 
-      expect(page).to have_text "About you"
+      expect(page).to have_css "h1", text: "About you"
       fill_in_identity_step
       click_on "Continue"
 
-      expect(page).to have_text "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you returning to teaching?"
       choose "Yes"
       click_on "Continue"
 
-      expect(page).to have_text "Do you have your previous teacher reference number?"
+      expect(page).to have_css "h1", text: "Do you have your previous teacher reference number?"
       choose "Yes"
       click_on "Continue"
 
-      expect(page).to have_text "What is your previous teacher reference number?"
+      expect(page).to have_css "h1", text: "What is your previous teacher reference number?"
       fill_in "Teacher reference number (optional)", with: "1234"
       click_on "Continue"
 
-      expect(page).to have_text "Which main subject did you previously teach?"
+      expect(page).to have_css "h1", text: "Which main subject did you previously teach?"
       select "Psychology"
       click_on "Continue"
 
-      expect(page).to have_text "Which subject would you like to teach if you return to teaching?"
+      expect(page).to have_css "h1", text: "Which subject would you like to teach if you return to teaching?"
       choose "Physics"
       click_on "Continue"
 
-      expect(page).to have_text "Enter your date of birth"
+      expect(page).to have_css "h1", text: "Enter your date of birth"
       fill_in_date_of_birth_step
       click_on "Continue"
 
-      expect(page).to have_text "Where do you live?"
+      expect(page).to have_css "h1", text: "Where do you live?"
       choose "UK"
       click_on "Continue"
 
-      expect(page).to have_text "What is your address?"
+      expect(page).to have_css "h1", text: "What is your address?"
       fill_in_address_step
       click_on "Continue"
 
-      expect(page).to have_text "What is your telephone number?"
+      expect(page).to have_css "h1", text: "What is your telephone number?"
       fill_in "UK telephone number (optional)", with: "123456789"
       click_on "Continue"
 
-      expect(page).to have_text "Check your answers before you continue"
+      expect(page).to have_css "h1", text: "Check your answers before you continue"
       click_on "Continue"
 
-      expect(page).to have_text "Read and accept the privacy policy"
+      expect(page).to have_css "h1", text: "Read and accept the privacy policy"
       check "Accept the privacy policy"
 
       request_attributes = uk_candidate_request_attributes({
@@ -80,57 +80,57 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
 
       click_on "Complete"
 
-      expect(page).to have_text "Thank you"
-      expect(page).to have_text "Sign up complete"
+      expect(page).to have_css "h1", text: "Thank you"
+      expect(page).to have_css "h1", text: "Sign up complete"
     end
 
     scenario "with an equivalent degree" do
       visit teacher_training_adviser_steps_path
 
-      expect(page).to have_text "About you"
+      expect(page).to have_css "h1", text: "About you"
       fill_in_identity_step
       click_on "Continue"
 
-      expect(page).to have_text "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you returning to teaching?"
       choose "No"
       click_on "Continue"
 
-      expect(page).to have_text "Do you have a degree?"
+      expect(page).to have_css "h1", text: "Do you have a degree?"
       choose "I have an equivalent qualification from another country"
       click_on "Continue"
 
-      expect(page).to have_text "Which stage are you interested in teaching?"
+      expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
       choose "Secondary"
       click_on "Continue"
 
-      expect(page).to have_text "Which subject would you like to teach?"
+      expect(page).to have_css "h1", text: "Which subject would you like to teach?"
       select "Physics"
       click_on "Continue"
 
-      expect(page).to have_text "When do you want to start your teacher training?"
+      expect(page).to have_css "h1", text: "When do you want to start your teacher training?"
       select "2022"
       click_on "Continue"
 
-      expect(page).to have_text "Enter your date of birth"
+      expect(page).to have_css "h1", text: "Enter your date of birth"
       fill_in_date_of_birth_step
       click_on "Continue"
 
-      expect(page).to have_text "Where do you live?"
+      expect(page).to have_css "h1", text: "Where do you live?"
       choose "Overseas"
       click_on "Continue"
 
-      expect(page).to have_text "Which country do you live in?"
+      expect(page).to have_css "h1", text: "Which country do you live in?"
       select "Argentina"
       click_on "Continue"
 
-      expect(page).to have_text "You told us you have an equivalent degree and live overseas"
+      expect(page).to have_css "h1", text: "You told us you have an equivalent degree and live overseas"
       fill_in "Contact telephone number", with: "123456789"
       click_on "Continue"
 
-      expect(page).to have_text "Check your answers before you continue"
+      expect(page).to have_css "h1", text: "Check your answers before you continue"
       click_on "Continue"
 
-      expect(page).to have_text "Read and accept the privacy policy"
+      expect(page).to have_css "h1", text: "Read and accept the privacy policy"
       check "Accept the privacy policy"
 
       request_attributes = overseas_candidate_request_attributes({
@@ -144,73 +144,73 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
 
       click_on "Complete"
 
-      expect(page).to have_text "Thank you"
-      expect(page).to have_text "Sign up complete"
+      expect(page).to have_css "h1", text: "Thank you"
+      expect(page).to have_css "h1", text: "Sign up complete"
     end
 
     scenario "studying for a degree" do
       visit teacher_training_adviser_steps_path
 
-      expect(page).to have_text "About you"
+      expect(page).to have_css "h1", text: "About you"
       fill_in_identity_step
       click_on "Continue"
 
-      expect(page).to have_text "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you returning to teaching?"
       choose "No"
       click_on "Continue"
 
-      expect(page).to have_text "Do you have a degree?"
+      expect(page).to have_css "h1", text: "Do you have a degree?"
       choose "I'm studying for a degree"
       click_on "Continue"
 
-      expect(page).to have_text "In which year are you studying?"
+      expect(page).to have_css "h1", text: "In which year are you studying?"
       choose "First year"
       click_on "Continue"
 
-      expect(page).to have_text "What subject is your degree?"
+      expect(page).to have_css "h1", text: "What subject is your degree?"
       select "Maths"
       click_on "Continue"
 
-      expect(page).to have_text "What degree class are you predicted to get?"
+      expect(page).to have_css "h1", text: "What degree class are you predicted to get?"
       select "2:2"
       click_on "Continue"
 
-      expect(page).to have_text "Which stage are you interested in teaching?"
+      expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
       choose "Primary"
       click_on "Continue"
 
-      expect(page).to have_text "Do you have grade 4 (C) or above in English and maths GCSEs, or equivalent?"
+      expect(page).to have_css "h1", text: "Do you have grade 4 (C) or above in English and maths GCSEs, or equivalent?"
       choose "Yes"
       click_on "Continue"
 
-      expect(page).to have_text "Do you have grade 4 (C) or above in GCSE science, or equivalent?"
+      expect(page).to have_css "h1", text: "Do you have grade 4 (C) or above in GCSE science, or equivalent?"
       choose "Yes"
       click_on "Continue"
 
-      expect(page).to have_text "When do you want to start your teacher training?"
+      expect(page).to have_css "h1", text: "When do you want to start your teacher training?"
       select "2022"
       click_on "Continue"
 
-      expect(page).to have_text "Enter your date of birth"
+      expect(page).to have_css "h1", text: "Enter your date of birth"
       fill_in_date_of_birth_step
       click_on "Continue"
 
-      expect(page).to have_text "Where do you live?"
+      expect(page).to have_css "h1", text: "Where do you live?"
       choose "Overseas"
       click_on "Continue"
 
-      expect(page).to have_text "Which country do you live in?"
+      expect(page).to have_css "h1", text: "Which country do you live in?"
       select "Argentina"
       click_on "Continue"
 
-      expect(page).to have_text "What is your telephone number?"
+      expect(page).to have_css "h1", text: "What is your telephone number?"
       fill_in "Overseas telephone number (optional)", with: "123456789"
       click_on "Continue"
 
-      expect(page).to have_text "Check your answers before you continue"
+      expect(page).to have_css "h1", text: "Check your answers before you continue"
       click_on "Continue"
 
-      expect(page).to have_text "Read and accept the privacy policy"
+      expect(page).to have_css "h1", text: "Read and accept the privacy policy"
       check "Accept the privacy policy"
 
       request_attributes = overseas_candidate_request_attributes({
@@ -227,221 +227,221 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
 
       click_on "Complete"
 
-      expect(page).to have_text "Thank you"
-      expect(page).to have_text "Sign up complete"
+      expect(page).to have_css "h1", text: "Thank you"
+      expect(page).to have_css "h1", text: "Sign up complete"
     end
 
     scenario "candidate tries to skip past an exit step" do
       visit teacher_training_adviser_steps_path
 
-      expect(page).to have_text "About you"
+      expect(page).to have_css "h1", text: "About you"
       fill_in_identity_step
       click_on "Continue"
 
-      expect(page).to have_text "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you returning to teaching?"
       choose "Yes"
       click_on "Continue"
 
-      expect(page).to have_text "Do you have your previous teacher reference number?"
+      expect(page).to have_css "h1", text: "Do you have your previous teacher reference number?"
       choose "No"
       click_on "Continue"
 
-      expect(page).to have_text "Which main subject did you previously teach?"
+      expect(page).to have_css "h1", text: "Which main subject did you previously teach?"
       select "Physics"
       click_on "Continue"
 
-      expect(page).to have_text "Which subject would you like to teach if you return to teaching?"
+      expect(page).to have_css "h1", text: "Which subject would you like to teach if you return to teaching?"
       choose "Other"
       click_on "Continue"
 
       # Hit dead end
-      expect(page).to have_text "Get support"
-      expect(page).to_not have_text "Continue"
+      expect(page).to have_css "h1", text: "Get support"
+      expect(page).to_not have_css "h1", text: "Continue"
 
       # Manually skip to review answers
       visit teacher_training_adviser_step_path(:review_answers)
 
-      expect(page).to have_text "Check your answers before you continue"
+      expect(page).to have_css "h1", text: "Check your answers before you continue"
       click_on "Continue"
 
-      expect(page).to have_text "Read and accept the privacy policy"
+      expect(page).to have_css "h1", text: "Read and accept the privacy policy"
       check "Accept the privacy policy"
       click_on "Complete"
 
       # Forced back to dead end
-      expect(page).to have_text "Get support"
-      expect(page).to_not have_text "Continue"
+      expect(page).to have_css "h1", text: "Get support"
+      expect(page).to_not have_css "h1", text: "Continue"
     end
 
     scenario "without a degree" do
       visit teacher_training_adviser_steps_path
 
-      expect(page).to have_text "About you"
+      expect(page).to have_css "h1", text: "About you"
       fill_in_identity_step
       click_on "Continue"
 
-      expect(page).to have_text "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you returning to teaching?"
       choose "No"
       click_on "Continue"
 
-      expect(page).to have_text "Do you have a degree?"
+      expect(page).to have_css "h1", text: "Do you have a degree?"
       choose "No"
       click_on "Continue"
 
-      expect(page).to have_text "If you do not have a degree"
-      expect(page).to_not have_text "Continue"
+      expect(page).to have_css "h1", text: "If you do not have a degree"
+      expect(page).to_not have_css "h1", text: "Continue"
     end
 
     scenario "without science GCSEs, primary" do
       visit teacher_training_adviser_steps_path
 
-      expect(page).to have_text "About you"
+      expect(page).to have_css "h1", text: "About you"
       fill_in_identity_step
       click_on "Continue"
 
-      expect(page).to have_text "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you returning to teaching?"
       choose "No"
       click_on "Continue"
 
-      expect(page).to have_text "Do you have a degree?"
+      expect(page).to have_css "h1", text: "Do you have a degree?"
       choose "Yes"
       click_on "Continue"
 
-      expect(page).to have_text "What subject is your degree?"
+      expect(page).to have_css "h1", text: "What subject is your degree?"
       select "Maths"
       click_on "Continue"
 
-      expect(page).to have_text "Which class is your degree?"
+      expect(page).to have_css "h1", text: "Which class is your degree?"
       select "2:2"
       click_on "Continue"
 
-      expect(page).to have_text "Which stage are you interested in teaching?"
+      expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
       choose "Primary"
       click_on "Continue"
 
-      expect(page).to have_text "Do you have grade 4 (C) or above in English and maths GCSEs, or equivalent?"
+      expect(page).to have_css "h1", text: "Do you have grade 4 (C) or above in English and maths GCSEs, or equivalent?"
       choose "No"
       click_on "Continue"
 
-      expect(page).to have_text "Are you planning to retake either English or maths (or both) GCSEs, or equivalent?"
+      expect(page).to have_css "h1", text: "Are you planning to retake either English or maths (or both) GCSEs, or equivalent?"
       choose "Yes"
       click_on "Continue"
 
-      expect(page).to have_text "Do you have grade 4 (C) or above in GCSE science, or equivalent?"
+      expect(page).to have_css "h1", text: "Do you have grade 4 (C) or above in GCSE science, or equivalent?"
       choose "No"
       click_on "Continue"
 
-      expect(page).to have_text "Are you planning to retake your science GCSE?"
+      expect(page).to have_css "h1", text: "Are you planning to retake your science GCSE?"
       choose "No"
       click_on "Continue"
 
-      expect(page).to have_text "Get the right GCSEs or equivalent qualifications"
-      expect(page).to_not have_text "Continue"
+      expect(page).to have_css "h1", text: "Get the right GCSEs or equivalent qualifications"
+      expect(page).to_not have_css "h1", text: "Continue"
     end
 
     scenario "without english/maths GCSEs, primary" do
       visit teacher_training_adviser_steps_path
 
-      expect(page).to have_text "About you"
+      expect(page).to have_css "h1", text: "About you"
       fill_in_identity_step
       click_on "Continue"
 
-      expect(page).to have_text "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you returning to teaching?"
       choose "No"
       click_on "Continue"
 
-      expect(page).to have_text "Do you have a degree?"
+      expect(page).to have_css "h1", text: "Do you have a degree?"
       choose "Yes"
       click_on "Continue"
 
-      expect(page).to have_text "What subject is your degree?"
+      expect(page).to have_css "h1", text: "What subject is your degree?"
       select "Maths"
       click_on "Continue"
 
-      expect(page).to have_text "Which class is your degree?"
+      expect(page).to have_css "h1", text: "Which class is your degree?"
       select "2:2"
       click_on "Continue"
 
-      expect(page).to have_text "Which stage are you interested in teaching?"
+      expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
       choose "Primary"
       click_on "Continue"
 
-      expect(page).to have_text "Do you have grade 4 (C) or above in English and maths GCSEs, or equivalent?"
+      expect(page).to have_css "h1", text: "Do you have grade 4 (C) or above in English and maths GCSEs, or equivalent?"
       choose "No"
       click_on "Continue"
 
-      expect(page).to have_text "Are you planning to retake either English or maths (or both) GCSEs, or equivalent?"
+      expect(page).to have_css "h1", text: "Are you planning to retake either English or maths (or both) GCSEs, or equivalent?"
       choose "No"
       click_on "Continue"
 
-      expect(page).to have_text "Get the right GCSEs or equivalent qualifications"
-      expect(page).to_not have_text "Continue"
+      expect(page).to have_css "h1", text: "Get the right GCSEs or equivalent qualifications"
+      expect(page).to_not have_css "h1", text: "Continue"
     end
 
     scenario "without GCSEs, secondary" do
       visit teacher_training_adviser_steps_path
 
-      expect(page).to have_text "About you"
+      expect(page).to have_css "h1", text: "About you"
       fill_in_identity_step
       click_on "Continue"
 
-      expect(page).to have_text "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you returning to teaching?"
       choose "No"
       click_on "Continue"
 
-      expect(page).to have_text "Do you have a degree?"
+      expect(page).to have_css "h1", text: "Do you have a degree?"
       choose "Yes"
       click_on "Continue"
 
-      expect(page).to have_text "What subject is your degree?"
+      expect(page).to have_css "h1", text: "What subject is your degree?"
       select "Maths"
       click_on "Continue"
 
-      expect(page).to have_text "Which class is your degree?"
+      expect(page).to have_css "h1", text: "Which class is your degree?"
       select "2:2"
       click_on "Continue"
 
-      expect(page).to have_text "Which stage are you interested in teaching?"
+      expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
       choose "Secondary"
       click_on "Continue"
 
-      expect(page).to have_text "Do you have grade 4 (C) or above in English and maths GCSEs, or equivalent?"
+      expect(page).to have_css "h1", text: "Do you have grade 4 (C) or above in English and maths GCSEs, or equivalent?"
       choose "No"
       click_on "Continue"
 
-      expect(page).to have_text "Are you planning to retake either English or maths (or both) GCSEs, or equivalent?"
+      expect(page).to have_css "h1", text: "Are you planning to retake either English or maths (or both) GCSEs, or equivalent?"
       choose "No"
       click_on "Continue"
 
-      expect(page).to have_text "Get the right GCSEs or equivalent qualifications"
-      expect(page).to_not have_text "Continue"
+      expect(page).to have_css "h1", text: "Get the right GCSEs or equivalent qualifications"
+      expect(page).to_not have_css "h1", text: "Continue"
     end
 
     scenario "can't find subject like to teach" do
       visit teacher_training_adviser_steps_path
 
-      expect(page).to have_text "About you"
+      expect(page).to have_css "h1", text: "About you"
       fill_in_identity_step
       click_on "Continue"
 
-      expect(page).to have_text "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you returning to teaching?"
       choose "Yes"
       click_on "Continue"
 
-      expect(page).to have_text "Do you have your previous teacher reference number?"
+      expect(page).to have_css "h1", text: "Do you have your previous teacher reference number?"
       choose "No"
       click_on "Continue"
 
-      expect(page).to have_text "Which main subject did you previously teach?"
+      expect(page).to have_css "h1", text: "Which main subject did you previously teach?"
       select "Physics"
       click_on "Continue"
 
-      expect(page).to have_text "Which subject would you like to teach if you return to teaching?"
+      expect(page).to have_css "h1", text: "Which subject would you like to teach if you return to teaching?"
       choose "Other"
       click_on "Continue"
 
-      expect(page).to have_text "Get support"
-      expect(page).to_not have_text "Continue"
+      expect(page).to have_css "h1", text: "Get support"
+      expect(page).to_not have_css "h1", text: "Continue"
     end
   end
 
@@ -475,11 +475,11 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
     scenario "matchback" do
       visit teacher_training_adviser_steps_path
 
-      expect(page).to have_text "About you"
+      expect(page).to have_css "h1", text: "About you"
       fill_in_identity_step
       click_on "Continue"
 
-      expect(page).to have_text "Verify your email address"
+      expect(page).to have_css "h1", text: "Verify your email address"
       expect(page).to have_text "Enter the verification code sent to john@doe.com"
       click_on "resend verification"
 
@@ -491,51 +491,51 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       fill_in "teacher-training-adviser-steps-authenticate-timed-one-time-password-field-error", with: valid_code
       click_on "Continue"
 
-      expect(page).to have_text "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you returning to teaching?"
       choose "No"
       click_on "Continue"
 
-      expect(page).to have_text "Do you have a degree?"
+      expect(page).to have_css "h1", text: "Do you have a degree?"
       choose "I have an equivalent qualification from another country"
       click_on "Continue"
 
-      expect(page).to have_text "Which stage are you interested in teaching?"
+      expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
       expect(find_field("Secondary")).to be_checked
       click_on "Continue"
 
-      expect(page).to have_text "Which subject would you like to teach?"
+      expect(page).to have_css "h1", text: "Which subject would you like to teach?"
       select "Physics"
       click_on "Continue"
 
-      expect(page).to have_text "When do you want to start your teacher training?"
+      expect(page).to have_css "h1", text: "When do you want to start your teacher training?"
       select "2022"
       click_on "Continue"
 
-      expect(page).to have_text "Enter your date of birth"
+      expect(page).to have_css "h1", text: "Enter your date of birth"
       expect(find_field("Day").value).to eq("27")
       expect(find_field("Month").value).to eq("4")
       expect(find_field("Year").value).to eq("1999")
       click_on "Continue"
 
-      expect(page).to have_text "Where do you live?"
+      expect(page).to have_css "h1", text: "Where do you live?"
       choose "UK"
       click_on "Continue"
 
-      expect(page).to have_text "What is your address?"
+      expect(page).to have_css "h1", text: "What is your address?"
       expect(find_field("Address line 1").value).to eq("7 Main Street")
       expect(find_field("Town or City").value).to eq("Manchester")
       expect(find_field("Postcode").value).to eq("TE7 1NG")
       click_on "Continue"
 
-      expect(page).to have_text "You told us you have an equivalent degree and live in the United Kingdom"
+      expect(page).to have_css "h1", text: "You told us you have an equivalent degree and live in the United Kingdom"
       expect(find_field("Contact telephone number").value).to eq("123456789")
       select_first_option "Select your preferred day and time for a callback"
       click_on "Continue"
 
-      expect(page).to have_text "Check your answers before you continue"
+      expect(page).to have_css "h1", text: "Check your answers before you continue"
       click_on "Continue"
 
-      expect(page).to have_text "Read and accept the privacy policy"
+      expect(page).to have_css "h1", text: "Read and accept the privacy policy"
       check "Accept the privacy policy"
 
       request_attributes = uk_candidate_request_attributes({
@@ -555,8 +555,8 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
 
       click_on "Complete"
 
-      expect(page).to have_text "Thank you"
-      expect(page).to have_text "Sign up complete"
+      expect(page).to have_css "h1", text: "Thank you"
+      expect(page).to have_css "h1", text: "Sign up complete"
     end
   end
 
