@@ -186,7 +186,7 @@ jobs:
   review:
     name: Review Deployment Process
     needs: build
-    if: github.ref != 'refs/heads/master' && github.event.pull_request.draft == false
+    if: github.ref != 'refs/heads/master' && startsWith(github.head_ref, 'dependabot/') == false && github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
 
