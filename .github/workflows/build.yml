@@ -7,8 +7,16 @@ on:
       - master
 
 jobs:
+  testing:
+    runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/master' && startsWith(github.head_ref, 'dependabot') == false && github.event.pull_request.draft == false
+    steps:
+      name: Branch name
+      run: echo ${{ github.head_ref }}
+
   turnstyle:
     runs-on: ubuntu-latest
+    if: false
     timeout-minutes: 60
     steps:
       - name: Checkout
