@@ -562,7 +562,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
 
   def fill_in_identity_step
     fill_in "First name", with: "John"
-    fill_in "Surname", with: "Doe"
+    fill_in "Last name", with: "Doe"
     fill_in "Email address", with: "john@doe.com"
   end
 
