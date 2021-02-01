@@ -7,7 +7,7 @@ ENV RAILS_ENV=production \
     RACK_TIMEOUT_SERVICE_TIMEOUT=60 \
     BUNDLE_WITHOUT=development
 
-RUN mkdir /app
+RUN adduser -D -h /app rails
 WORKDIR /app
 
 EXPOSE 3000
@@ -37,3 +37,5 @@ RUN bundle install --jobs=$(nproc --all) && \
 # Add code and compile assets
 COPY . .
 RUN bundle exec rake assets:precompile
+
+USER rails
