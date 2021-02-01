@@ -44,8 +44,10 @@ module Rack
             FAIL2BAN_REGEX.match?(req.path)
           ).tap do |should_ban|
             if should_ban
+              obscured_ip = req.ip.to_s.gsub(%r{\.\d+\.(\d+)\.}, ".***.***.")
+
               Raven.capture_message <<~BAN_MESSAGE
-                Banning IP: #{req.ip} for #{FAIL2BAN_TIME.to_i / 60} minutes
+                Banning IP: #{obscured_ip} for #{FAIL2BAN_TIME.to_i / 60} minutes
                 accessing #{req.path} with '#{req.query_string}'
               BAN_MESSAGE
             end
