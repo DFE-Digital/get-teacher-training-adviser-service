@@ -65,7 +65,7 @@ group :development, :test do
   gem "rspec-sonarqube-formatter", "~> 1.4"
   gem "simplecov", "~> 0.21.2"
   # Adds support for Capybara system testing and selenium driver
-  gem "capybara", "~> 3.34"
+  gem "capybara", "~> 3.35"
   # Factory builder
   gem "factory_bot_rails"
 end
