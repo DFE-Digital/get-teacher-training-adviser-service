@@ -87,7 +87,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PERSONAL_ACCESS_TOKEN }}
         
       - name: Build master and push to Docker Hub
-        if: github.ref == 'refs/heads/master'
+        # if: github.ref == 'refs/heads/master'
         uses: docker/build-push-action@v2
         with:
           builder: ${{ steps.buildx.outputs.name }}
@@ -101,7 +101,8 @@ jobs:
                       APP_SHA=${{ steps.sha.outputs.short }}
 
       - name: Build PR and push to Docker Hub
-        if: github.ref != 'refs/heads/master'
+        # if: github.ref != 'refs/heads/master'
+        if: false
         uses: docker/build-push-action@v2
         with:
           builder: ${{ steps.buildx.outputs.name }}
@@ -167,7 +168,7 @@ jobs:
            -Dsonar.ruby.rubocop.reportPaths=${PWD}/out/rubocop-result.json
 
       - name: Trigger CVE Testing
-        if: github.ref == 'refs/heads/master' 
+        # if: github.ref == 'refs/heads/master'
         uses: benc-uk/workflow-dispatch@v1.1
         with:
            workflow: cve
