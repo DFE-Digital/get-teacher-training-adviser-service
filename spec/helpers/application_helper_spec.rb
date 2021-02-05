@@ -144,8 +144,14 @@ RSpec.describe ApplicationHelper do
       it { is_expected.to have_css "a", text: "Teaching site" }
     end
 
+    context "with path" do
+      subject { link_to_git_site "Show content", "content/page", class: "govuk-link" }
+      it { is_expected.to have_css 'a.govuk-link[href="http://test.url/content/page"]' }
+      it { is_expected.to have_css "a.govuk-link", text: "Show content" }
+    end
+
     context "with attributes" do
-      subject { link_to_git_site "Teaching site", class: "govuk-link" }
+      subject { link_to_git_site "Teaching site", "", class: "govuk-link" }
       it { is_expected.to have_css 'a.govuk-link[href="http://test.url/"]' }
       it { is_expected.to have_css "a.govuk-link", text: "Teaching site" }
     end

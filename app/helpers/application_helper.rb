@@ -58,8 +58,8 @@ module ApplicationHelper
     end
   end
 
-  def link_to_git_site(text = "Get into Teaching", attributes = {})
-    link_to text, git_url, attributes
+  def link_to_git_site(text = "Get into Teaching", path = "", attributes = {})
+    link_to text, git_url(path), attributes
   end
 
   def link_to_git_mailing_list(text, attributes = {})
