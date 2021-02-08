@@ -10,9 +10,20 @@ jobs:
   owasp:
     name: 'OWASP Test ${{ github.event.inputs.environment }}'
     runs-on: ubuntu-latest
+    environment: Development
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - uses: Azure/login@v1
+        with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - uses: Azure/get-keyvault-secrets@v1
+        id:   azSecret
+        with:
+           keyvault: ${{ secrets.KEY_VAULT}}
+           secrets: 'HTTP-PASSWORD, HTTP-USERNAME, SLACK-WEBHOOK'
 
       - name: set-up-environment
         uses: DFE-Digital/github-actions/set-up-environment@master
@@ -22,7 +33,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           docker_name: 'owasp/zap2docker-stable'
-          target: 'https://${{ secrets.HTTPAUTH_USERNAME }}:${{ secrets.HTTPAUTH_PASSWORD }}@${{env.PAAS_APPLICATION_NAME}}-${{ github.event.inputs.environment }}.${{env.DOMAIN}}/'
+          target: 'https://${{ steps.azSecret.outputs.HTTP-USERNAME }}:${{ steps.azSecret.outputs.HTTP-PASSWORD }}@${{env.PAAS_APPLICATION_NAME}}-${{ github.event.inputs.environment }}.${{env.DOMAIN}}/'
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a'
 
@@ -33,4 +44,4 @@ jobs:
            SLACK_COLOR: ${{env.SLACK_FAILURE}}
            SLACK_MESSAGE: 'Pipeline Failure carrying out OWASP Testing on https://${{env.PAAS_APPLICATION_NAME}}-${{ github.event.inputs.environment }}.${{env.DOMAIN}}/'
            SLACK_TITLE: 'Failure: OWSAP Testing has failed on ${{ github.event.inputs.environment }}'
-           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+           SLACK_WEBHOOK: ${{ steps.azSecret.outputs.SLACK-WEBHOOK }}
