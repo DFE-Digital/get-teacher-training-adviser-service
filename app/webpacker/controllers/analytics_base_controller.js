@@ -2,6 +2,11 @@ import CookiePreferences from "../javascript/cookie_preferences"
 import { Controller } from "stimulus"
 
 export default class extends Controller {
+  static values = {
+    action: String,
+    event: String,
+    eventData: Object
+  }
 
   connect() {
     const cookiePrefs = new CookiePreferences() ;
@@ -25,7 +30,7 @@ export default class extends Controller {
   }
 
   get isEnabled() {
-    return (this.serviceId && this.data.has('action')) ;
+    return (this.serviceId && this.hasActionValue) ;
   }
 
   triggerEvent() {
@@ -51,22 +56,22 @@ export default class extends Controller {
   }
 
   get serviceAction() {
-    return this.data.get('action') ;
+    if (this.hasActionValue)
+      return this.actionValue ;
   }
 
   get eventName() {
-    return this.data.get('event') ;
+    if (this.hasEventValue)
+      return this.eventValue ;
   }
 
   get eventData() {
     if (typeof(this.parsedEventData) != "undefined")
       return this.parsedEventData ;
 
-    let evData = this.data.get('event-data') ;
     this.parsedEventData = null ;
-
-    if (evData && evData != "")
-      this.parsedEventData = JSON.parse(evData) ;
+    if (this.hasEventDataValue)
+      this.parsedEventData = this.eventDataValue ;
 
     return this.parsedEventData ;
   }

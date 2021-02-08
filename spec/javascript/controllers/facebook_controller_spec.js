@@ -6,8 +6,8 @@ describe('FacebookController', () => {
   document.body.innerHTML = `
   <div
     data-controller="facebook"
-    data-facebook-action="test"
-    data-facebook-event="test">
+    data-facebook-action-value="test"
+    data-facebook-event-value="test">
   </div>
   ` ;
 

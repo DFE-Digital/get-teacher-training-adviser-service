@@ -1,13 +1,13 @@
 import AnalyticsHelper from './analytics_spec_helper' ;
 import TwitterController from 'twitter_controller' ;
 
-describe('FacebookController', () => {
+describe('TwitterController', () => {
   document.head.innerHTML = `<script></script>` ;
   document.body.innerHTML = `
   <div
     data-controller="twitter"
-    data-twitter-action="test"
-    data-twitter-event="test">
+    data-twitter-action-value="test"
+    data-twitter-event-value="test">
   </div>
   ` ;
 

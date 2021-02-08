@@ -6,6 +6,7 @@ export default class extends ImagePixelBaseController {
     'https://pixelg.adswizz.com',
     'https://tracking.audio.thisisdax.com',
   ];
+  static values = { event: String };
 
   get serviceId() {
     return this.getServiceId('lid-id') ;
@@ -16,7 +17,7 @@ export default class extends ImagePixelBaseController {
   }
 
   get event() {
-    return this.data.get("event")
+    return this.eventValue
   }
 
   initService() {

@@ -48,7 +48,7 @@ describe('CookiePreferencesController', () => {
 
   function getState() {
     const form = document.querySelector('form[data-controller="cookie-preferences"]')
-    return form.getAttribute('data-cookie-preferences-save-state') ;
+    return form.getAttribute('data-cookie-preferences-save-state-value') ;
   }
 
   const application = Application.start() ;

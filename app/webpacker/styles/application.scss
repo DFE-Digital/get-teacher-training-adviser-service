@@ -123,7 +123,7 @@ $govuk-global-styles: true;
     @include govuk-responsive-margin(5, "bottom");
   }
 
-  &[data-cookie-preferences-save-state="saved"] .save-with-confirmation__message {
+  &[data-cookie-preferences-save-state-value="saved"] .save-with-confirmation__message {
     display: inline-block ;
   }
 }

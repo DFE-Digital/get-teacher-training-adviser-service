@@ -11,13 +11,13 @@ module ApplicationHelper
       "analytics-facebook-id" => ENV["FACEBOOK_ID"],
       "analytics-twitter-id" => ENV["TWITTER_ID"],
       "analytics-lid-id" => ENV["LID_ID"],
-      "pinterest-action" => "page",
-      "snapchat-action" => "track",
-      "snapchat-event" => "PAGE_VIEW",
-      "facebook-action" => "track",
-      "facebook-event" => "PageView",
-      "twitter-action" => "track",
-      "twitter-event" => "PageView",
+      "pinterest-action-value" => "page",
+      "snapchat-action-value" => "track",
+      "snapchat-event-value" => "PAGE_VIEW",
+      "facebook-action-value" => "track",
+      "facebook-event-value" => "PageView",
+      "twitter-action-value" => "track",
+      "twitter-event-value" => "PageView",
     }.symbolize_keys
 
     attributes[:data] ||= {}

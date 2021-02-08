@@ -4,7 +4,7 @@ import SnapchatController from 'snapchat_controller' ;
 describe('SnapchatController', () => {
   document.head.innerHTML = `<script></script>` ;
   document.body.innerHTML = `
-  <div data-controller="snapchat" data-snapchat-action="test" data-snapchat-event="test"></div>
+  <div data-controller="snapchat" data-snapchat-action-value="test" data-snapchat-event-value="test"></div>
   ` ;
 
   // window appears to not be getting redefined between runs, so remove manually
