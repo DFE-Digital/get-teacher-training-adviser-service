@@ -8,10 +8,10 @@ describe('CookieAcceptanceController', () => {
 
   document.body.innerHTML =
   `<div data-controller="cookie-acceptance" class="hide">
-      <div data-target="cookie-acceptance.banner">
+      <div data-cookie-acceptance-target="banner">
           <p>Explanation</p>
           <a href="#" data-action="cookie-acceptance#allowAll"
-                      data-target="cookie-acceptance.accept">Accept</a>
+                      data-cookie-acceptance-target="accept">Accept</a>
           <a href="/prefs">Edit prefs</a>
       </div>
       <div>
