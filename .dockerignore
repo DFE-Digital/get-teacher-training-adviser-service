@@ -18,14 +18,15 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/config/credentials/*.key
 /public/packs
 /public/packs-test
 /node_modules
 yarn-debug.log*
 .yarn-integrity
 
-# Ignore .env file
-.env
+# Ignore local .env file
+.env*.local
 
 # Ignore git repo
 .git
