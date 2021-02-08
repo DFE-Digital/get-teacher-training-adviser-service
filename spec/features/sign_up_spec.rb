@@ -463,11 +463,11 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       allow_any_instance_of(GetIntoTeachingApiClient::CandidatesApi).to \
         receive(:create_candidate_access_token)
       allow_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
-        receive(:get_pre_filled_teacher_training_adviser_sign_up)
+        receive(:exchange_access_token_for_teacher_training_adviser_sign_up)
         .with(valid_code, anything)
         .and_return(existing_candidate)
       allow_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
-        receive(:get_pre_filled_teacher_training_adviser_sign_up)
+        receive(:exchange_access_token_for_teacher_training_adviser_sign_up)
         .with(invalid_code, anything)
         .and_raise(GetIntoTeachingApiClient::ApiError)
     end
