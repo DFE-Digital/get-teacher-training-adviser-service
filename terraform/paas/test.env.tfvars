@@ -6,3 +6,5 @@ paas_additional_route_name    = "staging-adviser-getintoteaching"
 logging                       = 1
 additional_routes             = 1
 alerts                        = {}
+azure_key_vault               = "s146t01-kv"
+azure_resource_group          = "s146t01-rg"
