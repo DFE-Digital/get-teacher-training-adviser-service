@@ -148,7 +148,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Rubocop_results
-          path: ${PWD}/out/rubocop-result.json
+          path: ${{ github.workspace }}/out/rubocop-result.json
 
       - name: Run Brakeman static security scanner
         run: |-
