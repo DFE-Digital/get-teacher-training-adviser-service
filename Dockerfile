@@ -22,7 +22,7 @@ COPY package.json yarn.lock ./
 RUN yarn install && yarn cache clean
 
 # Install bundler
-RUN gem install bundler --version=2.1.4
+RUN gem install bundler --version=2.2.8
 
 ARG APP_SHA
 RUN echo "${APP_SHA}" > /etc/get-teacher-training-adviser-service-sha
