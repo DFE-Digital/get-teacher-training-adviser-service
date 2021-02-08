@@ -1,3 +1,7 @@
+locals {
+  environment_map = { HTTPAUTH_PASSWORD = data.azurerm_key_vault_secret.http_password.value, HTTPAUTH_USERNAME = data.azurerm_key_vault_secret.http_username.value }
+}
+
 resource "cloudfoundry_app" "adviser_application" {
   name         = var.paas_adviser_application_name
   space        = data.cloudfoundry_space.space.id
@@ -25,8 +29,8 @@ resource "cloudfoundry_app" "adviser_application" {
   }
 
   docker_credentials = {
-    username = var.docker_username
-    password = var.docker_password
+    username = data.azurerm_key_vault_secret.docker_username.value
+    password = data.azurerm_key_vault_secret.docker_password.value
   }
 
   routes {
@@ -37,12 +41,7 @@ resource "cloudfoundry_app" "adviser_application" {
     route = cloudfoundry_route.app_route_internal.id
   }
 
-  environment = {
-    HTTPAUTH_PASSWORD = var.HTTPAUTH_PASSWORD
-    HTTPAUTH_USERNAME = var.HTTPAUTH_USERNAME
-    RAILS_ENV         = var.RAILS_ENV
-    RAILS_MASTER_KEY  = var.RAILS_MASTER_KEY
-  }
+  environment = merge(local.application_secrets, local.environment_map)
 }
 
 

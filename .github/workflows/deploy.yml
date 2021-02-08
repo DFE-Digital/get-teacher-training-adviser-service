@@ -3,18 +3,14 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'The environment to deploy to Development/Test/Production/Review etc'
+        description: The environment to deploy to Development/Test/Production/Review etc
         required: true
       sha:
-        description: 'Commit sha to be deployed'
+        description: Commit sha to be deployed
         required: true
       pr:
-        description: 'Pull Request Reference'
+        description: Pull Request Reference
         required: false
-      project:
-        description: 'Name of Release Project'
-        required: false
-        default: 'Teacher Training Adviser'
 
 jobs:
   turnstyle:
@@ -27,9 +23,13 @@ jobs:
          with:
             continue-after-seconds: 300
             same-branch-only: false
+         env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   deploy:
     name: Deploy ${{ github.event.inputs.environment }}
+    environment:
+       name: ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
     needs: turnstyle
 
@@ -39,8 +39,6 @@ jobs:
     steps:
        - name: Checkout
          uses: actions/checkout@v2
-         with:
-            ref: "${{ github.event.inputs.sha }}"
 
        - name: set-up-environment
          uses: DFE-Digital/github-actions/set-up-environment@master
@@ -54,48 +52,49 @@ jobs:
          run: |
              if [ "${{github.event.inputs.environment }}" == "Review" ]
              then
-                 echo ::set-output name=ARM_ACCESS_KEY::$(echo "${{ secrets.DEV_ARM_ACCESS_KEY  }}" )
-                 echo ::set-output name=RAILS_ENV::$(echo "rolling" )
-                 echo ::set-output name=RAILS_MASTER_KEY::$(echo "${{ secrets.RAILS_MASTER_KEY_ROLLING }}" )
-                 echo ::set-output name=HTTP_PASSWORD::$(echo "${{ secrets.HTTPAUTH_PASSWORD }}" )
-                 echo ::set-output name=HTTP_USERNAME::$(echo "${{ secrets.HTTPAUTH_USERNAME }}" )
-                 echo ::set-output name=control::$(echo "dev" )
-                 echo ::set-output name=healthcheck::"${{env.REVIEW_APPLICATION}}-${{github.event.inputs.pr}}"
-                 echo ::set-output name=pr_name::${{env.REVIEW_APPLICATION}}-${{github.event.inputs.pr}}
+                 echo ::set-output name=control::$(echo "review" )
+                 pr_name="${{env.REVIEW_APPLICATION}}-${{github.event.inputs.pr}}"
+                 echo ::set-output name=pr_name::${pr_name}
+                 echo ::set-output name=healthcheck::${pr_name}
+                 echo ::set-output name=key::${pr_name}
+                 echo "TF_VAR_paas_adviser_application_name=${pr_name}" >> $GITHUB_ENV
+                 echo "TF_VAR_paas_adviser_route_name=${pr_name}"       >> $GITHUB_ENV
+                 echo ::set-output name=docker_image::${{env.DOCKERHUB_REPOSITORY}}:review-${{steps.sha.outputs.short}}
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Development" ]
              then
-                 echo ::set-output name=ARM_ACCESS_KEY::$(echo "${{ secrets.DEV_ARM_ACCESS_KEY  }}" )
-                 echo ::set-output name=RAILS_ENV::$(echo "rolling" )
-                 echo ::set-output name=RAILS_MASTER_KEY::$(echo "${{ secrets.RAILS_MASTER_KEY_ROLLING }}" )
-                 echo ::set-output name=HTTP_PASSWORD::$(echo "${{ secrets.HTTPAUTH_PASSWORD }}" )
-                 echo ::set-output name=HTTP_USERNAME::$(echo "${{ secrets.HTTPAUTH_USERNAME }}" )
                  echo ::set-output name=control::$(echo "dev" )
                  echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-dev" )
+                 echo ::set-output name=key::"app.dev.terraform"
+                 echo ::set-output name=docker_image::${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Test" ]
              then
-                 echo ::set-output name=ARM_ACCESS_KEY::$(echo "${{ secrets.TEST_ARM_ACCESS_KEY  }}" )
-                 echo ::set-output name=RAILS_ENV::$(echo "preprod" )
-                 echo ::set-output name=RAILS_MASTER_KEY::$(echo "${{ secrets.RAILS_MASTER_KEY_PREPROD }}" )
-                 echo ::set-output name=HTTP_PASSWORD::$(echo "${{ secrets.HTTPAUTH_PASSWORD }}" )
-                 echo ::set-output name=HTTP_USERNAME::$(echo "${{ secrets.HTTPAUTH_USERNAME }}" )
                  echo ::set-output name=control::$(echo "test" )
                  echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-test" )
+                 echo ::set-output name=key::"app.test.terraform"
+                 echo ::set-output name=docker_image::${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Production" ]
              then
-                 echo ::set-output name=ARM_ACCESS_KEY::$(echo "${{ secrets.PROD_ARM_ACCESS_KEY  }}" )
-                 echo ::set-output name=RAILS_ENV::$(echo "production" )
-                 echo ::set-output name=RAILS_MASTER_KEY::$(echo "${{ secrets.RAILS_MASTER_KEY_PRODUCTION }}" )
-                 echo ::set-output name=HTTP_PASSWORD::$(echo "" )
-                 echo ::set-output name=HTTP_USERNAME::$(echo "" )
                  echo ::set-output name=control::$(echo "production" )
                  echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-prod" )
+                 echo ::set-output name=key::"app.production.terraform"
+                 echo ::set-output name=docker_image::${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
              fi
+
+       - uses: Azure/login@v1
+         with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+       - uses: Azure/get-keyvault-secrets@v1
+         id:   azSecret
+         with:
+           keyvault: ${{ secrets.KEY_VAULT}}
+           secrets: 'HTTP-USERNAME, HTTP-PASSWORD'
 
        - uses: hashicorp/setup-terraform@v1.3.2
          with:
@@ -117,57 +116,24 @@ jobs:
            env: ${{ github.event.inputs.environment }}
            ref: ${{ github.event.inputs.sha }}
 
-       - name: Terraform (review)
-         if: github.event.inputs.environment == 'Review'
+       - name: Terraform ( ${{github.event.inputs.environment}} )
          run: |
              cd terraform/paas && pwd
-             terraform init -backend-config=review.bk.vars -backend-config="key=${{steps.variables.outputs.pr_name}}.tfstate"
-             terraform plan -var-file=review.env.tfvars -out plan
-             terraform apply -auto-approve plan
-         env:
-             TF_VAR_paas_adviser_application_name: "${{steps.variables.outputs.pr_name}}"
-             TF_VAR_paas_adviser_route_name:       "${{steps.variables.outputs.pr_name}}"
-             ARM_ACCESS_KEY:           "${{ steps.variables.outputs.ARM_ACCESS_KEY  }}"
-             TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
-             TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
-             TF_VAR_RAILS_ENV:         "${{ steps.variables.outputs.RAILS_ENV  }}"
-             TF_VAR_paas_adviser_docker_image: ${{env.DOCKERHUB_REPOSITORY}}:review-${{ steps.sha.outputs.short}} 
-             TF_VAR_RAILS_MASTER_KEY:  "${{ steps.variables.outputs.RAILS_MASTER_KEY  }}"
-             TF_VAR_HTTPAUTH_PASSWORD: "${{ steps.variables.outputs.HTTP_PASSWORD  }}"
-             TF_VAR_HTTPAUTH_USERNAME: "${{ steps.variables.outputs.HTTP_USERNAME  }}"
-             TF_VAR_docker_username:   "${{ secrets.DOCKERHUB_USERNAME }}"
-             TF_VAR_docker_password:   "${{ secrets.DOCKERHUB_PERSONAL_ACCESS_TOKEN }}"
-             TF_VAR_sc_username:       "DfEStatusCake"
-             TF_VAR_sc_api_key:        "${{ secrets.STATUS_CAKE_API  }}"
-
-       - name: Terraform (none review)
-         if: github.event.inputs.environment != 'Review'
-         run: |
-             cd terraform/paas && pwd
-             terraform init -backend-config=${{steps.variables.outputs.control}}.bk.vars
+             terraform init -backend-config=${{steps.variables.outputs.control}}.bk.vars -backend-config="key=${{steps.variables.outputs.key}}.tfstate"
              terraform plan -var-file=${{steps.variables.outputs.control}}.env.tfvars -out plan
              terraform apply -auto-approve plan
          env:
-             ARM_ACCESS_KEY:           "${{ steps.variables.outputs.ARM_ACCESS_KEY  }}"
-             TF_VAR_user:              "${{ secrets.GOVUKPAAS_USERNAME  }}"
-             TF_VAR_password:          "${{ secrets.GOVUKPAAS_PASSWORD  }}"
-             TF_VAR_RAILS_ENV:         "${{ steps.variables.outputs.RAILS_ENV  }}"
-             TF_VAR_paas_adviser_docker_image: ${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}} 
-             TF_VAR_RAILS_MASTER_KEY:  "${{ steps.variables.outputs.RAILS_MASTER_KEY  }}"
-             TF_VAR_HTTPAUTH_PASSWORD: "${{ steps.variables.outputs.HTTP_PASSWORD  }}"
-             TF_VAR_HTTPAUTH_USERNAME: "${{ steps.variables.outputs.HTTP_USERNAME  }}"
-             TF_VAR_docker_username:   "${{ secrets.DOCKERHUB_USERNAME }}"
-             TF_VAR_docker_password:   "${{ secrets.DOCKERHUB_PERSONAL_ACCESS_TOKEN }}"
-             TF_VAR_sc_username:       "DfEStatusCake"
-             TF_VAR_sc_api_key:        "${{ secrets.STATUS_CAKE_API  }}"
+             ARM_ACCESS_KEY:                   ${{ secrets.ARM_ACCESS_KEY  }}
+             TF_VAR_paas_adviser_docker_image: ${{ steps.variables.outputs.docker_image}}
+             TF_VAR_AZURE_CREDENTIALS:         ${{ secrets.AZURE_CREDENTIALS }}
 
 
        - name: Smoke tests
          run: |
              tests/confidence/healthcheck.sh  "${{steps.variables.outputs.healthcheck}}"  "${{ steps.sha.outputs.short }}"
          env:
-             HTTPAUTH_PASSWORD: "${{ steps.variables.outputs.HTTP_PASSWORD }}"
-             HTTPAUTH_USERNAME: "${{ steps.variables.outputs.HTTP_USERNAME }}"
+             HTTPAUTH_PASSWORD: ${{ steps.azSecret.outputs.HTTP-PASSWORD }}
+             HTTPAUTH_USERNAME: ${{ steps.azSecret.outputs.HTTP-USERNAME }}
 
        - name: Update ${{ github.event.inputs.environment }} status
          if: always() 
@@ -177,3 +143,4 @@ jobs:
            token: ${{ secrets.GITHUB_TOKEN }}
            status: ${{ job.status }}
            deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+

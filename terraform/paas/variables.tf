@@ -6,8 +6,9 @@ variable api_url {
   default = "https://api.london.cloud.service.gov.uk"
 }
 
-variable user {}
-variable password {}
+variable AZURE_CREDENTIALS {}
+variable azure_key_vault {}
+variable azure_resource_group {}
 
 variable "application_stopped" {
   default = false
@@ -20,7 +21,6 @@ variable "logging" {
 variable "additional_routes" {
   default = 0
 }
-
 
 variable "strategy" {
   default = "blue-green"
@@ -58,9 +58,6 @@ variable "paas_adviser_docker_image" {
   default = "dfedigital/get-teacher-training-adviser-service:latest"
 }
 
-variable "docker_username" {}
-variable "docker_password" {}
-
 variable "paas_adviser_route_name" {
   default = "dfe-teacher-services-sb-tta"
 }
@@ -69,13 +66,6 @@ variable "paas_additional_route_name" {
   default = ""
 }
 
-variable "HTTPAUTH_PASSWORD" {}
-variable "HTTPAUTH_USERNAME" {}
-variable "RAILS_ENV" {}
-variable "RAILS_MASTER_KEY" {}
-
-variable "sc_username" {}
-variable "sc_api_key" {}
 variable "alerts" {
   type = map
 }
