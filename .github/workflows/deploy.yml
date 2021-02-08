@@ -23,6 +23,8 @@ jobs:
          with:
             continue-after-seconds: 300
             same-branch-only: false
+         env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   deploy:
     name: Deploy ${{ github.event.inputs.environment }}
@@ -55,8 +57,8 @@ jobs:
                  echo ::set-output name=pr_name::${pr_name}
                  echo ::set-output name=healthcheck::${pr_name}
                  echo ::set-output name=key::${pr_name}
-                 echo "TF_VAR_paas_app_application_name=${pr_name}" >> $GITHUB_ENV
-                 echo "TF_VAR_paas_app_route_name=${pr_name}"       >> $GITHUB_ENV
+                 echo "TF_VAR_paas_adviser_application_name=${pr_name}" >> $GITHUB_ENV
+                 echo "TF_VAR_paas_adviser_route_name=${pr_name}"       >> $GITHUB_ENV
                  echo ::set-output name=docker_image::${{env.DOCKERHUB_REPOSITORY}}:review-${{steps.sha.outputs.short}}
              fi
 
