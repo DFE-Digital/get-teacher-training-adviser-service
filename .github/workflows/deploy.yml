@@ -66,7 +66,7 @@ jobs:
              then
                  echo ::set-output name=control::$(echo "dev" )
                  echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-dev" )
-                 echo ::set-output name=key::"app.dev.terraform"
+                 echo ::set-output name=key::"tta.dev.terraform"
                  echo ::set-output name=docker_image::${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
              fi
 
@@ -74,7 +74,7 @@ jobs:
              then
                  echo ::set-output name=control::$(echo "test" )
                  echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-test" )
-                 echo ::set-output name=key::"app.test.terraform"
+                 echo ::set-output name=key::"tta.test.terraform"
                  echo ::set-output name=docker_image::${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
              fi
 
@@ -82,7 +82,7 @@ jobs:
              then
                  echo ::set-output name=control::$(echo "production" )
                  echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-prod" )
-                 echo ::set-output name=key::"app.production.terraform"
+                 echo ::set-output name=key::"tta.production.terraform"
                  echo ::set-output name=docker_image::${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
              fi
 
