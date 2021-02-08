@@ -17,6 +17,16 @@ jobs:
       - name: set-up-environment
         uses: DFE-Digital/github-actions/set-up-environment@master
 
+      - uses: Azure/login@v1
+        with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - uses: Azure/get-keyvault-secrets@v1
+        id:   azSecret
+        with:
+           keyvault: ${{ secrets.KEY_VAULT}}
+           secrets: 'SLACK-WEBHOOK'
+
       - name: Scan image
         uses: anchore/scan-action@v2
         with:
@@ -36,6 +46,6 @@ jobs:
         uses: rtCamp/action-slack-notify@master
         env:
            SLACK_COLOR:    ${{env.SLACK_FAILURE}}
-           SLACK_WEBHOOK:  ${{ secrets.SLACK_WEBHOOK }}
+           SLACK_WEBHOOK:  ${{ steps.azSecret.outputs.SLACK-WEBHOOK }}
            SLACK_MESSAGE: 'Pipeline Failure carrying out CVE Testing on ${{ github.event.inputs.image }}'
            SLACK_TITLE:   'Failure: CVE Testing has failed'
