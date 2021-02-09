@@ -4,7 +4,7 @@ import PinterestController from 'pinterest_controller' ;
 describe('PinterestController', () => {
   document.head.innerHTML = `<script></script>` ;
   document.body.innerHTML = `
-  <div data-controller="pinterest" data-pinterest-action="test" data-pinterest-event="test"></div>
+  <div data-controller="pinterest" data-pinterest-action-value="test" data-pinterest-event-value="test"></div>
   ` ;
 
   // window appears to not be getting redefined between runs, so remove manually

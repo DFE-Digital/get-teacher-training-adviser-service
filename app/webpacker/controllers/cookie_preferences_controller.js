@@ -3,6 +3,7 @@ import { Controller } from "stimulus"
 
 export default class extends Controller {
   static targets = [ 'category' ]
+  static values = { saveState: String }
 
   connect() {
     this.cookiePreferences = new CookiePreferences ;
@@ -22,7 +23,7 @@ export default class extends Controller {
   }
 
   toggle(event) {
-    this.data.set('save-state', 'unsaved')
+    this.saveStateValue = 'unsaved'
   }
 
   save(event) {
@@ -37,12 +38,12 @@ export default class extends Controller {
       }
     }
 
-    this.data.set('save-state', 'saving')
+    this.saveStateValue = 'saving'
     window.setTimeout(this.finishSave.bind(this), 300)
   }
 
   finishSave() {
-    if (this.data.get('save-state') == 'saving')
-      this.data.set('save-state', 'saved')
+    if (this.saveStateValue == 'saving')
+      this.saveStateValue = 'saved'
   }
 }

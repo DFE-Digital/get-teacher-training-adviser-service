@@ -2,7 +2,7 @@
   data-controller="cookie-acceptance" class="hide">
 
   <div id="cookie-banner-message" class="govuk-width-container"
-    data-target="cookie-acceptance.banner">
+    data-cookie-acceptance-target="banner">
 
     <p>
         Welcome to the new Get an Adviser service. We invite you to try the
@@ -21,7 +21,7 @@
     <%= link_to "Accept all cookies", "#", id: "cookies-agree",
           class: "govuk-button", data: {
             action: "cookie-acceptance#allowAll",
-            target: "cookie-acceptance.accept"
+            "cookie-acceptance-target": "accept"
           } %>
 
     &nbsp;

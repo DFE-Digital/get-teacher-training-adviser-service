@@ -72,12 +72,12 @@ RSpec.describe ApplicationHelper do
     end
 
     context "default events" do
-      it { is_expected.to have_css "body[data-snapchat-action=track]" }
-      it { is_expected.to have_css "body[data-snapchat-event=PAGE_VIEW]" }
-      it { is_expected.to have_css "body[data-facebook-action=track]" }
-      it { is_expected.to have_css "body[data-facebook-event=PageView]" }
-      it { is_expected.to have_css "body[data-twitter-action=track]" }
-      it { is_expected.to have_css "body[data-twitter-event=PageView]" }
+      it { is_expected.to have_css "body[data-snapchat-action-value=track]" }
+      it { is_expected.to have_css "body[data-snapchat-event-value=PAGE_VIEW]" }
+      it { is_expected.to have_css "body[data-facebook-action-value=track]" }
+      it { is_expected.to have_css "body[data-facebook-event-value=PageView]" }
+      it { is_expected.to have_css "body[data-twitter-action-value=track]" }
+      it { is_expected.to have_css "body[data-twitter-event-value=PageView]" }
     end
 
     context "with additional stimulus controller" do

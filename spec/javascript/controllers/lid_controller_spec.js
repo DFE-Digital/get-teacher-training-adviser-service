@@ -8,8 +8,8 @@ describe('LidController', () => {
     <div
       id="container"
       data-controller="lid"
-      data-lid-action="track"
-      data-lid-event="${event}"
+      data-lid-action-value="track"
+      data-lid-event-value="${event}"
     >
     </div>
     `;
