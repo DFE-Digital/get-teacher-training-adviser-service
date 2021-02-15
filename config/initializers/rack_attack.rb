@@ -8,7 +8,7 @@ module Rack
       .php
     ].freeze
 
-    FAIL2BAN_REGEX = Regexp.new(FAIL2BAN_LIST.map(&Regexp.method(:quote)).join("|")).freeze
+    FAIL2BAN_REGEX = Regexp.union(FAIL2BAN_LIST).freeze
 
     # Throttle /csp_reports requests by IP (5rpm)
     throttle("csp_reports req/ip", limit: 5, period: 1.minute) do |req|
@@ -49,6 +49,9 @@ module Rack
               Raven.capture_message <<~BAN_MESSAGE
                 Banning IP: #{obscured_ip} for #{FAIL2BAN_TIME.to_i / 60} minutes
                 accessing #{req.path} with '#{req.query_string}'
+
+                REMOTE_ADDR: #{req.get_header('REMOTE_ADDR')}
+                X_FORWARDED_FOR: #{req.get_header('HTTP_X_FORWARDED_FOR')}
               BAN_MESSAGE
             end
           end
