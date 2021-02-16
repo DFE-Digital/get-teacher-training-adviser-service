@@ -19,16 +19,6 @@ module Wizard
         @store["authenticate"] != true
       end
 
-      def save!
-        @store["authenticated"] = false
-
-        if valid?
-          @store["authenticated"] = true
-        end
-
-        super
-      end
-
       def export
         {}
       end
@@ -46,7 +36,7 @@ module Wizard
     private
 
       def perform_api_check?
-        timed_one_time_password_valid? && !@store["authenticated"]
+        timed_one_time_password_valid? && !@wizard.access_token_used?
       end
 
       def timed_one_time_password_valid?

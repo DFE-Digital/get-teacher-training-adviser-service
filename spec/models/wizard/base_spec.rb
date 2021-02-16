@@ -60,6 +60,17 @@ RSpec.describe Wizard::Base do
     end
   end
 
+  describe "#access_token_used?" do
+    subject { wizard }
+
+    it { is_expected.not_to be_access_token_used }
+
+    context "when auth method is set" do
+      before { wizardstore["auth_method"] = described_class::Auth::ACCESS_TOKEN }
+      it { is_expected.to be_access_token_used }
+    end
+  end
+
   describe "#process_access_token" do
     let(:token) { "access-token" }
     let(:request) { GetIntoTeachingApiClient::ExistingCandidateRequest.new }
@@ -78,12 +89,13 @@ RSpec.describe Wizard::Base do
         receive(:exchange_access_token).with(token, request) { stub_response }
     end
 
-    subject do
+    subject! do
       wizard.process_access_token(token, request)
       wizardstore.fetch(%w[candidate_id first_name last_name email])
     end
 
     it { is_expected.to eq response_hash }
+    it { expect(wizard).to be_access_token_used }
 
     context "when the wizard does not implement exchange_access_token" do
       before do

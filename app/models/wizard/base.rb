@@ -3,6 +3,10 @@ module Wizard
   class AccessTokenNotSupportedError < RuntimeError; end
 
   class Base
+    module Auth
+      ACCESS_TOKEN = 0
+    end
+
     MATCHBACK_ATTRS = %i[candidate_id qualification_id].freeze
 
     class_attribute :steps
@@ -104,6 +108,10 @@ module Wizard
       steps[0..(index - 1)].map(&:key)
     end
 
+    def access_token_used?
+      @store["auth_method"] == Auth::ACCESS_TOKEN
+    end
+
     def export_data
       matchback_data = @store.fetch(MATCHBACK_ATTRS)
       step_data = all_steps.map(&:export).reduce({}, :merge)
@@ -119,7 +127,7 @@ module Wizard
 
     def process_access_token(token, request)
       response = exchange_access_token(token, request)
-      prepopulate_store(response)
+      prepopulate_store(response, Auth::ACCESS_TOKEN)
     end
 
   protected
@@ -130,8 +138,9 @@ module Wizard
 
   private
 
-    def prepopulate_store(response)
+    def prepopulate_store(response, auth_method)
       hash = response.to_hash.transform_keys { |k| k.to_s.underscore }
+      hash["auth_method"] = auth_method
       @store.persist(hash)
     end
 
