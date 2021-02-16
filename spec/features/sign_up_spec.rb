@@ -596,7 +596,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       first_name: "John",
       last_name: "Doe",
       date_of_birth: "1966-03-24",
-      telephone: "123456789",
       address_line1: "7",
       address_line2: "Main Street",
       address_city: "Edinburgh",
