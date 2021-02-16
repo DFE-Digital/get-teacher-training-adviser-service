@@ -1,5 +1,6 @@
 module Wizard
   class UnknownStep < RuntimeError; end
+  class AccessTokenNotSupportedError < RuntimeError; end
 
   class Base
     MATCHBACK_ATTRS = %i[candidate_id qualification_id].freeze
@@ -116,7 +117,23 @@ module Wizard
       end
     end
 
+    def process_access_token(token, request)
+      response = exchange_access_token(token, request)
+      prepopulate_store(response)
+    end
+
+  protected
+
+    def exchange_access_token(_timed_one_time_password, _request)
+      raise(AccessTokenNotSupportedError)
+    end
+
   private
+
+    def prepopulate_store(response)
+      hash = response.to_hash.transform_keys { |k| k.to_s.underscore }
+      @store.persist(hash)
+    end
 
     def all_steps
       step_keys.map(&method(:find))

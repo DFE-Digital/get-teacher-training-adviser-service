@@ -6,8 +6,8 @@ end
 RSpec.shared_context "wizard step" do
   include_context "wizard store"
   let(:attributes) { {} }
+  let(:wizard) { TeacherTrainingAdviser::Wizard.new(wizardstore, described_class.key) }
   let(:instance) do
-    wizard = TeacherTrainingAdviser::Wizard.new(wizardstore, described_class.key)
     described_class.new wizard, wizardstore, attributes
   end
   subject { instance }
@@ -120,6 +120,14 @@ RSpec.shared_examples "an issue verification code wizard step" do
         firstName: subject.first_name,
         lastName: subject.last_name,
       )
+    end
+
+    it "purges previous data from the store" do
+      allow_any_instance_of(GetIntoTeachingApiClient::CandidatesApi).to receive(:create_candidate_access_token).with(request)
+      wizardstore["candidate_id"] = "abc123"
+      wizardstore["extra_data"] = "data"
+      subject.save!
+      expect(wizardstore.to_hash).to eq(subject.attributes.merge({ "authenticate" => true }))
     end
 
     context "when invalid" do
