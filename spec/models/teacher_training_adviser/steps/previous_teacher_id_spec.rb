@@ -4,6 +4,8 @@ RSpec.describe TeacherTrainingAdviser::Steps::PreviousTeacherId do
   include_context "wizard step"
   it_behaves_like "a wizard step"
 
+  it { is_expected.to be_optional }
+
   context "attributes" do
     it { is_expected.to respond_to :teacher_id }
   end
@@ -22,6 +24,12 @@ RSpec.describe TeacherTrainingAdviser::Steps::PreviousTeacherId do
 
     it "returns true if has_id is false" do
       wizardstore["has_id"] = false
+      expect(subject).to be_skipped
+    end
+
+    it "returns true when pre-filled with crm data" do
+      wizardstore["has_id"] = true
+      wizardstore.persist_crm({ "teacher_id" => "123456" })
       expect(subject).to be_skipped
     end
   end

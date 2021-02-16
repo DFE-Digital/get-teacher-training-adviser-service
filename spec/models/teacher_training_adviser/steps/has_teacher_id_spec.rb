@@ -23,6 +23,11 @@ RSpec.describe TeacherTrainingAdviser::Steps::HasTeacherId do
       wizardstore["returning_to_teaching"] = false
       expect(subject).to be_skipped
     end
+
+    it "returns true if teacher_id is pre-filled from crm" do
+      wizardstore.persist_crm({ "teacher_id" => "1234567" })
+      expect(subject).to be_skipped
+    end
   end
 
   describe "#reviewable_answers" do
