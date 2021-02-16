@@ -1,6 +1,7 @@
 RSpec.shared_context "wizard store" do
   let(:backingstore) { { "name" => "Joe", "age" => 35 } }
-  let(:wizardstore) { Wizard::Store.new backingstore }
+  let(:crm_backingstore) { {} }
+  let(:wizardstore) { Wizard::Store.new backingstore, crm_backingstore }
 end
 
 RSpec.shared_context "wizard step" do

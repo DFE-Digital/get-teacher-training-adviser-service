@@ -28,7 +28,7 @@ module Wizard
       end
 
       def candidate_identity_data
-        @store.fetch(IDENTITY_ATTRS).transform_keys do |k|
+        @store.fetch(IDENTITY_ATTRS).compact.transform_keys do |k|
           k.camelize(:lower).to_sym
         end
       end

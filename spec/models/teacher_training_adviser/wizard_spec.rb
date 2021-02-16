@@ -50,7 +50,7 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
         "last_name" => "Joseph",
       }
     end
-    let(:wizardstore) { Wizard::Store.new store }
+    let(:wizardstore) { Wizard::Store.new store, {} }
 
     subject { described_class.new wizardstore, "accept_privacy_policy" }
 
