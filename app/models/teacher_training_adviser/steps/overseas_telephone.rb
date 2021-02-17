@@ -12,7 +12,13 @@ module TeacherTrainingAdviser::Steps
       true
     end
 
+    def optional?
+      true
+    end
+
     def skipped?
+      return true if super
+
       overseas_country_skippped = other_step(:overseas_country).skipped?
       degree_options = other_step(:have_a_degree).degree_options
       equivalent_degree = degree_options == HaveADegree::DEGREE_OPTIONS[:equivalent]

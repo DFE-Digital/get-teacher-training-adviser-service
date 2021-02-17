@@ -456,6 +456,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
         addressPostcode: "TE7 1NG",
         dateOfBirth: Date.new(1999, 4, 27),
         telephone: "123456789",
+        teacherId: "12345",
       )
     end
 
@@ -558,6 +559,74 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       expect(page).to have_css "h1", text: "Thank you"
       expect(page).to have_css "h1", text: "Sign up complete"
     end
+
+    scenario "skipping pre-filled optional steps" do
+      visit teacher_training_adviser_steps_path
+
+      expect(page).to have_css "h1", text: "About you"
+      fill_in_identity_step
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Verify your email address"
+      fill_in "wizard-steps-authenticate-timed-one-time-password-field", with: valid_code
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Are you returning to teaching?"
+      choose "Yes"
+      click_on "Continue"
+
+      expect(page).to_not have_css "h1", text: "Do you have your previous teacher reference number?"
+      expect(page).to_not have_css "h1", text: "What is your previous teacher reference number?"
+
+      expect(page).to have_css "h1", text: "Which main subject did you previously teach?"
+      select "Psychology"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Which subject would you like to teach if you return to teaching?"
+      choose "Physics"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Enter your date of birth"
+      expect(find_field("Day").value).to eq("27")
+      expect(find_field("Month").value).to eq("4")
+      expect(find_field("Year").value).to eq("1999")
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Where do you live?"
+      choose "UK"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "What is your address?"
+      expect(find_field("Address line 1").value).to eq("7 Main Street")
+      expect(find_field("Town or City").value).to eq("Manchester")
+      expect(find_field("Postcode").value).to eq("TE7 1NG")
+      click_on "Continue"
+
+      expect(page).to_not have_css "h1", text: "What is your telephone number?"
+
+      expect(page).to have_css "h1", text: "Check your answers before you continue"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Read and accept the privacy policy"
+      check "Accept the privacy policy"
+
+      request_attributes = uk_candidate_request_attributes({
+        subject_taught_id: SUBJECT_PSYCHOLOGY,
+        preferred_teaching_subject_id: SUBJECT_PHYSICS,
+        date_of_birth: "1999-04-27",
+        address_line1: "7 Main Street",
+        address_line2: nil,
+        address_city: "Manchester",
+        address_postcode: "TE7 1NG",
+        teacher_id: "12345",
+      })
+      expect_sign_up_with_attributes(request_attributes)
+
+      click_on "Complete"
+
+      expect(page).to have_css "h1", text: "Thank you"
+      expect(page).to have_css "h1", text: "Sign up complete"
+    end
   end
 
   def fill_in_identity_step
@@ -596,7 +665,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       first_name: "John",
       last_name: "Doe",
       date_of_birth: "1966-03-24",
-      telephone: "123456789",
       address_line1: "7",
       address_line2: "Main Street",
       address_city: "Edinburgh",

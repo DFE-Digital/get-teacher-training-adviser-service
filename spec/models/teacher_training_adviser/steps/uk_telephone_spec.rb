@@ -6,6 +6,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkTelephone do
   include_context "sanitize fields", %i[telephone]
 
   it { is_expected.to be_contains_personal_details }
+  it { is_expected.to be_optional }
 
   context "attributes" do
     it { is_expected.to respond_to :telephone }
@@ -30,6 +31,12 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkTelephone do
 
     it "returns true if degree_options is equivalent" do
       wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
+      expect(subject).to be_skipped
+    end
+
+    it "returns true when pre-filled with crm data" do
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:yes]
+      wizardstore.persist_crm({ "telephone" => "123456789" })
       expect(subject).to be_skipped
     end
   end

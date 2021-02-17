@@ -1,6 +1,7 @@
 RSpec.shared_context "wizard store" do
   let(:backingstore) { { "name" => "Joe", "age" => 35 } }
-  let(:wizardstore) { Wizard::Store.new backingstore }
+  let(:crm_backingstore) { {} }
+  let(:wizardstore) { Wizard::Store.new backingstore, crm_backingstore }
 end
 
 RSpec.shared_context "wizard step" do
@@ -187,6 +188,12 @@ class TestWizard < Wizard::Base
     validates :name, presence: true
   end
 
+  # To simulate two steps writing to the same attribute.
+  class OtherAge < Wizard::Step
+    attribute :age, :integer
+    validates :age, presence: false
+  end
+
   class Age < Wizard::Step
     attribute :age, :integer
     validates :age, presence: true
@@ -197,5 +204,5 @@ class TestWizard < Wizard::Base
     validates :postcode, presence: true
   end
 
-  self.steps = [Name, Age, Postcode].freeze
+  self.steps = [Name, OtherAge, Age, Postcode].freeze
 end

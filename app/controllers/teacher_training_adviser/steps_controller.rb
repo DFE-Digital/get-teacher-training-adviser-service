@@ -22,11 +22,15 @@ module TeacherTrainingAdviser
     helper_method :step_path
 
     def wizard_store
-      ::Wizard::Store.new session_store
+      ::Wizard::Store.new app_store, crm_store
     end
 
-    def session_store
+    def app_store
       session[:sign_up] ||= {}
+    end
+
+    def crm_store
+      session[:sign_up_crm] ||= {}
     end
 
     def set_page_title
