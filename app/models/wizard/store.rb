@@ -1,7 +1,7 @@
 module Wizard
   class Store
     attr_reader :data
-    delegate :keys, to: :data
+    delegate :keys, :to_h, :to_hash, to: :data
 
     def initialize(data)
       raise InvalidBackingStore unless data.respond_to?(:[]=)

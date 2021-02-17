@@ -1,7 +1,14 @@
 module Wizard
   class UnknownStep < RuntimeError; end
+  class AccessTokenNotSupportedError < RuntimeError; end
 
   class Base
+    module Auth
+      ACCESS_TOKEN = 0
+    end
+
+    MATCHBACK_ATTRS = %i[candidate_id qualification_id].freeze
+
     class_attribute :steps
 
     class << self
@@ -101,8 +108,15 @@ module Wizard
       steps[0..(index - 1)].map(&:key)
     end
 
+    def access_token_used?
+      @store["auth_method"] == Auth::ACCESS_TOKEN
+    end
+
     def export_data
-      all_steps.map(&:export).reduce({}, :merge)
+      matchback_data = @store.fetch(MATCHBACK_ATTRS)
+      step_data = all_steps.map(&:export).reduce({}, :merge)
+
+      step_data.merge!(matchback_data)
     end
 
     def reviewable_answers_by_step
@@ -111,7 +125,24 @@ module Wizard
       end
     end
 
+    def process_access_token(token, request)
+      response = exchange_access_token(token, request)
+      prepopulate_store(response, Auth::ACCESS_TOKEN)
+    end
+
+  protected
+
+    def exchange_access_token(_timed_one_time_password, _request)
+      raise(AccessTokenNotSupportedError)
+    end
+
   private
+
+    def prepopulate_store(response, auth_method)
+      hash = response.to_hash.transform_keys { |k| k.to_s.underscore }
+      hash["auth_method"] = auth_method
+      @store.persist(hash)
+    end
 
     def all_steps
       step_keys.map(&method(:find))

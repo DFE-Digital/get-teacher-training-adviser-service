@@ -4,7 +4,7 @@ RSpec.describe Wizard::Steps::Authenticate do
   include_context "wizard step"
   it_behaves_like "a wizard step"
 
-  before { allow(instance).to receive(:perform_existing_candidate_request).with(anything) { {} } }
+  before { allow(wizard).to receive(:exchange_access_token) { {} } }
 
   it { is_expected.to respond_to :timed_one_time_password }
 
@@ -23,8 +23,10 @@ RSpec.describe Wizard::Steps::Authenticate do
   end
 
   describe "#skipped?" do
-    it "returns true if authenticate is false" do
+    it "returns true if authenticate is false or nil" do
       wizardstore["authenticate"] = false
+      expect(subject).to be_skipped
+      wizardstore["authenticate"] = nil
       expect(subject).to be_skipped
     end
 
@@ -35,20 +37,10 @@ RSpec.describe Wizard::Steps::Authenticate do
   end
 
   describe "#export" do
-    it "returns a hash containing the matchback fields" do
-      wizardstore["candidate_id"] = "abc-123"
-      wizardstore["qualification_id"] = "def-456"
+    it "returns an empty hash" do
+      allow_any_instance_of(described_class).to receive(:skipped?) { false }
       subject.timed_one_time_password = "123456"
-      expect(subject.export).to eq({
-        "candidate_id" => "abc-123",
-        "qualification_id" => "def-456",
-      })
-    end
-
-    it "does not include matchback fields in export if skipped" do
-      wizardstore["candidate_id"] = "abc-123"
-      allow_any_instance_of(described_class).to receive(:skipped?) { true }
-      expect(subject.export.values).to all(be_nil)
+      expect(subject.export).to be_empty
     end
   end
 
@@ -61,12 +53,13 @@ RSpec.describe Wizard::Steps::Authenticate do
 
   describe "#save!" do
     before do
-      subject.timed_one_time_password = "123456"
+      subject.timed_one_time_password = totp
       wizardstore["email"] = "email@address.com"
       wizardstore["first_name"] = "First"
       wizardstore["last_name"] = "Last"
     end
 
+    let(:totp) { "123456" }
     let(:request) do
       GetIntoTeachingApiClient::ExistingCandidateRequest.new(
         email: wizardstore["email"],
@@ -81,18 +74,13 @@ RSpec.describe Wizard::Steps::Authenticate do
         subject.save!
         expect { subject.save! }.to_not raise_error
       end
-
-      it "does not set authenticated to true" do
-        subject.timed_one_time_password = nil
-        subject.save!
-        expect(wizardstore["authenticated"]).to be_falsy
-      end
     end
 
     context "when valid" do
       it "attempts to call the API exactly once for each valid timed_one_time_password" do
-        expect(subject).to receive(:perform_existing_candidate_request).with(request).exactly(2).times
-        subject.timed_one_time_password = "123456"
+        expect(wizard).to receive(:exchange_access_token).with(totp, request).and_raise(GetIntoTeachingApiClient::ApiError).once
+        expect(wizard).to receive(:exchange_access_token).with("000000", request).once
+        subject.timed_one_time_password = totp
         subject.save!
         subject.save!
         subject.timed_one_time_password = "000000"
@@ -100,57 +88,33 @@ RSpec.describe Wizard::Steps::Authenticate do
       end
 
       it "does not call the API on validation if already authenticated" do
-        expect(subject).to_not receive(:perform_existing_candidate_request)
-        wizardstore["authenticated"] = true
+        expect(wizard).to receive(:access_token_used?) { true }
+        expect(wizard).to_not receive(:exchange_access_token)
         subject.timed_one_time_password = "123456"
         subject.valid?
       end
 
-      it "throws an error if #perform_existing_candidate_request is not defined" do
-        expect(instance).to receive(:perform_existing_candidate_request).and_call_original
-        expect { subject.save! }.to raise_error(NotImplementedError)
+      context "when the wizard does not implement #exchange_access_token" do
+        let(:wizard) { TestWizard.new(wizardstore, TestWizard::Name.key) }
+        it "throws an error" do
+          expect(wizard).to receive(:exchange_access_token).and_call_original
+          expect { subject.save! }.to raise_error(Wizard::AccessTokenNotSupportedError)
+        end
       end
     end
 
     context "when TOTP is correct" do
       it "updates the store with the response" do
-        response = GetIntoTeachingApiClient::TeachingEventAddAttendee.new(candidateId: "abc123")
-        expect(subject).to receive(:perform_existing_candidate_request).with(request) { response }
+        response = GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.new(candidateId: "abc123")
+        expect(wizard).to receive(:exchange_access_token).with(totp, request) { response }
         subject.save!
         expect(wizardstore["candidate_id"]).to eq(response.candidate_id)
-      end
-
-      it "does not overwrite data already in the store" do
-        response = GetIntoTeachingApiClient::TeachingEventAddAttendee.new(candidateId: "abc123", firstName: "Jim")
-        expect(subject).to receive(:perform_existing_candidate_request).with(request) { response }
-        subject.save!
-        expect(wizardstore["candidate_id"]).to eq(response.candidate_id)
-        expect(wizardstore["first_name"]).to eq("First")
-      end
-
-      it "sets authenticated to true" do
-        response = GetIntoTeachingApiClient::TeachingEventAddAttendee.new(candidateId: "abc123")
-        expect(subject).to receive(:perform_existing_candidate_request).with(request) { response }
-        subject.save!
-        expect(wizardstore["authenticated"]).to be_truthy
-      end
-
-      context "when TOTP is changed to be incorrect" do
-        it "sets authenticated back to false" do
-          response = GetIntoTeachingApiClient::TeachingEventAddAttendee.new(candidateId: "abc123")
-          expect(subject).to receive(:perform_existing_candidate_request).with(request) { response }
-          subject.save!
-          expect(wizardstore["authenticated"]).to be_truthy
-          subject.timed_one_time_password = nil
-          subject.save!
-          expect(wizardstore["authenticated"]).to be_falsy
-        end
       end
     end
 
     context "when TOTP is incorrect" do
       it "is marked as invalid" do
-        expect(subject).to receive(:perform_existing_candidate_request).with(request)
+        expect(wizard).to receive(:exchange_access_token).with(totp, request)
           .and_raise(GetIntoTeachingApiClient::ApiError)
         expect(subject).to be_invalid
       end

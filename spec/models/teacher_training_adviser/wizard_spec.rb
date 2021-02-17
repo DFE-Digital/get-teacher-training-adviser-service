@@ -7,7 +7,7 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
     it do
       is_expected.to eql [
         TeacherTrainingAdviser::Steps::Identity,
-        TeacherTrainingAdviser::Steps::Authenticate,
+        ::Wizard::Steps::Authenticate,
         TeacherTrainingAdviser::Steps::AlreadySignedUp,
         TeacherTrainingAdviser::Steps::ReturningTeacher,
         TeacherTrainingAdviser::Steps::HaveADegree,
@@ -78,6 +78,22 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
       it { is_expected.to have_received(:valid?) }
       it { is_expected.to have_received(:can_proceed?) }
       it { expect(store).to eql({}) }
+    end
+
+    describe "#exchange_access_token" do
+      let(:totp) { "123456" }
+      let(:request) { GetIntoTeachingApiClient::ExistingCandidateRequest.new }
+      let(:response) { GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.new }
+
+      before do
+        expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
+          receive(:exchange_access_token_for_teacher_training_adviser_sign_up)
+          .with(totp, request) { response }
+      end
+
+      it "calls exchange_access_token_for_teacher_training_adviser_sign_up" do
+        expect(subject.exchange_access_token(totp, request)).to eq(response)
+      end
     end
   end
 end

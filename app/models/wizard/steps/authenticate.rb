@@ -1,8 +1,9 @@
 module Wizard
   module Steps
     class Authenticate < ::Wizard::Step
+      include ActiveModel::Dirty
+
       IDENTITY_ATTRS = %i[email first_name last_name date_of_birth].freeze
-      MATCHBACK_ATTRS = %i[candidate_id qualification_id].freeze
 
       attribute :timed_one_time_password
 
@@ -15,34 +16,15 @@ module Wizard
       end
 
       def skipped?
-        @store["authenticate"] == false
-      end
-
-      def save!
-        @store["authenticated"] = false
-
-        if valid?
-          prepopulate_store
-          @store["authenticated"] = true
-        end
-
-        super
+        @store["authenticate"] != true
       end
 
       def export
-        return {} if skipped?
-
-        @store.fetch(MATCHBACK_ATTRS)
+        {}
       end
 
       def reviewable_answers
         {}
-      end
-
-      def timed_one_time_password=(value)
-        @totp_response = nil if value != timed_one_time_password
-
-        super(value)
       end
 
       def candidate_identity_data
@@ -51,16 +33,10 @@ module Wizard
         end
       end
 
-    protected
-
-      def perform_existing_candidate_request(_request)
-        raise NotImplementedError, "subclass must define #perform_existing_candidate_request"
-      end
-
     private
 
       def perform_api_check?
-        timed_one_time_password_valid? && !@store["authenticated"]
+        timed_one_time_password_valid? && !@wizard.access_token_used?
       end
 
       def timed_one_time_password_valid?
@@ -72,17 +48,15 @@ module Wizard
 
       def timed_one_time_password_is_correct
         request = GetIntoTeachingApiClient::ExistingCandidateRequest.new(candidate_identity_data)
-        @totp_response ||= perform_existing_candidate_request(request)
+        if timed_one_time_password_changed?
+          clear_attribute_changes(%i[timed_one_time_password])
+          @wizard.process_access_token(timed_one_time_password, request)
+        end
       rescue GetIntoTeachingApiClient::ApiError
         errors.add(
           :timed_one_time_password,
           I18n.t("activemodel.errors.models.wizard/steps/authenticate.attributes.timed_one_time_password.invalid"),
         )
-      end
-
-      def prepopulate_store
-        hash = @totp_response.to_hash.transform_keys { |k| k.to_s.underscore }
-        @store.persist(hash.except(*@store.keys))
       end
     end
   end
