@@ -70,7 +70,7 @@ jobs:
         id:   azSecret
         with:
            keyvault: ${{ secrets.KEY_VAULT}}
-           secrets: 'SLACK-WEBHOOK, DOCKER-USERNAME, DOCKER-PASSWORD , ACTIONS-API-ACCESS-TOKEN'
+           secrets: 'SLACK-WEBHOOK, DOCKER-USERNAME, DOCKER-PASSWORD , ACTIONS-API-ACCESS-TOKEN, SONAR-TOKEN'
 
       - name: Lint Dockerfile
         uses: brpaz/hadolint-action@master
@@ -181,7 +181,7 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: sonar-scanner
-           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+           -Dsonar.login=${{ steps.azSecret.outputs.SONAR-TOKEN }}
            -Dsonar.organization=dfe-digital
            -Dsonar.host.url=https://sonarcloud.io/
            -Dsonar.projectKey=get-teacher-training-adviser-service
