@@ -23,12 +23,12 @@ RSpec.describe TeacherTrainingAdviser::Steps::SubjectTaught do
 
   describe "#skipped?" do
     it "returns false if returning_to_teaching is true" do
-      wizardstore["returning_to_teaching"] = true
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::ReturningTeacher).to receive(:returning_to_teaching) { true }
       expect(subject).to_not be_skipped
     end
 
     it "returns true if returning_to_teaching is false" do
-      wizardstore["returning_to_teaching"] = false
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::ReturningTeacher).to receive(:returning_to_teaching) { false }
       expect(subject).to be_skipped
     end
   end

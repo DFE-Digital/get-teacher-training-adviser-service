@@ -176,8 +176,8 @@ en:
               invalid_type: "You must select either primary or secondary"
         teacher_training_adviser/steps/returning_teacher:
           attributes:
-            returning_to_teaching:
-              inclusion: "Select yes if you are returning to teaching"
+            type_id:
+              invalid_type: "Select yes if you are returning to teaching"
         teacher_training_adviser/steps/retake_gcse_science:
           attributes:
             planning_to_retake_gcse_science_id:

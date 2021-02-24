@@ -1,7 +1,8 @@
 require "rails_helper"
 
 RSpec.feature "Sign up for a teacher training adviser", type: :feature do
-  PRIMARY_SUBJECT_ID = "b02655a1-2afa-e811-a981-000d3a276620".freeze
+  RETURNING_TO_TEACHING = 222_750_001
+  INTERESTED_IN_TEACHING = 222_750_000
   EDUCATION_PHASE_PRIMARY = 222_750_000
   EDUCATION_PHASE_SECONDARY = 222_750_001
   DEGREE_STATUS_HAS_DEGREE = 222_750_000
@@ -72,6 +73,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       check "Accept the privacy policy"
 
       request_attributes = uk_candidate_request_attributes({
+        type_id: RETURNING_TO_TEACHING,
         subject_taught_id: SUBJECT_PSYCHOLOGY,
         preferred_teaching_subject_id: SUBJECT_PHYSICS,
         teacher_id: "1234",
@@ -134,6 +136,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       check "Accept the privacy policy"
 
       request_attributes = overseas_candidate_request_attributes({
+        type_id: INTERESTED_IN_TEACHING,
         preferred_teaching_subject_id: SUBJECT_PHYSICS,
         degree_status_id: DEGREE_STATUS_HAS_DEGREE,
         degree_type_id: DEGREE_TYPE_EQUIVALENT,
@@ -214,6 +217,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       check "Accept the privacy policy"
 
       request_attributes = overseas_candidate_request_attributes({
+        type_id: INTERESTED_IN_TEACHING,
         uk_degree_grade_id: UK_DEGREE_GRADE_2_2,
         degree_status_id: DEGREE_STATUS_FIRST_YEAR,
         degree_type_id: DEGREE_TYPE_DEGREE,
