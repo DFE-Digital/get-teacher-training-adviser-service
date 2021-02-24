@@ -6,7 +6,6 @@ RSpec.describe TeacherTrainingAdviser::Steps::ReturningTeacher do
 
   context "attributes" do
     it { is_expected.to respond_to :type_id }
-    it { is_expected.to respond_to :degree_options }
   end
 
   describe "#returning_to_teaching" do
@@ -26,18 +25,6 @@ RSpec.describe TeacherTrainingAdviser::Steps::ReturningTeacher do
   describe "#type_id" do
     it { is_expected.to_not allow_values("", nil, 123).for :type_id }
     it { is_expected.to allow_value(*described_class::OPTIONS.values).for :type_id }
-  end
-
-  describe "#type_id=" do
-    it "sets degree_options if type_id is :returning_to_teaching" do
-      subject.type_id = described_class::OPTIONS[:returning_to_teaching]
-      expect(subject.degree_options).to eq(described_class::DEGREE_OPTIONS[:returner])
-    end
-
-    it "does not set degree_options if type_id is :interested_in_teaching" do
-      subject.type_id = described_class::OPTIONS[:interested_in_teaching]
-      expect(subject.degree_options).to be_nil
-    end
   end
 
   describe "#reviewable_answers" do
