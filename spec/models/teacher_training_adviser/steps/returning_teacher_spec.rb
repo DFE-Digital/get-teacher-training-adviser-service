@@ -5,30 +5,39 @@ RSpec.describe TeacherTrainingAdviser::Steps::ReturningTeacher do
   it_behaves_like "a wizard step"
 
   context "attributes" do
-    it { is_expected.to respond_to :returning_to_teaching }
-    it { is_expected.to respond_to :degree_options }
+    it { is_expected.to respond_to :type_id }
   end
 
   describe "#returning_to_teaching" do
-    it { is_expected.to_not allow_values("", nil).for :returning_to_teaching }
-    it { is_expected.to allow_value(true, false).for :returning_to_teaching }
+    subject { instance.returning_to_teaching }
+
+    context "when type_id is :returning_to_teaching" do
+      before { instance.type_id = described_class::OPTIONS[:returning_to_teaching] }
+      it { is_expected.to be_truthy }
+    end
+
+    context "when type_id is :interested_in_teaching" do
+      before { instance.type_id = described_class::OPTIONS[:interested_in_teaching] }
+      it { is_expected.to be_falsy }
+    end
   end
 
-  describe "#returning_to_teaching=" do
-    it "sets degree_options if returning_to_teaching is true" do
-      subject.returning_to_teaching = true
-      expect(subject.degree_options).to eq(TeacherTrainingAdviser::Steps::ReturningTeacher::DEGREE_OPTIONS[:returner])
-    end
-
-    it "does not set degree_options if returning_to_teaching is false" do
-      subject.returning_to_teaching = false
-      expect(subject.degree_options).to be_nil
-    end
+  describe "#type_id" do
+    it { is_expected.to_not allow_values("", nil, 123).for :type_id }
+    it { is_expected.to allow_value(*described_class::OPTIONS.values).for :type_id }
   end
 
   describe "#reviewable_answers" do
     subject { instance.reviewable_answers }
-    before { instance.returning_to_teaching = true }
-    it { is_expected.to eq({ "returning_to_teaching" => "Yes" }) }
+
+    context "when returning to teaching" do
+      before { instance.type_id = described_class::OPTIONS[:returning_to_teaching] }
+      it { is_expected.to eq({ "returning_to_teaching" => "Yes" }) }
+    end
+
+    context "when interested in teaching" do
+      before { instance.type_id = described_class::OPTIONS[:interested_in_teaching] }
+      it { is_expected.to eq({ "returning_to_teaching" => "No" }) }
+    end
   end
 end

@@ -1,17 +1,13 @@
 module TeacherTrainingAdviser::Steps
   class ReturningTeacher < Wizard::Step
-    DEGREE_OPTIONS = { returner: "returner" }.freeze
+    OPTIONS = { returning_to_teaching: 222_750_001, interested_in_teaching: 222_750_000 }.freeze
 
-    attribute :returning_to_teaching, :boolean
-    attribute :degree_options, :string
+    attribute :type_id, :integer
 
-    validates :returning_to_teaching, inclusion: { in: [true, false] }
+    validates :type_id, pick_list_items: { method: :get_candidate_types }
 
-    def returning_to_teaching=(value)
-      super
-      return unless returning_to_teaching
-
-      self.degree_options = DEGREE_OPTIONS[:returner]
+    def returning_to_teaching
+      type_id == OPTIONS[:returning_to_teaching]
     end
 
     def reviewable_answers

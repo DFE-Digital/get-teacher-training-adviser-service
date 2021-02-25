@@ -11,7 +11,9 @@ RSpec.describe TeacherTrainingAdviser::Steps::ReviewAnswers do
       TeacherTrainingAdviser::Steps::UkAddress => { "address_line1": "7 Main Street" },
       TeacherTrainingAdviser::Steps::UkTelephone => { "telephone": "123456789" },
       TeacherTrainingAdviser::Steps::HaveADegree => { "degree_options": "studying" },
-      TeacherTrainingAdviser::Steps::ReturningTeacher => { "returning_to_teaching": true },
+      TeacherTrainingAdviser::Steps::ReturningTeacher => {
+        "type_id": TeacherTrainingAdviser::Steps::ReturningTeacher::OPTIONS[:returning_to_teaching],
+      },
     }
   end
 

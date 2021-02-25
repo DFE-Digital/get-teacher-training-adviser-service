@@ -1,4 +1,5 @@
-<%= f.govuk_radio_buttons_fieldset(:returning_to_teaching, legend: { text: 'Are you returning to teaching?'}, hint: { text: "If you have an overseas teaching qualification that's equivalent to our qualified teacher status (QTS), then select the 'yes' option and take the 'returning to teaching' route." }, inline: true) do %>
-  <%= f.govuk_radio_button :returning_to_teaching, true, label: { text: 'Yes' }, link_errors: true %>
-  <%= f.govuk_radio_button :returning_to_teaching, false, label: { text: 'No' } %>
+<% options = f.object.class::OPTIONS %>
+<%= f.govuk_radio_buttons_fieldset(:type_id, legend: { text: 'Are you returning to teaching?'}, hint: { text: "If you have an overseas teaching qualification that's equivalent to our qualified teacher status (QTS), then select the 'yes' option and take the 'returning to teaching' route." }, inline: true) do %>
+  <%= f.govuk_radio_button :type_id, options[:returning_to_teaching], label: { text: 'Yes' }, link_errors: true %>
+  <%= f.govuk_radio_button :type_id, options[:interested_in_teaching], label: { text: 'No' } %>
 <% end %>
