@@ -83,7 +83,7 @@ end
 group :test do
   gem "shoulda-matchers"
   gem "vcr"
-  gem "webdrivers", "~> 4.5"
+  gem "webdrivers", "~> 4.6"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
