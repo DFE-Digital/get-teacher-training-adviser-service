@@ -1,10 +1,17 @@
 module TeacherTrainingAdviser
   class StepsController < ApplicationController
+    include CircuitBreaker
     include WizardSteps
     self.wizard_class = TeacherTrainingAdviser::Wizard
 
     around_action :set_time_zone, only: [:show] # rubocop:disable Rails/LexicallyScopedActionFilter
     before_action :set_page_title, only: [:show] # rubocop:disable Rails/LexicallyScopedActionFilter
+
+  protected
+
+    def not_available_path
+      teacher_training_adviser_not_available_path
+    end
 
   private
 
