@@ -4,6 +4,10 @@ module TeacherTrainingAdviser::Steps
 
     validates :telephone, telephone: true, presence: true
 
+    def self.contains_personal_details?
+      true
+    end
+
     def reviewable_answers
       {
         "telephone" => telephone,

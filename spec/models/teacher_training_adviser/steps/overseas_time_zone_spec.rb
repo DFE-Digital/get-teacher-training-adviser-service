@@ -6,6 +6,8 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasTimeZone do
 
   it { expect(described_class).to be TeacherTrainingAdviser::Steps::OverseasTimeZone }
 
+  it { expect(described_class).to be_contains_personal_details }
+
   context "attributes" do
     it { is_expected.to respond_to :telephone }
   end

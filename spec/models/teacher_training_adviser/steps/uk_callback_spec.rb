@@ -6,6 +6,8 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkCallback do
   it_behaves_like "a wizard step"
   include_context "sanitize fields", %i[telephone]
 
+  it { expect(described_class).to be_contains_personal_details }
+
   context "attributes" do
     it { is_expected.to respond_to :phone_call_scheduled_at }
     it { is_expected.to respond_to :telephone }
@@ -41,19 +43,26 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkCallback do
 
   describe "#reviewable_answers" do
     let(:date_time) { DateTime.new(2022, 1, 1, 10, 30) }
+    let(:telephone) { "123456789" }
     subject { instance.reviewable_answers }
-    before { instance.phone_call_scheduled_at = date_time }
+    before do
+      instance.phone_call_scheduled_at = date_time
+      instance.telephone = telephone
+    end
+
     it {
       is_expected.to eq({
         "callback_date" => date_time.to_date,
         "callback_time" => date_time.to_time, # rubocop:disable Rails/Date
+        "telephone" => telephone,
       })
     }
 
-    context "when the phone_call_scheduled_at is nil" do
+    context "when the phone_call_scheduled_at/telephone are nil" do
       let(:date_time) { nil }
+      let(:telephone) { nil }
 
-      it { is_expected.to eq({ "callback_date" => nil, "callback_time" => nil }) }
+      it { is_expected.to eq({ "callback_date" => nil, "callback_time" => nil, "telephone" => nil }) }
     end
   end
 end
