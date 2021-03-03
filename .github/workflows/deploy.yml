@@ -30,8 +30,7 @@ jobs:
          uses: DFE-Digital/github-actions/validate-key-vault-secrets@master
          with:
            KEY_VAULT: ${{ secrets.KEY_VAULT }}
-           SECRETS: |
-             TTA-KEYS
+           SECRETS: TTA-KEYS
 
   turnstyle:
     name: Wait for any previous deployments
@@ -164,4 +163,3 @@ jobs:
            token: ${{ secrets.GITHUB_TOKEN }}
            status: ${{ job.status }}
            deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-
