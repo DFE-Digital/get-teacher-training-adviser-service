@@ -12,8 +12,13 @@ module TeacherTrainingAdviser::Steps
       self.telephone = telephone.to_s.strip.presence
     end
 
+    def self.contains_personal_details?
+      true
+    end
+
     def reviewable_answers
       {
+        "telephone" => telephone,
         "callback_date" => phone_call_scheduled_at&.to_date,
         "callback_time" => phone_call_scheduled_at&.to_time, # rubocop:disable Rails/Date
       }
