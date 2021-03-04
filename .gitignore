@@ -39,3 +39,4 @@ dump.rdb
 
 /config/credentials/*.key
 
+*.idea

@@ -3,7 +3,7 @@ module WizardSteps
 
   included do
     class_attribute :wizard_class
-    before_action :load_wizard, :load_current_step, except: %i[index completed resend_verification]
+    before_action :load_wizard, :load_current_step, only: %i[show update]
   end
 
   def index
