@@ -40,3 +40,4 @@ dump.rdb
 /config/credentials/*.key
 
 *.idea
+fetch_config.rb
