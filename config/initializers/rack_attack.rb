@@ -49,9 +49,6 @@ module Rack
               Raven.capture_message <<~BAN_MESSAGE
                 Banning IP: #{obscured_ip} for #{FAIL2BAN_TIME.to_i / 60} minutes
                 accessing #{req.path} with '#{req.query_string}'
-
-                REMOTE_ADDR: #{req.get_header('REMOTE_ADDR')}
-                X_FORWARDED_FOR: #{req.get_header('HTTP_X_FORWARDED_FOR')}
               BAN_MESSAGE
             end
           end
