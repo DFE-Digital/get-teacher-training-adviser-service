@@ -20,16 +20,11 @@ jobs:
            keyvault: ${{ secrets.KEY_VAULT}}
            secrets: 'TRELLO-KEY, TRELLO-TOKEN'
 
-      - name: Extract Pull Request url
-        id: pr-url
-        run: |
-          echo ::set-output name=url::$(jq -r .pull_request.html_url $GITHUB_EVENT_PATH)
-
       - name: Add Trello Comment
         uses: DFE-Digital/github-actions/AddTrelloComment@master
         with:
-          MESSAGE:      ${{ steps.pr-url.outputs.url }} 
-          CARD:         ${{ steps.pr-url.outputs.url }}           
+          MESSAGE:      ${{ github.event.pull_request.html_url }} 
+          CARD:         ${{ github.event.pull_request.body }}           
           TRELLO-KEY:   ${{ steps.azSecret.outputs.TRELLO-KEY}}
           TRELLO-TOKEN: ${{ steps.azSecret.outputs.TRELLO_TOKEN }}
             
