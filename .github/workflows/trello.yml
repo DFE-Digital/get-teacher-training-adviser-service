@@ -26,11 +26,4 @@ jobs:
           MESSAGE:      ${{ github.event.pull_request.html_url }} 
           CARD:         ${{ github.event.pull_request.body }}           
           TRELLO-KEY:   ${{ steps.azSecret.outputs.TRELLO-KEY}}
-          TRELLO-TOKEN: ${{ steps.azSecret.outputs.TRELLO_TOKEN }}
-            
-
-            --request POST \
-            --url 'https://api.trello.com/1/cards/${{ steps.trello-id.outputs.id }}/actions/comments' \
-            --data-urlencode "key=${{ steps.azSecret.outputs.TRELLO-KEY }}" \
-            --data-urlencode "token=${{ steps.azSecret.outputs.TRELLO-TOKEN }}" \
-            --data-urlencode "text=${{ steps.pr-url.outputs.url }}"
+          TRELLO-TOKEN: ${{ steps.azSecret.outputs.TRELLO-TOKEN }
