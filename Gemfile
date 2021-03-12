@@ -44,7 +44,8 @@ gem "country_select", "~> 5.0"
 # api client
 gem "get_into_teaching_api_client_faraday", github: "DFE-Digital/get-into-teaching-api-ruby-client", require: "api/client"
 
-gem "sentry-raven"
+gem "sentry-rails"
+gem "sentry-ruby"
 
 # Ignore cloudfront IPs when getting customer IP address
 gem "actionpack-cloudfront"
