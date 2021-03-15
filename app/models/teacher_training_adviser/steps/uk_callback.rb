@@ -26,10 +26,11 @@ module TeacherTrainingAdviser::Steps
 
     def skipped?
       uk_address_skipped = other_step(:uk_address).skipped?
-      degree_options = other_step(:have_a_degree).degree_options
-      equivalent_degree = degree_options == HaveADegree::DEGREE_OPTIONS[:equivalent]
+      have_a_degree_step = other_step(:have_a_degree)
+      have_a_degree_skipped = have_a_degree_step.skipped?
+      equivalent_degree = have_a_degree_step.degree_options == HaveADegree::DEGREE_OPTIONS[:equivalent]
 
-      uk_address_skipped || !equivalent_degree
+      uk_address_skipped || have_a_degree_skipped || !equivalent_degree
     end
   end
 end
