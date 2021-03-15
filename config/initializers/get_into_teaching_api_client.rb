@@ -8,4 +8,10 @@ GetIntoTeachingApiClient.configure do |config|
   config.api_key["Authorization"] = ENV["GIT_API_TOKEN"].presence || Rails.application.credentials.config[:api_key].presence
 
   config.cache_store = Rails.cache
+
+  config.circuit_breaker = {
+    enabled: true,
+    threshold: 5,
+    timeout: 5.minutes,
+  }
 end
