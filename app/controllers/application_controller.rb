@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
   before_action :http_basic_authenticate
+  before_action :set_api_client_request_id
 
   rescue_from ActionController::InvalidAuthenticityToken, with: :session_expired
   rescue_from ActionController::RoutingError, with: :render_not_found
@@ -11,6 +12,12 @@ class ApplicationController < ActionController::Base
   end
 
 private
+
+  def set_api_client_request_id
+    # The request_id is passed to the ApiClient via Thread.current
+    # so we don't have to set it explicitly on every usage.
+    GetIntoTeachingApiClient::Current.request_id = request.uuid
+  end
 
   def handle_api_error(error)
     render_too_many_requests && return if error.code == 429
