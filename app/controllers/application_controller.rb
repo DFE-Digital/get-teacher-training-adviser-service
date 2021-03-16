@@ -43,7 +43,7 @@ private
   end
 
   def session_expired(exception)
-    Raven.capture_exception(exception)
+    Sentry.capture_exception(exception)
     redirect_to session_expired_path
   end
 end
