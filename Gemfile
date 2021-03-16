@@ -67,7 +67,7 @@ group :development, :test do
   # Testing framework
   gem "rspec-rails", "~> 4.1.0"
   gem "rspec-sonarqube-formatter", "~> 1.5"
-  gem "simplecov", "~> 0.21.2"
+  gem "simplecov", "~> 0.17.1" # held back - https://jira.sonarsource.com/browse/SONARSLANG-477
   # Adds support for Capybara system testing and selenium driver
   gem "capybara", "~> 3.35"
   # Factory builder
