@@ -13,12 +13,18 @@
 # it.
 
 require "simplecov"
+require "simplecov_json_formatter"
 require "active_support/testing/time_helpers"
 
 SimpleCov.start "rails" do
   add_filter "/bin/"
   add_filter "/db/"
   add_filter "/spec/"
+
+  formatter SimpleCov::Formatter::MultiFormatter.new [
+    SimpleCov::Formatter::HTMLFormatter,
+    SimpleCov::Formatter::JSONFormatter,
+  ]
 end
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
