@@ -5,7 +5,6 @@ module ApplicationHelper
     analytics = {
       "analytics-gtm-id" => ENV["GOOGLE_TAG_MANAGER_ID"],
       "analytics-adwords-id" => ENV["GOOGLE_AD_WORDS_ID"],
-      "analytics-hotjar-id" => ENV["HOTJAR_ID"],
       "analytics-snapchat-id" => ENV["SNAPCHAT_ID"],
       "analytics-pinterest-id" => ENV["PINTEREST_ID"],
       "analytics-facebook-id" => ENV["FACEBOOK_ID"],
@@ -24,7 +23,7 @@ module ApplicationHelper
     attributes[:data] = attributes[:data].merge(analytics)
 
     attributes[:data][:controller] =
-      "gtm pinterest snapchat facebook hotjar twitter #{attributes[:data][:controller]}"
+      "gtm pinterest snapchat facebook twitter #{attributes[:data][:controller]}"
 
     tag.body attributes, &block
   end
