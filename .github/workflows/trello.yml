@@ -3,6 +3,9 @@ name: Link Trello card
 on:
   pull_request:
     types: [ opened , edited]
+  push: 
+   branches:
+    - sf-bugfix
 
 jobs:
   attach-to-trello:
