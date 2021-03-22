@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: Azure/login@v1
         with:
-            creds: 123
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - uses: Azure/get-keyvault-secrets@v1
         id:   azSecret
