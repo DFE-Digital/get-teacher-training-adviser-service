@@ -11,7 +11,7 @@ resource "cloudfoundry_route" "app_route_internal" {
 }
 
 data "cloudfoundry_route" "app_route_internet" {
-  count    = var.additional_routes
+  count    = length(var.paas_additional_route_names)
+  hostname = var.paas_additional_route_names[count.index]
   domain   = data.cloudfoundry_domain.internet.id
-  hostname = var.paas_additional_route_name
 }

@@ -18,10 +18,6 @@ variable "logging" {
   default = "0"
 }
 
-variable "additional_routes" {
-  default = 0
-}
-
 variable "strategy" {
   default = "blue-green"
 }
@@ -62,8 +58,8 @@ variable "paas_adviser_route_name" {
   default = "dfe-teacher-services-sb-tta"
 }
 
-variable "paas_additional_route_name" {
-  default = ""
+variable "paas_additional_route_names" {
+  default = []
 }
 
 variable "alerts" {
