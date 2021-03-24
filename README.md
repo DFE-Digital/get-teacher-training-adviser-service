@@ -43,6 +43,20 @@ bundle exec rake
 bundle exec rspec
 ```
 
+### Contract tests
+
+> :warning: **Development of the contract tests is currently in-progress**
+
+We use a variation of 'contract testing' to achieve end-to-end integration tests across all services (Get an Adviser -> API -> CRM).
+
+The general idea is that Capybara 'contract' tests in the Get an Adviser service perform various sign up scenarios and create a snapshot of the request payload that would be sent to the API. We commit these snapshots with our code and - if a change to the application results in a different snapshot - then the contract test will fail (the idea being you commit the updated snapshot, assuming the change is expected).
+
+The API also has a set of contract tests that use the Get an Adviser payload snapshots as the test fixtures. These tests result in another set of request snapshots for the payloads sent to the CRM (which serve as the fixtures to the CRM contract tests).
+
+A difficulty with these tests is ensuring that the services all have a consistent, global view of the service data state prior to executing the contract tests. We currently maintain the service data in `contracts/data` (to be centralised in a GitHub repospitory, but currently duplicated in each service).
+
+Eventually, the `contracts/output` will be 'published' to a separate GitHub repository, which will enable other services to pull in their test fixtures from the upstream service. This will enable us to develop features in each service independently and publish only when the change is ready to be reflected in another service.
+
 ## Linting
 
 It's best to lint just your app directories and not those belonging to the framework, e.g.
