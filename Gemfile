@@ -93,6 +93,8 @@ group :test do
   gem "shoulda-matchers"
   gem "vcr"
   gem "webdrivers", "~> 4.6"
+  # Used when VCR is turned off to block HTTP requests.
+  gem "webmock"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
