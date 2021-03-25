@@ -24,9 +24,6 @@ RUN yarn install && yarn cache clean
 # Install bundler
 RUN gem install bundler --version=2.2.8
 
-ARG APP_SHA
-RUN echo "${APP_SHA}" > /etc/get-teacher-training-adviser-service-sha
-
 # Install Gems removing artifacts
 COPY .ruby-version Gemfile Gemfile.lock ./
 # hadolint ignore=SC2046
@@ -37,3 +34,6 @@ RUN bundle install --jobs=$(nproc --all) && \
 # Add code and compile assets
 COPY . .
 RUN bundle exec rake assets:precompile
+
+ARG APP_SHA
+RUN echo "${APP_SHA}" > /etc/get-teacher-training-adviser-service-sha
