@@ -14,7 +14,6 @@ locals {
 }
 
 provider "azurerm" {
-  version                    = ">= 2.0"
   skip_provider_registration = true
   features {}
   subscription_id = local.azure_credentials.subscriptionId
