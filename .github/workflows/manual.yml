@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: Development/Test/Production
+        description: Development/Test/Production/UR
         required: true
       tag:
         description: Release Tag
@@ -45,7 +45,7 @@ jobs:
           TOKEN: ${{ steps.azSecret.outputs.ACTIONS-API-ACCESS-TOKEN }}
 
       - name: Check if found
-        if: steps.tag_id.outputs.release_id == ""
+        if: steps.tag_id.outputs.release_id == ''
         run: |
              echo "::error ::Tag ${{ github.event.inputs.tag }} cannot be found in releases"
              exit 1
