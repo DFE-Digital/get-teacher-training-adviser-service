@@ -107,6 +107,7 @@ Rails.application.configure do
   config.cache_store = :redis_cache_store, { namespace: "TTA" }
 
   config.x.git_api_endpoint = "https://get-into-teaching-api-prod.london.cloudapps.digital"
+  config.x.enable_beta_redirects = true
 
   config.session_store :cache_store,
                        key: "_dfe_session",

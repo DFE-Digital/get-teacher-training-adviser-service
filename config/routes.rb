@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  if Rails.configuration.x.enable_beta_redirects
+    constraints(host: "beta-adviser-getintoteaching.education.gov.uk") do
+      get "/(*path)", to: redirect(host: "adviser-getintoteaching.education.gov.uk")
+    end
+  end
+
   root "pages#home"
 
   get "/teacher_training_adviser/not_available", to: "teacher_training_adviser/steps#not_available"
