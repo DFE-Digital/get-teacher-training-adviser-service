@@ -52,6 +52,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.x.git_api_endpoint = "https://get-into-teaching-api-dev.london.cloudapps.digital"
+  config.x.enable_beta_redirects = false
 
   config.session_store :cache_store,
                        key: "_dfe_session",
