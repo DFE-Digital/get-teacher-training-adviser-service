@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get "/422", to: "errors#unprocessable_entity", via: :all
   get "/500", to: "errors#internal_server_error", via: :all
 
+  get "/robots.txt", to: "robots#show"
+
   namespace :teacher_training_adviser, path: "/teacher_training_adviser" do
     resources :steps,
               path: "/sign_up",
