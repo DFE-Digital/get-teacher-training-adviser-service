@@ -368,7 +368,7 @@ DEPENDENCIES
   redis
   rspec-rails (~> 5.0.1)
   rspec-sonarqube-formatter (~> 1.5)
-  rubocop-govuk
+  rubocop-govuk (>= 3.17.2)
   scss_lint-govuk
   secure_headers
   sentry-rails
