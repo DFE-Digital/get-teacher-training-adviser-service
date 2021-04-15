@@ -4,7 +4,6 @@ paas_adviser_route_name       = "get-teacher-training-adviser-service-prod"
 paas_linked_services          = ["get-into-teaching-prod-redis-svc", "get-into-teaching-api-prod-pg-common-svc"]
 paas_additional_route_names   = ["beta-adviser-getintoteaching", "adviser-getintoteaching"]
 logging                       = 1
-additional_routes             = 1
 instances                     = 2
 azure_key_vault               = "s146p01-kv"
 azure_resource_group          = "s146p01-rg"
