@@ -11,9 +11,14 @@ resource "cloudfoundry_app" "adviser_application" {
   memory       = 1024
   timeout      = 1000
   instances    = var.instances
-  service_binding {
-    service_instance = data.cloudfoundry_service_instance.redis.id
+
+  dynamic "service_binding" {
+    for_each = data.cloudfoundry_service_instance.linked
+    content {
+      service_instance = service_binding.value["id"]
+    }
   }
+
   dynamic "service_binding" {
     for_each = data.cloudfoundry_user_provided_service.logging
     content {

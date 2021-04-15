@@ -1,7 +1,7 @@
 paas_space                    = "get-into-teaching-production"
 paas_adviser_application_name = "get-teacher-training-adviser-service-prod"
 paas_adviser_route_name       = "get-teacher-training-adviser-service-prod"
-paas_redis_1_name             = "get-into-teaching-prod-redis-svc"
+paas_linked_services          = ["get-into-teaching-prod-redis-svc", "get-into-teaching-api-prod-pg-common-svc"]
 paas_additional_route_names   = ["beta-adviser-getintoteaching", "adviser-getintoteaching"]
 logging                       = 1
 additional_routes             = 1
