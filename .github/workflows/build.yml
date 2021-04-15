@@ -95,7 +95,7 @@ jobs:
               echo ::set-output name=pr_image::${{ env.DOCKERHUB_REPOSITORY }}:review-$(echo "${{ github.sha }}" | cut -c -7) 
 
       - name: Cache Docker layers
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2.1.5
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ github.sha }}
