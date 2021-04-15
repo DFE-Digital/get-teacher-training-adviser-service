@@ -12,10 +12,10 @@ WORKDIR /app
 
 EXPOSE 3000
 ENTRYPOINT ["bundle", "exec"]
-CMD ["rails", "server" ]
+CMD ["rails db:migrate && rails server"]
 
 # hadolint ignore=DL3018
-RUN apk add --no-cache build-base tzdata shared-mime-info git nodejs yarn
+RUN apk add --no-cache build-base tzdata shared-mime-info git nodejs yarn postgresql-libs postgresql-dev 
 
 # install NPM packages removign artifacts
 COPY package.json yarn.lock ./
