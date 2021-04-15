@@ -7,6 +7,8 @@ RSpec.describe "Circuit breaker" do
     allow_any_instance_of(
       GetIntoTeachingApiClient::PickListItemsApi,
     ).to receive(:get_qualification_degree_status).and_raise(error)
+
+    expect(Sentry).to receive(:capture_exception).with(error)
   end
 
   context "when the API returns a CircuitBrokenError" do
