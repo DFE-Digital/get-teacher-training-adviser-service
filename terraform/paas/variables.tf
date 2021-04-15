@@ -2,13 +2,13 @@
 # or set with environment variables TF_VAR_xxxx
 
 
-variable api_url {
+variable "api_url" {
   default = "https://api.london.cloud.service.gov.uk"
 }
 
-variable AZURE_CREDENTIALS {}
-variable azure_key_vault {}
-variable azure_resource_group {}
+variable "AZURE_CREDENTIALS" {}
+variable "azure_key_vault" {}
+variable "azure_resource_group" {}
 
 variable "application_stopped" {
   default = false
@@ -34,8 +34,9 @@ variable "paas_logging_endpoint_port" {
   default = ""
 }
 
-variable "paas_redis_1_name" {
-  default = "get-into-teaching-dev-redis-svc"
+variable "paas_linked_services" {
+  default = ["get-into-teaching-dev-redis-svc"
+  , "get-into-teaching-api-dev-pg-common-svc"]
 }
 
 variable "paas_space" {
@@ -63,5 +64,5 @@ variable "paas_additional_route_names" {
 }
 
 variable "alerts" {
-  type = map
+  type = map(any)
 }

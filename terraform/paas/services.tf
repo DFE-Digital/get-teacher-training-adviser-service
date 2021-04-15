@@ -1,9 +1,7 @@
-data cloudfoundry_service redis {
-  name = "redis"
-}
 
-data "cloudfoundry_service_instance" "redis" {
-  name_or_id = var.paas_redis_1_name
+data "cloudfoundry_service_instance" "linked" {
+  for_each   = toset(var.paas_linked_services)
+  name_or_id = each.value
   space      = data.cloudfoundry_space.space.id
 }
 
