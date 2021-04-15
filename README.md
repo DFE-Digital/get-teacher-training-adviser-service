@@ -17,8 +17,9 @@
 
 1. Run `bundle install` to install the gem dependencies
 2. Run `yarn` to install node dependencies
-3. Run `bundle exec rails server` to launch the app on http://localhost:3000
-4. (optional) Run `./bin/webpack-dev-server` in a separate shell for faster compilation of assets
+3. Run `rails db:setup` to setup the database.
+4. Run `bundle exec rails server` to launch the app on http://localhost:3000
+5. (optional) Run `./bin/webpack-dev-server` in a separate shell for faster compilation of assets
 
 ## Whats included in this application?
 
