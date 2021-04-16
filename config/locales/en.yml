@@ -35,6 +35,21 @@ telephone_errors: &telephone_errors
   too_long: "Telephone number is too long (maximum is 20 characters)"
 
 en:
+  helpers:
+    legend:
+      teacher_training_adviser_feedback:
+        successful_visit: "Did you achieve what you wanted from your visit?"
+        rating: "Did you achieve what you wanted from your visit?"
+    label:
+      teacher_training_adviser_feedback:
+        unsuccessful_visit_explanation: "Give details"
+        improvements: "How could we improve the service? (optional)"
+        rating_options:
+          very_satisfied: "Very satisfied"
+          satisfied: "Satisfied"
+          neither_satisfied_or_dissatisfied: "Neither satisfied or dissatisfied"
+          dissatisfied: "Dissatisfied"
+          very_dissatisfied: "Very dissatisfied"
   have_a_degree:
     degree_options:
       "yes": "Yes"
@@ -96,6 +111,17 @@ en:
       uk_degree_grade_id: "Which class is your degree?"
     what_subject_degree:
       degree_subject: "Which subject is your degree?"
+  activerecord:
+    errors:
+      models:
+        teacher_training_adviser/feedback:
+          attributes:
+            successful_visit:
+              inclusion: "Select whether you achieved what you wanted from your visit"
+            unsuccessful_visit_explanation:
+              blank: "Provide details"
+            rating:
+              blank: "Select an option for how did you feel about the service"
   activemodel:
     errors:
       models:

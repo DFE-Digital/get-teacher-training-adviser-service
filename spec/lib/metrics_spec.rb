@@ -58,4 +58,20 @@ RSpec.describe Prometheus::Metrics do
     it { is_expected.to have_attributes(docstring: "A counter of CSP violations") }
     it { expect { subject.get(labels: %i[blocked_uri document_uri violated_directive]) }.to_not raise_error }
   end
+
+  describe "tta_feedback_visit_total" do
+    subject { registry.get(:tta_feedback_visit_total) }
+
+    it { is_expected.not_to be_nil }
+    it { is_expected.to have_attributes(docstring: "A counter of feedback visit responses") }
+    it { expect { subject.get(labels: %i[successful]) }.to_not raise_error }
+  end
+
+  describe "tta_feedback_rating_total" do
+    subject { registry.get(:tta_feedback_rating_total) }
+
+    it { is_expected.not_to be_nil }
+    it { is_expected.to have_attributes(docstring: "A counter of feedback rating responses") }
+    it { expect { subject.get(labels: %i[rating]) }.to_not raise_error }
+  end
 end

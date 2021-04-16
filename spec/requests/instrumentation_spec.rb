@@ -81,4 +81,27 @@ RSpec.describe "Instrumentation" do
         }).once
     end
   end
+
+  describe "tta.feedback" do
+    let(:params) do
+      {
+        teacher_training_adviser_feedback: {
+          successful_visit: true,
+          rating: :satisfied,
+        },
+      }
+    end
+
+    after { post teacher_training_adviser_feedbacks_path, params: params }
+
+    it "increments the :tta_feedback_visit_total metric" do
+      metric = registry.get(:tta_feedback_visit_total)
+      expect(metric).to receive(:increment).with(labels: { successful: "true" }).once
+    end
+
+    it "increments the :tta_feedback_rating_total metric" do
+      metric = registry.get(:tta_feedback_rating_total)
+      expect(metric).to receive(:increment).with(labels: { rating: "satisfied" }).once
+    end
+  end
 end
