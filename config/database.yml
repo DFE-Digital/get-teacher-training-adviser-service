@@ -17,7 +17,11 @@ test:
 
 production: &production
   <<: *default
-  url: <%= Rails.application.config.x.vcap_services.dig("postgres", 0, "credentials", "uri") %>
+  database: <%= Rails.application.config.x.vcap_services.dig("postgres", 0, "credentials", "name") %>
+  host: <%= Rails.application.config.x.vcap_services.dig("postgres", 0, "credentials", "host") %>
+  username: <%= Rails.application.config.x.vcap_services.dig("postgres", 0, "credentials", "username") %>
+  password: <%= Rails.application.config.x.vcap_services.dig("postgres", 0, "credentials", "password") %>
+  port: <%= Rails.application.config.x.vcap_services.dig("postgres", 0, "credentials", "port") %>
 
 rolling:
   <<: *production
