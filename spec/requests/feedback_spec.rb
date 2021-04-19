@@ -20,7 +20,7 @@ RSpec.describe "Feedback" do
       }
     end
 
-    it "creates a Feedback and reirects to the Feedback's page" do
+    it "creates a Feedback and reirects to a thank you page" do
       allow(ActiveSupport::Notifications).to receive(:instrument).and_call_original
       expect(ActiveSupport::Notifications).to receive(:instrument)
         .with("tta.feedback", instance_of(TeacherTrainingAdviser::Feedback))
@@ -28,7 +28,7 @@ RSpec.describe "Feedback" do
       expect { post teacher_training_adviser_feedbacks_path, params: params }.to \
         change(TeacherTrainingAdviser::Feedback, :count).by(1)
 
-      expect(response).to redirect_to(TeacherTrainingAdviser::Feedback.last)
+      expect(response).to redirect_to(thank_you_teacher_training_adviser_feedbacks_path)
       follow_redirect!
       expect(response.body).to include("Thank you for your feedback.")
     end

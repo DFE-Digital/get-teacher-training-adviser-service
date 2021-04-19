@@ -10,13 +10,13 @@ module TeacherTrainingAdviser
 
       if @feedback.save
         ActiveSupport::Notifications.instrument("tta.feedback", @feedback)
-        redirect_to(@feedback)
+        redirect_to(thank_you_teacher_training_adviser_feedbacks_path)
       else
         render :new
       end
     end
 
-    def show
+    def thank_you
       @page_title = "Thank you for your feedback"
     end
 
