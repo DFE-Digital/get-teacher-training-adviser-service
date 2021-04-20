@@ -36,13 +36,13 @@ RSpec.feature "Feedback", type: :feature do
 
     feedback = create(:feedback)
 
-    within "form > .govuk-form-group:first-of-type" do
+    within "form > .govuk-grid-row > .govuk-grid-column-one-third:first-of-type" do
       fill_in "Day", with: feedback.created_at.day
       fill_in "Month", with: feedback.created_at.month
       fill_in "Year", with: feedback.created_at.year
     end
 
-    within "form > .govuk-form-group:last-of-type" do
+    within "form > .govuk-grid-row > .govuk-grid-column-one-third:last-of-type" do
       fill_in "Day", with: feedback.created_at.day
       fill_in "Month", with: feedback.created_at.month
       fill_in "Year", with: feedback.created_at.year

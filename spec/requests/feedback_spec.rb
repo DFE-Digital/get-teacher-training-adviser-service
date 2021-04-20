@@ -108,9 +108,9 @@ RSpec.describe "Feedback" do
       is_expected.to eq(
         <<~CSV,
           id,rating,successful_visit,unsuccessful_visit_explanation,improvements,created_at
-          #{feedback[2].created_at},satisfied,true,,,#{feedback[2].created_at}
-          #{feedback[1].created_at},very_dissatisfied,true,,,#{feedback[1].created_at}
-          #{feedback[0].created_at},very_satisfied,true,,,#{feedback[0].created_at}
+          #{feedback[2].id},satisfied,true,,,#{feedback[2].created_at}
+          #{feedback[1].id},very_dissatisfied,true,,,#{feedback[1].created_at}
+          #{feedback[0].id},very_satisfied,true,,,#{feedback[0].created_at}
         CSV
       )
     end
@@ -142,6 +142,62 @@ RSpec.describe "Feedback" do
             id,rating,successful_visit,unsuccessful_visit_explanation,improvements,created_at
           CSV
         )
+      end
+    end
+  end
+
+  describe "actions requiring basic auth" do
+    context "when not dev/test environment" do
+      before do
+        allow(Rails.env).to receive(:development?) { false }
+        allow(Rails.env).to receive(:test?) { false }
+        allow(Rails.application.credentials.config).to receive(:[]).and_call_original
+        allow(Rails.application.credentials.config).to receive(:[]).with(:http_auth) { "feedback=password1,user=password2" }
+      end
+
+      describe "#index" do
+        before { get teacher_training_adviser_feedbacks_path, params: {}, headers: headers }
+
+        it { is_expected.to have_http_status(:unauthorized) }
+
+        context "when feedback user" do
+          let(:headers) { basic_auth_headers("feedback", "password1") }
+
+          it { is_expected.to have_http_status(:success) }
+        end
+
+        context "when not feedback user" do
+          let(:headers) { basic_auth_headers("user", "password2") }
+
+          it { is_expected.to have_http_status(:forbidden) }
+        end
+      end
+
+      describe "#export" do
+        let(:params) do
+          {
+            teacher_training_adviser_feedback_search: {
+              created_on_or_after: DateTime.new(2020, 3, 1),
+              created_on_or_before: DateTime.new(2020, 3, 1),
+            },
+          }
+        end
+
+        before { post export_teacher_training_adviser_feedbacks_path(format: :csv), params: params, headers: headers }
+
+        it { is_expected.to have_http_status(:unauthorized) }
+
+        context "when feedback user" do
+          let(:headers) { basic_auth_headers("feedback", "password1") }
+
+          it { is_expected.to have_http_status(:success) }
+        end
+
+        context "when not feedback user" do
+          let(:headers) { basic_auth_headers("user", "password2") }
+
+          it { is_expected.to have_http_status(:forbidden) }
+        end
       end
     end
   end

@@ -6,6 +6,7 @@ module TeacherTrainingAdviser
 
     invisible_captcha only: [:create], timestamp_threshold: 1.second
     before_action :load_recent_feedback, only: %i[index export]
+    before_action :restrict_access, only: %i[index export]
 
     def new
       @page_title = "Give feedback on this service"
@@ -46,6 +47,16 @@ module TeacherTrainingAdviser
       else
         render :index, formats: %i[html]
       end
+    end
+
+    def restrict_access
+      raise_forbidden if authenticate? && session[:username] != "feedback"
+    end
+
+  protected
+
+    def authenticate?
+      !Rails.env.development? && !Rails.env.test?
     end
 
   private
