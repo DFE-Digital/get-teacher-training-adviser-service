@@ -77,6 +77,10 @@ module ApplicationHelper
     referer
   end
 
+  def human_boolean(boolean)
+    boolean ? "Yes" : "No"
+  end
+
 private
 
   def git_url(path = "")
