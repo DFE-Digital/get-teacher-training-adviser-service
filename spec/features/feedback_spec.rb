@@ -30,4 +30,31 @@ RSpec.feature "Feedback", type: :feature do
     expect(page.status_code).to eq(200)
     expect(page.body).to eq("")
   end
+
+  scenario "exporting feedback" do
+    visit teacher_training_adviser_feedbacks_path
+
+    feedback = create(:feedback)
+
+    within "form > .govuk-form-group:first-of-type" do
+      fill_in "Day", with: feedback.created_at.day
+      fill_in "Month", with: feedback.created_at.month
+      fill_in "Year", with: feedback.created_at.year
+    end
+
+    within "form > .govuk-form-group:last-of-type" do
+      fill_in "Day", with: feedback.created_at.day
+      fill_in "Month", with: feedback.created_at.month
+      fill_in "Year", with: feedback.created_at.year
+    end
+
+    click_on "Export CSV"
+
+    expect(page.body).to eq(
+      <<~CSV,
+        id,rating,successful_visit,unsuccessful_visit_explanation,improvements,created_at
+        #{feedback.id},satisfied,true,,,#{feedback.created_at}
+      CSV
+    )
+  end
 end
