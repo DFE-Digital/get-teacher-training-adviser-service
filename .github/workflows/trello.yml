@@ -18,12 +18,13 @@ jobs:
         id:   azSecret
         with:
            keyvault: ${{ secrets.KEY_VAULT}}
-           secrets: 'TRELLO-KEY, TRELLO-TOKEN'
-
+           secrets: 'TRELLO-KEY, TRELLO-TOKEN'         
+             
       - name: Add Trello Comment
+        if:   github.event.pull_request
         uses: DFE-Digital/github-actions/AddTrelloComment@master
         with:
           MESSAGE:      ${{ github.event.pull_request.html_url }} 
-          CARD:         ${{ github.event.pull_request.body }}         
+          CARD:         ${{ fromJSON( github.event.pull_request.body ) }}         
           TRELLO-KEY:   ${{ steps.azSecret.outputs.TRELLO-KEY}}
           TRELLO-TOKEN: ${{ steps.azSecret.outputs.TRELLO-TOKEN }}
