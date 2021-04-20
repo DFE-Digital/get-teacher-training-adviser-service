@@ -1,5 +1,7 @@
 module TeacherTrainingAdviser
   class FeedbacksController < ApplicationController
+    invisible_captcha only: [:create], timestamp_threshold: 1.second
+
     def new
       @page_title = "Give feedback on this service"
       @feedback = Feedback.new
