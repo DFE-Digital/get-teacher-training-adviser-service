@@ -43,5 +43,17 @@ module Prometheus
       docstring: "A counter of CSP violations",
       labels: %i[blocked_uri document_uri violated_directive],
     )
+
+    prometheus.counter(
+      :tta_feedback_visit_total,
+      docstring: "A counter of feedback visit responses",
+      labels: %i[successful],
+    )
+
+    prometheus.counter(
+      :tta_feedback_rating_total,
+      docstring: "A counter of feedback rating responses",
+      labels: %i[rating],
+    )
   end
 end

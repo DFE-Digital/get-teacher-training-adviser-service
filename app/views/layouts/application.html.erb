@@ -19,8 +19,8 @@
   </head>
 
   <%= analytics_body_tag class: "govuk-template__body govuk-body" do %>
-  
-  
+
+
 
     <header class="govuk-header" role="banner" data-module="govuk-header">
     <%= render partial: 'shared/cookie_banner' %>
@@ -52,12 +52,12 @@
             beta
           </strong>
           <span class="govuk-phase-banner__text">
-            This is a new service – your <a class="govuk-link" target="blank" href="https://docs.google.com/forms/d/e/1FAIpQLSdBXbU5nwP6_3TH7HY5rB4ehkSDNzfKqB5X2G7wG4K6LY97-g/viewform">feedback</a> will help us to improve it.
+            This is a new service – your <%= link_to("feedback", new_teacher_training_adviser_feedback_path, target: :blank) %> will help us to improve it.
           </span>
         </p>
       </div>
     </div>
-    
+
     <%= yield %>
 
     <%= render "layouts/footer" %>

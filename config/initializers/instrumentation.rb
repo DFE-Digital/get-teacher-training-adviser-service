@@ -81,3 +81,16 @@ ActiveSupport::Notifications.subscribe "tta.csp_violation" do |*args|
   metric = prometheus.get(:tta_csp_violations_total)
   metric.increment(labels: labels)
 end
+
+ActiveSupport::Notifications.subscribe "tta.feedback" do |*args|
+  event = ActiveSupport::Notifications::Event.new(*args)
+  feedback = event.payload
+
+  prometheus = Prometheus::Client.registry
+
+  metric = prometheus.get(:tta_feedback_visit_total)
+  metric.increment(labels: { successful: feedback.successful_visit?.to_s })
+
+  metric = prometheus.get(:tta_feedback_rating_total)
+  metric.increment(labels: { rating: feedback.rating.to_s })
+end
