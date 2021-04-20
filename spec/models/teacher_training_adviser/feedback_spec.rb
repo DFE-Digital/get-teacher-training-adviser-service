@@ -38,4 +38,46 @@ RSpec.describe TeacherTrainingAdviser::Feedback do
       it { is_expected.not_to validate_presence_of(:unsuccessful_visit_explanation) }
     end
   end
+
+  context "scope" do
+    describe ".recent" do
+      before do
+        5.times do
+          create(:feedback).tap { |f| f.update(created_at: rand(-5..5).days.ago) }
+        end
+      end
+
+      subject { described_class.recent.map(&:created_at) }
+
+      it { is_expected.to eq(subject.sort.reverse) }
+    end
+  end
+
+  context "created_at scopes" do
+    let(:date) { DateTime.new(2021, 10, 5, 12) }
+    let!(:feedback_before) do
+      create(:feedback).tap { |f| f.update(created_at: date - 1.day) }
+    end
+    let!(:feedback_on_after) do
+      create(:feedback).tap { |f| f.update(created_at: date + 10.minutes) }
+    end
+    let!(:feedback_on_before) do
+      create(:feedback).tap { |f| f.update(created_at: date - 10.minutes) }
+    end
+    let!(:feedback_after) do
+      create(:feedback).tap { |f| f.update(created_at: date + 1.day) }
+    end
+
+    describe ".on_or_after" do
+      subject { described_class.on_or_after(date.to_date) }
+
+      it { is_expected.to contain_exactly(feedback_on_before, feedback_on_after, feedback_after) }
+    end
+
+    describe ".on_or_before" do
+      subject { described_class.on_or_before(date.to_date) }
+
+      it { is_expected.to contain_exactly(feedback_on_before, feedback_on_after, feedback_before) }
+    end
+  end
 end
