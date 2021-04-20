@@ -8,6 +8,13 @@ RSpec.describe ErrorsController, type: :controller do
     end
   end
 
+  describe "GET #forbidden" do
+    it "returns forbidden" do
+      get :forbidden
+      expect(response).to have_http_status(:forbidden)
+    end
+  end
+
   describe "GET #internal_server_error" do
     it "returns internal_server_error" do
       get :internal_server_error

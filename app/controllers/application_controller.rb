@@ -1,16 +1,23 @@
 require "basic_auth"
 
 class ApplicationController < ActionController::Base
+  class ForbiddenError < StandardError; end
+
   default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
   before_action :http_basic_authenticate, if: :authenticate?
   before_action :set_api_client_request_id
 
   rescue_from ActionController::InvalidAuthenticityToken, with: :session_expired
   rescue_from ActionController::RoutingError, with: :render_not_found
+  rescue_from ForbiddenError, with: :render_forbidden
   rescue_from GetIntoTeachingApiClient::ApiError, with: :handle_api_error
 
   def raise_not_found
     raise ActionController::RoutingError, "Not Found"
+  end
+
+  def raise_forbidden
+    raise ForbiddenError, "Forbidden"
   end
 
 protected
@@ -33,6 +40,10 @@ private
     render_too_many_requests && return if error.code == 429
 
     raise
+  end
+
+  def render_forbidden
+    render template: "errors/forbidden", status: :forbidden, layout: "application"
   end
 
   def render_too_many_requests
