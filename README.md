@@ -99,8 +99,7 @@ files for each environment
 
 ### Variables
 
-`HTTPAUTH_USERNAME` and `HTTPAUTH_PASSWORD` - setting both enables site wide
-password protection
+Setting `http_auth` in the Rails credentials enables site wide password protection (in the format `http_auth: username1=password1,username2=password2,...`). The authenticated `username` will also be set in the `session` so that we can scope certain actions to certain credentials (the same username can have multiple passwords).
 
 ## DevOps
 

@@ -1,5 +1,5 @@
 locals {
-  environment_map = { HTTPAUTH_PASSWORD = data.azurerm_key_vault_secret.http_password.value, HTTPAUTH_USERNAME = data.azurerm_key_vault_secret.http_username.value }
+  environment_map = {}
 }
 
 resource "cloudfoundry_app" "adviser_application" {

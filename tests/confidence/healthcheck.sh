@@ -19,28 +19,20 @@ CONTENT_SHA=${3}
 #URL="get-teacher-training-adviser-service-dev"
 #APP_SHA="c243708"
 
-
-if [ -z "${HTTPAUTH_USERNAME}" ]
-then
-        AUTHORITY=""
-else 
-	AUTHORITY="--user ${HTTPAUTH_USERNAME}:${HTTPAUTH_PASSWORD}"
-fi
-
 rval=0
 FULL_URL="https://${URL}.london.cloudapps.digital/healthcheck.json"
-http_status=$(curl ${AUTHORITY} -o /dev/null -s -w "%{http_code}"  ${FULL_URL}) 
-if [ "${http_status}" != "200" ] 
+http_status=$(curl -o /dev/null -s -w "%{http_code}"  ${FULL_URL})
+if [ "${http_status}" != "200" ]
 then
 	echo "HTTP Status ${http_status}"
 	rval=1
 else
 	echo "HTTP Status is Healthy"
 
-        json=$(curl ${AUTHORITY}  -s -X GET ${FULL_URL})
+        json=$(curl -s -X GET ${FULL_URL})
 
         sha=$( echo ${json} | jq -r .app_sha)
-        if [ "${sha}" != "${APP_SHA}"  ] 
+        if [ "${sha}" != "${APP_SHA}"  ]
         then
 		echo "APPLICATION SHA (${sha}) is not ${APP_SHA} "
         	rval=1

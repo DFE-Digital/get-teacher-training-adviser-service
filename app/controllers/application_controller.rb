@@ -1,6 +1,8 @@
+require "basic_auth"
+
 class ApplicationController < ActionController::Base
   default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
-  before_action :http_basic_authenticate
+  before_action :http_basic_authenticate, if: :authenticate?
   before_action :set_api_client_request_id
 
   rescue_from ActionController::InvalidAuthenticityToken, with: :session_expired
@@ -9,6 +11,14 @@ class ApplicationController < ActionController::Base
 
   def raise_not_found
     raise ActionController::RoutingError, "Not Found"
+  end
+
+protected
+
+  def authenticate?
+    # Site-wide authentication present in all production-like
+    # environments, but not in production itself.
+    !Rails.env.production? && !Rails.env.test? && !Rails.env.development?
   end
 
 private
@@ -34,11 +44,12 @@ private
   end
 
   def http_basic_authenticate
-    return true if ENV["HTTPAUTH_USERNAME"].blank?
-
-    authenticate_or_request_with_http_basic do |name, password|
-      name == ENV["HTTPAUTH_USERNAME"].to_s &&
-        password == ENV["HTTPAUTH_PASSWORD"].to_s
+    authenticate_or_request_with_http_basic do |username, password|
+      if BasicAuth.authenticate(username, password)
+        session[:username] = username
+      else
+        false
+      end
     end
   end
 
