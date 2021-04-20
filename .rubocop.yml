@@ -19,3 +19,6 @@ Style/DateTime:
   VersionAdded: "0.51"
   VersionChanged: "0.59"
   AllowCoercion: false
+
+Style/ClassVars:
+  Enabled: false
