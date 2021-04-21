@@ -147,13 +147,16 @@ RSpec.describe "Feedback" do
   end
 
   describe "basic auth" do
+    before do
+      allow_basic_auth_users([
+        { username: "feedback", password: "password1" },
+        { username: "user", password: "password2" },
+      ])
+    end
+
     context "when in production" do
       before do
         allow(Rails).to receive(:env) { "production".inquiry }
-        allow_basic_auth_users([
-          { username: "feedback", password: "password1" },
-          { username: "user", password: "password2" },
-        ])
       end
 
       describe "#new" do
@@ -228,29 +231,59 @@ RSpec.describe "Feedback" do
       end
 
       describe "#new" do
-        before { get new_teacher_training_adviser_feedback_path }
+        before { get new_teacher_training_adviser_feedback_path, params: {}, headers: headers }
 
         it { is_expected.to have_http_status(:unauthorized) }
+
+        context "when not feedback user" do
+          let(:headers) { basic_auth_headers("user", "password2") }
+
+          it { is_expected.to have_http_status(:success) }
+        end
       end
 
       describe "#create" do
         let(:params) { { teacher_training_adviser_feedback: { rating: nil } } }
 
-        before { post teacher_training_adviser_feedbacks_path, params: params }
+        before { post teacher_training_adviser_feedbacks_path, params: params, headers: headers }
 
         it { is_expected.to have_http_status(:unauthorized) }
+
+        context "when not feedback user" do
+          let(:headers) { basic_auth_headers("user", "password2") }
+
+          it { is_expected.to have_http_status(:success) }
+        end
       end
 
       describe "#thank_you" do
-        before { get thank_you_teacher_training_adviser_feedbacks_path }
+        before { get thank_you_teacher_training_adviser_feedbacks_path, params: {}, headers: headers }
 
         it { is_expected.to have_http_status(:unauthorized) }
+
+        context "when not feedback user" do
+          let(:headers) { basic_auth_headers("user", "password2") }
+
+          it { is_expected.to have_http_status(:success) }
+        end
       end
 
       describe "#index" do
         before { get teacher_training_adviser_feedbacks_path, params: {}, headers: headers }
 
         it { is_expected.to have_http_status(:unauthorized) }
+
+        context "when not feedback user" do
+          let(:headers) { basic_auth_headers("user", "password2") }
+
+          it { is_expected.to have_http_status(:forbidden) }
+        end
+
+        context "when feedback user" do
+          let(:headers) { basic_auth_headers("feedback", "password1") }
+
+          it { is_expected.to have_http_status(:success) }
+        end
       end
 
       describe "#export" do
@@ -266,6 +299,18 @@ RSpec.describe "Feedback" do
         before { post export_teacher_training_adviser_feedbacks_path(format: :csv), params: params, headers: headers }
 
         it { is_expected.to have_http_status(:unauthorized) }
+
+        context "when not feedback user" do
+          let(:headers) { basic_auth_headers("user", "password2") }
+
+          it { is_expected.to have_http_status(:forbidden) }
+        end
+
+        context "when feedback user" do
+          let(:headers) { basic_auth_headers("feedback", "password1") }
+
+          it { is_expected.to have_http_status(:success) }
+        end
       end
     end
   end

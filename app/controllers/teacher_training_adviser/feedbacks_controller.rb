@@ -51,7 +51,8 @@ module TeacherTrainingAdviser
     end
 
     def restrict_access
-      raise_forbidden if session[:username] != "feedback"
+      raise_forbidden if RESTRICTED_ACTIONS.include?(action_name) &&
+        session[:username] != "feedback"
     end
 
   protected
