@@ -3,10 +3,11 @@ require "teacher_training_adviser/feedback_exporter"
 module TeacherTrainingAdviser
   class FeedbacksController < ApplicationController
     RECENT_AMOUNT = 10
+    RESTRICTED_ACTIONS = %w[index export].freeze
 
     invisible_captcha only: [:create], timestamp_threshold: 1.second
     before_action :load_recent_feedback, only: %i[index export]
-    before_action :restrict_access, only: %i[index export]
+    before_action :restrict_access, if: :authenticate?
 
     def new
       @page_title = "Give feedback on this service"
@@ -50,13 +51,15 @@ module TeacherTrainingAdviser
     end
 
     def restrict_access
-      raise_forbidden if authenticate? && session[:username] != "feedback"
+      raise_forbidden if session[:username] != "feedback"
     end
 
   protected
 
     def authenticate?
-      !Rails.env.development? && !Rails.env.test?
+      return false if Rails.env.test? || Rails.env.development?
+
+      Rails.env.production? ? RESTRICTED_ACTIONS.include?(action_name) : true
     end
 
   private
