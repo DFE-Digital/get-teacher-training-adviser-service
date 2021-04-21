@@ -1,6 +1,12 @@
+require "teacher_training_adviser/feedback_exporter"
+
 module TeacherTrainingAdviser
   class FeedbacksController < ApplicationController
+    RECENT_AMOUNT = 10
+
     invisible_captcha only: [:create], timestamp_threshold: 1.second
+    before_action :load_recent_feedback, only: %i[index export]
+    before_action :restrict_access, only: %i[index export]
 
     def new
       @page_title = "Give feedback on this service"
@@ -22,7 +28,42 @@ module TeacherTrainingAdviser
       @page_title = "Thank you for your feedback"
     end
 
+    def index
+      @page_title = "Service feedback"
+      @search = FeedbackSearch.new
+    end
+
+    def export
+      @page_title = "Export feedback"
+      @search = FeedbackSearch.new(feedback_search_params)
+
+      if @search.valid?
+        filename = "feedback-#{@search.range.join('--')}"
+        exporter = FeedbackExporter.new(@search.results)
+
+        respond_to do |format|
+          format.csv { send_data exporter.to_csv, filename: "#{filename}.csv" }
+        end
+      else
+        render :index, formats: %i[html]
+      end
+    end
+
+    def restrict_access
+      raise_forbidden if authenticate? && session[:username] != "feedback"
+    end
+
+  protected
+
+    def authenticate?
+      !Rails.env.development? && !Rails.env.test?
+    end
+
   private
+
+    def load_recent_feedback
+      @recent_feedback = Feedback.recent.limit(RECENT_AMOUNT)
+    end
 
     def feedback_params
       params.require(:teacher_training_adviser_feedback).permit(
@@ -30,6 +71,13 @@ module TeacherTrainingAdviser
         :improvements,
         :successful_visit,
         :unsuccessful_visit_explanation,
+      )
+    end
+
+    def feedback_search_params
+      params.require(:teacher_training_adviser_feedback_search).permit(
+        :created_on_or_after,
+        :created_on_or_before,
       )
     end
   end

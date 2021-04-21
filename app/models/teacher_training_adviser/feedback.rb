@@ -1,5 +1,9 @@
 module TeacherTrainingAdviser
   class Feedback < ApplicationRecord
+    scope :recent, -> { order(created_at: :desc) }
+    scope :on_or_after, ->(date) { where("created_at >= ?", date.beginning_of_day) }
+    scope :on_or_before, ->(date) { where("created_at <= ?", date.end_of_day) }
+
     before_validation :sanitize_input
 
     enum rating: {

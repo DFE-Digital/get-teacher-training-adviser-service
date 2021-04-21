@@ -14,7 +14,7 @@ class BasicAuth
     end
 
     def http_auth
-      Rails.application.credentials.config[:http_auth]
+      Rails.application.credentials.config[:http_auth] || ""
     end
   end
 end

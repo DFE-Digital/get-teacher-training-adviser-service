@@ -85,10 +85,7 @@ RSpec.describe "Instrumentation" do
   describe "tta.feedback" do
     let(:params) do
       {
-        teacher_training_adviser_feedback: {
-          successful_visit: true,
-          rating: :satisfied,
-        },
+        teacher_training_adviser_feedback: attributes_for(:feedback),
       }
     end
 

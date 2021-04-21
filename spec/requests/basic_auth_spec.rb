@@ -5,6 +5,7 @@ RSpec.describe "Basic auth", type: :request do
   let(:password) { "password" }
 
   before do
+    allow(Rails.application.credentials.config).to receive(:[]).and_call_original
     allow(Rails.application.credentials.config).to receive(:[]).with(:http_auth) { "#{username}=#{password}" }
   end
 
@@ -39,10 +40,5 @@ RSpec.describe "Basic auth", type: :request do
       expect(response).to be_successful
       expect(request.session[:username]).to eq(username)
     end
-  end
-
-  def basic_auth_headers(username, password)
-    value = ActionController::HttpAuthentication::Basic.encode_credentials(username, password)
-    { "HTTP_AUTHORIZATION" => value }
   end
 end
