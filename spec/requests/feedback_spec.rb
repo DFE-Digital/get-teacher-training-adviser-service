@@ -146,14 +146,34 @@ RSpec.describe "Feedback" do
     end
   end
 
-  describe "actions requiring basic auth" do
-    context "when not dev/test environment" do
+  describe "basic auth" do
+    context "when in production" do
       before do
         allow(Rails).to receive(:env) { "production".inquiry }
         allow_basic_auth_users([
           { username: "feedback", password: "password1" },
           { username: "user", password: "password2" },
         ])
+      end
+
+      describe "#new" do
+        before { get new_teacher_training_adviser_feedback_path }
+
+        it { is_expected.to have_http_status(:success) }
+      end
+
+      describe "#create" do
+        let(:params) { { teacher_training_adviser_feedback: { rating: nil } } }
+
+        before { post teacher_training_adviser_feedbacks_path, params: params }
+
+        it { is_expected.to have_http_status(:success) }
+      end
+
+      describe "#thank_you" do
+        before { get thank_you_teacher_training_adviser_feedbacks_path }
+
+        it { is_expected.to have_http_status(:success) }
       end
 
       describe "#index" do
@@ -199,6 +219,53 @@ RSpec.describe "Feedback" do
 
           it { is_expected.to have_http_status(:forbidden) }
         end
+      end
+    end
+
+    context "when in a production-like environment (rolling/preprod)" do
+      before do
+        allow(Rails).to receive(:env) { "rolling".inquiry }
+      end
+
+      describe "#new" do
+        before { get new_teacher_training_adviser_feedback_path }
+
+        it { is_expected.to have_http_status(:unauthorized) }
+      end
+
+      describe "#create" do
+        let(:params) { { teacher_training_adviser_feedback: { rating: nil } } }
+
+        before { post teacher_training_adviser_feedbacks_path, params: params }
+
+        it { is_expected.to have_http_status(:unauthorized) }
+      end
+
+      describe "#thank_you" do
+        before { get thank_you_teacher_training_adviser_feedbacks_path }
+
+        it { is_expected.to have_http_status(:unauthorized) }
+      end
+
+      describe "#index" do
+        before { get teacher_training_adviser_feedbacks_path, params: {}, headers: headers }
+
+        it { is_expected.to have_http_status(:unauthorized) }
+      end
+
+      describe "#export" do
+        let(:params) do
+          {
+            teacher_training_adviser_feedback_search: {
+              created_on_or_after: DateTime.new(2020, 3, 1),
+              created_on_or_before: DateTime.new(2020, 3, 1),
+            },
+          }
+        end
+
+        before { post export_teacher_training_adviser_feedbacks_path(format: :csv), params: params, headers: headers }
+
+        it { is_expected.to have_http_status(:unauthorized) }
       end
     end
   end
