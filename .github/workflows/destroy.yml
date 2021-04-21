@@ -56,11 +56,3 @@ jobs:
           ARM_ACCESS_KEY:               ${{ secrets.ARM_ACCESS_KEY  }}
           TF_VAR_AZURE_CREDENTIALS:     ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Slack Notification
-        if: failure()
-        uses: rtCamp/action-slack-notify@master
-        env:
-          SLACK_COLOR: ${{env.SLACK_FAILURE}}
-          SLACK_TITLE: Failure Closing Review
-          SLACK_MESSAGE: Failure closing ${{env.APPLICATION}} review
-          SLACK_WEBHOOK: ${{ steps.azSecret.outputs.SLACK-WEBHOOK }} 
