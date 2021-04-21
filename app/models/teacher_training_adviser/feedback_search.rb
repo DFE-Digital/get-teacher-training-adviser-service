@@ -9,7 +9,7 @@ module TeacherTrainingAdviser
     include ::ActiveRecord::AttributeAssignment
 
     attribute :created_on_or_after, :date, default: -> { Time.zone.now.beginning_of_month.utc }
-    attribute :created_on_or_before, :date, default: -> { Time.zone.now.utc }
+    attribute :created_on_or_before, :date, default: -> { Time.zone.now.end_of_day.utc }
 
     validates :created_on_or_after, presence: true
     validates :created_on_or_before, presence: true
@@ -17,7 +17,7 @@ module TeacherTrainingAdviser
       on_or_before: :created_on_or_before,
     }
     validates :created_on_or_before, timeliness: {
-      on_or_before: Time.zone.now.utc,
+      on_or_before: Time.zone.now.end_of_day.utc,
     }
 
     def range

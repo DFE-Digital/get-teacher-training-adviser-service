@@ -12,7 +12,7 @@ RSpec.describe TeacherTrainingAdviser::FeedbackSearch do
     it { is_expected.to validate_presence_of(:created_on_or_before) }
     it { is_expected.to validate_presence_of(:created_on_or_after) }
     it { is_expected.to allow_value(Time.zone.now.utc, 1.day.ago).for :created_on_or_before }
-    it { is_expected.to_not allow_value(1.day.from_now).for :created_on_or_before }
+    it { is_expected.to_not allow_value(2.days.from_now).for :created_on_or_before }
 
     context "when created_on_or_before is 5/2/2020" do
       before { subject.created_on_or_before = Date.new(2020, 2, 5) }
@@ -31,7 +31,7 @@ RSpec.describe TeacherTrainingAdviser::FeedbackSearch do
   describe "#created_on_or_before" do
     subject { instance.created_on_or_before }
 
-    it { is_expected.to eq(Time.zone.now.utc.to_date) }
+    it { is_expected.to eq(Time.zone.now.end_of_day.utc.to_date) }
   end
 
   describe "#range" do
