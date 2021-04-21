@@ -52,7 +52,7 @@ module ApplicationHelper
   end
 
   def link_to_change_answer(step)
-    link_to(teacher_training_adviser_step_path(step.key), { class: "govuk-link" }) do
+    link_to(teacher_training_adviser_step_path(step.key)) do
       safe_html_format("Change <span class='visually-hidden'> #{step.key.humanize(capitalize: false)}</span>")
     end
   end

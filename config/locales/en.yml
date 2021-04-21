@@ -43,6 +43,30 @@ en:
       teacher_training_adviser_feedback_search:
         created_on_or_after: "Created on or after"
         created_on_or_before: "Created on or before"
+      teacher_training_adviser_steps_date_of_birth:
+        date_of_birth: "Enter your date of birth"
+      teacher_training_adviser_steps_uk_or_overseas:
+        uk_or_overseas: "Where do you live?"
+      teacher_training_adviser_steps_subject_like_to_teach:
+        preferred_teaching_subject_id: "Which subject would you like to teach if you return to teaching?"
+      teacher_training_adviser_steps_stage_of_degree:
+        degree_status_id: "In which year are you studying?"
+      teacher_training_adviser_steps_stage_interested_teaching:
+        preferred_education_phase_id: "Which stage are you interested in teaching?"
+      teacher_training_adviser_steps_gcse_science:
+        has_gcse_science_id: "Do you have grade 4 (C) or above in GCSE science, or equivalent?"
+      teacher_training_adviser_steps_retake_gcse_maths_english:
+        planning_to_retake_gcse_maths_and_english_id: "Are you planning to retake either English or maths (or both) GCSEs, or equivalent?"
+      teacher_training_adviser_steps_retake_gcse_science:
+        planning_to_retake_gcse_science_id: "Are you planning to retake your science GCSE?"
+      teacher_training_adviser_steps_gcse_maths_english:
+        has_gcse_maths_and_english_id: "Do you have grade 4 (C) or above in English and maths GCSEs, or equivalent?"
+      teacher_training_adviser_steps_returning_teacher:
+        type_id: "Are you returning to teaching?"
+      teacher_training_adviser_steps_has_teacher_id:
+        has_id: "Do you have your previous teacher reference number?"
+      teacher_training_adviser_steps_have_a_degree:
+        degree_options: "Do you have a degree?"
     label:
       teacher_training_adviser_feedback:
         unsuccessful_visit_explanation: "Give details"
@@ -53,6 +77,84 @@ en:
           neither_satisfied_or_dissatisfied: "Neither satisfied or dissatisfied"
           dissatisfied: "Dissatisfied"
           very_dissatisfied: "Very dissatisfied"
+      teacher_training_adviser_steps_identity:
+          first_name: "First name"
+          last_name: "Last name"
+          email: "Email address"
+      teacher_training_adviser_steps_overseas_time_zone:
+        telephone: "Contact telephone number"
+      teacher_training_adviser_steps_overseas_telephone:
+        telephone: "Overseas telephone number (optional)"
+      teacher_training_adviser_steps_previous_teacher_id:
+        teacher_id: "Teacher reference number (optional)."
+      teacher_training_adviser_steps_what_subject_degree:
+        degree_subject: "What subject is your degree?"
+      teacher_training_adviser_steps_subject_taught:
+        subject_taught_id: "Which main subject did you previously teach?"
+      teacher_training_adviser_steps_subject_interested_teaching:
+        preferred_teaching_subject_id: "Which subject would you like to teach?"
+      teacher_training_adviser_steps_start_teacher_training:
+        initial_teacher_training_year_id: "When do you want to start your teacher training?"
+      teacher_training_adviser_steps_uk_telephone:
+        telephone: "UK telephone number (optional)"
+      teacher_training_adviser_steps_uk_callback:
+        telephone: "Contact telephone number"
+      teacher_training_adviser_steps_overseas_country:
+        country_id: "Which country do you live in?"
+      teacher_training_adviser_steps_uk_address:
+        address_line1: "Address line 1"
+        address_line2: "Address line 2 (optional)"
+        address_city: "Town or City"
+        address_postcode: "Postcode"
+      teacher_training_adviser_steps_uk_or_overseas:
+        uk_or_overseas_options:
+          UK: "UK"
+          Overseas: "Overseas"
+      teacher_training_adviser_steps_stage_interested_teaching:
+        preferred_education_phase_id_options:
+          222750000: "Primary"
+          222750001: "Secondary"
+      teacher_training_adviser_steps_gcse_science:
+        has_gcse_science_id_options:
+          222750000: "Yes"
+          222750001: "No"
+      teacher_training_adviser_steps_retake_gcse_maths_english:
+        planning_to_retake_gcse_maths_and_english_id_options:
+          222750000: "Yes"
+          222750001: "No"
+      teacher_training_adviser_steps_retake_gcse_science:
+        planning_to_retake_gcse_science_id_options:
+          222750000: "Yes"
+          222750001: "No"
+      teacher_training_adviser_steps_gcse_maths_english:
+        has_gcse_maths_and_english_id_options:
+          222750000: "Yes"
+          222750001: "No"
+      teacher_training_adviser_steps_returning_teacher:
+        type_id_options:
+          222750001: "Yes"
+          222750000: "No"
+      teacher_training_adviser_steps_have_a_degree:
+        degree_options_options:
+          "yes": "Yes"
+          "no": "No"
+          studying: "I'm studying for a degree"
+          equivalent: "I have an equivalent qualification from another country"
+    hint:
+      teacher_training_adviser_steps_what_subject_degree:
+        degree_subject: "If your subject is not listed choose the option that is nearest to your degree."
+      teacher_training_adviser_steps_uk_telephone:
+        telephone: "We recommend you provide us with your phone number as this is the most effective way to talk to your adviser."
+      teacher_training_adviser_steps_stage_interested_teaching:
+        preferred_education_phase_id: "Select a stage even if you're not sure yet, as this will not affect the sign up process."
+      teacher_training_adviser_steps_returning_teacher:
+        type_id: "If you have an overseas teaching qualification that's equivalent to our qualified teacher status (QTS), then select the 'yes' option and take the 'returning to teaching' route."
+      teacher_training_adviser_steps_have_a_degree:
+        degree_options: "To use this service your bachelor's degree or predicted grade needs to be a 2:2 class honours or above."
+      teacher_training_adviser_steps_overseas_telephone:
+        telephone_html: "We recommend you provide us with your phone number as this is the most effective way to talk to your adviser.<br /><br />For international numbers include the country code."
+      teacher_training_adviser_steps_date_of_birth:
+        date_of_birth: "For example, 31 3 1980. We use this information to confirm you are aged 18 or over."
   have_a_degree:
     degree_options:
       "yes": "Yes"

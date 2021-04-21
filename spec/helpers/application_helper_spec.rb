@@ -115,7 +115,7 @@ RSpec.describe ApplicationHelper do
   describe "#link_to_change_answer" do
     it "returns a link to the sign up step" do
       expect(link_to_change_answer(TeacherTrainingAdviser::Steps::Identity)).to eq(
-        "<a class=\"govuk-link\" href=\"/teacher_training_adviser/sign_up/identity\">Change <span class=\"visually-hidden\"> identity</span></a>",
+        "<a href=\"/teacher_training_adviser/sign_up/identity\">Change <span class=\"visually-hidden\"> identity</span></a>",
       )
     end
   end
@@ -141,9 +141,9 @@ RSpec.describe ApplicationHelper do
     end
 
     context "with path" do
-      subject { link_to_git_site "Show content", "content/page", class: "govuk-link" }
-      it { is_expected.to have_css 'a.govuk-link[href="http://test.url/content/page"]' }
-      it { is_expected.to have_css "a.govuk-link", text: "Show content" }
+      subject { link_to_git_site "Show content", "content/page" }
+      it { is_expected.to have_css 'a[href="http://test.url/content/page"]' }
+      it { is_expected.to have_css "a", text: "Show content" }
     end
 
     context "with attributes" do

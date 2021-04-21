@@ -1,5 +1,5 @@
 <%= f.govuk_fieldset legend: { text: 'Verify your email address' } do %>
-<p class="govuk-body">We need you to check your email and enter the verification code to continue.</p>
+<p>We need you to check your email and enter the verification code to continue.</p>
 
 <%= render "wizard/steps/authenticate", f: f, email: session["sign_up"]["email"], resend_verification_path: resend_verification_teacher_training_adviser_steps_path %>
 <% end %>
