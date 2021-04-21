@@ -108,9 +108,9 @@ RSpec.describe "Feedback" do
       is_expected.to eq(
         <<~CSV,
           id,rating,successful_visit,unsuccessful_visit_explanation,improvements,created_at
-          #{feedback[2].id},satisfied,true,,,#{feedback[2].created_at}
-          #{feedback[1].id},very_dissatisfied,true,,,#{feedback[1].created_at}
-          #{feedback[0].id},very_satisfied,true,,,#{feedback[0].created_at}
+          #{feedback[2].id},satisfied,true,"","",#{feedback[2].created_at}
+          #{feedback[1].id},very_dissatisfied,true,"","",#{feedback[1].created_at}
+          #{feedback[0].id},very_satisfied,true,"","",#{feedback[0].created_at}
         CSV
       )
     end
