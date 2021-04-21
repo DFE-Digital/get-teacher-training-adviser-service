@@ -149,10 +149,11 @@ RSpec.describe "Feedback" do
   describe "actions requiring basic auth" do
     context "when not dev/test environment" do
       before do
-        allow(Rails.env).to receive(:development?) { false }
-        allow(Rails.env).to receive(:test?) { false }
-        allow(Rails.application.credentials.config).to receive(:[]).and_call_original
-        allow(Rails.application.credentials.config).to receive(:[]).with(:http_auth) { "feedback=password1,user=password2" }
+        allow(Rails).to receive(:env) { "production".inquiry }
+        allow_basic_auth_users([
+          { username: "feedback", password: "password1" },
+          { username: "user", password: "password2" },
+        ])
       end
 
       describe "#index" do
