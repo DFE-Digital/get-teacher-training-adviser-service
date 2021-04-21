@@ -5,8 +5,7 @@ RSpec.describe "Basic auth", type: :request do
   let(:password) { "password" }
 
   before do
-    allow(Rails.application.credentials.config).to receive(:[]).and_call_original
-    allow(Rails.application.credentials.config).to receive(:[]).with(:http_auth) { "#{username}=#{password}" }
+    allow_basic_auth_users([{ username: username, password: password }])
   end
 
   it "is not enforced on non-production environments" do
@@ -15,7 +14,7 @@ RSpec.describe "Basic auth", type: :request do
   end
 
   context "when production" do
-    before { allow(Rails.env).to receive(:production?) { true } }
+    before { allow(Rails).to receive(:env) { "production".inquiry } }
 
     it "is not enforced" do
       get root_path
@@ -24,11 +23,7 @@ RSpec.describe "Basic auth", type: :request do
   end
 
   context "when production-like (but not production)" do
-    before do
-      allow(Rails.env).to receive(:test?) { false }
-      allow(Rails.env).to receive(:development?) { false }
-      allow(Rails.env).to receive(:production?) { false }
-    end
+    before { allow(Rails).to receive(:env) { "rolling".inquiry } }
 
     it "returns unauthorized if credentials do not match" do
       get root_path, params: {}, headers: basic_auth_headers(username, "wrong-password")
