@@ -1,5 +1,1 @@
-<%= f.govuk_radio_buttons_fieldset(:preferred_education_phase_id, legend: { text: 'Which stage are you interested in teaching?'},
-  hint: { text: "Select a stage even if you're not sure yet, as this will not affect the sign up process." }, inline: true ) do %>
-  <%= f.govuk_radio_button :preferred_education_phase_id, f.object.class::OPTIONS[:primary], label: { text: 'Primary' }, link_errors: true %>
-  <%= f.govuk_radio_button :preferred_education_phase_id, f.object.class::OPTIONS[:secondary], label: { text: 'Secondary' } %>
-<% end %>
+<%= f.govuk_collection_radio_buttons :preferred_education_phase_id, f.object.class::OPTIONS, :last, nil, inline: true %>
