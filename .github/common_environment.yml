@@ -1,4 +1,4 @@
-  DOCKERHUB_REPOSITORY:  dfedigital/get-teacher-training-adviser-service
+  DOCKER_REPOSITORY:     ghcr.io/dfe-digital/get-teacher-training-adviser-service
   DOMAIN:                london.cloudapps.digital
   APPLICATION:           Teacher Training Adviser Service
   PAAS_APPLICATION_NAME: get-teacher-training-adviser-service

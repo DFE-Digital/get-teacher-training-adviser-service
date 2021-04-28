@@ -1,4 +1,4 @@
-name: Build Docker Image
+name: Build, Test and Deploy Application 
 on:
   pull_request:
     types: [assigned, opened, synchronize, reopened]
@@ -7,10 +7,11 @@ on:
       - master
 
 jobs:
-  turnstyle:
+  build:
+    name: Build 
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-    environment: Development
+    outputs:
+      DOCKER_IMAGE: ${{steps.sha.outputs.DOCKER_IMAGE}}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -26,30 +27,64 @@ jobs:
         id:   azSecret
         with:
            keyvault: ${{ secrets.KEY_VAULT}}
-           secrets: 'SLACK-WEBHOOK'
+           secrets: 'ACTIONS-API-ACCESS-TOKEN'
 
-      - name: Check workflow concurrency
-        uses: softprops/turnstyle@v1
+      - name: Lint Dockerfile
+        uses: brpaz/hadolint-action@master
         with:
-          poll-interval-seconds: 20
-          same-branch-only: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+             dockerfile: "Dockerfile"
 
-      - name: Slack Notification
-        if: failure()
-        uses: rtCamp/action-slack-notify@master
-        env:
-          SLACK_COLOR: ${{env.SLACK_ERROR}}
-          SLACK_MESSAGE: Workflow concurrency issue
-          SLACK_TITLE: Turnstyle failure ${{ github.workflow }}
-          SLACK_WEBHOOK: ${{ steps.azSecret.outputs.SLACK-WEBHOOK }}
+      - name: Setup sonarqube
+        uses: warchant/setup-sonar-scanner@v3
 
-  build:
-    name: Build and Test
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@master
+        with:
+          driver-opts: network=host
+
+      - name: Get Settings
+        id: sha
+        run: |
+             echo ::set-output name=short::$(echo "${{ github.sha }}" | cut -c -7)
+             if [ "${{github.ref}}" == "refs/heads/master" ]
+             then
+                echo ::set-output name=DOCKER_IMAGE::${{ env.DOCKER_REPOSITORY }}:sha-${{ steps.sha.outputs.short }}
+             else
+                echo ::set-output name=DOCKER_IMAGE::${{ env.DOCKER_REPOSITORY }}:review-${{steps.sha.outputs.short }}
+             fi
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2.1.5
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+             ${{ runner.os }}-buildx-
+
+      - name: Login to GHCR
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ steps.azSecret.outputs.ACTIONS-API-ACCESS-TOKEN }}
+
+      - name: Build master and push to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+          tags: |
+                 ${{ steps.sha.outputs.DOCKER_IMAGE }}
+          push: true
+          build-args: |
+                      APP_SHA=${{ steps.sha.outputs.short }}
+
+  test:
+    name: Unit Tests 
     runs-on: ubuntu-latest
-    environment: Development
-    needs: turnstyle
+    needs: [ build ]
     services:
       registry:
         image: registry:2
@@ -82,80 +117,15 @@ jobs:
         id:   azSecret
         with:
            keyvault: ${{ secrets.KEY_VAULT}}
-           secrets: 'SLACK-WEBHOOK, DOCKER-USERNAME, DOCKER-PASSWORD , ACTIONS-API-ACCESS-TOKEN, SONAR-TOKEN'
-
-      - name: Lint Dockerfile
-        uses: brpaz/hadolint-action@master
-        with:
-             dockerfile: "Dockerfile"
-
-      - name: Setup sonarqube
-        uses: warchant/setup-sonar-scanner@v3
-
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@master
-        with:
-          driver-opts: network=host
-
-      - name: Get Settings
-        id: sha
-        run: |
-              echo ::set-output name=short::$(echo "${{ github.sha }}" | cut -c -7)
-              echo ::set-output name=image::${{ env.DOCKERHUB_REPOSITORY }}:sha-$(echo "${{ github.sha }}" | cut -c -7)
-              echo ::set-output name=local::localhost:5000/${{env.DOCKERHUB_REPOSITORY}}:sha-$(echo "${{ github.sha }}" | cut -c -7)
-              echo ::set-output name=pr_image::${{ env.DOCKERHUB_REPOSITORY }}:review-$(echo "${{ github.sha }}" | cut -c -7)
-
-      - name: Cache Docker layers
-        uses: actions/cache@v2.1.5
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-             ${{ runner.os }}-buildx-
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ steps.azSecret.outputs.DOCKER-USERNAME }}
-          password: ${{ steps.azSecret.outputs.DOCKER-PASSWORD }}
-
-
-      - name: Build master and push to Docker Hub
-        if: github.ref == 'refs/heads/master'
-        uses: docker/build-push-action@v2
-        with:
-          builder: ${{ steps.buildx.outputs.name }}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
-          tags: |
-                 ${{ steps.sha.outputs.image }}
-                 ${{ steps.sha.outputs.local }}
-          push: true
-          build-args: |
-                      APP_SHA=${{ steps.sha.outputs.short }}
-
-      - name: Build PR and push to Docker Hub
-        if: github.ref != 'refs/heads/master'
-        uses: docker/build-push-action@v2
-        with:
-          builder: ${{ steps.buildx.outputs.name }}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
-          tags: |
-                 ${{ steps.sha.outputs.pr_image }}
-                 ${{ steps.sha.outputs.local }}
-          push: true
-          build-args: |
-                      APP_SHA=${{ steps.sha.outputs.short }}
+           secrets: 'SLACK-WEBHOOK,  ACTIONS-API-ACCESS-TOKEN, SONAR-TOKEN'
 
       - name: Prepare DB
         run: |-
-          docker run --net=host -t --rm -e RAILS_ENV=test -e DATABASE_URL="postgresql://postgres:postgres@localhost" ${{ steps.sha.outputs.local }} rails db:prepare
+          docker run --net=host -t --rm -e RAILS_ENV=test -e DATABASE_URL="postgresql://postgres:postgres@localhost" ${{ needs.build.outputs.DOCKER_IMAGE }} rails db:prepare
 
       - name: Run Specs
         run: |-
-          docker run --net=host -t --rm -v ${PWD}/out:/app/out -v ${PWD}/coverage:/app/coverage -e RAILS_ENV=test -e DATABASE_URL="postgresql://postgres:postgres@localhost" ${{ steps.sha.outputs.local }} \
+          docker run --net=host -t --rm -v ${PWD}/out:/app/out -v ${PWD}/coverage:/app/coverage -e RAILS_ENV=test -e DATABASE_URL="postgresql://postgres:postgres@localhost" ${{ needs.build.outputs.DOCKER_IMAGE }} \
             rspec --format RspecSonarqubeFormatter --out /app/out/test-report.xml --format documentation
 
       - name: Fixup report file paths
@@ -175,14 +145,9 @@ jobs:
           name: unit_tests
           path: ${{ github.workspace }}/out/*
 
-      - name: Run Javascript Tests
-        run: |-
-          docker run -t --rm -e RAILS_ENV=test -e NODE_ENV=test -e CI=true \
-            ${{ steps.sha.outputs.local }} "yarn && yarn spec"
-
       - name: Lint Ruby
         run: |-
-          docker run -t --rm -v ${PWD}/out:/app/out -e RAILS_ENV=test ${{ steps.sha.outputs.local }} \
+          docker run -t --rm -v ${PWD}/out:/app/out -e RAILS_ENV=test ${{ needs.build.outputs.DOCKER_IMAGE }} \
             rubocop app config db lib spec Gemfile --format json --out=/app/out/rubocop-result.json
 
       - name:  Keep Rubocop output
@@ -192,9 +157,6 @@ jobs:
           name: Rubocop_results
           path: ${{ github.workspace }}/out/rubocop-result.json
 
-      - name: Run Brakeman static security scanner
-        run: |-
-          docker run -t --rm -e RAILS_ENV=test ${{ steps.sha.outputs.local }} brakeman --no-pager
 
       - name: Run sonarqube
         env:
@@ -208,13 +170,39 @@ jobs:
            -Dsonar.ruby.coverage.reportPaths=${PWD}/coverage/coverage.json
            -Dsonar.ruby.rubocop.reportPaths=${PWD}/out/rubocop-result.json
 
-      - name: Trigger CVE Testing
-        if: github.ref == 'refs/heads/master'
-        uses: benc-uk/workflow-dispatch@v1.1
+      - name: Slack Notification
+        if: failure() && github.ref == 'refs/heads/master'
+        uses: rtCamp/action-slack-notify@master
+        env:
+           SLACK_COLOR:   ${{env.SLACK_FAILURE}}
+           SLACK_TITLE:   'Failure: Building Master ${{env.APPLICATION}} ${{github.ref}}'
+           SLACK_TEXT:    'The build has failed on the UNIT TESTS. Please click on the Actions URL to investigate the problem.'
+           SLACK_WEBHOOK: ${{ steps.azSecret.outputs.SLACK-WEBHOOK }}
+
+  brakeman:
+    name: Brakeman
+    runs-on: ubuntu-latest
+    needs: [ build ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: set-up-environment
+        uses: DFE-Digital/github-actions/set-up-environment@master
+
+      - uses: Azure/login@v1
         with:
-           workflow: cve
-           token: ${{  steps.azSecret.outputs.ACTIONS-API-ACCESS-TOKEN }}
-           inputs: '{"image": "${{ steps.sha.outputs.image }}"}'
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - uses: Azure/get-keyvault-secrets@v1
+        id:   azSecret
+        with:
+           keyvault: ${{ secrets.KEY_VAULT}}
+           secrets: 'SLACK-WEBHOOK'
+
+      - name: Run Brakeman static security scanner
+        run: |-
+          docker run -t --rm -e RAILS_ENV=test ${{ needs.build.outputs.DOCKER_IMAGE }} brakeman --no-pager
 
       - name: Slack Notification
         if: failure() && github.ref == 'refs/heads/master'
@@ -222,13 +210,76 @@ jobs:
         env:
            SLACK_COLOR:   ${{env.SLACK_FAILURE}}
            SLACK_TITLE:   'Failure: Building Master ${{env.APPLICATION}} ${{github.ref}}'
-           SLACK_TEXT:    'The build has failed please click on the Actions URL to investigate the problem.'
+           SLACK_TEXT:    'The build has failed on the BRAKEMAN TESTS. Please click on the Actions URL to investigate the problem.'
            SLACK_WEBHOOK: ${{ steps.azSecret.outputs.SLACK-WEBHOOK }}
+
+  test-java:
+    name: JavaScript Tests 
+    runs-on: ubuntu-latest
+    needs: [ build ]
+    steps:
+      - name: Run Javascript Tests
+        run: |-
+          docker run -t --rm -e RAILS_ENV=test -e NODE_ENV=test -e CI=true \
+            ${{ needs.build.outputs.DOCKER_IMAGE }} "yarn && yarn spec"
+
+      - name: Slack Notification
+        if: failure() && github.ref == 'refs/heads/master'
+        uses: rtCamp/action-slack-notify@master
+        env:
+           SLACK_COLOR:   ${{env.SLACK_FAILURE}}
+           SLACK_TITLE:   'Failure: Building Master ${{env.APPLICATION}} ${{github.ref}}'
+           SLACK_TEXT:    'The build has failed running the JAVASCRIPT Tests. Please click on the Actions URL to investigate the problem.'
+           SLACK_WEBHOOK: ${{ steps.azSecret.outputs.SLACK-WEBHOOK }}
+
+
+  cve:
+    name: CVE Test
+    runs-on: ubuntu-latest
+    needs: [ build ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: set-up-environment
+        uses: DFE-Digital/github-actions/set-up-environment@master
+
+      - uses: Azure/login@v1
+        with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - uses: Azure/get-keyvault-secrets@v1
+        id:   azSecret
+        with:
+           keyvault: ${{ secrets.KEY_VAULT}}
+           secrets: 'SLACK-WEBHOOK'
+
+      - name: Scan image
+        uses: anchore/scan-action@v2
+        with:
+          image: ${{github.event.inputs.image}}
+          fail-build: false
+          severity-cutoff: high
+          acs-report-enable: true
+
+      - name: upload Anchore scan SARIF report
+        if: always()
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: results.sarif
+
+      - name: Slack Notification
+        if: failure() && github.ref == 'refs/heads/master'
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_COLOR: ${{env.SLACK_FAILURE}}
+          SLACK_WEBHOOK: ${{ steps.azSecret.outputs.SLACK-WEBHOOK }}
+          SLACK_TITLE:   'Failure: Building Master ${{env.APPLICATION}} ${{github.ref}}'
+          SLACK_TEXT:    'The build has failed running the CVE Tests. Please click on the Actions URL to investigate the problem.'
 
   review:
     name: Review Deployment Process
-    needs: build
-    environment: Development
+    needs: [brakeman, test. test-java , cve]
     if: github.ref != 'refs/heads/master' && startsWith(github.head_ref, 'dependabot/') == false && github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
@@ -283,19 +334,9 @@ jobs:
           github_token: ${{ steps.azSecret.outputs.ACTIONS-API-ACCESS-TOKEN }}
           labels: Review
 
-      - name: Slack Notification
-        if: failure()
-        uses: rtCamp/action-slack-notify@master
-        env:
-           SLACK_COLOR:   ${{env.SLACK_FAILURE}}
-           SLACK_TITLE:   'Failure: Preparing from Preview'
-           SLACK_MESSAGE: 'Failure with Review preperation for ${{env.APPLICATION}}'
-           SLACK_WEBHOOK: ${{ steps.azSecret.outputs.SLACK-WEBHOOK }}
-
   development:
     name: Development Deployment
-    needs: build
-    environment: Development
+    needs: [brakeman, test. test-java , cve]
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     outputs:
@@ -380,7 +421,6 @@ jobs:
   qa:
     name: Quality Assurance Deployment
     needs: development
-    environment: Test
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
@@ -439,7 +479,6 @@ jobs:
      name: Run Cypress Tests on QA
      runs-on: ubuntu-latest
      needs: qa
-     environment: Test
      steps:
        - uses: actions/checkout@v2
 
@@ -483,7 +522,6 @@ jobs:
      name: Production Deployment
      runs-on: ubuntu-latest
      needs: [ cypress , development ]
-     environment: Production
      steps:
        - uses: actions/checkout@v2
 

@@ -33,11 +33,6 @@ resource "cloudfoundry_app" "adviser_application" {
     }
   }
 
-  docker_credentials = {
-    username = data.azurerm_key_vault_secret.docker_username.value
-    password = data.azurerm_key_vault_secret.docker_password.value
-  }
-
   routes {
     route = cloudfoundry_route.adviser_route.id
   }
