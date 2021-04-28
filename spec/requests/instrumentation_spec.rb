@@ -85,7 +85,9 @@ RSpec.describe "Instrumentation" do
   describe "tta.feedback" do
     let(:params) do
       {
-        teacher_training_adviser_feedback: attributes_for(:feedback),
+        teacher_training_adviser_feedback: attributes_for(
+          :feedback, successful_visit: false, unsuccessful_visit_explanation: "doesn't work!"
+        ),
       }
     end
 
@@ -93,7 +95,7 @@ RSpec.describe "Instrumentation" do
 
     it "increments the :tta_feedback_visit_total metric" do
       metric = registry.get(:tta_feedback_visit_total)
-      expect(metric).to receive(:increment).with(labels: { successful: "true" }).once
+      expect(metric).to receive(:increment).with(labels: { successful: "0" }).once
     end
 
     it "increments the :tta_feedback_rating_total metric" do
