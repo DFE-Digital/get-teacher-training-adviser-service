@@ -122,7 +122,7 @@ jobs:
          id:   azSecret
          with:
            keyvault: ${{ secrets.KEY_VAULT}}
-           secrets: 'HTTP-USERNAME, HTTP-PASSWORD'
+           secrets: 'HTTP-USERNAME, HTTP-PASSWORD, LOGIT-API'
 
        - uses: hashicorp/setup-terraform@v1.3.2
          with:
