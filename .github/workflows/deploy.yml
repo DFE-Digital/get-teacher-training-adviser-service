@@ -79,7 +79,7 @@ jobs:
                  echo ::set-output name=key::${pr_name}
                  echo "TF_VAR_paas_adviser_application_name=${pr_name}" >> $GITHUB_ENV
                  echo "TF_VAR_paas_adviser_route_name=${pr_name}"       >> $GITHUB_ENV
-                 echo ::set-output name=docker_image::${{env.DOCKERHUB_REPOSITORY}}:review-${{steps.sha.outputs.short}}
+                 echo ::set-output name=docker_image::${{env.DOCKER_REPOSITORY}}:review-${{steps.sha.outputs.short}}
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Development" ]
@@ -87,7 +87,7 @@ jobs:
                  echo ::set-output name=control::$(echo "dev" )
                  echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-dev" )
                  echo ::set-output name=key::"tta.dev.terraform"
-                 echo ::set-output name=docker_image::${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
+                 echo ::set-output name=docker_image::${{env.DOCKER_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Test" ]
@@ -95,7 +95,7 @@ jobs:
                  echo ::set-output name=control::$(echo "test" )
                  echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-test" )
                  echo ::set-output name=key::"tta.test.terraform"
-                 echo ::set-output name=docker_image::${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
+                 echo ::set-output name=docker_image::${{env.DOCKER_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
              fi
 
              if [ "${{github.event.inputs.environment }}" == "UR" ]
@@ -103,7 +103,7 @@ jobs:
                  echo ::set-output name=control::$(echo "ur" )
                  echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-ur" )
                  echo ::set-output name=key::"tta.ur.terraform"
-                 echo ::set-output name=docker_image::${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
+                 echo ::set-output name=docker_image::${{env.DOCKER_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
              fi
 
              if [ "${{github.event.inputs.environment }}" == "Production" ]
@@ -111,7 +111,7 @@ jobs:
                  echo ::set-output name=control::$(echo "production" )
                  echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-prod" )
                  echo ::set-output name=key::"tta.prod.terraform"
-                 echo ::set-output name=docker_image::${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
+                 echo ::set-output name=docker_image::${{env.DOCKER_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
              fi
 
        - uses: Azure/login@v1

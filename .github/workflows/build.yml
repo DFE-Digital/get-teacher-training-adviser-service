@@ -82,7 +82,7 @@ jobs:
         id:   azSecret
         with:
            keyvault: ${{ secrets.KEY_VAULT}}
-           secrets: 'SLACK-WEBHOOK, DOCKER-USERNAME, DOCKER-PASSWORD , ACTIONS-API-ACCESS-TOKEN, SONAR-TOKEN'
+           secrets: 'SLACK-WEBHOOK, ACTIONS-API-ACCESS-TOKEN, SONAR-TOKEN'
 
       - name: Lint Dockerfile
         uses: brpaz/hadolint-action@master
@@ -102,9 +102,9 @@ jobs:
         id: sha
         run: |
               echo ::set-output name=short::$(echo "${{ github.sha }}" | cut -c -7)
-              echo ::set-output name=image::${{ env.DOCKERHUB_REPOSITORY }}:sha-$(echo "${{ github.sha }}" | cut -c -7)
-              echo ::set-output name=local::localhost:5000/${{env.DOCKERHUB_REPOSITORY}}:sha-$(echo "${{ github.sha }}" | cut -c -7)
-              echo ::set-output name=pr_image::${{ env.DOCKERHUB_REPOSITORY }}:review-$(echo "${{ github.sha }}" | cut -c -7)
+              echo ::set-output name=image::${{ env.DOCKER_REPOSITORY }}:sha-$(echo "${{ github.sha }}" | cut -c -7)
+              echo ::set-output name=local::localhost:5000/${{env.DOCKER_REPOSITORY}}:sha-$(echo "${{ github.sha }}" | cut -c -7)
+              echo ::set-output name=pr_image::${{ env.DOCKER_REPOSITORY }}:review-$(echo "${{ github.sha }}" | cut -c -7)
 
       - name: Cache Docker layers
         uses: actions/cache@v2.1.5
@@ -114,14 +114,14 @@ jobs:
           restore-keys: |
              ${{ runner.os }}-buildx-
 
-      - name: Login to Docker Hub
+      - name: Login to GitHub Container Repository 
         uses: docker/login-action@v1
         with:
-          username: ${{ steps.azSecret.outputs.DOCKER-USERNAME }}
-          password: ${{ steps.azSecret.outputs.DOCKER-PASSWORD }}
+           username: ${{ github.repository_owner }}
+           password: ${{ steps.azSecret.outputs.ACTIONS-API-ACCESS-TOKEN }}
 
 
-      - name: Build master and push to Docker Hub
+      - name: Build master and push to GitHub Container Repository
         if: github.ref == 'refs/heads/master'
         uses: docker/build-push-action@v2
         with:
@@ -135,7 +135,7 @@ jobs:
           build-args: |
                       APP_SHA=${{ steps.sha.outputs.short }}
 
-      - name: Build PR and push to Docker Hub
+      - name: Build PR and push to GitHub Container Repository
         if: github.ref != 'refs/heads/master'
         uses: docker/build-push-action@v2
         with:
