@@ -16,5 +16,11 @@ class BasicAuth
     def http_auth
       Rails.application.credentials.config[:http_auth] || ""
     end
+
+    def env_requires_auth?
+      # Site-wide authentication present in all production-like
+      # environments, but not in production itself.
+      !Rails.env.production? && !Rails.env.test? && !Rails.env.development?
+    end
   end
 end
