@@ -23,9 +23,7 @@ class ApplicationController < ActionController::Base
 protected
 
   def authenticate?
-    # Site-wide authentication present in all production-like
-    # environments, but not in production itself.
-    !Rails.env.production? && !Rails.env.test? && !Rails.env.development?
+    BasicAuth.env_requires_auth?
   end
 
 private

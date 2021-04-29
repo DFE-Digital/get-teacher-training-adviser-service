@@ -51,19 +51,20 @@ module TeacherTrainingAdviser
     end
 
     def restrict_access
-      raise_forbidden if RESTRICTED_ACTIONS.include?(action_name) &&
-        session[:username] != "feedback"
+      raise_forbidden if action_restricted? && session[:username] != "feedback"
     end
 
   protected
 
     def authenticate?
-      return false if Rails.env.test? || Rails.env.development?
-
-      Rails.env.production? ? RESTRICTED_ACTIONS.include?(action_name) : true
+      Rails.env.production? ? action_restricted? : super
     end
 
   private
+
+    def action_restricted?
+      RESTRICTED_ACTIONS.include?(action_name)
+    end
 
     def load_recent_feedback
       @recent_feedback = Feedback.recent.limit(RECENT_AMOUNT)

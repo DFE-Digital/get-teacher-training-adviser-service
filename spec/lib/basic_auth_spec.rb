@@ -11,6 +11,28 @@ RSpec.describe BasicAuth do
     described_class.class_variable_set(:@@credentials, nil)
   end
 
+  describe ".env_requires_auth?" do
+    before { allow(Rails).to receive(:env) { env.inquiry } }
+    subject { instance.env_requires_auth? }
+
+    ENV_AUTH = {
+      "production" => false,
+      "rolling" => true,
+      "preprod" => true,
+      "userresearch" => true,
+      "test" => false,
+      "development" => false,
+    }.freeze
+
+    ENV_AUTH.each do |k, auth|
+      context "when #{k}" do
+        let(:env) { k }
+
+        it { is_expected.to eq(auth) }
+      end
+    end
+  end
+
   describe ".credentials" do
     subject { instance.credentials }
 
