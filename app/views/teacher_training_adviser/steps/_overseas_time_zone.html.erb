@@ -4,4 +4,14 @@
 <p>In the meantime, if you need to speak to us you can, by using Freephone <%= link_to("0800 389 2500", "tel://08003892500") %> between 8am - 8pm Monday to Friday.</p>
 
 <%= f.govuk_phone_field :telephone, width: 20 %>
+
+<% unless Rails.env.production? %>
+  <%= f.govuk_collection_select :time_zone,
+    f.object.filtered_time_zones,
+    :name,
+    ->(option) { option.to_s },
+    options: { prompt: "Please select" }
+  %>
+<% end %>
+
 <% end %>

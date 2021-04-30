@@ -36,6 +36,7 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
         TeacherTrainingAdviser::Steps::OverseasTelephone,
         TeacherTrainingAdviser::Steps::UkCallback,
         TeacherTrainingAdviser::Steps::OverseasTimeZone,
+        TeacherTrainingAdviser::Steps::OverseasCallback,
         TeacherTrainingAdviser::Steps::ReviewAnswers,
         TeacherTrainingAdviser::Steps::AcceptPrivacyPolicy,
       ]
@@ -57,6 +58,11 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
     describe "#time_zone" do
       it "defaults to London" do
         expect(subject.time_zone).to eq("London")
+      end
+
+      it "returns the time_zone from the store" do
+        wizardstore["time_zone"] = "Hawaii"
+        expect(subject.time_zone).to eq("Hawaii")
       end
     end
 

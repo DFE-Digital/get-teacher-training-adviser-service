@@ -1,17 +1,23 @@
 module TeacherTrainingAdviser::Steps
   class OverseasTimeZone < Wizard::Step
     attribute :telephone, :string
+    attribute :time_zone, :string
 
     validates :telephone, telephone: true, presence: true
+    validates :time_zone, presence: true, unless: -> { Rails.env.production? }
 
     def self.contains_personal_details?
       true
     end
 
+    def filtered_time_zones
+      ActiveSupport::TimeZone.all.drop(1)
+    end
+
     def reviewable_answers
-      {
-        "telephone" => telephone,
-      }
+      { "telephone" => telephone }.tap do |answers|
+        answers["time_zone"] = time_zone if time_zone.present?
+      end
     end
 
     def skipped?

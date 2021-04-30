@@ -83,6 +83,7 @@ en:
           email: "Email address"
       teacher_training_adviser_steps_overseas_time_zone:
         telephone: "Contact telephone number"
+        time_zone: "Select your time zone"
       teacher_training_adviser_steps_overseas_telephone:
         telephone: "Overseas telephone number (optional)"
       teacher_training_adviser_steps_previous_teacher_id:
@@ -322,6 +323,8 @@ en:
             telephone:
               <<: *telephone_errors
               blank: "Enter a telephone number"
+            time_zone:
+              blank: "Select a time zone"
         teacher_training_adviser/steps/overseas_telephone:
           attributes:
             telephone:
