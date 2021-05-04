@@ -18,10 +18,13 @@ module WizardSteps
     @current_step.assign_attributes step_params
 
     if @current_step.save!
-      redirect_to next_step_path
+      complete = @wizard.complete!
 
-      # Needs to occur after redirect because it purges data after submission
-      @wizard.complete!
+      if complete
+        redirect_to(step_path(:completed, @wizard.completion_attributes))
+      else
+        redirect_to(next_step_path)
+      end
     end
   end
 
@@ -58,8 +61,6 @@ private
       step_path exit_step
     elsif (invalid_step = @wizard.first_invalid_step)
       step_path invalid_step
-    else # all steps valid so completed
-      step_path :completed
     end
   end
 

@@ -43,12 +43,18 @@ module TeacherTrainingAdviser
     end
 
     def complete!
-      super.tap do |result|
-        break unless result
+      return false unless super
 
-        sign_up_candidate
-        @store.purge!
-      end
+      sign_up_candidate
+
+      # Do not include PII here as they are passed as
+      # query string parameters to the completion page.
+      @completion_attributes = @store.fetch(
+        :type_id,
+        :degree_options,
+      )
+
+      @store.purge!
     end
 
     def exchange_access_token(timed_one_time_password, request)
