@@ -81,8 +81,11 @@ en:
           first_name: "First name"
           last_name: "Last name"
           email: "Email address"
+      teacher_training_adviser_steps_overseas_callback:
+        phone_call_scheduled_at: "Select your preferred day and time for a callback"
       teacher_training_adviser_steps_overseas_time_zone:
         telephone: "Contact telephone number"
+        time_zone: "Select your time zone"
       teacher_training_adviser_steps_overseas_telephone:
         telephone: "Overseas telephone number (optional)"
       teacher_training_adviser_steps_previous_teacher_id:
@@ -99,6 +102,7 @@ en:
         telephone: "UK telephone number (optional)"
       teacher_training_adviser_steps_uk_callback:
         telephone: "Contact telephone number"
+        phone_call_scheduled_at: "Select your preferred day and time for a callback"
       teacher_training_adviser_steps_overseas_country:
         country_id: "Which country do you live in?"
       teacher_training_adviser_steps_uk_address:
@@ -322,6 +326,8 @@ en:
             telephone:
               <<: *telephone_errors
               blank: "Enter a telephone number"
+            time_zone:
+              blank: "Select a time zone"
         teacher_training_adviser/steps/overseas_telephone:
           attributes:
             telephone:

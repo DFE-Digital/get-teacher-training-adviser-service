@@ -86,6 +86,73 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       expect(page).to have_css "h1", text: "Sign up complete"
     end
 
+    scenario "with an equivalent degree (production)" do
+      allow(Rails).to receive(:env) { "production".inquiry }
+
+      visit teacher_training_adviser_steps_path
+
+      expect(page).to have_css "h1", text: "About you"
+      fill_in_identity_step
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Are you returning to teaching?"
+      choose "No"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Do you have a degree?"
+      choose "I have an equivalent qualification from another country"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
+      choose "Secondary"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Which subject would you like to teach?"
+      select "Physics"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "When do you want to start your teacher training?"
+      select "2022"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Enter your date of birth"
+      fill_in_date_of_birth_step
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Where do you live?"
+      choose "Overseas"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Which country do you live in?"
+      select "Argentina"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "You told us you have an equivalent degree and live overseas"
+      fill_in "Contact telephone number", with: "123456789"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Check your answers before you continue"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Read and accept the privacy policy"
+      check "Accept the privacy policy"
+
+      request_attributes = overseas_candidate_request_attributes({
+        type_id: INTERESTED_IN_TEACHING,
+        preferred_teaching_subject_id: SUBJECT_PHYSICS,
+        degree_status_id: DEGREE_STATUS_HAS_DEGREE,
+        degree_type_id: DEGREE_TYPE_EQUIVALENT,
+        initial_teacher_training_year_id: TEACHER_TRAINING_YEAR_2022,
+        preferred_education_phase_id: EDUCATION_PHASE_SECONDARY,
+      })
+      expect_sign_up_with_attributes(request_attributes)
+
+      click_on "Complete"
+
+      expect(page).to have_css "h1", text: "Thank you"
+      expect(page).to have_css "h1", text: "Sign up complete"
+    end
+
     scenario "with an equivalent degree" do
       visit teacher_training_adviser_steps_path
 
@@ -127,6 +194,11 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
 
       expect(page).to have_css "h1", text: "You told us you have an equivalent degree and live overseas"
       fill_in "Contact telephone number", with: "123456789"
+      select "(GMT-10:00) Hawaii"
+      click_on "Continue"
+
+      expect(page).to have_text "Choose a time"
+      select_first_option "Select your preferred day and time for a callback"
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Check your answers before you continue"
