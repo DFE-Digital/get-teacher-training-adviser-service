@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read(".ruby-version").chomp
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.0.3"
+gem "rails", "~> 6.0.3", ">= 6.0.3.7"
 
 # Use postgres as the database for Active Record
 gem "pg"
@@ -13,7 +13,7 @@ gem "pg"
 gem "puma", "~> 5.2"
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem "webpacker"
+gem "webpacker", ">= 5.2.1"
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
@@ -25,7 +25,7 @@ gem "bootsnap", ">= 1.1.0", require: false
 gem "foreman"
 
 # Canonical meta tag
-gem "canonical-rails"
+gem "canonical-rails", ">= 0.2.11"
 
 gem "govuk_design_system_formbuilder"
 
@@ -33,7 +33,7 @@ gem "secure_headers"
 
 gem "validates_timeliness"
 
-gem "dotenv-rails"
+gem "dotenv-rails", ">= 2.7.6"
 
 gem "rack-attack"
 
@@ -45,13 +45,13 @@ gem "prometheus-client"
 # api client
 gem "get_into_teaching_api_client_faraday", github: "DFE-Digital/get-into-teaching-api-ruby-client", require: "api/client"
 
-gem "sentry-rails"
+gem "sentry-rails", ">= 4.3.4"
 gem "sentry-ruby"
 
 # Ignore cloudfront IPs when getting customer IP address
-gem "actionpack-cloudfront"
+gem "actionpack-cloudfront", ">= 1.1.0"
 
-gem "invisible_captcha"
+gem "invisible_captcha", ">= 2.0.0"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -74,13 +74,13 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem "capybara", "~> 3.35"
   # Factory builder
-  gem "factory_bot_rails"
+  gem "factory_bot_rails", ">= 6.1.0"
 end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem "listen", ">= 3.0.5", "< 3.6"
-  gem "web-console", ">= 3.3.0"
+  gem "web-console", ">= 4.1.0"
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "spring"
