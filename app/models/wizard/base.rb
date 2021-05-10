@@ -35,7 +35,7 @@ module Wizard
 
     delegate :step, :key_index, :indexed_steps, :step_keys, to: :class
     delegate :can_proceed?, to: :find_current_step, prefix: :step
-    attr_reader :current_key
+    attr_reader :current_key, :completion_attributes
 
     def initialize(store, current_key)
       @store = store

@@ -49,6 +49,8 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
         "email" => "email@address.com",
         "first_name" => "Joe",
         "last_name" => "Joseph",
+        "type_id" => 123,
+        "degree_options" => "equivalent",
       }
     end
     let(:wizardstore) { Wizard::Store.new store, {} }
@@ -68,22 +70,34 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
 
     describe "#complete!" do
       let(:request) do
-        GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.new(
-          { email: "email@address.com", firstName: "Joe", lastName: "Joseph" },
-        )
+        GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.new({
+          email: "email@address.com",
+          firstName: "Joe",
+          lastName: "Joseph",
+          typeId: 123,
+          degreeOptions: "equivalent",
+        })
       end
 
       before do
         expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
           receive(:sign_up_teacher_training_adviser_candidate).with(request).once
+
+        allow(subject).to receive(:valid?) { true }
+        allow(subject).to receive(:can_proceed?) { true }
+
+        subject.complete!
       end
-      before { allow(subject).to receive(:valid?).and_return true }
-      before { allow(subject).to receive(:can_proceed?).and_return true }
-      before { subject.complete! }
 
       it { is_expected.to have_received(:valid?) }
       it { is_expected.to have_received(:can_proceed?) }
       it { expect(store).to eql({}) }
+      it "sets the completion attributes" do
+        expect(subject.completion_attributes).to eq({
+          "type_id" => 123,
+          "degree_options" => "equivalent",
+        })
+      end
     end
 
     describe "#exchange_access_token" do

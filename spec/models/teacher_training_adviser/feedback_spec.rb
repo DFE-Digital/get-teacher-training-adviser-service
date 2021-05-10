@@ -9,7 +9,7 @@ RSpec.describe TeacherTrainingAdviser::Feedback do
     it { is_expected.to respond_to :unsuccessful_visit_explanation }
     it { is_expected.to respond_to :improvements }
     it do
-      is_expected.to define_enum_for(:rating).with(%i[
+      is_expected.to define_enum_for(:rating).with_values(%i[
         very_satisfied
         satisfied
         neither_satisfied_or_dissatisfied
@@ -21,7 +21,8 @@ RSpec.describe TeacherTrainingAdviser::Feedback do
 
   context "validation" do
     it { is_expected.to validate_presence_of(:rating) }
-    it { is_expected.to validate_inclusion_of(:successful_visit).in_array([true, false]) }
+    it { is_expected.to allow_values(true, false).for(:successful_visit) }
+    it { is_expected.not_to allow_values(nil, "").for(:successful_visit) }
 
     context "when successful_visit is false" do
       before { allow(subject).to receive(:successful_visit) { false } }

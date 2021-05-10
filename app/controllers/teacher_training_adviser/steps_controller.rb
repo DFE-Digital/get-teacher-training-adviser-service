@@ -7,6 +7,13 @@ module TeacherTrainingAdviser
     around_action :set_time_zone, only: [:show] # rubocop:disable Rails/LexicallyScopedActionFilter
     before_action :set_page_title, only: [:show] # rubocop:disable Rails/LexicallyScopedActionFilter
 
+    def completed
+      super
+
+      @returner = params[:type_id].to_i == Steps::ReturningTeacher::OPTIONS[:returning_to_teaching]
+      @equivalent_degree = params[:degree_options] == Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
+    end
+
   protected
 
     def not_available_path

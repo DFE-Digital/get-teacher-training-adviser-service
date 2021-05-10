@@ -84,6 +84,10 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
 
       expect(page).to have_css "h1", text: "Thank you"
       expect(page).to have_css "h1", text: "Sign up complete"
+      expect(page).to have_text "A return to teaching adviser will email you to outline your next steps"
+      expect(page).to have_text "read further information on our dedicated return to teaching page"
+      expect(page).not_to have_text "Discover the different ways to train"
+      expect(page).not_to have_text "Find out about funding"
     end
 
     scenario "with an equivalent degree (production)" do
@@ -221,6 +225,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
 
       expect(page).to have_css "h1", text: "Thank you"
       expect(page).to have_css "h1", text: "Sign up complete"
+      expect(page).to have_text "We've booked a call."
     end
 
     scenario "studying for a degree" do
