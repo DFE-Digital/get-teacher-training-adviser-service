@@ -188,7 +188,7 @@ jobs:
           docker run -t --rm -e RAILS_ENV=test ${{ needs.build.outputs.DOCKER_IMAGE }} brakeman --no-pager
 
       - name: Scan image
-        uses: anchore/scan-action@v2
+        uses: anchore/scan-action@v2.0.4
         with:
           image: ${{needs.build.outputs.DOCKER_IMAGE}}
           fail-build: false
@@ -359,7 +359,7 @@ jobs:
 
       - name: Add Review Label
         if: contains(github.event.pull_request.user.login, 'dependabot') == false
-        uses: actions-ecosystem/action-add-labels@v1
+        uses: actions-ecosystem/action-add-labels@v1.1.2
         with:
           github_token: ${{ steps.azSecret.outputs.ACTIONS-API-ACCESS-TOKEN }}
           labels: Review
