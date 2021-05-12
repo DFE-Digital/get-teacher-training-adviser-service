@@ -21,7 +21,7 @@ jobs:
         with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: Azure/get-keyvault-secrets@v1
+      - uses: Azure/get-keyvault-secrets@v1.2
         id:   azSecret
         with:
            keyvault: ${{ secrets.KEY_VAULT}}
@@ -61,7 +61,7 @@ jobs:
         with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: Azure/get-keyvault-secrets@v1
+      - uses: Azure/get-keyvault-secrets@v1.2
         id:   azSecret
         with:
            keyvault: ${{ secrets.KEY_VAULT}}
@@ -142,7 +142,7 @@ jobs:
         with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: Azure/get-keyvault-secrets@v1
+      - uses: Azure/get-keyvault-secrets@v1.2
         id:   azSecret
         with:
            keyvault: ${{ secrets.KEY_VAULT}}
@@ -177,7 +177,7 @@ jobs:
         with:
            creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: Azure/get-keyvault-secrets@v1
+      - uses: Azure/get-keyvault-secrets@v1.2
         id:   azSecret
         with:
            keyvault: ${{ secrets.KEY_VAULT}}
@@ -188,7 +188,7 @@ jobs:
           docker run -t --rm -e RAILS_ENV=test ${{ needs.build.outputs.DOCKER_IMAGE }} brakeman --no-pager
 
       - name: Scan image
-        uses: anchore/scan-action@v2
+        uses: anchore/scan-action@v2.0.4
         with:
           image: ${{needs.build.outputs.DOCKER_IMAGE}}
           fail-build: false
@@ -238,7 +238,7 @@ jobs:
         with:
            creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: Azure/get-keyvault-secrets@v1
+      - uses: Azure/get-keyvault-secrets@v1.2
         id:   azSecret
         with:
            keyvault: ${{ secrets.KEY_VAULT}}
@@ -322,7 +322,7 @@ jobs:
         with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: Azure/get-keyvault-secrets@v1
+      - uses: Azure/get-keyvault-secrets@v1.2
         id:   azSecret
         with:
            keyvault: ${{ secrets.KEY_VAULT}}
@@ -381,7 +381,7 @@ jobs:
          with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-       - uses: Azure/get-keyvault-secrets@v1
+       - uses: Azure/get-keyvault-secrets@v1.2
          id:   azSecret
          with:
             keyvault: ${{ secrets.KEY_VAULT}}
@@ -462,7 +462,7 @@ jobs:
          with:
              creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-       - uses: Azure/get-keyvault-secrets@v1
+       - uses: Azure/get-keyvault-secrets@v1.2
          id:   azSecret
          with:
             keyvault: ${{ secrets.KEY_VAULT}}
@@ -518,7 +518,7 @@ jobs:
          with:
              creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-       - uses: Azure/get-keyvault-secrets@v1
+       - uses: Azure/get-keyvault-secrets@v1.2
          id:   azSecret
          with:
             keyvault: ${{ secrets.KEY_VAULT}}
@@ -561,7 +561,7 @@ jobs:
          with:
              creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-       - uses: Azure/get-keyvault-secrets@v1
+       - uses: Azure/get-keyvault-secrets@v1.2
          id:   azSecret
          with:
             keyvault: ${{ secrets.KEY_VAULT}}
