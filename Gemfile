@@ -100,5 +100,5 @@ group :rolling, :preprod, :userresearch, :production, :pagespeed do
   # loading the Gem monkey patches rails logger
   # only load in prod-like environments when we actually need it
   gem "amazing_print"
-  gem "rails_semantic_logger"
+  gem "rails_semantic_logger", ">= 4.5.1"
 end
