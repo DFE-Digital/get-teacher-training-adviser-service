@@ -107,7 +107,7 @@ jobs:
            password: ${{ steps.azSecret.outputs.ACTIONS-API-ACCESS-TOKEN }}
 
       - name: Build and push to GitHub Container Repository
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v2.4.0
         with:
           builder: ${{ steps.buildx.outputs.name }}
           cache-from: type=local,src=/tmp/.buildx-cache
@@ -188,7 +188,7 @@ jobs:
           docker run -t --rm -e RAILS_ENV=test ${{ needs.build.outputs.DOCKER_IMAGE }} brakeman --no-pager
 
       - name: Scan image
-        uses: anchore/scan-action@v2
+        uses: anchore/scan-action@v2.0.4
         with:
           image: ${{needs.build.outputs.DOCKER_IMAGE}}
           fail-build: false
