@@ -1,9 +1,9 @@
 module TeacherTrainingAdviser::Steps
   class OverseasTimeZone < Wizard::Step
-    attribute :telephone, :string
+    attribute :address_telephone, :string
     attribute :time_zone, :string
 
-    validates :telephone, telephone: true, presence: true
+    validates :address_telephone, telephone: true, presence: true
     validates :time_zone, presence: true, unless: -> { Rails.env.production? }
 
     def self.contains_personal_details?
@@ -15,7 +15,7 @@ module TeacherTrainingAdviser::Steps
     end
 
     def reviewable_answers
-      { "telephone" => telephone }.tap do |answers|
+      { "address_telephone" => address_telephone }.tap do |answers|
         answers["time_zone"] = time_zone if time_zone.present?
       end
     end

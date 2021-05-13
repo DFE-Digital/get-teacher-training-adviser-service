@@ -3,7 +3,7 @@
 <p>We will need to call you to discuss your qualifications. You must have the details of your overseas qualifications when we contact you.</p>
 <p>In the meantime, if you need to speak to us you can, by using Freephone <%= link_to("0800 389 2500", "tel://08003892500") %> between 8.30am - 5.30pm Monday to Friday.</p>
 
-<%= f.govuk_phone_field :telephone, width: 20 %>
+<%= f.govuk_phone_field :address_telephone, width: 20 %>
 
 <% unless Rails.env.production? %>
   <%= f.govuk_collection_select :time_zone,

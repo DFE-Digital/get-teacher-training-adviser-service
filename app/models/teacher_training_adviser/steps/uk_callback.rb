@@ -2,14 +2,14 @@ module TeacherTrainingAdviser::Steps
   class UkCallback < Wizard::Step
     extend CallbackBookingQuotas
 
-    attribute :telephone, :string
+    attribute :address_telephone, :string
     attribute :phone_call_scheduled_at, :datetime
 
-    validates :telephone, telephone: true, presence: true
+    validates :address_telephone, telephone: true, presence: true
     validates :phone_call_scheduled_at, presence: true
 
-    before_validation if: :telephone do
-      self.telephone = telephone.to_s.strip.presence
+    before_validation if: :address_telephone do
+      self.address_telephone = address_telephone.to_s.strip.presence
     end
 
     def self.contains_personal_details?
@@ -18,7 +18,7 @@ module TeacherTrainingAdviser::Steps
 
     def reviewable_answers
       {
-        "telephone" => telephone,
+        "address_telephone" => address_telephone,
         "callback_date" => phone_call_scheduled_at&.to_date,
         "callback_time" => phone_call_scheduled_at&.to_time, # rubocop:disable Rails/Date
       }

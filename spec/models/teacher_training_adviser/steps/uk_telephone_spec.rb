@@ -3,18 +3,18 @@ require "rails_helper"
 RSpec.describe TeacherTrainingAdviser::Steps::UkTelephone do
   include_context "wizard step"
   it_behaves_like "a wizard step"
-  include_context "sanitize fields", %i[telephone]
+  include_context "sanitize fields", %i[address_telephone]
 
   it { is_expected.to be_contains_personal_details }
   it { is_expected.to be_optional }
 
   context "attributes" do
-    it { is_expected.to respond_to :telephone }
+    it { is_expected.to respond_to :address_telephone }
   end
 
-  describe "telephone" do
-    it { is_expected.to_not allow_values("abc12345", "12", "1" * 21).for :telephone }
-    it { is_expected.to allow_values(nil, "123456789").for :telephone }
+  describe "address_telephone" do
+    it { is_expected.to_not allow_values("abc12345", "12", "1" * 21).for :address_telephone }
+    it { is_expected.to allow_values(nil, "123456789").for :address_telephone }
   end
 
   describe "#skipped?" do
@@ -36,7 +36,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkTelephone do
 
     it "returns true when pre-filled with crm data" do
       wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:yes]
-      wizardstore.persist_crm({ "telephone" => "123456789" })
+      wizardstore.persist_crm({ "address_telephone" => "123456789" })
       expect(subject).to be_skipped
     end
   end
