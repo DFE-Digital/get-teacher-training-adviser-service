@@ -536,7 +536,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
         addressCity: "Manchester",
         addressPostcode: "TE7 1NG",
         dateOfBirth: Date.new(1999, 4, 27),
-        telephone: "123456789",
+        addressTelephone: "123456789",
         teacherId: "12345",
       )
     end
@@ -771,7 +771,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       first_name: "John",
       last_name: "Doe",
       date_of_birth: "1966-03-24",
-      telephone: "123456789",
+      address_telephone: "123456789",
     }
   end
 end

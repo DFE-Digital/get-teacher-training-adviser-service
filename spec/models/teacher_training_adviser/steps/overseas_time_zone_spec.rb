@@ -10,12 +10,12 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasTimeZone do
 
   context "attributes" do
     it { is_expected.to respond_to :time_zone }
-    it { is_expected.to respond_to :telephone }
+    it { is_expected.to respond_to :address_telephone }
   end
 
-  describe "telephone" do
-    it { is_expected.to_not allow_values(nil, "abc12345", "12", "1" * 21).for :telephone }
-    it { is_expected.to allow_values("123456789").for :telephone }
+  describe "address_telephone" do
+    it { is_expected.to_not allow_values(nil, "abc12345", "12", "1" * 21).for :address_telephone }
+    it { is_expected.to allow_values("123456789").for :address_telephone }
   end
 
   context "time_zone" do
@@ -58,20 +58,20 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasTimeZone do
   describe "#reviewable_answers" do
     subject { instance.reviewable_answers }
     before do
-      instance.telephone = "1234567"
+      instance.address_telephone = "1234567"
       instance.time_zone = "London"
     end
     it {
       is_expected.to eq({
         "time_zone" => "London",
-        "telephone" => "1234567",
+        "address_telephone" => "1234567",
       })
     }
 
     context "when time_zone is nil" do
       before { instance.time_zone = nil }
 
-      it { is_expected.to eq({ "telephone" => "1234567" }) }
+      it { is_expected.to eq({ "address_telephone" => "1234567" }) }
     end
   end
 end

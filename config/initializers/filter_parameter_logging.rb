@@ -13,5 +13,6 @@ Rails.application.config.filter_parameters += %i[
   password
   teacher_id
   telephone
+  address_telephone
   timed_one_time_password
 ]
