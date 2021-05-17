@@ -248,6 +248,7 @@ en:
               blank: "You need to enter your last name"
               too_long: "You have entered too many characters - you need to enter your last name"
             email:
+              blank: "You need to enter your email address"
               invalid: "You need to enter your email address"
               too_long: "Your email address is too long - you need to enter a valid email address"
         teacher_training_adviser/steps/subject_taught:

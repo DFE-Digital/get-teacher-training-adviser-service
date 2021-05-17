@@ -8,7 +8,7 @@ module TeacherTrainingAdviser::Steps
 
     validates :first_name, presence: true, length: { maximum: 256 }
     validates :last_name, presence: true, length: { maximum: 256 }
-    validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, length: { maximum: 100 }
+    validates :email, presence: true, email_format: true
 
     before_validation :sanitize_input
 
