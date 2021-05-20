@@ -8,5 +8,5 @@
 
   <p>Your details are protected under the terms of our <%= link_to "privacy notice", privacy_policy_path(:id => session[:privacy_policy_id].presence || GetIntoTeachingApiClient::PrivacyPoliciesApi.new.get_latest_privacy_policy.id) %>.</p>
 
-  <p>Our privacy notice explains how we use your personal data. It is important you have read this notice before signing up to get help from a teacher training advisor.</p>
+  <p>Our privacy notice explains how we use your personal data. It is important you have read this notice before signing up to get help from a teacher training adviser.</p>
 <% end %>
