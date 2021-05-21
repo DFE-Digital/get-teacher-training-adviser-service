@@ -562,7 +562,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Verify your email address"
-      expect(page).to have_text "Enter the verification code sent to john@doe.com"
+      expect(page).to have_text "Check your email and enter the verification code sent to john@doe.com"
       click_on "resend verification"
 
       expect(page).to have_text "We've sent you another email."
