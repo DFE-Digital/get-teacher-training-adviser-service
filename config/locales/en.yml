@@ -152,7 +152,7 @@ en:
       teacher_training_adviser_steps_stage_interested_teaching:
         preferred_education_phase_id: "Select a stage even if you're not sure yet, as this will not affect the sign up process."
       teacher_training_adviser_steps_returning_teacher:
-        type_id: "If you have an overseas teaching qualification that's equivalent to our qualified teacher status (QTS), then select the 'yes' option and take the 'returning to teaching' route."
+        type_id: "Select 'yes' if you have an overseas teaching qualification that's equivalent to qualified teacher status (QTS)."
       teacher_training_adviser_steps_have_a_degree:
         degree_options: "To use this service your bachelor's degree or predicted grade needs to be a 2:2 class honours or above."
       teacher_training_adviser_steps_overseas_telephone:
