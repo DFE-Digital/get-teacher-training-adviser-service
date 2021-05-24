@@ -1,11 +1,7 @@
 <% policy_id = session[:privacy_policy_id].presence || GetIntoTeachingApiClient::PrivacyPoliciesApi.new.get_latest_privacy_policy.id %>
 
 <%= f.govuk_check_boxes_fieldset :accepted_policy_id, legend: { text: "Read and accept the privacy policy"} do %>
-  <p>Our privacy notice explains how we use your personal data. It is important that you have read this notice before continuing.</p>
-
-  <div class="govuk-form-group">
-    <%= link_to "Privacy policy", privacy_policy_path(:id => policy_id) %>
-  </div>
+  <p>Read our <%= link_to("privacy policy", privacy_policy_path(id: policy_id), target: "blank") %> before you continue. It explains how we use your personal data.</p>
 
   <%= f.govuk_check_box :accepted_policy_id, policy_id, multiple: false, label: { text: "Accept the privacy policy"} %>
 
