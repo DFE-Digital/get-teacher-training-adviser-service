@@ -3,7 +3,7 @@ module TeacherTrainingAdviser::Steps
     attribute :address_telephone, :string
     attribute :time_zone, :string
 
-    validates :address_telephone, telephone: true, presence: true
+    validates :address_telephone, telephone: { international: true }, presence: true
     validates :time_zone, presence: true, unless: -> { Rails.env.production? }
 
     def self.contains_personal_details?

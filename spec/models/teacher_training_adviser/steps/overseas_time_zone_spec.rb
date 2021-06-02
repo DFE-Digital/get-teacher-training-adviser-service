@@ -14,7 +14,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasTimeZone do
   end
 
   describe "address_telephone" do
-    it { is_expected.to_not allow_values(nil, "abc12345", "12", "1" * 21).for :address_telephone }
+    it { is_expected.to_not allow_values(nil, "abc12345", "12", "1" * 21, "000000000").for :address_telephone }
     it { is_expected.to allow_values("123456789").for :address_telephone }
   end
 

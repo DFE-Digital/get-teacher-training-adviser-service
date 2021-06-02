@@ -2,7 +2,7 @@ module TeacherTrainingAdviser::Steps
   class OverseasTelephone < Wizard::Step
     attribute :address_telephone, :string
 
-    validates :address_telephone, telephone: true, allow_blank: true
+    validates :address_telephone, telephone: { international: true }, allow_blank: true
 
     before_validation if: :address_telephone do
       self.address_telephone = address_telephone.to_s.strip.presence
