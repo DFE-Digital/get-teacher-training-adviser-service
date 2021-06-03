@@ -141,9 +141,9 @@ en:
       teacher_training_adviser_steps_have_a_degree:
         degree_options_options:
           "yes": "Yes"
-          "no": "No"
-          studying: "I'm studying for a degree"
           equivalent: "I have an equivalent qualification from another country"
+          "no": "No"
+          studying: "I'm studying for a degree"      
     hint:
       teacher_training_adviser_steps_what_subject_degree:
         degree_subject: "If your subject is not listed choose the option that is nearest to your degree."
@@ -164,9 +164,9 @@ en:
   have_a_degree:
     degree_options:
       "yes": "Yes"
+      equivalent: "I have an equivalent qualification from another country"
       "no": "No"
       studying: "I'm studying for a degree"
-      equivalent: "I have an equivalent qualification from another country"
   answers:
     identity:
       name: "Name"
