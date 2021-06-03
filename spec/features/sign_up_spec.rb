@@ -132,6 +132,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "You told us you have an equivalent degree and live overseas"
+      expect(find_field("Contact telephone number").value).to eq "54"
       fill_in "Contact telephone number", with: "123456789"
       click_on "Continue"
 
@@ -197,6 +198,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "You told us you have an equivalent degree and live overseas"
+      expect(find_field("Contact telephone number").value).to eq "54"
       fill_in "Contact telephone number", with: "123456789"
       select "(GMT-10:00) Hawaii"
       click_on "Continue"
@@ -284,6 +286,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "What is your telephone number?"
+      expect(find_field("Overseas telephone number (optional)").value).to eq "54"
       fill_in "Overseas telephone number (optional)", with: "123456789"
       click_on "Continue"
 
