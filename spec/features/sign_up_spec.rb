@@ -104,7 +104,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Do you have a degree?"
-      choose "I have an equivalent qualification from another country"
+      choose "I have, or I'm studying for, an equivalent qualification from another country"
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
@@ -169,7 +169,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Do you have a degree?"
-      choose "I have an equivalent qualification from another country"
+      choose "I have, or I'm studying for, an equivalent qualification from another country"
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
@@ -578,7 +578,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Do you have a degree?"
-      choose "I have an equivalent qualification from another country"
+      choose "I have, or I'm studying for, an equivalent qualification from another country"
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
