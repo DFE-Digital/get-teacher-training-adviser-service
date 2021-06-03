@@ -30,7 +30,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       fill_in_identity_step
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you qualified to teach in the UK?"
       choose "Yes"
       click_on "Continue"
 
@@ -99,7 +99,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       fill_in_identity_step
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you qualified to teach in the UK?"
       choose "No"
       click_on "Continue"
 
@@ -164,7 +164,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       fill_in_identity_step
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you qualified to teach in the UK?"
       choose "No"
       click_on "Continue"
 
@@ -235,7 +235,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       fill_in_identity_step
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you qualified to teach in the UK?"
       choose "No"
       click_on "Continue"
 
@@ -319,7 +319,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       fill_in_identity_step
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you qualified to teach in the UK?"
       choose "Yes"
       click_on "Continue"
 
@@ -361,7 +361,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       fill_in_identity_step
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you qualified to teach in the UK?"
       choose "No"
       click_on "Continue"
 
@@ -380,7 +380,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       fill_in_identity_step
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you qualified to teach in the UK?"
       choose "No"
       click_on "Continue"
 
@@ -427,7 +427,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       fill_in_identity_step
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you qualified to teach in the UK?"
       choose "No"
       click_on "Continue"
 
@@ -466,7 +466,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       fill_in_identity_step
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you qualified to teach in the UK?"
       choose "No"
       click_on "Continue"
 
@@ -505,7 +505,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       fill_in_identity_step
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you qualified to teach in the UK?"
       choose "Yes"
       click_on "Continue"
 
@@ -573,7 +573,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       fill_in "wizard-steps-authenticate-timed-one-time-password-field-error", with: valid_code
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you qualified to teach in the UK?"
       choose "No"
       click_on "Continue"
 
@@ -652,7 +652,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       fill_in "wizard-steps-authenticate-timed-one-time-password-field", with: valid_code
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "Are you returning to teaching?"
+      expect(page).to have_css "h1", text: "Are you qualified to teach in the UK?"
       choose "Yes"
       click_on "Continue"
 
