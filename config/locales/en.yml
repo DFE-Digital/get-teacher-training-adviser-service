@@ -62,7 +62,7 @@ en:
       teacher_training_adviser_steps_gcse_maths_english:
         has_gcse_maths_and_english_id: "Do you have grade 4 (C) or above in English and maths GCSEs, or equivalent?"
       teacher_training_adviser_steps_returning_teacher:
-        type_id: "Are you qualified to teach the the UK?"
+        type_id: "Are you qualified to teach in the UK?"
       teacher_training_adviser_steps_has_teacher_id:
         has_id: "Do you have your previous teacher reference number?"
       teacher_training_adviser_steps_have_a_degree:
