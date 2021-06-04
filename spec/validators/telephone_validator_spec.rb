@@ -16,8 +16,18 @@ RSpec.describe TelephoneValidator do
   before { instance.valid? }
   subject { instance.errors.details[:telephone] }
 
+  context "when the minimum length" do
+    let(:instance) { TelephoneTestModel.new(telephone: "12346") }
+    it { is_expected.to be_empty }
+  end
+
+  context "when the maximum length" do
+    let(:instance) { TelephoneTestModel.new(telephone: "1" * 20) }
+    it { is_expected.to be_empty }
+  end
+
   context "when too short" do
-    let(:instance) { TelephoneTestModel.new(telephone: "123") }
+    let(:instance) { TelephoneTestModel.new(telephone: "1234") }
     it { is_expected.to include error: :too_short }
   end
 

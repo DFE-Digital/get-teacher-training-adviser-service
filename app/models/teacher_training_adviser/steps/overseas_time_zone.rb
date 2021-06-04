@@ -6,6 +6,10 @@ module TeacherTrainingAdviser::Steps
     validates :address_telephone, telephone: { international: true }, presence: true
     validates :time_zone, presence: true, unless: -> { Rails.env.production? }
 
+    before_validation if: :address_telephone do
+      self.address_telephone = address_telephone.to_s.strip.presence
+    end
+
     def self.contains_personal_details?
       true
     end
