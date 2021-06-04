@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe TeacherTrainingAdviser::Steps::OverseasTimeZone do
   include_context "wizard step"
   it_behaves_like "a wizard step"
+  include_context "sanitize fields", %i[address_telephone]
 
   it { expect(described_class).to be TeacherTrainingAdviser::Steps::OverseasTimeZone }
 
@@ -14,7 +15,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasTimeZone do
   end
 
   describe "address_telephone" do
-    it { is_expected.to_not allow_values(nil, "abc12345", "12", "1" * 21).for :address_telephone }
+    it { is_expected.to_not allow_values(nil, "abc12345", "12", "1" * 21, "000000000").for :address_telephone }
     it { is_expected.to allow_values("123456789").for :address_telephone }
   end
 

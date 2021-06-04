@@ -31,6 +31,7 @@
 
 telephone_errors: &telephone_errors
   invalid: "Enter a telephone number in the correct format"
+  invalid_dial_in_code: "Telephone number must start with a country dial-in code (e.g. 44)"
   too_short: "Telephone number is too short (minimum is 5 characters)"
   too_long: "Telephone number is too long (maximum is 20 characters)"
 
