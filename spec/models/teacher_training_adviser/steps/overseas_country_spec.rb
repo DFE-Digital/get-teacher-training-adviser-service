@@ -63,6 +63,12 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasCountry do
       it { is_expected.to eq("39") }
     end
 
+    context "when the country has not been selected (the user skipped ahead)" do
+      let(:country_id) { nil }
+
+      it { is_expected.to be_nil }
+    end
+
     context "when the country dial-in code is not known" do
       let(:country_id) { "unknown-id" }
 
