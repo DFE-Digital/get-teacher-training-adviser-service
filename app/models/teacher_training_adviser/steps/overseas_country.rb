@@ -15,14 +15,27 @@ module TeacherTrainingAdviser::Steps
       generate_api_options(GetIntoTeachingApiClient::LookupItemsApi, :get_countries, OMIT_COUNTRY_IDS)
     end
 
+    def dial_in_code
+      codes = IsoCountryCodes.search_by_name(country_name)
+      codes.first.calling[1..-1]
+    rescue IsoCountryCodes::UnknownCodeError
+      nil
+    end
+
     def skipped?
       other_step(:uk_or_overseas).uk_or_overseas == UkOrOverseas::OPTIONS[:uk]
     end
 
     def reviewable_answers
       super.tap do |answers|
-        answers["country_id"] = self.class.options.key(country_id)
+        answers["country_id"] = country_name
       end
+    end
+
+  private
+
+    def country_name
+      self.class.options.key(country_id)
     end
   end
 end

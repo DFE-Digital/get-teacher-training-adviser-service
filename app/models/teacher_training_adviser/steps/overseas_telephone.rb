@@ -16,6 +16,10 @@ module TeacherTrainingAdviser::Steps
       true
     end
 
+    def address_telephone_value
+      address_telephone || other_step(:overseas_country).dial_in_code
+    end
+
     def skipped?
       return true if super
 

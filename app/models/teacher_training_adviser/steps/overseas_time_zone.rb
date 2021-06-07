@@ -24,6 +24,10 @@ module TeacherTrainingAdviser::Steps
       end
     end
 
+    def address_telephone_value
+      address_telephone || other_step(:overseas_country).dial_in_code
+    end
+
     def skipped?
       overseas_country_skipped = other_step(:overseas_country).skipped?
       degree_options = other_step(:have_a_degree).degree_options

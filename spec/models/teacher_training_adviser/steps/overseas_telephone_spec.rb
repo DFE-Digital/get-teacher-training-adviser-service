@@ -4,6 +4,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasTelephone do
   include_context "wizard step"
   it_behaves_like "a wizard step"
   include_context "sanitize fields", %i[address_telephone]
+  include_context "#address_telephone_value"
 
   it { is_expected.to be_contains_personal_details }
   it { is_expected.to be_optional }

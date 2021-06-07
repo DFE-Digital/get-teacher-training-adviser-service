@@ -43,4 +43,30 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasCountry do
 
     it { is_expected.to eq({ "country_id" => "Value" }) }
   end
+
+  describe "#dial_in_code" do
+    subject { instance.dial_in_code }
+
+    before do
+      countries = [
+        GetIntoTeachingApiClient::LookupItem.new(id: "italy-id", value: "Italy"),
+        GetIntoTeachingApiClient::LookupItem.new(id: "unknown-id", value: "Unknown"),
+      ]
+      allow_any_instance_of(GetIntoTeachingApiClient::LookupItemsApi).to \
+        receive(:get_countries) { countries }
+      instance.country_id = country_id
+    end
+
+    context "when the country dial-in code is known" do
+      let(:country_id) { "italy-id" }
+
+      it { is_expected.to eq("39") }
+    end
+
+    context "when the country dial-in code is not known" do
+      let(:country_id) { "unknown-id" }
+
+      it { is_expected.to be_nil }
+    end
+  end
 end
