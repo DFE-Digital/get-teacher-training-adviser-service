@@ -15,6 +15,19 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
   SUBJECT_PHYSICS = "ac2655a1-2afa-e811-a981-000d3a276620".freeze
   SUBJECT_PSYCHOLOGY = "b22655a1-2afa-e811-a981-000d3a276620".freeze
 
+  let(:quota) do
+    GetIntoTeachingApiClient::CallbackBookingQuota.new(
+      startAt: DateTime.now.utc + 2.hours,
+      endAt: DateTime.now.utc + 3.hours,
+    )
+  end
+
+  before do
+    # Future callback booking slots (the VCR cassette contains outdated ones)
+    allow_any_instance_of(GetIntoTeachingApiClient::CallbackBookingQuotasApi).to \
+      receive(:get_callback_booking_quotas) { [quota] }
+  end
+
   context "a new candidate" do
     before do
       # Emulate an unsuccessful matchback response from the API.
@@ -629,7 +642,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
         degree_status_id: DEGREE_STATUS_HAS_DEGREE,
         degree_type_id: DEGREE_TYPE_EQUIVALENT,
         initial_teacher_training_year_id: TEACHER_TRAINING_YEAR_2022,
-        phone_call_scheduled_at: "2020-08-19T08:00:00.000Z",
+        phone_call_scheduled_at: "#{quota.start_at.strftime('%Y-%m-%dT%H:%M:%S')}.000Z",
         date_of_birth: "1999-04-27",
         address_line1: "7 Main Street",
         address_line2: nil,
