@@ -4,21 +4,20 @@ RSpec.shared_examples "exposes callback booking quotas" do
       receive(:get_callback_booking_quotas) { quotas }
   end
 
-  let(:utc_today) { DateTime.now.utc }
-  let(:utc_tomorrow) { Time.utc(2020, 4, 7, 10) }
-  let(:quota_today) do
+  let(:utc_now) { DateTime.now.utc }
+  let(:quota_in_30_minutes) do
     GetIntoTeachingApiClient::CallbackBookingQuota.new(
-      startAt: utc_today,
-      endAt: utc_today + 30.minutes,
+      startAt: utc_now + 30.minutes,
+      endAt: utc_now + 60.minutes,
     )
   end
-  let(:quota_tomorrow) do
+  let(:quota_in_90_minutes) do
     GetIntoTeachingApiClient::CallbackBookingQuota.new(
-      startAt: utc_tomorrow,
-      endAt: utc_tomorrow + 30.minutes,
+      startAt: utc_now + 90.minutes,
+      endAt: utc_now + 120.minutes,
     )
   end
-  let(:quotas) { [quota_today, quota_tomorrow] }
+  let(:quotas) { [quota_in_30_minutes, quota_in_90_minutes] }
 
   describe "#callback_booking_quotas" do
     let(:time_zone) { "UTC" }
@@ -29,6 +28,6 @@ RSpec.shared_examples "exposes callback booking quotas" do
       Time.use_zone(time_zone) { example.run }
     end
 
-    it { is_expected.to eq([quota_tomorrow]) }
+    it { is_expected.to contain_exactly(quota_in_90_minutes) }
   end
 end
