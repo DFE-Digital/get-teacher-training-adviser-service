@@ -6,9 +6,9 @@ module TeacherTrainingAdviser::Steps
 
     DEGREE_OPTIONS = {
       yes: "yes",
+      equivalent: "equivalent",
       no: "no",
       studying: "studying",
-      equivalent: "equivalent",
     }.freeze
 
     DEGREE_STATUS_OPTIONS = {
