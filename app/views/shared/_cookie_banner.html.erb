@@ -5,10 +5,14 @@
     data-cookie-acceptance-target="banner">
     <p><strong>Tell us whether you accept cookies</strong></p>
     <p>
-    We use <%= link_to "cookies to collect information", cookies_path %> about how you use this site. 
+    We use <%= link_to "cookies to collect information", cookies_path %> about how you use this site.
     We use this information to make the website work as well as possible and improve our services.
     </p>
-    <%= link_to "Accept all cookies", "#", id: "cookies-agree",
+    <!--
+      The id is `biscuits-agrees` instead of `cookies-agree`
+      to prevent ad blockers from removing the button.
+    -->
+    <%= link_to "Accept all cookies", "#", id: "biscuits-agree",
           class: "govuk-button", data: {
             action: "cookie-acceptance#allowAll",
             "cookie-acceptance-target": "accept"
