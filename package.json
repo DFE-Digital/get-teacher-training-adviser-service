@@ -16,6 +16,7 @@
   },
   "jest": {
     "testRegex": ".*_spec.js",
+    "testEnvironment": "jsdom",
     "roots": [
       "spec/javascript"
     ],
