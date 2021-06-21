@@ -5,13 +5,11 @@
 
 <%= f.govuk_phone_field :address_telephone, width: 20, prefix_text: "+", value: f.object.address_telephone_value %>
 
-<% unless Rails.env.production? %>
-  <%= f.govuk_collection_select :time_zone,
-    f.object.filtered_time_zones,
-    :name,
-    ->(option) { option.to_s },
-    options: { prompt: "Please select" }
-  %>
-<% end %>
+<%= f.govuk_collection_select :time_zone,
+  f.object.filtered_time_zones,
+  :name,
+  ->(option) { option.to_s },
+  options: { prompt: "Please select" }
+%>
 
 <% end %>

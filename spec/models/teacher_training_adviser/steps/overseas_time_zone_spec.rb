@@ -23,12 +23,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasTimeZone do
   context "time_zone" do
     it { is_expected.to_not allow_values("", nil).for :time_zone }
     it { is_expected.to allow_values(ActiveSupport::TimeZone.all).for :time_zone }
-
-    context "when in production" do
-      before { allow(Rails).to receive(:env) { "production".inquiry } }
-
-      it { is_expected.not_to validate_presence_of :time_zone }
-    end
+    it { is_expected.to validate_presence_of :time_zone }
   end
 
   describe "#filtered_time_zones" do
