@@ -4,7 +4,7 @@ module TeacherTrainingAdviser::Steps
     attribute :time_zone, :string
 
     validates :address_telephone, telephone: { international: true }, presence: true
-    validates :time_zone, presence: true, unless: -> { Rails.env.production? }
+    validates :time_zone, presence: true
 
     before_validation if: :address_telephone do
       self.address_telephone = address_telephone.to_s.strip.presence

@@ -19,7 +19,7 @@ module TeacherTrainingAdviser::Steps
       have_a_degree_skipped = have_a_degree_step.skipped?
       equivalent_degree = have_a_degree_step.degree_options == HaveADegree::DEGREE_OPTIONS[:equivalent]
 
-      overseas_country_skipped || have_a_degree_skipped || !equivalent_degree || Rails.env.production?
+      overseas_country_skipped || have_a_degree_skipped || !equivalent_degree
     end
   end
 end

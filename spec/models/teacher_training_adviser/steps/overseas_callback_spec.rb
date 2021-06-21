@@ -35,14 +35,6 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasCallback do
       wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:yes]
       expect(subject).to be_skipped
     end
-
-    it "returns true in production" do
-      allow(Rails).to receive(:env) { "production".inquiry }
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::OverseasCountry).to receive(:skipped?) { false }
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?) { false }
-      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
-      expect(subject).to be_skipped
-    end
   end
 
   describe "#reviewable_answers" do
