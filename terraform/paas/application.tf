@@ -1,5 +1,5 @@
 locals {
-  environment_map = {}
+  environment_map = { BASIC_AUTH = var.basic_auth }
 }
 
 resource "cloudfoundry_app" "adviser_application" {

@@ -154,9 +154,10 @@ RSpec.describe "Feedback" do
       ])
     end
 
-    context "when in production" do
+    context "when in production and basic auth is disabled" do
       before do
         allow(Rails).to receive(:env) { "production".inquiry }
+        allow(Rails.application.config.x).to receive(:basic_auth) { "0" }
       end
 
       describe "#new" do
@@ -225,9 +226,10 @@ RSpec.describe "Feedback" do
       end
     end
 
-    context "when in a production-like environment (rolling/preprod)" do
+    context "when in a production-like environment (rolling/preprod) and basic auth is enabled" do
       before do
         allow(Rails).to receive(:env) { "rolling".inquiry }
+        allow(Rails.application.config.x).to receive(:basic_auth) { "1" }
       end
 
       describe "#new" do

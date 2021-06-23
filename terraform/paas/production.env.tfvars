@@ -5,6 +5,7 @@ paas_linked_services          = ["get-into-teaching-prod-redis-svc", "get-into-t
 paas_additional_route_names   = ["beta-adviser-getintoteaching", "adviser-getintoteaching"]
 logging                       = 1
 instances                     = 2
+basic_auth                    = 0
 azure_key_vault               = "s146p01-kv"
 azure_resource_group          = "s146p01-rg"
 alerts = {

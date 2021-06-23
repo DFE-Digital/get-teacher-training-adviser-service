@@ -26,6 +26,10 @@ variable "instances" {
   default = 1
 }
 
+variable "basic_auth" {
+   default = 1
+}
+
 variable "paas_logging_name" {
   default = "logit-ssl-drain"
 }
