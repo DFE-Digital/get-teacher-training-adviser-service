@@ -12,21 +12,22 @@ RSpec.describe BasicAuth do
   end
 
   describe ".env_requires_auth?" do
-    before { allow(Rails).to receive(:env) { env.inquiry } }
+    before { allow(Rails.application.config.x).to receive(:basic_auth) { basic_auth } }
     subject { instance.env_requires_auth? }
 
-    ENV_AUTH = {
-      "production" => false,
-      "rolling" => true,
-      "preprod" => true,
-      "userresearch" => true,
-      "test" => false,
-      "development" => false,
+    basic_auth_values = {
+      nil => false,
+      0 => false,
+      "" => false,
+      "1" => true,
+      "true" => true,
+      true => true,
+      "enabled" => true,
     }.freeze
 
-    ENV_AUTH.each do |k, auth|
-      context "when #{k}" do
-        let(:env) { k }
+    basic_auth_values.each do |k, auth|
+      context "when basic_auth is #{k}" do
+        let(:basic_auth) { k }
 
         it { is_expected.to eq(auth) }
       end

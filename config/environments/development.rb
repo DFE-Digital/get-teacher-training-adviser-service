@@ -54,6 +54,7 @@ Rails.application.configure do
   config.x.git_api_endpoint = "https://get-into-teaching-api-dev.london.cloudapps.digital"
   config.x.enable_beta_redirects = false
   config.x.api_client_cache_store = ActiveSupport::Cache::MemoryStore.new
+  config.x.basic_auth = ENV["BASIC_AUTH"]
 
   config.session_store :cache_store,
                        key: "_dfe_session",
