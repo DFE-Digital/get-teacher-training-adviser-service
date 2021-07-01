@@ -1,7 +1,8 @@
 <%= f.govuk_fieldset legend: { text: 'You told us you have an equivalent degree and live overseas' } do %>
 
-<p>We will need to call you to check your degree. You must have the details of your overseas qualifications when we contact you.</p>
-<p>In the meantime, you can call us on Freephone <%= link_to("0800 389 2500", "tel://08003892500") %> between 8.30am and 5.30pm Monday to Friday.</p>
+<p>We will need to call you to check your degree before you can get an adviser.</p>
+
+<p>We will call you between 8.30am and 5.30pm (UK time).</p>
 
 <%= f.govuk_phone_field :address_telephone, width: 20, prefix_text: "+", value: f.object.address_telephone_value %>
 
