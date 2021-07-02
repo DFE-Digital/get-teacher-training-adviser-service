@@ -4,6 +4,7 @@ RSpec.shared_examples "an IP-based rate limited endpoint" do |desc, limit, perio
 
     before do
       allow(Rack::Attack.cache).to receive(:store) { memory_store }
+      freeze_time
       request_count.times { perform_request }
     end
 
@@ -12,7 +13,7 @@ RSpec.shared_examples "an IP-based rate limited endpoint" do |desc, limit, perio
     context "when fewer than rate limit" do
       let(:request_count) { limit - 1 }
 
-      it { is_expected.to_not eq(429) }
+      it { is_expected.not_to eq(429) }
     end
 
     context "when more than rate limit" do
@@ -22,9 +23,9 @@ RSpec.shared_examples "an IP-based rate limited endpoint" do |desc, limit, perio
 
       context "when time restriction has passed" do
         it "allows another request" do
-          travel period + 1.second
+          travel period + 10.seconds
           perform_request
-          expect(response.status).to_not eq(429)
+          expect(response.status).not_to eq(429)
         end
       end
     end
