@@ -4,7 +4,7 @@ module TeacherTrainingAdviser
     include WizardSteps
     self.wizard_class = TeacherTrainingAdviser::Wizard
 
-    around_action :set_time_zone, only: [:show] # rubocop:disable Rails/LexicallyScopedActionFilter
+    around_action :set_time_zone, only: %i[show update] # rubocop:disable Rails/LexicallyScopedActionFilter
     before_action :set_page_title, only: [:show] # rubocop:disable Rails/LexicallyScopedActionFilter
 
     def completed

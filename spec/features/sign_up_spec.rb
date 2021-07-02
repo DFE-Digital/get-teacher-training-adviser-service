@@ -17,8 +17,8 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
 
   let(:quota) do
     GetIntoTeachingApiClient::CallbackBookingQuota.new(
-      startAt: DateTime.now.utc + 2.hours,
-      endAt: DateTime.now.utc + 3.hours,
+      startAt: DateTime.new(2099, 6, 1, 10),
+      endAt: DateTime.new(2099, 6, 1, 11),
     )
   end
 
@@ -149,7 +149,8 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_text "Choose a time"
-      select_first_option "Select your preferred day and time for a callback"
+      # Select time in local time zone (Argentina)
+      select "12:00 am - 1:00 am", from: "Select your preferred day and time for a callback"
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Check your answers before you continue"
@@ -559,7 +560,13 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
 
       expect(page).to have_css "h1", text: "You told us you have an equivalent degree and live in the United Kingdom"
       expect(find_field("Contact telephone number").value).to eq("123456789")
-      select_first_option "Select your preferred day and time for a callback"
+      # Cause an error to check the time zone is correct on an update action
+      fill_in "Contact telephone number", with: ""
+      click_on "Continue"
+      expect(page).to have_text("Enter a telephone number")
+      fill_in "Contact telephone number", with: "123456789"
+      # Select time in local time zone (London)
+      select "11:00 am - 12:00 pm", from: "Select your preferred day and time for a callback"
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Check your answers before you continue"
@@ -675,10 +682,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
     fill_in "Address line 2 (optional)", with: "Main Street"
     fill_in "Town or City", with: "Edinburgh"
     fill_in "Postcode", with: "EH12 8JF"
-  end
-
-  def select_first_option(field_label)
-    find_field(field_label).first("option").select_option
   end
 
   def expect_sign_up_with_attributes(request_attributes)
