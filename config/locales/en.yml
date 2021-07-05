@@ -40,7 +40,7 @@ en:
     legend:
       teacher_training_adviser_feedback:
         successful_visit: "Did you achieve what you wanted from your visit?"
-        rating: "Did you achieve what you wanted from your visit?"
+        rating: "Overall, how did you feel about the service you received?"
       teacher_training_adviser_feedback_search:
         created_on_or_after: "Created on or after"
         created_on_or_before: "Created on or before"
