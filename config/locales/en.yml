@@ -144,12 +144,15 @@ en:
           "yes": "Yes"
           equivalent: "I have, or I'm studying for, an equivalent qualification from another country"
           "no": "No"
-          studying: "I'm studying for a degree"      
+          studying: "I'm studying for a degree"
     hint:
       teacher_training_adviser_steps_what_subject_degree:
         degree_subject: "If your subject is not listed choose the option that is nearest to your degree."
       teacher_training_adviser_steps_uk_telephone:
-        address_telephone: "We recommend you provide us with your phone number as this is the most effective way to talk to your adviser."
+        address_telephone: |-
+          Your adviser can talk to you by text and WhatsApp, as well as by
+          phone call. Giving your phone number is the easiest way to talk to an
+          adviser.
       teacher_training_adviser_steps_stage_interested_teaching:
         preferred_education_phase_id: "Select a stage even if you're not sure yet, as this will not affect the sign up process."
       teacher_training_adviser_steps_returning_teacher:
