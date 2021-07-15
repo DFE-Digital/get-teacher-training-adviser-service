@@ -5,10 +5,32 @@ module SpecHelpers
         receive(:create_candidate_access_token).and_raise(GetIntoTeachingApiClient::ApiError)
     end
 
+    def mock_successful_match_back
+      expect_any_instance_of(GetIntoTeachingApiClient::CandidatesApi).to \
+        receive(:create_candidate_access_token)
+    end
+
+    def mock_exchange_code_for_candidate(candidate_identity)
+      expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
+        receive(:exchange_access_token_for_teacher_training_adviser_sign_up) do
+          path = Rails.root.join("spec/contracts/data/teacher_training_adviser/candidates.json")
+          data = JSON.parse(File.open(path).read)
+          matchback_values = candidate_identity.to_hash.except(:existing).values.map(&:downcase)
+          candidate_data = data.find do |d|
+            [d["firstName"], d["lastName"], d["email"]].map(&:downcase) == matchback_values
+          end
+
+          GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.new(candidate_data).tap do |c|
+            c.date_of_birth = Date.parse(candidate_data["dateOfBirth"]) if candidate_data["dateOfBirth"].present?
+          end
+        end
+    end
+
     def setup_data
       setup_pick_list_items
       setup_lookup_items
       setup_privacy_policy
+      setup_callback_booking_quotas
     end
 
     def state
@@ -44,6 +66,20 @@ module SpecHelpers
 
       allow_any_instance_of(GetIntoTeachingApiClient::PrivacyPoliciesApi).to \
         receive(:get_privacy_policy).with(policy.id) { policy }
+    end
+
+    def setup_callback_booking_quotas
+      path = Rails.root.join("spec/contracts/data/callback_booking_quotas.json")
+      quotas_data = JSON.parse(File.open(path).read)
+      quotas = quotas_data.map do |data|
+        GetIntoTeachingApiClient::CallbackBookingQuota.new(data).tap do |q|
+          q.start_at = Time.zone.parse(data["startAt"])
+          q.end_at = Time.zone.parse(data["endAt"])
+        end
+      end
+
+      allow_any_instance_of(GetIntoTeachingApiClient::CallbackBookingQuotasApi).to \
+        receive(:get_callback_booking_quotas) { quotas }
     end
 
     def read_data(folder)
@@ -91,6 +127,15 @@ module SpecHelpers
       }
     end
 
+    def existing_candidate_identity
+      {
+        first_name: "Jane",
+        last_name: "Doe",
+        email: "existing@user.com",
+        existing: true,
+      }
+    end
+
     def submit_choice_step(option, step)
       expect_current_step(step)
       choose option
@@ -110,7 +155,11 @@ module SpecHelpers
       fill_in "Last name", with: last_name
       fill_in "Email address", with: email
 
-      mock_unsuccessful_match_back unless existing
+      if existing
+        mock_successful_match_back
+      else
+        mock_unsuccessful_match_back
+      end
 
       click_on_continue
     end
@@ -143,10 +192,33 @@ module SpecHelpers
       click_on_continue
     end
 
-    def submit_uk_telephone_step(telephone)
+    def submit_uk_telephone_step(telephone = nil)
       expect_current_step(:uk_telephone)
 
       fill_in "UK telephone number (optional)", with: telephone
+      click_on_continue
+    end
+
+    def submit_overseas_telephone_step(telephone = nil)
+      expect_current_step(:overseas_telephone)
+
+      fill_in "Overseas telephone number (optional)", with: telephone
+      click_on_continue
+    end
+
+    def submit_uk_callback_step(telephone, slot)
+      expect_current_step(:uk_callback)
+
+      fill_in "Contact telephone number", with: telephone
+      select slot
+      click_on_continue
+    end
+
+    def submit_overseas_time_zone_step(telephone, timezone)
+      expect_current_step(:overseas_time_zone)
+
+      fill_in "Contact telephone number", with: telephone
+      select timezone
       click_on_continue
     end
 
@@ -159,6 +231,12 @@ module SpecHelpers
       expect_current_step(:accept_privacy_policy)
       check "Accept the privacy policy"
       click_on "Complete"
+    end
+
+    def submit_verification_code(candidate_identity)
+      fill_in "Check your email and enter the verification code sent to #{candidate_identity[:email]}", with: "123456"
+      mock_exchange_code_for_candidate(candidate_identity)
+      click_on_continue
     end
   end
 end
