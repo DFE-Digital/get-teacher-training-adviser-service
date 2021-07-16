@@ -15,6 +15,7 @@
 require "simplecov"
 require "simplecov_json_formatter"
 require "active_support/testing/time_helpers"
+require "webmock/rspec"
 
 SimpleCov.start "rails" do
   add_filter "/bin/"

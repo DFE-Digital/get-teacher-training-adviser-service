@@ -1,0 +1,188 @@
+require "rails_helper"
+
+RSpec.feature "Sign up", type: :feature, vcr: false do
+  before do
+    setup_data
+    setup_contract
+
+    visit teacher_training_adviser_steps_path
+
+    submit_identity_step(candidate_identity)
+  end
+
+  around do |example|
+    travel_to(DateTime.parse(state["utcNow"]))
+    VCR.turned_off { example.run }
+    travel_back
+  end
+
+  context "with a new candidate" do
+    let(:candidate_identity) { new_candidate_identity }
+
+    scenario "returning, teacher reference number, in the UK and telephone" do
+      submit_choice_step("Yes", :returning_teacher)
+      submit_choice_step("Yes", :has_teacher_id)
+      submit_previous_teacher_id_step("12345")
+      submit_select_step("Maths", :subject_taught)
+      submit_choice_step("Physics", :subject_like_to_teach)
+      submit_date_of_birth_step(Date.new(1974, 3, 16))
+      submit_choice_step("UK", :uk_or_overseas)
+      submit_uk_address_step(
+        address_line1: "5 Main Street",
+        address_line2: "Dalkeith",
+        town_city: "Edinburgh",
+        postcode: "TE7 5TR",
+      )
+      submit_uk_telephone_step("123456789")
+      submit_review_answers_step
+      submit_privacy_policy_step
+    end
+
+    scenario "returning, no teacher reference number, overseas and no telephone" do
+      submit_choice_step("Yes", :returning_teacher)
+      submit_choice_step("Yes", :has_teacher_id)
+      submit_previous_teacher_id_step("12345")
+      submit_select_step("Maths", :subject_taught)
+      submit_choice_step("Physics", :subject_like_to_teach)
+      submit_date_of_birth_step(Date.new(1974, 3, 16))
+      submit_choice_step("Overseas", :uk_or_overseas)
+      submit_select_step("Brazil", :overseas_country)
+      submit_overseas_telephone_step
+      submit_review_answers_step
+      submit_privacy_policy_step
+    end
+
+    scenario "not returning, has degree, primary, has gcses, in the UK and telephone" do
+      submit_choice_step("No", :returning_teacher)
+      submit_choice_step("Yes", :have_a_degree)
+      submit_select_step("Physics", :what_subject_degree)
+      submit_select_step("2:1", :what_degree_class)
+      submit_choice_step("Primary", :stage_interested_teaching)
+      submit_choice_step("Yes", :gcse_maths_english)
+      submit_choice_step("Yes", :gcse_science)
+      submit_select_step("2022", :start_teacher_training)
+      submit_date_of_birth_step(Date.new(1974, 3, 16))
+      submit_choice_step("UK", :uk_or_overseas)
+      submit_uk_address_step(
+        address_line1: "5 Main Street",
+        address_line2: "Dalkeith",
+        town_city: "Edinburgh",
+        postcode: "TE7 5TR",
+      )
+      submit_uk_telephone_step("123456789")
+      submit_review_answers_step
+      submit_privacy_policy_step
+    end
+
+    scenario "not returning, has degree, secodary, retaking gcses, overseas and no telephone" do
+      submit_choice_step("No", :returning_teacher)
+      submit_choice_step("Yes", :have_a_degree)
+      submit_select_step("Maths", :what_subject_degree)
+      submit_select_step("Not applicable", :what_degree_class)
+      submit_choice_step("Secondary", :stage_interested_teaching)
+      submit_choice_step("No", :gcse_maths_english)
+      submit_choice_step("Yes", :retake_gcse_maths_english)
+      submit_select_step("Chemistry", :subject_interested_teaching)
+      submit_select_step("Not sure", :start_teacher_training)
+      submit_date_of_birth_step(Date.new(1974, 3, 16))
+      submit_choice_step("Overseas", :uk_or_overseas)
+      submit_select_step("Canada", :overseas_country)
+      submit_overseas_telephone_step
+      submit_review_answers_step
+      submit_privacy_policy_step
+    end
+
+    scenario "not returning, studying for degree, primary, has/retaking gcses, overseas and telephone" do
+      submit_choice_step("No", :returning_teacher)
+      submit_choice_step("I'm studying for a degree", :have_a_degree)
+      submit_choice_step("First year", :stage_of_degree)
+      submit_select_step("Physics", :what_subject_degree)
+      submit_select_step("First class", :what_degree_class)
+      submit_choice_step("Primary", :stage_interested_teaching)
+      submit_choice_step("No", :gcse_maths_english)
+      submit_choice_step("Yes", :retake_gcse_maths_english)
+      submit_choice_step("Yes", :gcse_science)
+      submit_select_step("2021", :start_teacher_training)
+      submit_date_of_birth_step(Date.new(1974, 3, 16))
+      submit_choice_step("Overseas", :uk_or_overseas)
+      submit_select_step("Barbados", :overseas_country)
+      submit_overseas_telephone_step("123456789")
+      submit_review_answers_step
+      submit_privacy_policy_step
+    end
+
+    scenario "not returning, equivalent degree, primary, has/retaking gcses, overseas" do
+      submit_choice_step("No", :returning_teacher)
+      submit_choice_step("I have, or I'm studying for, an equivalent qualification from another country", :have_a_degree)
+      submit_choice_step("Primary", :stage_interested_teaching)
+      submit_select_step("2022", :start_teacher_training)
+      submit_date_of_birth_step(Date.new(1974, 3, 16))
+      submit_choice_step("UK", :uk_or_overseas)
+      submit_uk_address_step(
+        address_line1: "5 Main Street",
+        address_line2: "Dalkeith",
+        town_city: "Edinburgh",
+        postcode: "TE7 5TR",
+      )
+      submit_uk_callback_step("123456789", "1:00 pm - 1:30 pm")
+      submit_review_answers_step
+      submit_privacy_policy_step
+    end
+
+    scenario "not returning, equivalent degree, secondary, has gcses, is in uk" do
+      submit_choice_step("No", :returning_teacher)
+      submit_choice_step("I have, or I'm studying for, an equivalent qualification from another country", :have_a_degree)
+      submit_choice_step("Secondary", :stage_interested_teaching)
+      submit_select_step("Maths", :subject_interested_teaching)
+      submit_select_step("2021", :start_teacher_training)
+      submit_date_of_birth_step(Date.new(1974, 3, 16))
+      submit_choice_step("Overseas", :uk_or_overseas)
+      submit_select_step("China", :overseas_country)
+      submit_overseas_time_zone_step("447584736574", "(GMT-04:00) Caracas")
+      submit_select_step("9:00 am - 9:30 am", :overseas_callback)
+      submit_review_answers_step
+      submit_privacy_policy_step
+    end
+  end
+
+  context "with an existing candidate" do
+    let(:candidate_identity) { existing_candidate_identity }
+
+    scenario "returning, existing data, change address" do
+      submit_verification_code(candidate_identity)
+      submit_choice_step("Yes", :returning_teacher)
+
+      expect_current_step(:subject_taught)
+      expect(page).to have_select("Which main subject did you previously teach?", selected: "Maths")
+      click_on_continue
+
+      expect_current_step(:subject_like_to_teach)
+      expect(page.find_field("Physics")).to be_checked
+      click_on_continue
+
+      expect_current_step(:date_of_birth)
+      expect(find_field("Day").value).to eq("22")
+      expect(find_field("Month").value).to eq("3")
+      expect(find_field("Year").value).to eq("1987")
+      click_on_continue
+
+      submit_choice_step("UK", :uk_or_overseas)
+
+      expect_current_step(:uk_address)
+      expect(find_field("Address line 1").value).to eq("11")
+      expect(find_field("Address line 2 (optional)").value).to eq("Main Street")
+      expect(find_field("Town or City").value).to eq("St Andrews")
+      expect(find_field("Postcode").value).to eq("KY9 6NJ")
+
+      submit_uk_address_step(
+        address_line1: "5 Main Street",
+        address_line2: "Dalkeith",
+        town_city: "Edinburgh",
+        postcode: "TE7 5TR",
+      )
+
+      submit_review_answers_step
+      submit_privacy_policy_step
+    end
+  end
+end

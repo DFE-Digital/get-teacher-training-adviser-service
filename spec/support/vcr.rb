@@ -6,7 +6,7 @@ VCR.configure do |config|
     i.response.body.force_encoding("UTF-8")
   end
 
-  config.around_http_request(->(req) { req.method == :get }) do |request|
+  config.around_http_request(->(req) { req.method == :get && VCR.turned_on? }) do |request|
     VCR.use_cassette(request.uri, &request)
   end
 
