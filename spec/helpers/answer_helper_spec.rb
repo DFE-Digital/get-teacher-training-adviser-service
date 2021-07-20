@@ -4,7 +4,7 @@ RSpec.describe AnswerHelper, type: :helper do
   describe "#format_answer" do
     let(:time_zone) { "UTC" }
 
-    before { Time.zone = time_zone }
+    before { allow(Time).to receive(:zone) { time_zone } }
 
     it "correctly formats a date" do
       answer = Date.new(2011, 1, 24)
