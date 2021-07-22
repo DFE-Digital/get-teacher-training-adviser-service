@@ -153,6 +153,8 @@ en:
           Your adviser can talk to you by text and WhatsApp, as well as by
           phone call. Giving your phone number is the easiest way to talk to an
           adviser.
+      teacher_training_adviser_steps_start_teacher_training:
+        initial_teacher_training_year_id: "Only select 2021 if you want to start your teacher training this September."
       teacher_training_adviser_steps_stage_interested_teaching:
         preferred_education_phase_id: "Select a stage even if you're not sure yet, as this will not affect the sign up process."
       teacher_training_adviser_steps_returning_teacher:
