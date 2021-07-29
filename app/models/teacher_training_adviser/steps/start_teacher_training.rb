@@ -40,7 +40,7 @@ module TeacherTrainingAdviser::Steps
       if year == current_year
         "#{year} - start your training this September"
       else
-        "#{year}"
+        year.to_s
       end
     end
 
