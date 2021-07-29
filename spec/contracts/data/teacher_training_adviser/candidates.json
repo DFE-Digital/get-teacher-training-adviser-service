@@ -14,6 +14,6 @@
     "addressCity": "St Andrews",
     "addressPostcode": "KY9 6NJ",
     "addressTelephone": "987654321",
-    "alreadySubscribedToTeacherTrainingAdviser": false
+    "canSubscribeToTeacherTrainingAdviser": true
   }
 ]
