@@ -59,7 +59,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
       it "returns 'Not sure', and the next 3 years" do
         expect(years.map(&:value)).to contain_exactly(
           "Not sure",
-          "2021 - start your training in September 2021",
+          "2021",
           "2022",
           "2023",
         )
