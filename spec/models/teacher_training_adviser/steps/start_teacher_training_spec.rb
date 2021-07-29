@@ -42,7 +42,12 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
       end
 
       it "returns 'Not sure', and the current year plus next 2 years" do
-        expect(years.map(&:value)).to eq(["Not sure", 2020, 2021, 2022])
+        expect(years.map(&:value)).to contain_exactly(
+          "Not sure",
+          "2020 - start your training this September",
+          "2021",
+          "2022",
+        )
       end
     end
 
@@ -52,7 +57,12 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
       end
 
       it "returns 'Not sure', and the next 3 years" do
-        expect(years.map(&:value)).to eq(["Not sure", 2021, 2022, 2023])
+        expect(years.map(&:value)).to contain_exactly(
+          "Not sure",
+          "2021",
+          "2022",
+          "2023",
+        )
       end
     end
   end
