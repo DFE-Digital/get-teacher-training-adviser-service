@@ -45,8 +45,8 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
         expect(years.map(&:value)).to contain_exactly(
           "Not sure",
           "2020 - start your training this September",
-          "2021 - start your training in September 2021",
-          "2022 - start your training in September 2022",
+          "2021",
+          "2022",
         )
       end
     end
@@ -60,8 +60,8 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
         expect(years.map(&:value)).to contain_exactly(
           "Not sure",
           "2021 - start your training in September 2021",
-          "2022 - start your training in September 2022",
-          "2023 - start your training in September 2023",
+          "2022",
+          "2023",
         )
       end
     end
