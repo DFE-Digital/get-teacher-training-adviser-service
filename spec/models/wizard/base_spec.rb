@@ -351,10 +351,12 @@ RSpec.describe Wizard::Base do
       before do
         wizardstore["candidate_id"] = "abc-123"
         wizardstore["qualification_id"] = "def-456"
+        wizardstore["adviser_status_id"] = 123
       end
 
       it { is_expected.to include "candidate_id" => "abc-123" }
       it { is_expected.to include "qualification_id" => "def-456" }
+      it { is_expected.to include "adviser_status_id" => 123 }
     end
   end
 end

@@ -7,7 +7,7 @@ module Wizard
       ACCESS_TOKEN = 0
     end
 
-    MATCHBACK_ATTRS = %i[candidate_id qualification_id].freeze
+    MATCHBACK_ATTRS = %i[candidate_id qualification_id adviser_status_id].freeze
 
     class_attribute :steps
 
