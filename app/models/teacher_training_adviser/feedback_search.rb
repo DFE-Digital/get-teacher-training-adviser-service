@@ -17,7 +17,7 @@ module TeacherTrainingAdviser
       on_or_before: :created_on_or_before,
     }
     validates :created_on_or_before, timeliness: {
-      on_or_before: Time.zone.now.end_of_day.utc,
+      on_or_before: -> { Time.zone.now.end_of_day.utc.to_date },
     }
 
     def range
