@@ -11,7 +11,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::HaveADegree do
   end
 
   describe "degree_options" do
-    it { is_expected.to_not allow_values("random", "", nil).for :degree_options }
+    it { is_expected.not_to allow_values("random", "", nil).for :degree_options }
     it { is_expected.to allow_values(*TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS.values).for :degree_options }
   end
 
@@ -43,23 +43,26 @@ RSpec.describe TeacherTrainingAdviser::Steps::HaveADegree do
 
   describe "#skipped?" do
     it "returns false if returning_to_teaching is false" do
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::ReturningTeacher).to receive(:returning_to_teaching) { false }
-      expect(subject).to_not be_skipped
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::ReturningTeacher).to receive(:returning_to_teaching).and_return(false)
+      expect(subject).not_to be_skipped
     end
 
     it "returns true if returning_to_teaching is true" do
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::ReturningTeacher).to receive(:returning_to_teaching) { true }
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::ReturningTeacher).to receive(:returning_to_teaching).and_return(true)
       expect(subject).to be_skipped
     end
   end
 
   describe "#reviewable_answers" do
     subject { instance.reviewable_answers }
+
     before { instance.degree_options = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying] }
+
     it { is_expected.to eq({ "degree_options" => "I'm studying for a degree" }) }
 
     context "when degree_options is nil" do
       before { instance.degree_options = nil }
+
       it { is_expected.to eq({ "degree_options" => nil }) }
     end
   end

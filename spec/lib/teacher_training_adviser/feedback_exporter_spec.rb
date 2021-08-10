@@ -15,7 +15,7 @@ RSpec.describe TeacherTrainingAdviser::FeedbackExporter do
     subject { instance.to_csv }
 
     it do
-      is_expected.to eq(
+      expect(subject).to eq(
         <<~CSV,
           id,rating,successful_visit,unsuccessful_visit_explanation,improvements,created_at
           #{feedback[0].id},very_satisfied,true,"",'=cmd|' /C notepad'!'A1',#{feedback[0].created_at}

@@ -1,6 +1,6 @@
 RSpec.shared_examples "policy_views" do
   it "returns a success response" do
-    expect(subject).to have_http_status(200)
+    expect(subject).to have_http_status(:ok)
   end
 
   it "includes the policy text" do

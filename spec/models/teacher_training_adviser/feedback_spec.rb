@@ -8,8 +8,9 @@ RSpec.describe TeacherTrainingAdviser::Feedback do
     it { is_expected.to respond_to :successful_visit }
     it { is_expected.to respond_to :unsuccessful_visit_explanation }
     it { is_expected.to respond_to :improvements }
+
     it do
-      is_expected.to define_enum_for(:rating).with_values(%i[
+      expect(subject).to define_enum_for(:rating).with_values(%i[
         very_satisfied
         satisfied
         neither_satisfied_or_dissatisfied
@@ -25,30 +26,33 @@ RSpec.describe TeacherTrainingAdviser::Feedback do
     it { is_expected.not_to allow_values(nil, "").for(:successful_visit) }
 
     context "when successful_visit is false" do
-      before { allow(subject).to receive(:successful_visit) { false } }
+      before { allow(subject).to receive(:successful_visit).and_return(false) }
+
       it { is_expected.to validate_presence_of(:unsuccessful_visit_explanation) }
     end
 
     context "when successful_visit is nil" do
-      before { allow(subject).to receive(:successful_visit) { nil } }
+      before { allow(subject).to receive(:successful_visit).and_return(nil) }
+
       it { is_expected.not_to validate_presence_of(:unsuccessful_visit_explanation) }
     end
 
     context "when successful_visit is true" do
-      before { allow(subject).to receive(:successful_visit) { true } }
+      before { allow(subject).to receive(:successful_visit).and_return(true) }
+
       it { is_expected.not_to validate_presence_of(:unsuccessful_visit_explanation) }
     end
   end
 
   context "scope" do
     describe ".recent" do
+      subject { described_class.recent.map(&:created_at) }
+
       before do
         5.times do
           create(:feedback).tap { |f| f.update(created_at: rand(-5..5).days.ago) }
         end
       end
-
-      subject { described_class.recent.map(&:created_at) }
 
       it { is_expected.to eq(subject.sort.reverse) }
     end

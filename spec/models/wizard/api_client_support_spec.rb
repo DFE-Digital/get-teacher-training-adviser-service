@@ -9,11 +9,13 @@ RSpec.describe Wizard::ApiClientSupport do
     end
   end
 
-  let(:instance) { ApiClientTestWizard.new }
   subject { instance }
+
+  let(:instance) { ApiClientTestWizard.new }
 
   describe "#export_camelized_hash" do
     subject { instance.export_camelized_hash }
+
     it { is_expected.to include firstName: "Joe" }
     it { is_expected.to include lastName: "Bloggs" }
   end

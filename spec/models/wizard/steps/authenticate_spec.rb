@@ -2,15 +2,17 @@ require "rails_helper"
 
 RSpec.describe Wizard::Steps::Authenticate do
   include_context "wizard step"
-  it_behaves_like "a wizard step"
+  before { allow(wizard).to receive(:exchange_access_token).and_return({}) }
 
-  before { allow(wizard).to receive(:exchange_access_token) { {} } }
+  it_behaves_like "a wizard step"
 
   it { is_expected.to respond_to :timed_one_time_password }
 
   context "validations" do
-    before { instance.valid? }
     subject { instance.errors.messages }
+
+    before { instance.valid? }
+
     it { is_expected.to include(:timed_one_time_password) }
   end
 
@@ -32,13 +34,13 @@ RSpec.describe Wizard::Steps::Authenticate do
 
     it "returns false if authenticate is true" do
       wizardstore["authenticate"] = true
-      expect(subject).to_not be_skipped
+      expect(subject).not_to be_skipped
     end
   end
 
   describe "#export" do
     it "returns an empty hash" do
-      allow_any_instance_of(described_class).to receive(:skipped?) { false }
+      allow_any_instance_of(described_class).to receive(:skipped?).and_return(false)
       subject.timed_one_time_password = "123456"
       expect(subject.export).to be_empty
     end
@@ -72,7 +74,7 @@ RSpec.describe Wizard::Steps::Authenticate do
       it "does not attempt to call the API" do
         subject.timed_one_time_password = nil
         subject.save!
-        expect { subject.save! }.to_not raise_error
+        expect { subject.save! }.not_to raise_error
       end
     end
 
@@ -88,14 +90,15 @@ RSpec.describe Wizard::Steps::Authenticate do
       end
 
       it "does not call the API on validation if already authenticated" do
-        expect(wizard).to receive(:access_token_used?) { true }
-        expect(wizard).to_not receive(:exchange_access_token)
+        expect(wizard).to receive(:access_token_used?).and_return(true)
+        expect(wizard).not_to receive(:exchange_access_token)
         subject.timed_one_time_password = "123456"
         subject.valid?
       end
 
       context "when the wizard does not implement #exchange_access_token" do
         let(:wizard) { TestWizard.new(wizardstore, TestWizard::Name.key) }
+
         it "throws an error" do
           expect(wizard).to receive(:exchange_access_token).and_call_original
           expect { subject.save! }.to raise_error(Wizard::AccessTokenNotSupportedError)

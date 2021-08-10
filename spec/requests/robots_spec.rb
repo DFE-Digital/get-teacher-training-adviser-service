@@ -1,11 +1,12 @@
 require "rails_helper"
 
 RSpec.describe "Robots.txt", type: :request do
-  before { get "/robots.txt" }
   subject { response.body }
 
+  before { get "/robots.txt" }
+
   it do
-    is_expected.to eq(
+    expect(subject).to eq(
       <<~ROBOTS,
         User-agent: *
         Allow: /$

@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe Wizard::Step do
+  subject { FirstStep.new wizard, wizardstore, attributes }
+
   include_context "wizard store"
 
   class FirstStep < Wizard::Step
@@ -16,8 +18,6 @@ RSpec.describe Wizard::Step do
   let(:attributes) { {} }
   let(:wizard) { StubWizard.new(wizardstore, "first_step") }
 
-  subject { FirstStep.new wizard, wizardstore, attributes }
-
   describe ".key" do
     it { expect(described_class.key).to eql "step" }
     it { expect(FirstStep.key).to eql "first_step" }
@@ -29,12 +29,13 @@ RSpec.describe Wizard::Step do
   end
 
   describe ".contains_personal_details?" do
-    it { expect(described_class).to_not be_contains_personal_details }
-    it { expect(FirstStep).to_not be_contains_personal_details }
+    it { expect(described_class).not_to be_contains_personal_details }
+    it { expect(FirstStep).not_to be_contains_personal_details }
   end
 
   describe ".new" do
     let(:attributes) { { age: "20" } }
+
     it { is_expected.to be_instance_of FirstStep }
     it { is_expected.to have_attributes key: "first_step" }
     it { is_expected.to have_attributes id: "first_step" }
@@ -54,7 +55,7 @@ RSpec.describe Wizard::Step do
 
   describe "#skipped?" do
     context "when optional" do
-      before { expect(subject).to receive(:optional?) { true } }
+      before { expect(subject).to receive(:optional?).and_return(true) }
 
       context "when values for all attributes are present in the CRM" do
         before do
@@ -76,7 +77,7 @@ RSpec.describe Wizard::Step do
     end
 
     context "when not optional" do
-      before { expect(subject).to receive(:optional?) { false } }
+      before { expect(subject).to receive(:optional?).and_return(false) }
 
       context "when values for all attributes are present in the CRM" do
         before do
@@ -84,7 +85,7 @@ RSpec.describe Wizard::Step do
           crm_backingstore["age"] = 18
         end
 
-        it { is_expected.to_not be_skipped }
+        it { is_expected.not_to be_skipped }
       end
     end
   end
@@ -110,24 +111,28 @@ RSpec.describe Wizard::Step do
   end
 
   describe "#reviewable_answers" do
+    subject { instance.reviewable_answers }
+
     let(:backingstore) { { "name" => "Joe" } }
     let(:instance) { FirstStep.new nil, wizardstore, age: 35 }
-    subject { instance.reviewable_answers }
+
     it { is_expected.to include "name" => "Joe" }
     it { is_expected.to include "age" => 35 }
   end
 
   describe "#export" do
+    subject { instance.export }
+
     let(:backingstore) { { "name" => "Joe" } }
     let(:instance) { FirstStep.new nil, wizardstore, age: 35 }
-    subject { instance.export }
+
     it { is_expected.to include "name" => "Joe" }
     it { is_expected.to include "age" => nil } # should only export persisted data
 
     context "when the step is skipped" do
       let(:crm_backingstore) { { "name" => "Jimmy" } }
 
-      before { expect(instance).to receive(:skipped?) { true } }
+      before { expect(instance).to receive(:skipped?).and_return(true) }
 
       it { is_expected.to include "name" => "Jimmy" }
       it { is_expected.to include "age" => nil } # should only export persisted data

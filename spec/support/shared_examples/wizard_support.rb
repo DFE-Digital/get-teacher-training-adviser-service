@@ -5,13 +5,14 @@ RSpec.shared_context "wizard store" do
 end
 
 RSpec.shared_context "wizard step" do
+  subject { instance }
+
   include_context "wizard store"
   let(:attributes) { {} }
   let(:wizard) { TeacherTrainingAdviser::Wizard.new(wizardstore, described_class.key) }
   let(:instance) do
     described_class.new wizard, wizardstore, attributes
   end
-  subject { instance }
 end
 
 RSpec.shared_examples "a wizard step" do
@@ -31,7 +32,7 @@ RSpec.shared_examples "a wizard step that exposes API pick list items as options
   it { expect(subject.class).to respond_to :options }
 
   unless include_ids
-    it "it exposes API pick list items as options" do
+    it "exposes API pick list items as options" do
       allow_any_instance_of(GetIntoTeachingApiClient::PickListItemsApi).to \
         receive(api_method) { pick_list_items }
 
@@ -75,7 +76,7 @@ RSpec.shared_examples "a wizard step that exposes API lookup items as options" d
   it { expect(subject.class).to respond_to :options }
 
   unless include_ids
-    it "it exposes API lookup items as options" do
+    it "exposes API lookup items as options" do
       allow_any_instance_of(GetIntoTeachingApiClient::LookupItemsApi).to \
         receive(api_method) { lookup_items }
 
@@ -135,7 +136,7 @@ RSpec.shared_examples "an issue verification code wizard step" do
       it "does not call the API" do
         subject.email = nil
         subject.save!
-        expect_any_instance_of(GetIntoTeachingApiClient::CandidatesApi).to_not \
+        expect_any_instance_of(GetIntoTeachingApiClient::CandidatesApi).not_to \
           receive(:create_candidate_access_token)
       end
     end
@@ -161,7 +162,7 @@ RSpec.shared_examples "an issue verification code wizard step" do
 
     it "will skip the authenticate step for new candidates" do
       expect(Rails.logger).to receive(:info).with("#{described_class} requesting access code")
-      expect(Rails.logger).to_not receive(:info).with("#{described_class} potential duplicate (response code 404)")
+      expect(Rails.logger).not_to receive(:info).with("#{described_class} potential duplicate (response code 404)")
       allow_any_instance_of(GetIntoTeachingApiClient::CandidatesApi).to \
         receive(:create_candidate_access_token).with(request)
         .and_raise(GetIntoTeachingApiClient::ApiError.new(code: 404))

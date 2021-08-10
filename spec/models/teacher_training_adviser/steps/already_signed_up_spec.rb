@@ -4,7 +4,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::AlreadySignedUp do
   include_context "wizard step"
   it_behaves_like "a wizard step"
 
-  it { is_expected.to_not be_can_proceed }
+  it { is_expected.not_to be_can_proceed }
 
   describe "#skipped?" do
     it "returns false if can_subscribe_to_teacher_training_adviser is false" do

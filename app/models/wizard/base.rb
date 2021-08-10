@@ -1,5 +1,6 @@
 module Wizard
   class UnknownStep < RuntimeError; end
+
   class AccessTokenNotSupportedError < RuntimeError; end
 
   class Base

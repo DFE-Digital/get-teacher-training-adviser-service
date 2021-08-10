@@ -5,7 +5,7 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
     subject { described_class.steps }
 
     it do
-      is_expected.to eql [
+      expect(subject).to eql [
         TeacherTrainingAdviser::Steps::Identity,
         ::Wizard::Steps::Authenticate,
         TeacherTrainingAdviser::Steps::AlreadySignedUp,
@@ -44,6 +44,8 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
   end
 
   describe "instance methods" do
+    subject { described_class.new wizardstore, "accept_privacy_policy" }
+
     let(:store) do
       {
         "email" => "email@address.com",
@@ -54,8 +56,6 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
       }
     end
     let(:wizardstore) { Wizard::Store.new store, {} }
-
-    subject { described_class.new wizardstore, "accept_privacy_policy" }
 
     describe "#time_zone" do
       it "defaults to London" do
@@ -83,8 +83,8 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
         expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
           receive(:sign_up_teacher_training_adviser_candidate).with(request).once
 
-        allow(subject).to receive(:valid?) { true }
-        allow(subject).to receive(:can_proceed?) { true }
+        allow(subject).to receive(:valid?).and_return(true)
+        allow(subject).to receive(:can_proceed?).and_return(true)
 
         subject.complete!
       end
@@ -92,6 +92,7 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
       it { is_expected.to have_received(:valid?) }
       it { is_expected.to have_received(:can_proceed?) }
       it { expect(store).to eql({}) }
+
       it "sets the completion attributes" do
         expect(subject.completion_attributes).to eq({
           "type_id" => 123,

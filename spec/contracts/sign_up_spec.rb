@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Sign up", type: :feature, vcr: false do
+RSpec.describe "Sign up", type: :feature, vcr: false do
   before do
     setup_data
     setup_contract
@@ -19,7 +19,7 @@ RSpec.feature "Sign up", type: :feature, vcr: false do
   context "with a new candidate" do
     let(:candidate_identity) { new_candidate_identity }
 
-    scenario "returning, teacher reference number, in the UK and telephone" do
+    it "returning, teacher reference number, in the UK and telephone" do
       submit_choice_step("Yes", :returning_teacher)
       submit_choice_step("Yes", :has_teacher_id)
       submit_previous_teacher_id_step("12345")
@@ -38,7 +38,7 @@ RSpec.feature "Sign up", type: :feature, vcr: false do
       submit_privacy_policy_step
     end
 
-    scenario "returning, no teacher reference number, overseas and no telephone" do
+    it "returning, no teacher reference number, overseas and no telephone" do
       submit_choice_step("Yes", :returning_teacher)
       submit_choice_step("Yes", :has_teacher_id)
       submit_previous_teacher_id_step("12345")
@@ -52,7 +52,7 @@ RSpec.feature "Sign up", type: :feature, vcr: false do
       submit_privacy_policy_step
     end
 
-    scenario "not returning, has degree, primary, has gcses, in the UK and telephone" do
+    it "not returning, has degree, primary, has gcses, in the UK and telephone" do
       submit_choice_step("No", :returning_teacher)
       submit_choice_step("Yes", :have_a_degree)
       submit_select_step("Physics", :what_subject_degree)
@@ -74,7 +74,7 @@ RSpec.feature "Sign up", type: :feature, vcr: false do
       submit_privacy_policy_step
     end
 
-    scenario "not returning, has degree, secodary, retaking gcses, overseas and no telephone" do
+    it "not returning, has degree, secodary, retaking gcses, overseas and no telephone" do
       submit_choice_step("No", :returning_teacher)
       submit_choice_step("Yes", :have_a_degree)
       submit_select_step("Maths", :what_subject_degree)
@@ -92,7 +92,7 @@ RSpec.feature "Sign up", type: :feature, vcr: false do
       submit_privacy_policy_step
     end
 
-    scenario "not returning, studying for degree, primary, has/retaking gcses, overseas and telephone" do
+    it "not returning, studying for degree, primary, has/retaking gcses, overseas and telephone" do
       submit_choice_step("No", :returning_teacher)
       submit_choice_step("I'm studying for a degree", :have_a_degree)
       submit_choice_step("First year", :stage_of_degree)
@@ -111,7 +111,7 @@ RSpec.feature "Sign up", type: :feature, vcr: false do
       submit_privacy_policy_step
     end
 
-    scenario "not returning, equivalent degree, primary, has/retaking gcses, overseas" do
+    it "not returning, equivalent degree, primary, has/retaking gcses, overseas" do
       submit_choice_step("No", :returning_teacher)
       submit_choice_step("I have, or I'm studying for, an equivalent qualification from another country", :have_a_degree)
       submit_choice_step("Primary", :stage_interested_teaching)
@@ -129,7 +129,7 @@ RSpec.feature "Sign up", type: :feature, vcr: false do
       submit_privacy_policy_step
     end
 
-    scenario "not returning, equivalent degree, secondary, has gcses, is in uk" do
+    it "not returning, equivalent degree, secondary, has gcses, is in uk" do
       submit_choice_step("No", :returning_teacher)
       submit_choice_step("I have, or I'm studying for, an equivalent qualification from another country", :have_a_degree)
       submit_choice_step("Secondary", :stage_interested_teaching)
@@ -148,7 +148,7 @@ RSpec.feature "Sign up", type: :feature, vcr: false do
   context "with an existing candidate" do
     let(:candidate_identity) { existing_candidate_identity }
 
-    scenario "returning, existing data, change address" do
+    it "returning, existing data, change address" do
       submit_verification_code(candidate_identity)
       submit_choice_step("Yes", :returning_teacher)
 

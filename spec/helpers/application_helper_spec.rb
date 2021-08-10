@@ -4,6 +4,8 @@ RSpec.describe ApplicationHelper do
   include TextFormatHelper
 
   describe "#analytics_body_tag" do
+    subject { analytics_body_tag { "<h1>TEST</h1>".html_safe } }
+
     let(:gtm_id) { "1234" }
     let(:adwords_id) { "7890" }
     let(:snapchat_id) { "3456" }
@@ -22,8 +24,6 @@ RSpec.describe ApplicationHelper do
       allow(ENV).to receive(:[]).with("TWITTER_ID").and_return twitter_id
       allow(ENV).to receive(:[]).with("LID_ID").and_return lid_id
     end
-
-    subject { analytics_body_tag { "<h1>TEST</h1>".html_safe } }
 
     it { is_expected.to have_css "body h1" }
 
@@ -50,6 +50,7 @@ RSpec.describe ApplicationHelper do
       let(:adwords_id) { "" }
       let(:twitter_id) { "" }
       let(:lid_id) { "" }
+
       it { is_expected.to have_css "body[data-analytics-gtm-id=\"\"]" }
       it { is_expected.to have_css "body[data-analytics-adwords-id=\"\"]" }
       it { is_expected.to have_css "body[data-analytics-twitter-id=\"\"]" }
@@ -61,6 +62,7 @@ RSpec.describe ApplicationHelper do
       let(:adwords_id) { nil }
       let(:twitter_id) { nil }
       let(:lid_id) { nil }
+
       it { is_expected.not_to have_css "body[data-analytics-gtm-id]" }
       it { is_expected.not_to have_css "body[data-analytics-adwords-id]" }
       it { is_expected.not_to have_css "body[data-analytics-twitter-id]" }
@@ -78,6 +80,7 @@ RSpec.describe ApplicationHelper do
 
     context "with additional stimulus controller" do
       subject { analytics_body_tag(data: { controller: "atest" }) { tag.hr } }
+
       it { is_expected.to have_css "body[data-controller~=gtm]" }
       it { is_expected.to have_css "body[data-controller~=twitter]" }
       it { is_expected.to have_css "body[data-controller~=atest]" }
@@ -85,6 +88,7 @@ RSpec.describe ApplicationHelper do
 
     context "with other data attributes" do
       subject { analytics_body_tag(data: { timefmt: "24" }) { tag.hr } }
+
       it { is_expected.to have_css "body[data-controller~=gtm]" }
       it { is_expected.to have_css "body[data-analytics-gtm-id=1234]" }
       it { is_expected.to have_css "body[data-timefmt=24]" }
@@ -92,6 +96,7 @@ RSpec.describe ApplicationHelper do
 
     context "with other attributes" do
       subject { analytics_body_tag(class: "homepage") { tag.hr } }
+
       it { is_expected.to have_css "body[data-controller~=gtm]" }
       it { is_expected.to have_css "body.homepage" }
     end
@@ -121,8 +126,9 @@ RSpec.describe ApplicationHelper do
   end
 
   describe "#link_to_git" do
-    let(:url) { "http://test.url/" }
     subject { link_to_git_site }
+
+    let(:url) { "http://test.url/" }
 
     before do
       allow(ENV).to receive(:[]).and_call_original
@@ -136,38 +142,44 @@ RSpec.describe ApplicationHelper do
 
     context "with text" do
       subject { link_to_git_site "Teaching site" }
+
       it { is_expected.to have_css 'a[href="http://test.url/"]' }
       it { is_expected.to have_css "a", text: "Teaching site" }
     end
 
     context "with path" do
       subject { link_to_git_site "Show content", "content/page" }
+
       it { is_expected.to have_css 'a[href="http://test.url/content/page"]' }
       it { is_expected.to have_css "a", text: "Show content" }
     end
 
     context "with attributes" do
       subject { link_to_git_site "Teaching site", "", class: "govuk-link" }
+
       it { is_expected.to have_css 'a.govuk-link[href="http://test.url/"]' }
       it { is_expected.to have_css "a.govuk-link", text: "Teaching site" }
     end
 
     context "without URL set" do
       before { allow(ENV).to receive(:[]).with("GIT_URL").and_return nil }
+
       it { is_expected.to have_css 'a[href="/url-not-set/"]' }
       it { is_expected.to have_css "a", text: "Get into Teaching" }
     end
 
     context "without URL set" do
       before { allow(ENV).to receive(:[]).with("GIT_URL").and_return "" }
+
       it { is_expected.to have_css 'a[href="/url-not-set/"]' }
       it { is_expected.to have_css "a", text: "Get into Teaching" }
     end
   end
 
   describe "#link_to_git_mailing_list" do
-    let(:url) { "http://test.url/" }
     subject { link_to_git_mailing_list("join the mailing list", class: "govuk-link") }
+
+    let(:url) { "http://test.url/" }
 
     before { allow(ENV).to receive(:[]).with("GIT_URL") { url } }
 
@@ -175,14 +187,14 @@ RSpec.describe ApplicationHelper do
     it { is_expected.to have_css "a.govuk-link", text: "join the mailing list" }
 
     context "when the GIT_URL is nil" do
-      before { allow(ENV).to receive(:[]).with("GIT_URL") { nil } }
+      before { allow(ENV).to receive(:[]).with("GIT_URL").and_return(nil) }
 
       it { is_expected.to have_css "a[href=\"/url-not-set/mailinglist/signup\"]" }
       it { is_expected.to have_css "a", text: "join the mailing list" }
     end
 
     context "when the GIT_URL is an empty string" do
-      before { allow(ENV).to receive(:[]).with("GIT_URL") { " " } }
+      before { allow(ENV).to receive(:[]).with("GIT_URL").and_return(" ") }
 
       it { is_expected.to have_css "a[href=\"/url-not-set/mailinglist/signup\"]" }
       it { is_expected.to have_css "a", text: "join the mailing list" }
@@ -190,8 +202,9 @@ RSpec.describe ApplicationHelper do
   end
 
   describe "#link_to_git_events" do
-    let(:url) { "http://test.url/" }
     subject { link_to_git_events("find an event", class: "govuk-link") }
+
+    let(:url) { "http://test.url/" }
 
     before { allow(ENV).to receive(:[]).with("GIT_URL") { url } }
 
@@ -199,24 +212,25 @@ RSpec.describe ApplicationHelper do
     it { is_expected.to have_css "a.govuk-link", text: "find an event" }
 
     context "when the GIT_URL is nil" do
-      before { allow(ENV).to receive(:[]).with("GIT_URL") { nil } }
+      before { allow(ENV).to receive(:[]).with("GIT_URL").and_return(nil) }
 
       it { is_expected.to have_css "a[href=\"/url-not-set/events\"]" }
       it { is_expected.to have_css "a", text: "find an event" }
     end
 
     context "when the GIT_URL is an empty string" do
-      before { allow(ENV).to receive(:[]).with("GIT_URL") { " " } }
+      before { allow(ENV).to receive(:[]).with("GIT_URL").and_return(" ") }
 
       it { is_expected.to have_css "a[href=\"/url-not-set/events\"]" }
       it { is_expected.to have_css "a", text: "find an event" }
     end
 
     context "when provided with a custom events_path" do
+      subject { link_to_git_events(link_text, events_path: events_path, class: link_class) }
+
       let(:link_text) { "find a special online event" }
       let(:link_class) { "special-online-event-link" }
       let(:events_path) { "online/special" }
-      subject { link_to_git_events(link_text, events_path: events_path, class: link_class) }
 
       it { is_expected.to have_link(link_text, href: git_url + "events/#{events_path}", class: link_class) }
     end
