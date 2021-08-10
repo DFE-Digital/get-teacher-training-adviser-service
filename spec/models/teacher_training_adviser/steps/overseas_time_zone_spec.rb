@@ -6,8 +6,6 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasTimeZone do
   include_context "sanitize fields", %i[address_telephone]
   include_context "#address_telephone_value"
 
-  it { expect(described_class).to be TeacherTrainingAdviser::Steps::OverseasTimeZone }
-
   it { expect(described_class).to be_contains_personal_details }
 
   context "attributes" do

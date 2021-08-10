@@ -5,8 +5,6 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasCallback do
   include_context "wizard step"
   it_behaves_like "a wizard step"
 
-  it { expect(described_class).to be TeacherTrainingAdviser::Steps::OverseasCallback }
-
   context "attributes" do
     it { is_expected.to respond_to :phone_call_scheduled_at }
   end
