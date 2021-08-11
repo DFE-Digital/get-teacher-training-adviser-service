@@ -1,20 +1,20 @@
 require "rails_helper"
 
+class TelephoneTestModel
+  include ActiveModel::Model
+  attr_accessor :telephone
+
+  validates :telephone, telephone: true
+end
+
+class InternationalTelephoneTestModel
+  include ActiveModel::Model
+  attr_accessor :telephone
+
+  validates :telephone, telephone: { international: true }
+end
+
 RSpec.describe TelephoneValidator do
-  class TelephoneTestModel
-    include ActiveModel::Model
-    attr_accessor :telephone
-
-    validates :telephone, telephone: true
-  end
-
-  class InternationalTelephoneTestModel
-    include ActiveModel::Model
-    attr_accessor :telephone
-
-    validates :telephone, telephone: { international: true }
-  end
-
   subject { instance.errors.details[:telephone] }
 
   before { instance.valid? }

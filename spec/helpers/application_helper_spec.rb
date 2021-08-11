@@ -1,5 +1,9 @@
 require "rails_helper"
 
+class StubModel
+  include ActiveModel::Model
+end
+
 RSpec.describe ApplicationHelper do
   include TextFormatHelper
 
@@ -261,9 +265,5 @@ RSpec.describe ApplicationHelper do
   describe "#human_boolean" do
     it { expect(human_boolean(true)).to eq("Yes") }
     it { expect(human_boolean(false)).to eq("No") }
-  end
-
-  class StubModel
-    include ActiveModel::Model
   end
 end

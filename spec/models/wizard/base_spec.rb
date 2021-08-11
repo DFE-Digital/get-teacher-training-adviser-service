@@ -76,8 +76,7 @@ RSpec.describe Wizard::Base do
   end
 
   describe "#process_access_token" do
-    subject! do
-      wizard.process_access_token(token, request)
+    subject do
       wizardstore.fetch(%w[candidate_id first_name last_name email], source: :crm)
     end
 
@@ -96,6 +95,8 @@ RSpec.describe Wizard::Base do
     before do
       allow_any_instance_of(TestWizard).to \
         receive(:exchange_access_token).with(token, request) { stub_response }
+
+      wizard.process_access_token(token, request)
     end
 
     it { is_expected.to eq response_hash }

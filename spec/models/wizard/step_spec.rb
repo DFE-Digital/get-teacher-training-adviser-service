@@ -1,19 +1,19 @@
 require "rails_helper"
 
+class FirstStep < Wizard::Step
+  attribute :name
+  attribute :age, :integer
+  validates :name, presence: true
+end
+
+class StubWizard < Wizard::Base
+  self.steps = [FirstStep].freeze
+end
+
 RSpec.describe Wizard::Step do
   subject { FirstStep.new wizard, wizardstore, attributes }
 
   include_context "wizard store"
-
-  class FirstStep < Wizard::Step
-    attribute :name
-    attribute :age, :integer
-    validates :name, presence: true
-  end
-
-  class StubWizard < Wizard::Base
-    self.steps = [FirstStep].freeze
-  end
 
   let(:attributes) { {} }
   let(:wizard) { StubWizard.new(wizardstore, "first_step") }

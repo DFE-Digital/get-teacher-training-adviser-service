@@ -1,14 +1,14 @@
 require "rails_helper"
 
-RSpec.describe Wizard::ApiClientSupport do
-  class ApiClientTestWizard
-    include ::Wizard::ApiClientSupport
+class ApiClientTestWizard
+  include ::Wizard::ApiClientSupport
 
-    def export_data
-      { "first_name" => "Joe", "last_name" => "Bloggs" }
-    end
+  def export_data
+    { "first_name" => "Joe", "last_name" => "Bloggs" }
   end
+end
 
+RSpec.describe Wizard::ApiClientSupport do
   subject { instance }
 
   let(:instance) { ApiClientTestWizard.new }
