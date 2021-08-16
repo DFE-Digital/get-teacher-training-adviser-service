@@ -16,7 +16,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
       expect(subject).to allow_value(12_917).for :initial_teacher_training_year_id
     end
 
-    it { is_expected.to_not allow_values("", nil, 456).for :initial_teacher_training_year_id }
+    it { is_expected.not_to allow_values("", nil, 456).for :initial_teacher_training_year_id }
   end
 
   describe "#years" do
@@ -69,19 +69,21 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
 
   describe "#skipped?" do
     it "returns false if returning_to_teaching is false" do
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::ReturningTeacher).to receive(:returning_to_teaching) { false }
-      expect(subject).to_not be_skipped
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::ReturningTeacher).to receive(:returning_to_teaching).and_return(false)
+      expect(subject).not_to be_skipped
     end
 
     it "returns true if returning_to_teaching is true" do
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::ReturningTeacher).to receive(:returning_to_teaching) { true }
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::ReturningTeacher).to receive(:returning_to_teaching).and_return(true)
       expect(subject).to be_skipped
     end
   end
 
   describe "#reviewable_answers" do
     subject { instance.reviewable_answers }
+
     let(:pick_list_item) { GetIntoTeachingApiClient::PickListItem.new(id: 12_917, value: "Value") }
+
     before do
       allow_any_instance_of(GetIntoTeachingApiClient::PickListItemsApi).to \
         receive(:get_candidate_initial_teacher_training_years) { [pick_list_item] }
@@ -92,6 +94,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
 
     context "when initial_teacher_training_year_id is nil" do
       before { instance.initial_teacher_training_year_id = nil }
+
       it { is_expected.to eq({ "initial_teacher_training_year_id" => nil }) }
     end
   end

@@ -12,13 +12,13 @@ RSpec.describe TeacherTrainingAdviser::Steps::PreviousTeacherId do
 
   describe "#skipped?" do
     it "returns false if HasTeacherId was shown and they selected yes" do
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::HasTeacherId).to receive(:skipped?) { false }
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::HasTeacherId).to receive(:skipped?).and_return(false)
       wizardstore["has_id"] = true
-      expect(subject).to_not be_skipped
+      expect(subject).not_to be_skipped
     end
 
     it "returns true if HasTeacherId was skipped" do
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::HasTeacherId).to receive(:skipped?) { true }
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::HasTeacherId).to receive(:skipped?).and_return(true)
       expect(subject).to be_skipped
     end
 

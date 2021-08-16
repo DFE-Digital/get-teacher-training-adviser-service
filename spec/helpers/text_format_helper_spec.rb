@@ -22,6 +22,7 @@ RSpec.describe TextFormatHelper, type: :helper do
 
     context "with a custom wrapper tag" do
       subject { safe_format(content, wrapper_tag: tag) }
+
       let(:content) { "hello\r\n\r\nworld" }
       let(:tag) { "span" }
 
@@ -36,16 +37,19 @@ RSpec.describe TextFormatHelper, type: :helper do
 
     context "with allowed HTML" do
       let(:html) { "<p><strong>hello</strong><br><a href=\"http://test.com\">world</a></p><ul><li>test</li></ul>" }
+
       it { is_expected.to eql html }
     end
 
     context "with disallowed HTML" do
       let(:html) { "<script>malicious</script>" }
+
       it { is_expected.to eql "malicious" }
     end
 
     context "with malicious anchor tags" do
       let(:html) { "<a href=\"http://test.com\" onclick=\"somethingNasty();\">boom</a>" }
+
       it { is_expected.to eql "<a href=\"http://test.com\">boom</a>" }
     end
   end

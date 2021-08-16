@@ -1,20 +1,20 @@
 require "rails_helper"
 
-RSpec.feature "Sign up for a teacher training adviser", type: :feature do
-  RETURNING_TO_TEACHING = 222_750_001
-  INTERESTED_IN_TEACHING = 222_750_000
-  EDUCATION_PHASE_PRIMARY = 222_750_000
-  EDUCATION_PHASE_SECONDARY = 222_750_001
-  DEGREE_STATUS_HAS_DEGREE = 222_750_000
-  DEGREE_TYPE_EQUIVALENT = 222_750_005
-  DEGREE_TYPE_DEGREE = 222_750_000
-  TEACHER_TRAINING_YEAR_2022 = 22_304
-  UK_DEGREE_GRADE_2_2 = 222_750_003
-  DEGREE_STATUS_FIRST_YEAR = 222_750_003
-  HAS_GCSE = 222_750_000
-  SUBJECT_PHYSICS = "ac2655a1-2afa-e811-a981-000d3a276620".freeze
-  SUBJECT_PSYCHOLOGY = "b22655a1-2afa-e811-a981-000d3a276620".freeze
+RETURNING_TO_TEACHING = 222_750_001
+INTERESTED_IN_TEACHING = 222_750_000
+EDUCATION_PHASE_PRIMARY = 222_750_000
+EDUCATION_PHASE_SECONDARY = 222_750_001
+DEGREE_STATUS_HAS_DEGREE = 222_750_000
+DEGREE_TYPE_EQUIVALENT = 222_750_005
+DEGREE_TYPE_DEGREE = 222_750_000
+TEACHER_TRAINING_YEAR_2022 = 22_304
+UK_DEGREE_GRADE_2_2 = 222_750_003
+DEGREE_STATUS_FIRST_YEAR = 222_750_003
+HAS_GCSE = 222_750_000
+SUBJECT_PHYSICS = "ac2655a1-2afa-e811-a981-000d3a276620".freeze
+SUBJECT_PSYCHOLOGY = "b22655a1-2afa-e811-a981-000d3a276620".freeze
 
+RSpec.feature "Sign up for a teacher training adviser", type: :feature do
   let(:quota) do
     GetIntoTeachingApiClient::CallbackBookingQuota.new(
       startAt: DateTime.new(2099, 6, 1, 10),
@@ -28,7 +28,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       receive(:get_callback_booking_quotas) { [quota] }
   end
 
-  context "a new candidate" do
+  context "when a new candidate" do
     before do
       # Emulate an unsuccessful matchback response from the API.
       expect_any_instance_of(GetIntoTeachingApiClient::CandidatesApi).to \
@@ -286,7 +286,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
 
       # Hit dead end
       expect(page).to have_css "h1", text: "Get support"
-      expect(page).to_not have_css "h1", text: "Continue"
+      expect(page).not_to have_css "h1", text: "Continue"
 
       # Manually skip to review answers
       visit teacher_training_adviser_step_path(:review_answers)
@@ -300,7 +300,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
 
       # Forced back to dead end
       expect(page).to have_css "h1", text: "Get support"
-      expect(page).to_not have_css "h1", text: "Continue"
+      expect(page).not_to have_css "h1", text: "Continue"
     end
 
     scenario "without a degree" do
@@ -319,7 +319,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "If you do not have a degree"
-      expect(page).to_not have_css "h1", text: "Continue"
+      expect(page).not_to have_css "h1", text: "Continue"
     end
 
     scenario "without science GCSEs, primary" do
@@ -366,7 +366,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Get the right GCSEs or equivalent qualifications"
-      expect(page).to_not have_css "h1", text: "Continue"
+      expect(page).not_to have_css "h1", text: "Continue"
     end
 
     scenario "without english/maths GCSEs, primary" do
@@ -405,7 +405,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Get the right GCSEs or equivalent qualifications"
-      expect(page).to_not have_css "h1", text: "Continue"
+      expect(page).not_to have_css "h1", text: "Continue"
     end
 
     scenario "without GCSEs, secondary" do
@@ -444,7 +444,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Get the right GCSEs or equivalent qualifications"
-      expect(page).to_not have_css "h1", text: "Continue"
+      expect(page).not_to have_css "h1", text: "Continue"
     end
 
     scenario "can't find subject like to teach" do
@@ -471,11 +471,11 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Get support"
-      expect(page).to_not have_css "h1", text: "Continue"
+      expect(page).not_to have_css "h1", text: "Continue"
     end
   end
 
-  context "an existing candidate" do
+  context "when an existing candidate" do
     let(:valid_code) { "123456" }
     let(:invalid_code) { "111111" }
     let(:existing_candidate) do
@@ -611,8 +611,8 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       choose "Yes"
       click_on "Continue"
 
-      expect(page).to_not have_css "h1", text: "Do you have your previous teacher reference number?"
-      expect(page).to_not have_css "h1", text: "What is your previous teacher reference number?"
+      expect(page).not_to have_css "h1", text: "Do you have your previous teacher reference number?"
+      expect(page).not_to have_css "h1", text: "What is your previous teacher reference number?"
 
       expect(page).to have_css "h1", text: "Which main subject did you previously teach?"
       select "Psychology"
@@ -638,7 +638,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       expect(find_field("Postcode").value).to eq("TE7 1NG")
       click_on "Continue"
 
-      expect(page).to_not have_css "h1", text: "What is your telephone number?"
+      expect(page).not_to have_css "h1", text: "What is your telephone number?"
 
       expect(page).to have_css "h1", text: "Check your answers before you continue"
       click_on "Continue"

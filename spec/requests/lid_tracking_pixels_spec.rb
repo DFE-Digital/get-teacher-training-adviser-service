@@ -1,8 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "LID tracking pixels" do
-  before { get path }
   subject { response.body }
+
+  before { get path }
 
   context "when visiting /" do
     let(:path) { root_path }

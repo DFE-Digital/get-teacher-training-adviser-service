@@ -31,7 +31,7 @@ RSpec.describe PolicyValidator, type: :validator do
   end
 
   it "is invalid when given a nil policy id" do
-    expect_any_instance_of(GetIntoTeachingApiClient::PrivacyPoliciesApi).to_not \
+    expect_any_instance_of(GetIntoTeachingApiClient::PrivacyPoliciesApi).not_to \
       receive(:get_privacy_policy)
 
     subject.policy_id = nil

@@ -2,8 +2,6 @@ require "rails_helper"
 
 RSpec.describe TeacherTrainingAdviser::Steps::ReviewAnswers do
   include_context "wizard step"
-  it_behaves_like "a wizard step"
-
   let(:answers_by_step) do
     {
       TeacherTrainingAdviser::Steps::Identity => { "first_name": "Joe" },
@@ -17,33 +15,37 @@ RSpec.describe TeacherTrainingAdviser::Steps::ReviewAnswers do
     }
   end
 
-  context "#personal_detail_answers_by_step" do
+  it_behaves_like "a wizard step"
+
+  describe "#personal_detail_answers_by_step" do
+    subject { instance.personal_detail_answers_by_step }
+
     before do
       allow_any_instance_of(described_class).to \
         receive(:answers_by_step).and_return answers_by_step
     end
-    subject { instance.personal_detail_answers_by_step }
 
     it {
-      is_expected.to eq(answers_by_step.except(
-                          TeacherTrainingAdviser::Steps::HaveADegree,
-                          TeacherTrainingAdviser::Steps::ReturningTeacher,
-                        ))
+      expect(subject).to eq(answers_by_step.except(
+                              TeacherTrainingAdviser::Steps::HaveADegree,
+                              TeacherTrainingAdviser::Steps::ReturningTeacher,
+                            ))
     }
   end
 
-  context "#other_answers_by_step" do
+  describe "#other_answers_by_step" do
+    subject { instance.other_answers_by_step }
+
     before do
       allow_any_instance_of(described_class).to \
         receive(:answers_by_step).and_return answers_by_step
     end
-    subject { instance.other_answers_by_step }
 
     it {
-      is_expected.to eq(answers_by_step.slice(
-                          TeacherTrainingAdviser::Steps::HaveADegree,
-                          TeacherTrainingAdviser::Steps::ReturningTeacher,
-                        ))
+      expect(subject).to eq(answers_by_step.slice(
+                              TeacherTrainingAdviser::Steps::HaveADegree,
+                              TeacherTrainingAdviser::Steps::ReturningTeacher,
+                            ))
     }
   end
 end

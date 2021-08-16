@@ -24,7 +24,7 @@ private
   end
 
   def invalid_dial_in_code?(telephone)
-    dial_in_codes = IsoCountryCodes.all.map(&:calling).map { |c| c[1..-1] }
+    dial_in_codes = IsoCountryCodes.all.map(&:calling).map { |c| c[1..] }
     sanitized_telephone = telephone.delete("^0-9")
     dial_in_codes.none? { |code| sanitized_telephone.start_with?(code) }
   end

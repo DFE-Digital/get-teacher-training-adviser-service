@@ -8,7 +8,7 @@ RSpec.describe Prometheus::Metrics do
 
     it { is_expected.not_to be_nil }
     it { is_expected.to have_attributes(docstring: "A counter of requests") }
-    it { expect { subject.get(labels: %i[path method status]) }.to_not raise_error }
+    it { expect { subject.get(labels: %i[path method status]) }.not_to raise_error }
   end
 
   describe "tta_request_duration_ms" do
@@ -17,7 +17,7 @@ RSpec.describe Prometheus::Metrics do
     it { is_expected.not_to be_nil }
     it { is_expected.to have_attributes(docstring: "A histogram of request durations") }
     it { is_expected.to have_attributes(preset_labels: expected_preset_labels) }
-    it { expect { subject.get(labels: %i[path method status]) }.to_not raise_error }
+    it { expect { subject.get(labels: %i[path method status]) }.not_to raise_error }
   end
 
   describe "tta_request_view_runtime_ms" do
@@ -26,7 +26,7 @@ RSpec.describe Prometheus::Metrics do
     it { is_expected.not_to be_nil }
     it { is_expected.to have_attributes(docstring: "A histogram of request view runtimes") }
     it { is_expected.to have_attributes(preset_labels: expected_preset_labels) }
-    it { expect { subject.get(labels: %i[path method status]) }.to_not raise_error }
+    it { expect { subject.get(labels: %i[path method status]) }.not_to raise_error }
   end
 
   describe "tta_render_view_ms" do
@@ -35,7 +35,7 @@ RSpec.describe Prometheus::Metrics do
     it { is_expected.not_to be_nil }
     it { is_expected.to have_attributes(docstring: "A histogram of view rendering times") }
     it { is_expected.to have_attributes(preset_labels: expected_preset_labels) }
-    it { expect { subject.get(labels: %i[identifier]) }.to_not raise_error }
+    it { expect { subject.get(labels: %i[identifier]) }.not_to raise_error }
   end
 
   describe "tta_render_partial_ms" do
@@ -44,7 +44,7 @@ RSpec.describe Prometheus::Metrics do
     it { is_expected.not_to be_nil }
     it { is_expected.to have_attributes(docstring: "A histogram of partial rendering times") }
     it { is_expected.to have_attributes(preset_labels: expected_preset_labels) }
-    it { expect { subject.get(labels: %i[identifier]) }.to_not raise_error }
+    it { expect { subject.get(labels: %i[identifier]) }.not_to raise_error }
   end
 
   describe "tta_cache_read_total" do
@@ -53,7 +53,7 @@ RSpec.describe Prometheus::Metrics do
     it { is_expected.not_to be_nil }
     it { is_expected.to have_attributes(docstring: "A counter of cache reads") }
     it { is_expected.to have_attributes(preset_labels: expected_preset_labels) }
-    it { expect { subject.get(labels: %i[key hit]) }.to_not raise_error }
+    it { expect { subject.get(labels: %i[key hit]) }.not_to raise_error }
   end
 
   describe "tta_csp_violations_total" do
@@ -62,7 +62,7 @@ RSpec.describe Prometheus::Metrics do
     it { is_expected.not_to be_nil }
     it { is_expected.to have_attributes(docstring: "A counter of CSP violations") }
     it { is_expected.to have_attributes(preset_labels: expected_preset_labels) }
-    it { expect { subject.get(labels: %i[blocked_uri document_uri violated_directive]) }.to_not raise_error }
+    it { expect { subject.get(labels: %i[blocked_uri document_uri violated_directive]) }.not_to raise_error }
   end
 
   describe "tta_feedback_visit_total" do
@@ -71,7 +71,7 @@ RSpec.describe Prometheus::Metrics do
     it { is_expected.not_to be_nil }
     it { is_expected.to have_attributes(docstring: "A counter of feedback visit responses") }
     it { is_expected.to have_attributes(preset_labels: expected_preset_labels) }
-    it { expect { subject.get(labels: %i[successful]) }.to_not raise_error }
+    it { expect { subject.get(labels: %i[successful]) }.not_to raise_error }
   end
 
   describe "tta_feedback_rating_total" do
@@ -80,7 +80,7 @@ RSpec.describe Prometheus::Metrics do
     it { is_expected.not_to be_nil }
     it { is_expected.to have_attributes(docstring: "A counter of feedback rating responses") }
     it { is_expected.to have_attributes(preset_labels: expected_preset_labels) }
-    it { expect { subject.get(labels: %i[rating]) }.to_not raise_error }
+    it { expect { subject.get(labels: %i[rating]) }.not_to raise_error }
   end
 
   def expected_preset_labels

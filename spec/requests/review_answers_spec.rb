@@ -7,7 +7,7 @@ RSpec.describe "Review answers", type: :request do
   context "when reviewing all steps without any steps being completed" do
     subject do
       TeacherTrainingAdviser::Wizard.steps.each do |step|
-        allow_any_instance_of(step).to receive(:skipped?) { false }
+        allow_any_instance_of(step).to receive(:skipped?).and_return(false)
       end
 
       get step_path

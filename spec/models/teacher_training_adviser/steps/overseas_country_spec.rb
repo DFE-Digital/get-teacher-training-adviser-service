@@ -17,13 +17,14 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasCountry do
         receive(:get_countries) { [country] }
       expect(subject).to allow_value(country.id).for :country_id
     end
-    it { is_expected.to_not allow_values(nil, "", "def-123").for :country_id }
+
+    it { is_expected.not_to allow_values(nil, "", "def-123").for :country_id }
   end
 
   describe "#skipped?" do
     it "returns false if uk_or_overseas is Overseas" do
       wizardstore["uk_or_overseas"] = TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:overseas]
-      expect(subject).to_not be_skipped
+      expect(subject).not_to be_skipped
     end
 
     it "returns true if uk_or_overseas is UK" do
@@ -34,7 +35,9 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasCountry do
 
   describe "#reviewable_answers" do
     subject { instance.reviewable_answers }
+
     let(:lookup_item) { GetIntoTeachingApiClient::LookupItem.new(id: "123", value: "Value") }
+
     before do
       allow_any_instance_of(GetIntoTeachingApiClient::LookupItemsApi).to \
         receive(:get_countries) { [lookup_item] }

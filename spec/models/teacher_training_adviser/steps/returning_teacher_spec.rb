@@ -13,17 +13,19 @@ RSpec.describe TeacherTrainingAdviser::Steps::ReturningTeacher do
 
     context "when type_id is :returning_to_teaching" do
       before { instance.type_id = described_class::OPTIONS[:returning_to_teaching] }
+
       it { is_expected.to be_truthy }
     end
 
     context "when type_id is :interested_in_teaching" do
       before { instance.type_id = described_class::OPTIONS[:interested_in_teaching] }
+
       it { is_expected.to be_falsy }
     end
   end
 
   describe "#type_id" do
-    it { is_expected.to_not allow_values("", nil, 123).for :type_id }
+    it { is_expected.not_to allow_values("", nil, 123).for :type_id }
     it { is_expected.to allow_value(*described_class::OPTIONS.values).for :type_id }
   end
 
@@ -32,11 +34,13 @@ RSpec.describe TeacherTrainingAdviser::Steps::ReturningTeacher do
 
     context "when returning to teaching" do
       before { instance.type_id = described_class::OPTIONS[:returning_to_teaching] }
+
       it { is_expected.to eq({ "returning_to_teaching" => "Yes" }) }
     end
 
     context "when interested in teaching" do
       before { instance.type_id = described_class::OPTIONS[:interested_in_teaching] }
+
       it { is_expected.to eq({ "returning_to_teaching" => "No" }) }
     end
   end

@@ -12,13 +12,13 @@ RSpec.describe TeacherTrainingAdviser::FeedbackSearch do
     it { is_expected.to validate_presence_of(:created_on_or_before) }
     it { is_expected.to validate_presence_of(:created_on_or_after) }
     it { is_expected.to allow_value(Time.zone.now.utc, 1.day.ago).for :created_on_or_before }
-    it { is_expected.to_not allow_value(2.days.from_now).for :created_on_or_before }
+    it { is_expected.not_to allow_value(2.days.from_now).for :created_on_or_before }
 
     context "when created_on_or_before is 5/2/2020" do
       before { subject.created_on_or_before = Date.new(2020, 2, 5) }
 
       it { is_expected.to allow_value(subject.created_on_or_before).for :created_on_or_after }
-      it { is_expected.to_not allow_value(Date.new(2020, 2, 6)).for :created_on_or_after }
+      it { is_expected.not_to allow_value(Date.new(2020, 2, 6)).for :created_on_or_after }
     end
   end
 
@@ -35,6 +35,8 @@ RSpec.describe TeacherTrainingAdviser::FeedbackSearch do
   end
 
   describe "#range" do
+    subject { instance.range }
+
     let(:instance) do
       described_class.new(
         created_on_or_after: DateTime.new(2021, 2, 22),
@@ -42,10 +44,8 @@ RSpec.describe TeacherTrainingAdviser::FeedbackSearch do
       )
     end
 
-    subject { instance.range }
-
     it do
-      is_expected.to eq([
+      expect(subject).to eq([
         instance.created_on_or_after,
         instance.created_on_or_before,
       ])
@@ -53,6 +53,8 @@ RSpec.describe TeacherTrainingAdviser::FeedbackSearch do
   end
 
   describe "#results" do
+    subject { instance.results }
+
     let(:instance) do
       described_class.new(
         created_on_or_after: DateTime.new(2020, 10, 1),
@@ -71,8 +73,6 @@ RSpec.describe TeacherTrainingAdviser::FeedbackSearch do
       end
     end
 
-    subject { instance.results }
-
     it "returns feedback in the date range and orders by latest first" do
       dates = subject.map(&:created_at)
 
@@ -81,7 +81,7 @@ RSpec.describe TeacherTrainingAdviser::FeedbackSearch do
     end
 
     context "when invalid" do
-      before { expect(instance).to receive(:invalid?) { true } }
+      before { expect(instance).to receive(:invalid?).and_return(true) }
 
       it { is_expected.to eq([]) }
     end

@@ -79,6 +79,8 @@ RSpec.describe "Feedback" do
   end
 
   describe "#export" do
+    subject { response.body }
+
     let(:params) do
       {
         teacher_training_adviser_feedback_search: {
@@ -100,12 +102,11 @@ RSpec.describe "Feedback" do
 
     before { post export_teacher_training_adviser_feedbacks_path(format: :csv), params: params }
 
-    subject { response.body }
-
     it { expect(response).to have_http_status(:success) }
     it { expect(response.content_type).to eq("text/csv") }
+
     it do
-      is_expected.to eq(
+      expect(subject).to eq(
         <<~CSV,
           id,rating,successful_visit,unsuccessful_visit_explanation,improvements,created_at
           #{feedback[2].id},satisfied,true,"","",#{feedback[2].created_at}
@@ -136,8 +137,9 @@ RSpec.describe "Feedback" do
 
       it { expect(response).to have_http_status(:success) }
       it { expect(response.content_type).to eq("text/csv") }
+
       it do
-        is_expected.to eq(
+        expect(subject).to eq(
           <<~CSV,
             id,rating,successful_visit,unsuccessful_visit_explanation,improvements,created_at
           CSV
@@ -157,7 +159,7 @@ RSpec.describe "Feedback" do
     context "when in production and basic auth is disabled" do
       before do
         allow(Rails).to receive(:env) { "production".inquiry }
-        allow(Rails.application.config.x).to receive(:basic_auth) { "0" }
+        allow(Rails.application.config.x).to receive(:basic_auth).and_return("0")
       end
 
       describe "#new" do
@@ -229,7 +231,7 @@ RSpec.describe "Feedback" do
     context "when in a production-like environment (rolling/preprod) and basic auth is enabled" do
       before do
         allow(Rails).to receive(:env) { "rolling".inquiry }
-        allow(Rails.application.config.x).to receive(:basic_auth) { "1" }
+        allow(Rails.application.config.x).to receive(:basic_auth).and_return("1")
       end
 
       describe "#new" do

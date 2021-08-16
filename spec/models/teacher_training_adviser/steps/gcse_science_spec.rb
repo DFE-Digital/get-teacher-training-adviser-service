@@ -9,20 +9,20 @@ RSpec.describe TeacherTrainingAdviser::Steps::GcseScience do
   end
 
   describe "has_gcse_science_id" do
-    it { is_expected.to_not allow_values(nil, 123).for :has_gcse_science_id }
+    it { is_expected.not_to allow_values(nil, 123).for :has_gcse_science_id }
     it { is_expected.to allow_values(*TeacherTrainingAdviser::Steps::GcseScience::OPTIONS.values).for :has_gcse_science_id }
   end
 
   describe "#skipped?" do
     it "returns false if GcseMathsEnglish was shown, they have a GCSE maths/english and phase is primary" do
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::GcseMathsEnglish).to receive(:skipped?) { false }
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::GcseMathsEnglish).to receive(:skipped?).and_return(false)
       wizardstore["has_gcse_maths_and_english_id"] = TeacherTrainingAdviser::Steps::GcseMathsEnglish::OPTIONS[:yes]
       wizardstore["preferred_education_phase_id"] = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:primary]
-      expect(subject).to_not be_skipped
+      expect(subject).not_to be_skipped
     end
 
     it "returns true if GcseMathsEnglish was skipped" do
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::GcseMathsEnglish).to receive(:skipped?) { true }
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::GcseMathsEnglish).to receive(:skipped?).and_return(true)
       expect(subject).to be_skipped
     end
 
@@ -40,7 +40,9 @@ RSpec.describe TeacherTrainingAdviser::Steps::GcseScience do
 
   describe "#reviewable_answers" do
     subject { instance.reviewable_answers }
+
     before { instance.has_gcse_science_id = Crm::OPTIONS[:yes] }
+
     it { is_expected.to eq({ "has_gcse_science_id" => "Yes" }) }
   end
 end

@@ -19,7 +19,7 @@ module TeacherTrainingAdviser::Steps
       return nil if country_name.blank?
 
       codes = IsoCountryCodes.search_by_name(country_name)
-      codes.first.calling[1..-1]
+      codes.first.calling[1..]
     rescue IsoCountryCodes::UnknownCodeError
       nil
     end

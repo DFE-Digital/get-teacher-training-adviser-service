@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Healthcheck do
   let(:git_api_endpoint) { ENV["GIT_API_ENDPOINT"] }
   let(:gitsha) { "d64e925a5c70b05246e493de7b60af73e1dfa9dd" }
+
   shafile = "/etc/get-teacher-training-adviser-service-sha"
 
   describe "#app_sha" do
@@ -21,7 +22,7 @@ RSpec.describe Healthcheck do
         allow(File).to receive(:read).with(shafile).and_raise Errno::ENOENT
       end
 
-      it { is_expected.to eql nil }
+      it { is_expected.to be nil }
     end
   end
 
@@ -53,13 +54,13 @@ RSpec.describe Healthcheck do
   end
 
   describe "#test_redis" do
+    subject { described_class.new.test_redis }
+
     before do
       allow(ENV).to receive(:[]).and_call_original
       allow(ENV).to receive(:[]).with("REDIS_URL").and_return \
         "redis://localhost:6379/1"
     end
-
-    subject { described_class.new.test_redis }
 
     context "with working connection" do
       before do
@@ -79,12 +80,14 @@ RSpec.describe Healthcheck do
 
     context "with no configured connection" do
       before { allow(ENV).to receive(:[]).with("REDIS_URL").and_return nil }
+
       it { is_expected.to be nil }
     end
   end
 
   describe "#to_h" do
     subject { described_class.new.to_h }
+
     it { is_expected.to include :app_sha }
     it { is_expected.to include :api }
     it { is_expected.to include :redis }
@@ -92,6 +95,7 @@ RSpec.describe Healthcheck do
 
   describe "#to_json" do
     subject { JSON.parse described_class.new.to_json }
+
     it { is_expected.to include "app_sha" }
     it { is_expected.to include "api" }
     it { is_expected.to include "redis" }

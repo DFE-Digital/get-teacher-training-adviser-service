@@ -10,9 +10,9 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkOrOverseas do
   end
 
   describe "#uk_or_overseas" do
-    it { is_expected.to_not allow_value("").for :uk_or_overseas }
-    it { is_expected.to_not allow_value(nil).for :uk_or_overseas }
-    it { is_expected.to_not allow_value("Denmark").for :uk_or_overseas }
+    it { is_expected.not_to allow_value("").for :uk_or_overseas }
+    it { is_expected.not_to allow_value(nil).for :uk_or_overseas }
+    it { is_expected.not_to allow_value("Denmark").for :uk_or_overseas }
     it { is_expected.to allow_values(*TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS.values).for :uk_or_overseas }
   end
 
@@ -30,7 +30,9 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkOrOverseas do
 
   describe "#reviewable_answers" do
     subject { instance.reviewable_answers }
+
     before { instance.uk_or_overseas = TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:overseas] }
+
     it { is_expected.to eq({ "uk_or_overseas" => "Overseas" }) }
   end
 end

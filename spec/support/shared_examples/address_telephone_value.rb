@@ -5,7 +5,7 @@ RSpec.shared_examples "#address_telephone_value" do
     before do
       instance.address_telephone = address_telephone
       double = double("overseas_country")
-      allow(double).to receive(:dial_in_code) { "44" }
+      allow(double).to receive(:dial_in_code).and_return("44")
       allow(instance).to receive(:other_step).with(:overseas_country) { double }
     end
 

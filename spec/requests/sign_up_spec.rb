@@ -5,8 +5,10 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
   let(:step_path) { teacher_training_adviser_step_path model.key }
 
   describe "#show" do
-    before { get step_path }
     subject { response }
+
+    before { get step_path }
+
     it { is_expected.to have_http_status :success }
 
     context "with an invalid step" do
@@ -17,12 +19,12 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
   end
 
   describe "#update" do
-    let(:key) { model.model_name.param_key }
-
     subject do
       patch step_path, params: { key => params }
       response
     end
+
+    let(:key) { model.model_name.param_key }
 
     context "with valid data" do
       before do
@@ -33,11 +35,13 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
       end
 
       let(:params) { { first_name: "John", last_name: "Doe", email: "john@doe.com" } }
+
       it { is_expected.to redirect_to teacher_training_adviser_step_path("returning_teacher") }
     end
 
     context "with invalid data" do
       let(:params) { { "email" => "invaild-email" } }
+
       it { is_expected.to have_http_status :success }
     end
 
@@ -69,7 +73,7 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
           steps.each do |step|
             allow_any_instance_of(step).to receive(:valid?).and_return true
 
-            expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to_not \
+            expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).not_to \
               receive(:sign_up_teacher_training_adviser_candidate)
           end
 
@@ -86,7 +90,7 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
           steps.each do |step|
             allow_any_instance_of(step).to receive(:can_proceed?).and_return true
 
-            expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to_not \
+            expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).not_to \
               receive(:sign_up_teacher_training_adviser_candidate)
           end
 
@@ -113,6 +117,7 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
       get completed_teacher_training_adviser_steps_path
       response
     end
+
     it { is_expected.to have_http_status :success }
   end
 
@@ -125,8 +130,6 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
     end
 
     context "when the API returns 429 too many requests" do
-      let(:too_many_requests_error) { GetIntoTeachingApiClient::ApiError.new(code: 429) }
-
       subject! do
         allow_any_instance_of(GetIntoTeachingApiClient::CandidatesApi).to \
           receive(:create_candidate_access_token).and_raise(too_many_requests_error)
@@ -134,18 +137,20 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
         response.body
       end
 
+      let(:too_many_requests_error) { GetIntoTeachingApiClient::ApiError.new(code: 429) }
+
       it { is_expected.to match(/Too many requests/) }
       it { is_expected.to match(/You have tried to access a page too often/) }
     end
 
     context "when the API returns 400 bad request" do
-      let(:bad_request_error) { GetIntoTeachingApiClient::ApiError.new(code: 400) }
-
       subject! do
         allow_any_instance_of(GetIntoTeachingApiClient::CandidatesApi).to \
           receive(:create_candidate_access_token).and_raise(bad_request_error)
         get resend_verification_teacher_training_adviser_steps_path
       end
+
+      let(:bad_request_error) { GetIntoTeachingApiClient::ApiError.new(code: 400) }
 
       it { is_expected.to redirect_to(teacher_training_adviser_step_path(:identity)) }
     end

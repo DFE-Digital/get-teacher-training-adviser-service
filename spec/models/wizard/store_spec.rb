@@ -1,11 +1,11 @@
 require "rails_helper"
 
 RSpec.describe Wizard::Store do
+  subject { instance }
+
   let(:app_data) { { "first_name" => "Joe", "last_name" => nil, "age" => 20 } }
   let(:crm_data) { { "first_name" => "James", "last_name" => "Doe", "region" => "Manchester" } }
   let(:instance) { described_class.new app_data, crm_data }
-
-  subject { instance }
 
   describe ".new" do
     context "with valid source data" do
@@ -17,7 +17,7 @@ RSpec.describe Wizard::Store do
     context "with invalid app_data source" do
       subject { described_class.new nil, crm_data }
 
-      it "should raise an InvalidBackingStore" do
+      it "raises an InvalidBackingStore" do
         expect { subject }.to raise_exception(Wizard::Store::InvalidBackingStore)
       end
     end
@@ -25,7 +25,7 @@ RSpec.describe Wizard::Store do
     context "with invalid crm_data source" do
       subject { described_class.new app_data, nil }
 
-      it "should raise an InvalidBackingStore" do
+      it "raises an InvalidBackingStore" do
         expect { subject }.to raise_exception(Wizard::Store::InvalidBackingStore)
       end
     end
@@ -102,7 +102,7 @@ RSpec.describe Wizard::Store do
       subject { instance.fetch %w[first_name missing_key] }
 
       it "will return it with a nil value in the hash" do
-        is_expected.to eql({ "first_name" => "Joe", "missing_key" => nil })
+        expect(subject).to eql({ "first_name" => "Joe", "missing_key" => nil })
       end
     end
   end
@@ -124,11 +124,12 @@ RSpec.describe Wizard::Store do
   end
 
   describe "#purge!" do
-    before { instance.purge! }
     subject { instance.keys }
 
+    before { instance.purge! }
+
     it "will remove all keys" do
-      is_expected.to have_attributes empty?: true
+      expect(subject).to have_attributes empty?: true
     end
   end
 end
