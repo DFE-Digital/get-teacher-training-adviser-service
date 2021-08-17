@@ -184,5 +184,54 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       submit_review_answers_step
       submit_privacy_policy_step
     end
+
+    context "when in a closed state" do
+      let(:candidate_identity) { existing_closed_candidate_identity }
+
+      it "not returning, existing data, change country" do
+        submit_verification_code(candidate_identity)
+        submit_choice_step("No", :returning_teacher)
+        submit_choice_step("Yes", :have_a_degree)
+
+        expect_current_step(:what_subject_degree)
+        expect(page).to have_select("What subject is your degree?", selected: "Maths")
+        click_on_continue
+
+        expect_current_step(:what_degree_class)
+        expect(page).to have_select("Which class is your degree?", selected: "First class")
+        click_on_continue
+
+        expect_current_step(:stage_interested_teaching)
+        expect(page.find_field("Secondary")).to be_checked
+        click_on_continue
+
+        expect_current_step(:gcse_maths_english)
+        expect(page.find_field("Yes")).to be_checked
+        click_on_continue
+
+        expect_current_step(:subject_interested_teaching)
+        expect(page).to have_select("Which subject would you like to teach?", selected: "Physics")
+        click_on_continue
+
+        expect_current_step(:start_teacher_training)
+        expect(page).to have_select("When do you want to start your teacher training?", selected: "Not sure")
+        click_on_continue
+
+        expect_current_step(:date_of_birth)
+        expect(find_field("Day").value).to eq("22")
+        expect(find_field("Month").value).to eq("3")
+        expect(find_field("Year").value).to eq("1987")
+        click_on_continue
+
+        submit_choice_step("Overseas", :uk_or_overseas)
+
+        expect_current_step(:overseas_country)
+        expect(page).to have_select("Which country do you live in?", selected: "Bahamas")
+        submit_select_step("Brazil", :overseas_country)
+
+        submit_review_answers_step
+        submit_privacy_policy_step
+      end
+    end
   end
 end
