@@ -136,6 +136,15 @@ module SpecHelpers
       }
     end
 
+    def existing_closed_candidate_identity
+      {
+        first_name: "Jim",
+        last_name: "Doe",
+        email: "existing.closed@user.com",
+        existing: true,
+      }
+    end
+
     def submit_choice_step(option, step)
       expect_current_step(step)
       choose option
