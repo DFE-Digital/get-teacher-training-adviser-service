@@ -28,27 +28,18 @@
 
         <% end %>
 
-        <p>If you’re planning to start teacher training this September, you can speed things up by:</p>
-
-        <ul>
-          <li>searching for courses on <%= link_to("Find postgraduate teacher training", "https://www.gov.uk/find-postgraduate-teacher-training-courses") %></li>
-          <li>Start an application at <%= link_to("Apply for teacher training", "https://www.gov.uk/apply-for-teacher-training") %></li>
-          <li>Start writing your <%= link_to("personal statement", "https://getintoteaching.education.gov.uk/tips-on-applying-for-teacher-training") %></li>
-        </ul>
-
-        <p>Places fill up quickly at this time of year, but courses are still available.</p>
-
         <h2 class="govuk-heading-m">Understanding your options</h2>
 
         <p>As well as an adviser, you can find help and guidance on the Get Into Teaching website. There, you can:</p>
 
         <ul>
-          <li>ask any immediate questions using the <%= link_to_git_site "online chat", "#talk-to-us" %></li>
           <li>discover the different <%= link_to_git_site "ways to train", "ways-to-train" %> to become a teacher</li>
           <li>find out about <%= link_to_git_site "funding", "funding-your-training" %></li>
           <li><%= link_to_git_site "search for events", "events" %> that might interest you</li>
           <% if @returner %>
-            <li>read further information on our dedicated <%= link_to_git_site "return to teaching page", "returning-to-teaching" %></li>
+          <li>read further information on our dedicated <%= link_to_git_site "return to teaching page", "returning-to-teaching" %></li>
+          
+          <p> You can also searching for courses on <%= link_to("Find postgraduate teacher training", "https://www.gov.uk/find-postgraduate-teacher-training-courses") %></li>
           <% end %>
         </ul>
 
