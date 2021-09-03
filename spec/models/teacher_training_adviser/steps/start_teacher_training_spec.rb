@@ -36,9 +36,9 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
 
     let(:years) { subject.years }
 
-    context "when its on or before 17th September of the current year" do
+    context "when its on or before 6th September of the current year" do
       around do |example|
-        travel_to(Date.new(2020, 9, 17)) { example.run }
+        travel_to(Date.new(2020, 9, 6)) { example.run }
       end
 
       it "returns 'Not sure', and the current year plus next 2 years" do
@@ -51,9 +51,9 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
       end
     end
 
-    context "when its after 17th September of the current year" do
+    context "when its after 6th September of the current year" do
       around do |example|
-        travel_to(Date.new(2020, 9, 18)) { example.run }
+        travel_to(Date.new(2020, 9, 7)) { example.run }
       end
 
       it "returns 'Not sure', and the next 3 years" do

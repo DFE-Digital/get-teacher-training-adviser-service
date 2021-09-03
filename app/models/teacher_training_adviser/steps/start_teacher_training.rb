@@ -52,8 +52,8 @@ module TeacherTrainingAdviser::Steps
     end
 
     def first_year
-      # After 17th September you can no longer start teacher training for that year.
-      include_current_year = Time.zone.today < Date.new(current_year, 9, 18)
+      # After 6th September you can no longer start teacher training for that year.
+      include_current_year = Time.zone.today < Date.new(current_year, 9, 7)
       include_current_year ? current_year : current_year + 1
     end
 
