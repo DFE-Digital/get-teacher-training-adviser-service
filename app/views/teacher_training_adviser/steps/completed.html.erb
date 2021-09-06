@@ -37,11 +37,13 @@
           <li>find out about <%= link_to_git_site "funding", "funding-your-training" %></li>
           <li><%= link_to_git_site "search for events", "events" %> that might interest you</li>
           <% if @returner %>
-          <li>read further information on our dedicated <%= link_to_git_site "return to teaching page", "returning-to-teaching" %></li>
-          
-          <p> You can also search for courses on <%= link_to("Find postgraduate teacher training", "https://www.gov.uk/find-postgraduate-teacher-training-courses") %></li>
+            <li>read further information on our dedicated <%= link_to_git_site "return to teaching page", "returning-to-teaching" %></li>
           <% end %>
         </ul>
+
+        <% if @returner %>
+          <p> You can also search for courses on <%= link_to("Find postgraduate teacher training", "https://www.gov.uk/find-postgraduate-teacher-training-courses") %></p>
+        <% end %>
 
         <p>
           If you have any questions or you need to update any of the information you provided, call <a href="tel:08003892500">0800 389 2500</a> for free between 8.30am and 5.30pm Monday to Friday.
