@@ -36,7 +36,7 @@ module TeacherTrainingAdviser
     helper_method :step_path
 
     def wizard_store
-      ::Wizard::Store.new app_store, crm_store
+      DFEWizard::Store.new app_store, crm_store
     end
 
     def app_store

@@ -17,7 +17,7 @@ module WizardSteps
   def update
     @current_step.assign_attributes step_params
 
-    if @current_step.save!
+    if @current_step.save
       complete = @wizard.complete!
 
       if complete
@@ -46,7 +46,7 @@ private
 
   def load_wizard
     @wizard = wizard_class.new(wizard_store, params[:id])
-  rescue Wizard::UnknownStep
+  rescue DFEWizard::UnknownStep
     raise_not_found
   end
 

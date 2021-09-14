@@ -55,7 +55,7 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
         "degree_options" => "equivalent",
       }
     end
-    let(:wizardstore) { Wizard::Store.new store, {} }
+    let(:wizardstore) { DFEWizard::Store.new store, {} }
 
     describe "#time_zone" do
       it "defaults to London" do

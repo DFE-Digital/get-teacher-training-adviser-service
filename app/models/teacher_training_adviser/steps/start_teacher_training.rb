@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class StartTeacherTraining < Wizard::Step
+  class StartTeacherTraining < DFEWizard::Step
     attribute :initial_teacher_training_year_id, :integer
 
     validates :initial_teacher_training_year_id, inclusion: { in: :year_ids }

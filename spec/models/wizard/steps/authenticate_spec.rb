@@ -53,7 +53,7 @@ RSpec.describe Wizard::Steps::Authenticate do
     end
   end
 
-  describe "#save!" do
+  describe "#save" do
     before do
       subject.timed_one_time_password = totp
       wizardstore["email"] = "email@address.com"
@@ -73,8 +73,8 @@ RSpec.describe Wizard::Steps::Authenticate do
     context "when invalid" do
       it "does not attempt to call the API" do
         subject.timed_one_time_password = nil
-        subject.save!
-        expect { subject.save! }.not_to raise_error
+        subject.save
+        expect { subject.save }.not_to raise_error
       end
     end
 
@@ -83,10 +83,10 @@ RSpec.describe Wizard::Steps::Authenticate do
         expect(wizard).to receive(:exchange_access_token).with(totp, request).and_raise(GetIntoTeachingApiClient::ApiError).once
         expect(wizard).to receive(:exchange_access_token).with("000000", request).once
         subject.timed_one_time_password = totp
-        subject.save!
-        subject.save!
+        subject.save
+        subject.save
         subject.timed_one_time_password = "000000"
-        subject.save!
+        subject.save
       end
 
       it "does not call the API on validation if already authenticated" do
@@ -101,7 +101,7 @@ RSpec.describe Wizard::Steps::Authenticate do
 
         it "throws an error" do
           expect(wizard).to receive(:exchange_access_token).and_call_original
-          expect { subject.save! }.to raise_error(Wizard::AccessTokenNotSupportedError)
+          expect { subject.save }.to raise_error(DFEWizard::AccessTokenNotSupportedError)
         end
       end
     end
@@ -110,7 +110,7 @@ RSpec.describe Wizard::Steps::Authenticate do
       it "updates the store with the response" do
         response = GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.new(candidateId: "abc123")
         expect(wizard).to receive(:exchange_access_token).with(totp, request) { response }
-        subject.save!
+        subject.save
         expect(wizardstore["candidate_id"]).to eq(response.candidate_id)
       end
     end

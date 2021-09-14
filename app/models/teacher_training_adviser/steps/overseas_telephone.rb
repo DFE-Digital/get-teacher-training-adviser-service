@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class OverseasTelephone < Wizard::Step
+  class OverseasTelephone < DFEWizard::Step
     attribute :address_telephone, :string
 
     validates :address_telephone, telephone: { international: true }, allow_blank: true

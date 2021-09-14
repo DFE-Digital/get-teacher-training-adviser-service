@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class UkCallback < Wizard::Step
+  class UkCallback < DFEWizard::Step
     extend CallbackBookingQuotas
 
     attribute :address_telephone, :string

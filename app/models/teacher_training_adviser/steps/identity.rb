@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class Identity < ::Wizard::Step
+  class Identity < DFEWizard::Step
     include Wizard::IssueVerificationCode
 
     attribute :first_name, :string
