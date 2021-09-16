@@ -37,7 +37,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasTelephone do
 
     it "returns true when pre-filled with crm data" do
       wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:yes]
-      wizardstore.persist_crm({ "address_telephone" => "123456789" })
+      wizardstore.persist_preexisting({ "address_telephone" => "123456789" })
       expect(subject).to be_skipped
     end
   end
