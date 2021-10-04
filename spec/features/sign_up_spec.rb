@@ -36,6 +36,70 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
         .and_raise(GetIntoTeachingApiClient::ApiError)
     end
 
+    scenario "that is signing up at an on-campus event" do
+      channel = GetIntoTeachingApiClient::PickListItem.new({ id: 123_456, value: "On-campus event" })
+
+      allow_any_instance_of(GetIntoTeachingApiClient::PickListItemsApi).to \
+        receive(:get_candidate_teacher_training_adviser_subscription_channels).and_return([channel])
+
+      visit root_path(channel: channel.id)
+      click_on "Start now"
+
+      expect(page).to have_css "h1", text: "About you"
+      fill_in_identity_step
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Are you qualified to teach in the UK?"
+      choose "Yes"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Do you have your previous teacher reference number?"
+      choose "No"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Which main subject did you previously teach?"
+      select "Psychology"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Which subject would you like to teach if you return to teaching?"
+      choose "Physics"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Enter your date of birth"
+      fill_in_date_of_birth_step
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Where do you live?"
+      choose "UK"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "What is your address?"
+      fill_in_address_step
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "What is your telephone number?"
+      fill_in "UK telephone number (optional)", with: "123456789"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Check your answers before you continue"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Read and accept the privacy policy"
+      check "Accept the privacy policy"
+
+      request_attributes = uk_candidate_request_attributes({
+        type_id: RETURNING_TO_TEACHING,
+        subject_taught_id: SUBJECT_PSYCHOLOGY,
+        preferred_teaching_subject_id: SUBJECT_PHYSICS,
+        channel_id: channel.id,
+      })
+      expect_sign_up_with_attributes(request_attributes)
+
+      click_on "Complete"
+
+      expect(page).to have_css "h1", text: "Sign up complete"
+    end
+
     scenario "that is a returning teacher" do
       visit teacher_training_adviser_steps_path
 
