@@ -38,6 +38,10 @@ module TeacherTrainingAdviser
       Steps::AcceptPrivacyPolicy,
     ].freeze
 
+    def matchback_attributes
+      %i[candidate_id qualification_id adviser_status_id].freeze
+    end
+
     def time_zone
       find(Steps::OverseasTimeZone.key).time_zone || "London"
     end

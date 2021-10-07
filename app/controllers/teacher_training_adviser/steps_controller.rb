@@ -1,7 +1,7 @@
 module TeacherTrainingAdviser
   class StepsController < ApplicationController
     include CircuitBreaker
-    include WizardSteps
+    include DFEWizard::Controller
     self.wizard_class = TeacherTrainingAdviser::Wizard
 
     around_action :set_time_zone, only: %i[show update] # rubocop:disable Rails/LexicallyScopedActionFilter
@@ -36,7 +36,7 @@ module TeacherTrainingAdviser
     helper_method :step_path
 
     def wizard_store
-      DFEWizard::Store.new app_store, crm_store
+      ::DFEWizard::Store.new app_store, crm_store
     end
 
     def app_store
