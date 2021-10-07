@@ -4,7 +4,7 @@ module TeacherTrainingAdviser
 
     self.steps = [
       Steps::Identity,
-      ::Wizard::Steps::Authenticate,
+      DFEWizard::Steps::Authenticate,
       Steps::AlreadySignedUp,
       Steps::ReturningTeacher,
       Steps::HaveADegree,
