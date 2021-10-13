@@ -10,6 +10,7 @@ module ApplicationHelper
       "analytics-facebook-id" => ENV["FACEBOOK_ID"],
       "analytics-twitter-id" => ENV["TWITTER_ID"],
       "analytics-lid-id" => ENV["LID_ID"],
+      "analytics-bam-id": ENV["BAM_ID"],
       "pinterest-action-value" => "page",
       "snapchat-action-value" => "track",
       "snapchat-event-value" => "PAGE_VIEW",
