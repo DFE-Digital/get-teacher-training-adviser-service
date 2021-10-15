@@ -53,6 +53,7 @@
           <%= link_to("What did you think of this service?", new_teacher_training_adviser_feedback_path, target: :blank) %> (takes 30 seconds)
         </p>
 
+        <% if Rails.application.config.x.legacy_tracking_pixels %>
         <span data-controller="pinterest"
               data-pinterest-action-value="track"
               data-pinterest-event-value="signup"></span>
@@ -75,6 +76,7 @@
               data-lid-event-value="CompleteApp"></span>
 
         <span data-controller="bam" data-bam-action-value="track"></span>
+        <% end %>
       </div>
     </div>
   </div>
