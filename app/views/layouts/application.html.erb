@@ -14,11 +14,13 @@
     <%= favicon_link_tag asset_pack_path('media/images/govuk-apple-touch-icon-152x152.png'), rel: 'apple-touch-icon', type: 'image/png', size: '152x152' %>
     <%= favicon_link_tag asset_pack_path('media/images/govuk-apple-touch-icon-167x167.png'), rel: 'apple-touch-icon', type: 'image/png', size: '167x167' %>
     <%= favicon_link_tag asset_pack_path('media/images/govuk-apple-touch-icon-180x180.png'), rel: 'apple-touch-icon', type: 'image/png', size: '180x180' %>
+    <%= javascript_pack_tag 'gtm', 'data-turbolinks-track': 'reload', data: { "gtm-id": ENV["GTM_ID"] }, async: true unless Rails.application.config.x.legacy_tracking_pixels %>
     <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload', media: 'all' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
   </head>
 
   <%= analytics_body_tag class: "govuk-template__body govuk-body" do %>
+    <%= render(partial: "shared/gtm_fallback") unless Rails.application.config.x.legacy_tracking_pixels %>
     <header class="govuk-header" role="banner" data-module="govuk-header">
     <%= render partial: 'shared/cookie_banner' %>
     <a href="#main-content" class="govuk-skip-link">Skip to main content</a>

@@ -1,5 +1,13 @@
 module ApplicationHelper
   def analytics_body_tag(attributes = {}, &block)
+    if Rails.application.config.x.legacy_tracking_pixels
+      legacy_analytics_body_tag(attributes, &block)
+    else
+      gtm_consent_body_tag(attributes, &block)
+    end
+  end
+
+  def legacy_analytics_body_tag(attributes = {}, &block)
     attributes = attributes.symbolize_keys
 
     analytics = {
@@ -27,6 +35,13 @@ module ApplicationHelper
       "gtm pinterest snapchat facebook twitter #{attributes[:data][:controller]}"
 
     tag.body attributes, &block
+  end
+
+  def gtm_consent_body_tag(attributes = {}, &block)
+    attributes[:data] ||= {}
+    attributes[:data][:controller] = "gtm-consent"
+
+    tag.body(**attributes, &block)
   end
 
   def prefix_title(title)

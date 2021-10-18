@@ -113,7 +113,7 @@ describe('CookiePreferences', () => {
       })
     })
 
-    describe("assigning functational to false", () => {
+    describe("assigning functional to false", () => {
       beforeEach(() => { prefs.setCategory('functional', false) })
 
       it("leaves the value as true", () => {
@@ -152,6 +152,24 @@ describe('CookiePreferences', () => {
         expect(newCategoriesEvent).toEqual(['features'])
       })
     })
+
+    describe('opting out of a category', () => {
+      beforeEach(() => {
+        prefs.setCategory('marketing', true);
+      });
+
+      it('retains essential cookies and clears non-essential cookies', () => {
+        Cookies.set('non-essential', 'not essential');
+
+        const essentialCookieKey = CookiePreferences.functionalCookies[2];
+        Cookies.set(essentialCookieKey, 'essential');
+
+        prefs.setCategory('marketing', false);
+
+        expect(Cookies.get('non-essential')).toBeUndefined();
+        expect(Cookies.get(essentialCookieKey)).toEqual('essential');
+      });
+    });
 
     describe("allowAll", () => {
       beforeEach(() => { prefs.allowAll() }) ;
@@ -243,4 +261,4 @@ describe('CookiePreferences', () => {
       }) ;
     }) ;
   }) ;
-})  
+})
