@@ -4,6 +4,7 @@
   <%= f.govuk_text_field :first_name, width: 20 %>
   <%= f.govuk_text_field :last_name, width: 20 %>
   <%= f.govuk_email_field :email, width: 20 %>
+  <%= f.hidden_field :channel_id, value: params[:channel] %>
 
   <p>Your details are protected under the terms of our <%= link_to "privacy notice", privacy_policy_path(:id => session[:privacy_policy_id].presence || GetIntoTeachingApiClient::PrivacyPoliciesApi.new.get_latest_privacy_policy.id) %>.</p>
 

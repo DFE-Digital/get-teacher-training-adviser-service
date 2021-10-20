@@ -17,8 +17,10 @@ RSpec.describe ApplicationHelper do
     let(:facebook_id) { "4321" }
     let(:twitter_id) { "1289" }
     let(:lid_id) { "7698" }
+    let(:bam_id) { "2135" }
 
     before do
+      allow(Rails.application.config.x).to receive(:legacy_tracking_pixels).and_return(true)
       allow(ENV).to receive(:[]).and_call_original
       allow(ENV).to receive(:[]).with("GOOGLE_TAG_MANAGER_ID").and_return gtm_id
       allow(ENV).to receive(:[]).with("GOOGLE_AD_WORDS_ID").and_return adwords_id
@@ -27,9 +29,22 @@ RSpec.describe ApplicationHelper do
       allow(ENV).to receive(:[]).with("FACEBOOK_ID").and_return facebook_id
       allow(ENV).to receive(:[]).with("TWITTER_ID").and_return twitter_id
       allow(ENV).to receive(:[]).with("LID_ID").and_return lid_id
+      allow(ENV).to receive(:[]).with("BAM_ID").and_return bam_id
     end
 
     it { is_expected.to have_css "body h1" }
+
+    context "when legacy tracking is disabled" do
+      subject { analytics_body_tag(data: { timefmt: "24" }, class: "homepage") { tag.hr } }
+
+      before { allow(Rails.application.config.x).to receive(:legacy_tracking_pixels).and_return(false) }
+
+      it { is_expected.not_to have_css "body[data-controller=gtm]" }
+      it { is_expected.to have_css "body[data-controller=gtm-consent]" }
+      it { is_expected.to have_css "body[data-timefmt=24]" }
+      it { is_expected.to have_css "body.homepage" }
+      it { is_expected.to have_css "body hr" }
+    end
 
     context "includes stimulus controllers" do
       it { is_expected.to have_css "body[data-controller~=gtm]" }
@@ -47,6 +62,7 @@ RSpec.describe ApplicationHelper do
       it { is_expected.to have_css "body[data-analytics-facebook-id=4321]" }
       it { is_expected.to have_css "body[data-analytics-twitter-id=1289]" }
       it { is_expected.to have_css "body[data-analytics-lid-id=7698]" }
+      it { is_expected.to have_css "body[data-analytics-bam-id=2135]" }
     end
 
     context "with blank service ids" do
@@ -54,11 +70,13 @@ RSpec.describe ApplicationHelper do
       let(:adwords_id) { "" }
       let(:twitter_id) { "" }
       let(:lid_id) { "" }
+      let(:bam_id) { "" }
 
       it { is_expected.to have_css "body[data-analytics-gtm-id=\"\"]" }
       it { is_expected.to have_css "body[data-analytics-adwords-id=\"\"]" }
       it { is_expected.to have_css "body[data-analytics-twitter-id=\"\"]" }
       it { is_expected.to have_css "body[data-analytics-lid-id=\"\"]" }
+      it { is_expected.to have_css "body[data-analytics-bam-id=\"\"]" }
     end
 
     context "with no service ids" do
@@ -66,11 +84,13 @@ RSpec.describe ApplicationHelper do
       let(:adwords_id) { nil }
       let(:twitter_id) { nil }
       let(:lid_id) { nil }
+      let(:bam_id) { nil }
 
       it { is_expected.not_to have_css "body[data-analytics-gtm-id]" }
       it { is_expected.not_to have_css "body[data-analytics-adwords-id]" }
       it { is_expected.not_to have_css "body[data-analytics-twitter-id]" }
       it { is_expected.not_to have_css "body[data-analytics-lid-id]" }
+      it { is_expected.not_to have_css "body[data-analytics-bam-id]" }
     end
 
     context "default events" do
