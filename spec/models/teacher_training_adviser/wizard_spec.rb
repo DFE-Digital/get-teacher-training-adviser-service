@@ -91,13 +91,9 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
 
       it { is_expected.to have_received(:valid?) }
       it { is_expected.to have_received(:can_proceed?) }
-      it { expect(store).to eql({}) }
 
-      it "sets the completion attributes" do
-        expect(subject.completion_attributes).to eq({
-          "type_id" => 123,
-          "degree_options" => "equivalent",
-        })
+      it "prunes the store leaving data required to render the completion page" do
+        expect(store).to eql({ "type_id" => 123, "degree_options" => "equivalent" })
       end
     end
 

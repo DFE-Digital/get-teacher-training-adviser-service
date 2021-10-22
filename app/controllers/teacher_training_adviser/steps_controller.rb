@@ -10,8 +10,8 @@ module TeacherTrainingAdviser
     def completed
       super
 
-      @returner = params[:type_id].to_i == Steps::ReturningTeacher::OPTIONS[:returning_to_teaching]
-      @equivalent_degree = params[:degree_options] == Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
+      @returner = wizard_store[:type_id].to_i == Steps::ReturningTeacher::OPTIONS[:returning_to_teaching]
+      @equivalent_degree = wizard_store[:degree_options] == Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
     end
 
   protected

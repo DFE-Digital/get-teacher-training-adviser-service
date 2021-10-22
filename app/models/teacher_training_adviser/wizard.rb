@@ -51,14 +51,7 @@ module TeacherTrainingAdviser
 
       sign_up_candidate
 
-      # Do not include PII here as they are passed as
-      # query string parameters to the completion page.
-      @completion_attributes = @store.fetch(
-        :type_id,
-        :degree_options,
-      )
-
-      @store.purge!
+      @store.prune!(leave: %w[type_id degree_options])
     end
 
     def exchange_access_token(timed_one_time_password, request)
