@@ -12,7 +12,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
 
       - name: set-up-environment
         uses: DFE-Digital/github-actions/set-up-environment@master
@@ -52,7 +52,7 @@ jobs:
       DOCKER_IMAGE: ${{ steps.docker.outputs.DOCKER_IMAGE }} 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
 
       - name: set-up-environment
         uses: DFE-Digital/github-actions/set-up-environment@master
@@ -133,7 +133,7 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
 
       - name: set-up-environment
         uses: DFE-Digital/github-actions/set-up-environment@master
@@ -168,7 +168,7 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
 
       - name: set-up-environment
         uses: DFE-Digital/github-actions/set-up-environment@master
@@ -223,7 +223,7 @@ jobs:
           - 5432:5432
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
 
       - name: set-up-environment
         uses: DFE-Digital/github-actions/set-up-environment@master
@@ -308,7 +308,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.3.5
 
       - uses: DFE-Digital/github-actions/set-up-environment@master
 
@@ -367,7 +367,7 @@ jobs:
       release_tag: ${{steps.tag_version.outputs.pr_number}}
       release_sha: ${{github.sha}}
     steps:
-       - uses: actions/checkout@v2.3.4
+       - uses: actions/checkout@v2.3.5
 
        - uses: DFE-Digital/github-actions/set-up-environment@master
 
@@ -448,7 +448,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
-       - uses: actions/checkout@v2.3.4
+       - uses: actions/checkout@v2.3.5
 
        - uses: DFE-Digital/github-actions/set-up-environment@master
 
@@ -504,7 +504,7 @@ jobs:
      runs-on: ubuntu-latest
      needs: [ qa ]
      steps:
-       - uses: actions/checkout@v2.3.4
+       - uses: actions/checkout@v2.3.5
 
        - uses: DFE-Digital/github-actions/set-up-environment@master
 
@@ -547,7 +547,7 @@ jobs:
      runs-on: ubuntu-latest
      needs: [ cypress , development ]
      steps:
-       - uses: actions/checkout@v2.3.4
+       - uses: actions/checkout@v2.3.5
 
        - uses: DFE-Digital/github-actions/set-up-environment@master
 
