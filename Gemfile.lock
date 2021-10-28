@@ -1,7 +1,6 @@
 GIT
   remote: https://github.com/DFE-Digital/dfe_wizard.git
-  revision: 710acb8028fe06c982d0e940542aa88d2a6a11fb
-  branch: tta-changes
+  revision: 358f03c939822bf499a01d832a41da8e9e2b987c
   specs:
     dfe_wizard (0.1.0)
       activemodel (>= 6.0.3.4)
