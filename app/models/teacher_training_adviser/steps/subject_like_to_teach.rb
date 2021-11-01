@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class SubjectLikeToTeach < Wizard::Step
+  class SubjectLikeToTeach < DFEWizard::Step
     extend ApiOptions
 
     attribute :preferred_teaching_subject_id, :string

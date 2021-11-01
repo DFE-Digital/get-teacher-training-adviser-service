@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class OverseasTimeZone < Wizard::Step
+  class OverseasTimeZone < DFEWizard::Step
     attribute :address_telephone, :string
     attribute :time_zone, :string
 

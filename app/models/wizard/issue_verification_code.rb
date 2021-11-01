@@ -2,7 +2,7 @@ module Wizard
   module IssueVerificationCode
     extend ActiveSupport::Concern
 
-    def save!
+    def save
       @store.purge!
 
       if valid?

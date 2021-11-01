@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class AcceptPrivacyPolicy < Wizard::Step
+  class AcceptPrivacyPolicy < DFEWizard::Step
     attribute :accepted_policy_id, :string
 
     validates :accepted_policy_id, policy: true

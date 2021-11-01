@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class ReturningTeacher < Wizard::Step
+  class ReturningTeacher < DFEWizard::Step
     OPTIONS = { returning_to_teaching: 222_750_001, interested_in_teaching: 222_750_000 }.freeze
 
     attribute :type_id, :integer

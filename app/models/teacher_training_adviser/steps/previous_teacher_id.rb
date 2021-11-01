@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class PreviousTeacherId < Wizard::Step
+  class PreviousTeacherId < DFEWizard::Step
     attribute :teacher_id, :string
 
     def optional?

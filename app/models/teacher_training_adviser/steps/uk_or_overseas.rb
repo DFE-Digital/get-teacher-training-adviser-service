@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class UkOrOverseas < Wizard::Step
+  class UkOrOverseas < DFEWizard::Step
     attribute :uk_or_overseas, :string
     attribute :country_id, :string
 

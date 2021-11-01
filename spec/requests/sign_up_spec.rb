@@ -42,14 +42,13 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
     context "with invalid data" do
       let(:params) { { "email" => "invaild-email" } }
 
-      it { is_expected.to have_http_status :success }
+      it { is_expected.to have_http_status :unprocessable_entity }
     end
 
     context "for last step" do
       let(:steps) { TeacherTrainingAdviser::Wizard.steps }
       let(:model) { steps.last }
       let(:params) { { accepted_policy_id: "latest" } }
-      let(:completion_attributes) { { "type_id" => TeacherTrainingAdviser::Steps::ReturningTeacher::OPTIONS[:returning_to_teaching] } }
 
       context "when all valid and proceedable" do
         before do
@@ -57,13 +56,11 @@ RSpec.describe TeacherTrainingAdviser::StepsController do
             allow_any_instance_of(step).to receive(:valid?).and_return true
           end
 
-          allow_any_instance_of(TeacherTrainingAdviser::Wizard).to receive(:completion_attributes) { completion_attributes }
-
           expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
             receive(:sign_up_teacher_training_adviser_candidate).once
         end
 
-        it { is_expected.to redirect_to completed_teacher_training_adviser_steps_path(completion_attributes) }
+        it { is_expected.to redirect_to completed_teacher_training_adviser_steps_path }
       end
 
       context "when there is an invalid step" do
