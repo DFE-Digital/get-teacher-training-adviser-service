@@ -30,7 +30,9 @@ jobs:
          uses: DFE-Digital/github-actions/validate-key-vault-secrets@master
          with:
            KEY_VAULT: ${{ secrets.KEY_VAULT }}
-           SECRETS: TTA-KEYS
+           SECRETS: |
+                     TA-KEYS
+                     INFRA-KEYS
 
   turnstyle:
     name: Wait for any previous deployments
@@ -118,11 +120,12 @@ jobs:
          with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-       - uses: Azure/get-keyvault-secrets@v1.2
-         id:   azSecret
+       - uses: DFE-Digital/github-actions/keyvault-yaml-secret@master
+         id: LOGIT-API
          with:
            keyvault: ${{ secrets.KEY_VAULT}}
-           secrets: 'HTTP-USERNAME, HTTP-PASSWORD, LOGIT-API'
+           yaml_secret: INFRA-KEYS
+           secret: LOGIT-API
 
        - uses: hashicorp/setup-terraform@v1.3.2
          with:
@@ -172,7 +175,7 @@ jobs:
          if: always()
          uses: DFE-Digital/github-actions/SendToLogit@master
          with:
-            LOGIT-API-KEY: ${{ steps.azSecret.outputs.LOGIT-API }}
+            LOGIT-API-KEY: ${{ steps.LOGIT-API.outputs.secret-value }}
             logtype: "github"
             JSON: |
                 '{"Application" : "${{env.PAAS_APPLICATION_NAME}}", 
@@ -180,4 +183,3 @@ jobs:
                   "Action"      : "Deploy",                        
                   "Environment" : "${{github.event.inputs.environment}}",              
                   "Version"     : "${{ github.event.inputs.sha }}" }'
-
