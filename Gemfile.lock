@@ -408,7 +408,7 @@ DEPENDENCIES
   govuk_design_system_formbuilder
   invisible_captcha
   iso_country_codes
-  listen (>= 3.0.5, < 3.7)
+  listen (>= 3.0.5, < 3.8)
   pg
   prometheus-client
   pry-byebug
