@@ -94,7 +94,7 @@ end
 group :test do
   gem "shoulda-matchers"
   gem "vcr"
-  gem "webdrivers", "~> 4.6"
+  gem "webdrivers", "~> 5.0"
   # Used when VCR is turned off to block HTTP requests.
   gem "webmock"
 end
