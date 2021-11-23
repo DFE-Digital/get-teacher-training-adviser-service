@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class UkCallback < Wizard::Step
+  class UkCallback < DFEWizard::Step
     extend CallbackBookingQuotas
 
     attribute :address_telephone, :string
@@ -20,7 +20,7 @@ module TeacherTrainingAdviser::Steps
       {
         "address_telephone" => address_telephone,
         "callback_date" => phone_call_scheduled_at&.to_date,
-        "callback_time" => phone_call_scheduled_at&.to_time, # rubocop:disable Rails/Date
+        "callback_time" => phone_call_scheduled_at&.to_time,
       }
     end
 

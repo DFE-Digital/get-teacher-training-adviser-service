@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class OverseasCountry < Wizard::Step
+  class OverseasCountry < DFEWizard::Step
     extend ApiOptions
     # overwrites UK default
     attribute :country_id, :string

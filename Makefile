@@ -20,6 +20,7 @@ help:
 	echo ""
 
 APPLICATION_SECRETS=TTA-KEYS
+INFRASTRUCTURE_SECRETS=INFRA-KEYS
 
 .PHONY: development
 development:
@@ -57,3 +58,9 @@ edit-app-secrets: install-fetch-config set-azure-account
 
 print-app-secrets: install-fetch-config set-azure-account 
 	./fetch_config.rb -s azure-key-vault-secret:${KEY_VAULT}/${APPLICATION_SECRETS}  -f yaml
+
+edit-infra-secrets: install-fetch-config set-azure-account
+	./fetch_config.rb -s azure-key-vault-secret:${KEY_VAULT}/${INFRASTRUCTURE_SECRETS} -e -d azure-key-vault-secret:${KEY_VAULT}/${INFRASTRUCTURE_SECRETS} -f yaml -c
+
+print-infra-secrets: install-fetch-config set-azure-account 
+	./fetch_config.rb -s azure-key-vault-secret:${KEY_VAULT}/${INFRASTRUCTURE_SECRETS}  -f yaml

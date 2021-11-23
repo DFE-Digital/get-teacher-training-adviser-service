@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class HasTeacherId < Wizard::Step
+  class HasTeacherId < DFEWizard::Step
     attribute :has_id, :boolean
 
     validates :has_id, inclusion: { in: [true, false] }
@@ -11,7 +11,7 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      teacher_id_prefilled = @store.crm(:teacher_id)
+      teacher_id_prefilled = @store.preexisting(:teacher_id)
       returning_teacher = other_step(:returning_teacher).returning_to_teaching
 
       !returning_teacher || teacher_id_prefilled

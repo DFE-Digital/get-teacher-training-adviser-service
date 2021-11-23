@@ -55,6 +55,8 @@ gem "invisible_captcha"
 
 gem "iso_country_codes"
 
+gem "dfe_wizard", github: "DFE-Digital/dfe_wizard"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: %i[mri mingw x64_mingw]
@@ -81,7 +83,7 @@ end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem "listen", ">= 3.0.5", "< 3.7"
+  gem "listen", ">= 3.0.5", "< 3.8"
   gem "web-console", ">= 3.3.0"
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
@@ -92,7 +94,7 @@ end
 group :test do
   gem "shoulda-matchers"
   gem "vcr"
-  gem "webdrivers", "~> 4.6"
+  gem "webdrivers", "~> 5.0"
   # Used when VCR is turned off to block HTTP requests.
   gem "webmock"
 end

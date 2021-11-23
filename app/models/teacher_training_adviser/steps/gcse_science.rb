@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class GcseScience < Wizard::Step
+  class GcseScience < DFEWizard::Step
     attribute :has_gcse_science_id, :integer
 
     validates :has_gcse_science_id, pick_list_items: { method: :get_candidate_retake_gcse_status }

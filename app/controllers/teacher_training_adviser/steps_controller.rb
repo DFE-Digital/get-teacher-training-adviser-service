@@ -1,7 +1,7 @@
 module TeacherTrainingAdviser
   class StepsController < ApplicationController
     include CircuitBreaker
-    include WizardSteps
+    include DFEWizard::Controller
     self.wizard_class = TeacherTrainingAdviser::Wizard
 
     around_action :set_time_zone, only: %i[show update] # rubocop:disable Rails/LexicallyScopedActionFilter
@@ -10,8 +10,8 @@ module TeacherTrainingAdviser
     def completed
       super
 
-      @returner = params[:type_id].to_i == Steps::ReturningTeacher::OPTIONS[:returning_to_teaching]
-      @equivalent_degree = params[:degree_options] == Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
+      @returner = wizard_store[:type_id].to_i == Steps::ReturningTeacher::OPTIONS[:returning_to_teaching]
+      @equivalent_degree = wizard_store[:degree_options] == Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
     end
 
   protected
@@ -36,7 +36,7 @@ module TeacherTrainingAdviser
     helper_method :step_path
 
     def wizard_store
-      ::Wizard::Store.new app_store, crm_store
+      ::DFEWizard::Store.new app_store, crm_store
     end
 
     def app_store

@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class OverseasCallback < Wizard::Step
+  class OverseasCallback < DFEWizard::Step
     extend CallbackBookingQuotas
 
     attribute :phone_call_scheduled_at, :datetime
@@ -9,7 +9,7 @@ module TeacherTrainingAdviser::Steps
     def reviewable_answers
       {
         "callback_date" => phone_call_scheduled_at&.to_date,
-        "callback_time" => phone_call_scheduled_at&.to_time, # rubocop:disable Rails/Date
+        "callback_time" => phone_call_scheduled_at&.to_time,
       }
     end
 

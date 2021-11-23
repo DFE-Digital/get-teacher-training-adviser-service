@@ -29,7 +29,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::PreviousTeacherId do
 
     it "returns true when pre-filled with crm data" do
       wizardstore["has_id"] = true
-      wizardstore.persist_crm({ "teacher_id" => "123456" })
+      wizardstore.persist_preexisting({ "teacher_id" => "123456" })
       expect(subject).to be_skipped
     end
   end

@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class ReviewAnswers < Wizard::Step
+  class ReviewAnswers < DFEWizard::Step
     def personal_detail_answers_by_step
       answers_by_step.select { |k| k.contains_personal_details? } # rubocop:disable Style/SymbolProc
     end

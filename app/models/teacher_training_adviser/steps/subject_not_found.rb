@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class SubjectNotFound < Wizard::Step
+  class SubjectNotFound < DFEWizard::Step
     def can_proceed?
       false
     end

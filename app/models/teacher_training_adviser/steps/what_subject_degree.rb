@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class WhatSubjectDegree < Wizard::Step
+  class WhatSubjectDegree < DFEWizard::Step
     extend ApiOptions
 
     OMIT_SUBJECT_IDS = [
