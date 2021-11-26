@@ -124,7 +124,7 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
         town_city: "Edinburgh",
         postcode: "TE7 5TR",
       )
-      submit_uk_callback_step("123456789", "1:00 pm - 1:30 pm")
+      submit_uk_callback_step("123456789", "1:00pm to 1:30pm")
       submit_review_answers_step
       submit_privacy_policy_step
     end
@@ -139,7 +139,7 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       submit_choice_step("Overseas", :uk_or_overseas)
       submit_select_step("China", :overseas_country)
       submit_overseas_time_zone_step("447584736574", "(GMT-04:00) Caracas")
-      submit_select_step("9:00 am - 9:30 am", :overseas_callback)
+      submit_select_step("9:00am to 9:30am", :overseas_callback)
       submit_review_answers_step
       submit_privacy_policy_step
     end
