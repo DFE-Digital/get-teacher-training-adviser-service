@@ -55,7 +55,7 @@ Rails.application.configure do
   config.x.enable_beta_redirects = false
   config.x.api_client_cache_store = ActiveSupport::Cache::MemoryStore.new
   config.x.basic_auth = ENV["BASIC_AUTH"]
-  config.x.legacy_tracking_pixels = false
+  config.x.legacy_tracking_pixels = true
 
   config.session_store :cache_store,
                        key: "_dfe_session",
