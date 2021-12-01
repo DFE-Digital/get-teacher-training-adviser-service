@@ -7,6 +7,10 @@ module ApplicationHelper
     end
   end
 
+  def new_gtm_enabled?
+    ENV["GTM_ID"].present? && !Rails.application.config.x.legacy_tracking_pixels
+  end
+
   def legacy_analytics_body_tag(attributes = {}, &block)
     attributes = attributes.symbolize_keys
 
