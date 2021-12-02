@@ -52,31 +52,6 @@
         <p>
           <%= link_to("What did you think of this service?", new_teacher_training_adviser_feedback_path, target: :blank) %> (takes 30 seconds)
         </p>
-
-        <% if Rails.application.config.x.legacy_tracking_pixels %>
-        <span data-controller="pinterest"
-              data-pinterest-action-value="track"
-              data-pinterest-event-value="signup"></span>
-
-        <span data-controller="snapchat"
-              data-snapchat-action-value="track"
-              data-snapchat-event-value="SIGN_UP"></span>
-
-        <span data-controller="facebook"
-              data-facebook-action-value="track"
-              data-facebook-event-value="CompleteRegistration"></span>
-
-        <span data-controller="gtm"
-              data-gtm-action-value="event"
-              data-gtm-event-value="conversion"
-              data-gtm-event-data-value='{"send_to":"AW-1071004410/1Rs4CM_qitsBEPr12P4D"}'></span>
-
-        <span data-controller="lid"
-              data-lid-action-value="track"
-              data-lid-event-value="CompleteApp"></span>
-
-        <span data-controller="bam" data-bam-action-value="track"></span>
-        <% end %>
       </div>
     </div>
   </div>
