@@ -15,8 +15,9 @@ RSpec.describe TeacherTrainingAdviser::Steps::Identity do
   end
 
   it_behaves_like "a wizard step"
-  it_behaves_like "an issue verification code wizard step"
   include_context "sanitize fields", %i[first_name last_name email]
+
+  it { expect(described_class).to include(::DFEWizard::IssueVerificationCode) }
 
   it { is_expected.to be_contains_personal_details }
 
