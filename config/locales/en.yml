@@ -63,7 +63,7 @@ en:
       teacher_training_adviser_steps_gcse_maths_english:
         has_gcse_maths_and_english_id: "Do you have grade 4 (C) or above in English and maths GCSEs, or equivalent?"
       teacher_training_adviser_steps_returning_teacher:
-        type_id: "Are you qualified to teach in the UK?"
+        type_id: "Do you have qualified teacher status?"
       teacher_training_adviser_steps_has_teacher_id:
         has_id: "Do you have your previous teacher reference number?"
       teacher_training_adviser_steps_have_a_degree:
@@ -105,7 +105,7 @@ en:
         address_telephone: "Contact telephone number"
         phone_call_scheduled_at: "Select your preferred day and time for a callback"
       teacher_training_adviser_steps_overseas_country:
-        country_id: "Which country do you live in?"
+        country_id: "Are you a non-UK citizen? Please select your country"
       teacher_training_adviser_steps_uk_address:
         address_line1: "Address line 1"
         address_line2: "Address line 2 (optional)"
@@ -158,7 +158,7 @@ en:
       teacher_training_adviser_steps_stage_interested_teaching:
         preferred_education_phase_id: "Select a stage even if you're not sure yet, as this will not affect the sign up process."
       teacher_training_adviser_steps_returning_teacher:
-        type_id_html: "Select 'yes' if you are a returning teacher and have qualified teacher status (QTS), or have an overseas teaching qualification that's <a href=\"https://www.gov.uk/government/publications/qualified-teacher-status-routes-to-qts-for-teachers-and-those-with-teaching-experience-outside-the-uk/qualified-teacher-status-routes-to-qts-for-teachers-and-those-with-teaching-experience-outside-the-uk#apply-for-qualified-teacher-status-qts\" target=\"blank\">equivalent to QTS</a>."
+        type_id_html: "You need qualified teacher status to be eligible for this service. Learn how to <a href=\"https://www.gov.uk/guidance/qualified-teacher-status-qts\" target=\"blank\">apply for QTS</a>."
       teacher_training_adviser_steps_have_a_degree:
         degree_options: "To use this service your bachelor's degree or predicted grade needs to be a 2:2 class honours or above."
       teacher_training_adviser_steps_overseas_telephone:
@@ -166,7 +166,7 @@ en:
       teacher_training_adviser_steps_date_of_birth:
         date_of_birth: "For example, 31 3 1980"
       teacher_training_adviser_steps_overseas_country:
-        country_id_html: "If you’re not from the UK, <a href=\"https://www.gov.uk/check-uk-visa\" target=\"blank\">check if you need a visa</a> to study or work in the UK and whether you can meet the visa requirements. For example, for a <a href=\"https://www.gov.uk/student-visa\" target=\"blank\">student visa</a> you need to show your knowledge of English and provide certain documents."
+        country_id_html: "You can apply to train or teach from any country in the world, but you may need a visa. Our guidance for <a href=\"https://getintoteaching.education.gov.uk/come-to-england-to-teach-if-you-are-a-teacher-from-outside-the-uk\" target=\"blank\">international teachers</a> and <a href=\"https://getintoteaching.education.gov.uk/train-to-teach-in-england-as-an-international-student\" target=\"blank\">international trainees</a> explains how to apply for the correct visa or immigration status for your employment or study in the UK."
   have_a_degree:
     degree_options:
       "yes": "Yes"
