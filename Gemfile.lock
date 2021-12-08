@@ -93,7 +93,7 @@ GEM
     amazing_print (1.4.0)
     ast (2.4.2)
     bindex (0.8.1)
-    bootsnap (1.9.1)
+    bootsnap (1.9.3)
       msgpack (~> 1.0)
     brakeman (5.1.2)
     builder (3.2.4)
@@ -327,11 +327,11 @@ GEM
     sentry-rails (4.8.0)
       railties (>= 5.0)
       sentry-ruby-core (~> 4.8.0)
-    sentry-ruby (4.8.0)
+    sentry-ruby (4.8.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       faraday (>= 1.0)
-      sentry-ruby-core (= 4.8.0)
-    sentry-ruby-core (4.8.0)
+      sentry-ruby-core (= 4.8.1)
+    sentry-ruby-core (4.8.1)
       concurrent-ruby
       faraday
     shoulda-matchers (5.0.0)
