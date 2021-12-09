@@ -39,6 +39,9 @@ Rails/SaveBang:
 RSpec/StubbedMock:
   Enabled: false
 
+RSpec/SubjectStub:
+  Enabled: false
+
 ###
 # TODO: Enable the rules below one by one and fix the offences
 #
@@ -47,9 +50,6 @@ RSpec/AnyInstance:
   Enabled: false
 
 RSpec/VerifiedDoubles:
-  Enabled: false
-
-RSpec/SubjectStub:
   Enabled: false
 
 RSpec/InstanceVariable:
