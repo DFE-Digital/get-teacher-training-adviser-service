@@ -81,7 +81,7 @@ RSpec.describe TeacherTrainingAdviser::FeedbackSearch do
     end
 
     context "when invalid" do
-      before { expect(instance).to receive(:invalid?).and_return(true) }
+      before { allow(instance).to receive(:invalid?).and_return(true) }
 
       it { is_expected.to eq([]) }
     end

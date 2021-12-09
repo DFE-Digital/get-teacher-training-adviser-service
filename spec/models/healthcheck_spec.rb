@@ -45,7 +45,7 @@ RSpec.describe Healthcheck do
 
     context "with an API error" do
       before do
-        expect_any_instance_of(GetIntoTeachingApiClient::LookupItemsApi).to \
+        allow_any_instance_of(GetIntoTeachingApiClient::LookupItemsApi).to \
           receive(:get_teaching_subjects).and_raise(GetIntoTeachingApiClient::ApiError)
       end
 

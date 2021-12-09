@@ -43,9 +43,6 @@ Rails/SaveBang:
 RSpec/AnyInstance:
   Enabled: false
 
-RSpec/ExpectInHook:
-  Enabled: false
-
 RSpec/StubbedMock:
   Enabled: false
 

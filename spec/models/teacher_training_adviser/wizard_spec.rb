@@ -80,8 +80,8 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
       end
 
       before do
-        expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
-          receive(:sign_up_teacher_training_adviser_candidate).with(request).once
+        allow_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
+          receive(:sign_up_teacher_training_adviser_candidate).with(request)
 
         allow(subject).to receive(:valid?).and_return(true)
         allow(subject).to receive(:can_proceed?).and_return(true)
@@ -103,7 +103,7 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
       let(:response) { GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.new }
 
       before do
-        expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
+        allow_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
           receive(:exchange_access_token_for_teacher_training_adviser_sign_up)
           .with(totp, request) { response }
       end
