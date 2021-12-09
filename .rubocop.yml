@@ -52,7 +52,4 @@ RSpec/AnyInstance:
 RSpec/VerifiedDoubles:
   Enabled: false
 
-RSpec/InstanceVariable:
-  Enabled: false
-
 ###
