@@ -42,11 +42,5 @@ RSpec/StubbedMock:
 RSpec/SubjectStub:
   Enabled: false
 
-###
-# TODO: Enable the rules below one by one and fix the offences
-#
-
 RSpec/AnyInstance:
   Enabled: false
-
-###
