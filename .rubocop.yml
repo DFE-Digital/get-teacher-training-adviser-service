@@ -39,8 +39,6 @@ Rails/SaveBang:
 ###
 # TODO: Enable the rules below one by one and fix the offences
 #
-RSpec/FilePath:
-  Enabled: false
 
 RSpec/AnyInstance:
   Enabled: false

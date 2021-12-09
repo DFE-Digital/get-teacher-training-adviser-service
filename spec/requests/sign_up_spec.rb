@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe TeacherTrainingAdviser::StepsController do
+RSpec.describe "Sign up" do
   let(:model) { TeacherTrainingAdviser::Steps::Identity }
   let(:step_path) { teacher_training_adviser_step_path model.key }
 

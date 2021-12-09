@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe PagesController, type: :request do
+RSpec.describe "Pages", type: :request do
   let(:policy_id) { SecureRandom.uuid }
   let(:policy) { GetIntoTeachingApiClient::PrivacyPolicy.new(id: policy_id, text: "Latest privacy policy") }
 
