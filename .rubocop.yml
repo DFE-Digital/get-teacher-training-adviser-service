@@ -49,9 +49,6 @@ RSpec/AnyInstance:
 RSpec/VerifiedDoubles:
   Enabled: false
 
-RSpec/ScatteredSetup:
-  Enabled: false
-
 RSpec/SubjectStub:
   Enabled: false
 
