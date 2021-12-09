@@ -46,9 +46,6 @@ RSpec/StubbedMock:
 RSpec/AnyInstance:
   Enabled: false
 
-RSpec/RepeatedExampleGroupDescription:
-  Enabled: false
-
 RSpec/VerifiedDoubles:
   Enabled: false
 

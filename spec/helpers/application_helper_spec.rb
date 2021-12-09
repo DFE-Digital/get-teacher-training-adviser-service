@@ -206,14 +206,14 @@ RSpec.describe ApplicationHelper do
       it { is_expected.to have_css "a.govuk-link", text: "Teaching site" }
     end
 
-    context "without URL set" do
+    context "when URL is nil" do
       before { allow(ENV).to receive(:[]).with("GIT_URL").and_return nil }
 
       it { is_expected.to have_css 'a[href="/url-not-set/"]' }
       it { is_expected.to have_css "a", text: "Get into Teaching" }
     end
 
-    context "without URL set" do
+    context "when URL empty" do
       before { allow(ENV).to receive(:[]).with("GIT_URL").and_return "" }
 
       it { is_expected.to have_css 'a[href="/url-not-set/"]' }
