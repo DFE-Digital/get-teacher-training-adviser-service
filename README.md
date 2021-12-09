@@ -8,7 +8,7 @@
 
 ## Prerequisites
 
-- Ruby 2.7.4
+- Ruby 2.7.5
 - NodeJS 12.16.x
 - Yarn 1.12.x
 - Redis
