@@ -49,7 +49,4 @@ RSpec/SubjectStub:
 RSpec/AnyInstance:
   Enabled: false
 
-RSpec/VerifiedDoubles:
-  Enabled: false
-
 ###

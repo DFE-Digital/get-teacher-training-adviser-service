@@ -283,22 +283,22 @@ RSpec.describe ApplicationHelper do
 
   describe "#internal_referer" do
     it "returns nil if the referrer is not set" do
-      helper.request = double("request", referer: nil)
+      helper.request = instance_double(ActionDispatch::Request, referer: nil)
       expect(helper.internal_referer).to be_nil
     end
 
     it "returns nil if the referrer is empty" do
-      helper.request = double("request", referer: " ")
+      helper.request = instance_double(ActionDispatch::Request, referer: " ")
       expect(helper.internal_referer).to be_nil
     end
 
     it "returns nil if the referrer is external" do
-      helper.request = double("request", referer: "http://external.com")
+      helper.request = instance_double(ActionDispatch::Request, referer: "http://external.com")
       expect(helper.internal_referer).to be_nil
     end
 
     it "returns the referrer if internal" do
-      helper.request = double("request", referer: root_url)
+      helper.request = instance_double(ActionDispatch::Request, referer: root_url)
       expect(helper.internal_referer).to eql(root_url)
     end
   end

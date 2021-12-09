@@ -64,7 +64,7 @@ RSpec.describe Healthcheck do
 
     context "with working connection" do
       before do
-        allow(Redis).to receive(:current).and_return double(Redis, ping: "PONG")
+        allow(Redis).to receive(:current).and_return instance_double(Redis, ping: "PONG")
       end
 
       it { is_expected.to be true }
