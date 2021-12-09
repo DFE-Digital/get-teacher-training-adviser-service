@@ -45,7 +45,7 @@ RSpec.describe "Sign up" do
       it { is_expected.to have_http_status :unprocessable_entity }
     end
 
-    context "for last step" do
+    context "when the last step" do
       let(:steps) { TeacherTrainingAdviser::Wizard.steps }
       let(:model) { steps.last }
       let(:params) { { accepted_policy_id: "latest" } }
@@ -92,8 +92,8 @@ RSpec.describe "Sign up" do
       end
     end
 
-    context "for step with no attributes" do
-      include_context "wizard store"
+    context "with a step that has no attributes" do
+      include_context "with a wizard store"
 
       let(:model) { TeacherTrainingAdviser::Steps::ReviewAnswers }
       let(:params) { {} }

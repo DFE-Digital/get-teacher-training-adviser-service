@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe TeacherTrainingAdviser::Steps::OverseasTelephone do
-  include_context "wizard step"
+  include_context "with a wizard step"
   it_behaves_like "a wizard step"
   include_context "sanitize fields", %i[address_telephone]
   include_context "#address_telephone_value"
@@ -9,7 +9,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasTelephone do
   it { is_expected.to be_contains_personal_details }
   it { is_expected.to be_optional }
 
-  context "attributes" do
+  describe "attributes" do
     it { is_expected.to respond_to :address_telephone }
   end
 

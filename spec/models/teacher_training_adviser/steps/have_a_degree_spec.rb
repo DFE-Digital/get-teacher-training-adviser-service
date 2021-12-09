@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.describe TeacherTrainingAdviser::Steps::HaveADegree do
-  include_context "wizard step"
+  include_context "with a wizard step"
   it_behaves_like "a wizard step"
 
-  context "attributes" do
+  describe "attributes" do
     it { is_expected.to respond_to :degree_options }
     it { is_expected.to respond_to :degree_status_id }
     it { is_expected.to respond_to :degree_type_id }

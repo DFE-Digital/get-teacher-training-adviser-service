@@ -46,9 +46,6 @@ RSpec/StubbedMock:
 RSpec/AnyInstance:
   Enabled: false
 
-RSpec/ContextWording:
-  Enabled: false
-
 RSpec/RepeatedExampleGroupDescription:
   Enabled: false
 

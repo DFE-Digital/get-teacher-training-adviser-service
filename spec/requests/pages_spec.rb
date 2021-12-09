@@ -5,7 +5,7 @@ RSpec.describe "Pages", type: :request do
   let(:policy) { GetIntoTeachingApiClient::PrivacyPolicy.new(id: policy_id, text: "Latest privacy policy") }
 
   describe "get /privacy_policy" do
-    context "viewing the latest privacy policy" do
+    context "when viewing the latest privacy policy" do
       subject do
         get privacy_policy_path
         response
@@ -18,7 +18,7 @@ RSpec.describe "Pages", type: :request do
       include_examples "policy_views"
     end
 
-    context "viewing a specific privacy policy" do
+    context "when viewing a specific privacy policy" do
       subject do
         get privacy_policy_path(id: policy_id)
         response
@@ -42,21 +42,21 @@ RSpec.describe "Pages", type: :request do
   describe "#show" do
     subject { response }
 
-    context "for known page" do
+    context "with a known page" do
       before { get "/home" }
 
       it { is_expected.to have_http_status :success }
       it { expect(response.body).to match "Get an adviser" }
     end
 
-    context "for unknown page" do
+    context "with an unknown page" do
       before { get "/unknown" }
 
       it { is_expected.to have_http_status :not_found }
       it { expect(response.body).to match "The page you were looking for doesn't exist" }
     end
 
-    context "for invalid page" do
+    context "with an invalid page" do
       before { get "/!invalid" }
 
       it { is_expected.to have_http_status :not_found }

@@ -1,14 +1,14 @@
 require "rails_helper"
 
 RSpec.describe TeacherTrainingAdviser::Steps::SubjectLikeToTeach do
-  include_context "wizard step"
+  include_context "with a wizard step"
   let(:valid_id) { described_class::INCLUDE_SUBJECT_IDS.sample }
 
   it_behaves_like "a wizard step"
-  it_behaves_like "a wizard step that exposes API lookup items as options",
+  it_behaves_like "with a wizard step that exposes API lookup items as options",
                   :get_teaching_subjects, nil, described_class::INCLUDE_SUBJECT_IDS
 
-  context "attributes" do
+  describe "attributes" do
     it { is_expected.to respond_to :preferred_teaching_subject_id }
   end
 

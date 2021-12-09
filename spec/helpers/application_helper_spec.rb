@@ -46,7 +46,7 @@ RSpec.describe ApplicationHelper do
       it { is_expected.to have_css "body hr" }
     end
 
-    context "includes stimulus controllers" do
+    describe "stimulus controllers" do
       it { is_expected.to have_css "body[data-controller~=gtm]" }
       it { is_expected.to have_css "body[data-controller~=snapchat]" }
       it { is_expected.to have_css "body[data-controller~=pinterest]" }
@@ -54,7 +54,7 @@ RSpec.describe ApplicationHelper do
       it { is_expected.to have_css "body[data-controller~=twitter]" }
     end
 
-    context "assigns service ids" do
+    describe "service ids" do
       it { is_expected.to have_css "body[data-analytics-gtm-id=1234]" }
       it { is_expected.to have_css "body[data-analytics-adwords-id=7890]" }
       it { is_expected.to have_css "body[data-analytics-snapchat-id=3456]" }
@@ -93,7 +93,7 @@ RSpec.describe ApplicationHelper do
       it { is_expected.not_to have_css "body[data-analytics-bam-id]" }
     end
 
-    context "default events" do
+    describe "default events" do
       it { is_expected.to have_css "body[data-snapchat-action-value=track]" }
       it { is_expected.to have_css "body[data-snapchat-event-value=PAGE_VIEW]" }
       it { is_expected.to have_css "body[data-facebook-action-value=track]" }

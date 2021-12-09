@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe TeacherTrainingAdviser::Steps::ReviewAnswers do
-  include_context "wizard step"
+  include_context "with a wizard step"
   let(:answers_by_step) do
     {
       TeacherTrainingAdviser::Steps::Identity => { "first_name": "Joe" },
