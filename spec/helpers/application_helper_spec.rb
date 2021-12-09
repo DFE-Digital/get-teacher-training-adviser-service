@@ -293,7 +293,7 @@ RSpec.describe ApplicationHelper do
     end
 
     it "returns nil if the referrer is external" do
-      helper.request = double("request", referer: " ")
+      helper.request = double("request", referer: "http://external.com")
       expect(helper.internal_referer).to be_nil
     end
 

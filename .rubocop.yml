@@ -49,9 +49,6 @@ RSpec/AnyInstance:
 RSpec/VerifiedDoubles:
   Enabled: false
 
-RSpec/RepeatedExample:
-  Enabled: false
-
 RSpec/LeakyConstantDeclaration:
   Enabled: false
 
