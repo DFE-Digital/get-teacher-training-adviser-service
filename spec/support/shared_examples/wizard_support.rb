@@ -1,13 +1,13 @@
-RSpec.shared_context "wizard store" do
+RSpec.shared_context "with a wizard store" do
   let(:backingstore) { { "name" => "Joe", "age" => 35 } }
   let(:crm_backingstore) { {} }
   let(:wizardstore) { DFEWizard::Store.new backingstore, crm_backingstore }
 end
 
-RSpec.shared_context "wizard step" do
+RSpec.shared_context "with a wizard step" do
   subject { instance }
 
-  include_context "wizard store"
+  include_context "with a wizard store"
   let(:attributes) { {} }
   let(:wizard) { TeacherTrainingAdviser::Wizard.new(wizardstore, described_class.key) }
   let(:instance) do
@@ -64,7 +64,7 @@ RSpec.shared_examples "a wizard step that exposes API pick list items as options
   end
 end
 
-RSpec.shared_examples "a wizard step that exposes API lookup items as options" do |api_method, omit_ids, include_ids|
+RSpec.shared_examples "with a wizard step that exposes API lookup items as options" do |api_method, omit_ids, include_ids|
   let(:lookup_items) do
     [
       GetIntoTeachingApiClient::LookupItem.new(id: "1", value: "one"),

@@ -3,12 +3,12 @@ require "rails_helper"
 RSpec.describe TeacherTrainingAdviser::FeedbackSearch do
   let(:instance) { described_class.new }
 
-  context "attributes" do
+  describe "attributes" do
     it { is_expected.to respond_to :created_on_or_after }
     it { is_expected.to respond_to :created_on_or_before }
   end
 
-  context "validation" do
+  describe "validation" do
     it { is_expected.to validate_presence_of(:created_on_or_before) }
     it { is_expected.to validate_presence_of(:created_on_or_after) }
     it { is_expected.to allow_value(Time.zone.now.utc, 1.day.ago).for :created_on_or_before }
@@ -81,7 +81,7 @@ RSpec.describe TeacherTrainingAdviser::FeedbackSearch do
     end
 
     context "when invalid" do
-      before { expect(instance).to receive(:invalid?).and_return(true) }
+      before { allow(instance).to receive(:invalid?).and_return(true) }
 
       it { is_expected.to eq([]) }
     end

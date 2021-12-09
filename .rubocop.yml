@@ -36,45 +36,11 @@ Rails/SaveBang:
   Exclude:
     - spec/**/*
 
-###
-# TODO: Enable the rules below one by one and fix the offences
-#
-RSpec/FilePath:
-  Enabled: false
-
-RSpec/AnyInstance:
-  Enabled: false
-
-RSpec/ExpectInHook:
-  Enabled: false
-
 RSpec/StubbedMock:
-  Enabled: false
-
-RSpec/ContextWording:
-  Enabled: false
-
-RSpec/RepeatedExampleGroupDescription:
-  Enabled: false
-
-RSpec/VerifiedDoubles:
-  Enabled: false
-
-RSpec/RepeatedExample:
-  Enabled: false
-
-RSpec/LeakyConstantDeclaration:
-  Enabled: false
-
-RSpec/ScatteredSetup:
   Enabled: false
 
 RSpec/SubjectStub:
   Enabled: false
 
-RSpec/InstanceVariable:
+RSpec/AnyInstance:
   Enabled: false
-
-RSpec/LetSetup:
-  Enabled: false
-###

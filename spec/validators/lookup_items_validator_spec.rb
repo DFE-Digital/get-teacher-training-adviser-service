@@ -12,7 +12,7 @@ RSpec.describe LookupItemsValidator, type: :validator do
   subject { LookupItemValidatable.new }
 
   before do
-    expect_any_instance_of(GetIntoTeachingApiClient::LookupItemsApi).to \
+    allow_any_instance_of(GetIntoTeachingApiClient::LookupItemsApi).to \
       receive(:get_countries).and_return(
         [OpenStruct.new({ id: 1, value: "one" })],
       )

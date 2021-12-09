@@ -1,12 +1,12 @@
 require "rails_helper"
 
 RSpec.describe TeacherTrainingAdviser::Steps::DateOfBirth do
-  include_context "wizard step"
+  include_context "with a wizard step"
   it_behaves_like "a wizard step"
 
   it { is_expected.to be_contains_personal_details }
 
-  context "attributes" do
+  describe "attributes" do
     it { is_expected.to respond_to :date_of_birth }
   end
 

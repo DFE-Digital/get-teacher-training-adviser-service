@@ -45,7 +45,7 @@ RSpec.describe Healthcheck do
 
     context "with an API error" do
       before do
-        expect_any_instance_of(GetIntoTeachingApiClient::LookupItemsApi).to \
+        allow_any_instance_of(GetIntoTeachingApiClient::LookupItemsApi).to \
           receive(:get_teaching_subjects).and_raise(GetIntoTeachingApiClient::ApiError)
       end
 
@@ -64,7 +64,7 @@ RSpec.describe Healthcheck do
 
     context "with working connection" do
       before do
-        allow(Redis).to receive(:current).and_return double(Redis, ping: "PONG")
+        allow(Redis).to receive(:current).and_return instance_double(Redis, ping: "PONG")
       end
 
       it { is_expected.to be true }

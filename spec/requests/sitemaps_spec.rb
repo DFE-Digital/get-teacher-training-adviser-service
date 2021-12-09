@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SitemapsController, type: :request do
+RSpec.describe "Sitemap", type: :request do
   describe "GET #sitemap" do
     it "returns success" do
       get sitemap_path(format: :xml)

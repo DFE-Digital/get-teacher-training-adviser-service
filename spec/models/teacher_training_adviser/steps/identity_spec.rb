@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe TeacherTrainingAdviser::Steps::Identity do
-  include_context "wizard step"
+  include_context "with a wizard step"
   before do
     allow_any_instance_of(GetIntoTeachingApiClient::PickListItemsApi).to \
       receive(:get_candidate_teacher_training_adviser_subscription_channels).and_return(channels)
@@ -21,7 +21,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::Identity do
 
   it { is_expected.to be_contains_personal_details }
 
-  context "attributes" do
+  describe "attributes" do
     it { is_expected.to respond_to :first_name }
     it { is_expected.to respond_to :last_name }
     it { is_expected.to respond_to :email }

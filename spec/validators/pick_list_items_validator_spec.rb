@@ -12,7 +12,7 @@ RSpec.describe PickListItemsValidator, type: :validator do
   subject { PickListItemValidatable.new }
 
   before do
-    expect_any_instance_of(GetIntoTeachingApiClient::PickListItemsApi).to \
+    allow_any_instance_of(GetIntoTeachingApiClient::PickListItemsApi).to \
       receive(:get_candidate_channels).and_return(
         [OpenStruct.new({ id: 1, value: "one" })],
       )

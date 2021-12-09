@@ -1,12 +1,12 @@
 require "rails_helper"
 
 RSpec.describe TeacherTrainingAdviser::Steps::OverseasCountry do
-  include_context "wizard step"
+  include_context "with a wizard step"
   it_behaves_like "a wizard step"
-  it_behaves_like "a wizard step that exposes API lookup items as options",
+  it_behaves_like "with a wizard step that exposes API lookup items as options",
                   :get_countries, described_class::OMIT_COUNTRY_IDS
 
-  context "attributes" do
+  describe "attributes" do
     it { is_expected.to respond_to :country_id }
   end
 

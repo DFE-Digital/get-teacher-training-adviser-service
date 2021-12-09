@@ -46,7 +46,7 @@ RSpec.describe ApplicationHelper do
       it { is_expected.to have_css "body hr" }
     end
 
-    context "includes stimulus controllers" do
+    describe "stimulus controllers" do
       it { is_expected.to have_css "body[data-controller~=gtm]" }
       it { is_expected.to have_css "body[data-controller~=snapchat]" }
       it { is_expected.to have_css "body[data-controller~=pinterest]" }
@@ -54,7 +54,7 @@ RSpec.describe ApplicationHelper do
       it { is_expected.to have_css "body[data-controller~=twitter]" }
     end
 
-    context "assigns service ids" do
+    describe "service ids" do
       it { is_expected.to have_css "body[data-analytics-gtm-id=1234]" }
       it { is_expected.to have_css "body[data-analytics-adwords-id=7890]" }
       it { is_expected.to have_css "body[data-analytics-snapchat-id=3456]" }
@@ -93,7 +93,7 @@ RSpec.describe ApplicationHelper do
       it { is_expected.not_to have_css "body[data-analytics-bam-id]" }
     end
 
-    context "default events" do
+    describe "default events" do
       it { is_expected.to have_css "body[data-snapchat-action-value=track]" }
       it { is_expected.to have_css "body[data-snapchat-event-value=PAGE_VIEW]" }
       it { is_expected.to have_css "body[data-facebook-action-value=track]" }
@@ -206,14 +206,14 @@ RSpec.describe ApplicationHelper do
       it { is_expected.to have_css "a.govuk-link", text: "Teaching site" }
     end
 
-    context "without URL set" do
+    context "when URL is nil" do
       before { allow(ENV).to receive(:[]).with("GIT_URL").and_return nil }
 
       it { is_expected.to have_css 'a[href="/url-not-set/"]' }
       it { is_expected.to have_css "a", text: "Get into Teaching" }
     end
 
-    context "without URL set" do
+    context "when URL empty" do
       before { allow(ENV).to receive(:[]).with("GIT_URL").and_return "" }
 
       it { is_expected.to have_css 'a[href="/url-not-set/"]' }
@@ -283,22 +283,22 @@ RSpec.describe ApplicationHelper do
 
   describe "#internal_referer" do
     it "returns nil if the referrer is not set" do
-      helper.request = double("request", referer: nil)
+      helper.request = instance_double(ActionDispatch::Request, referer: nil)
       expect(helper.internal_referer).to be_nil
     end
 
     it "returns nil if the referrer is empty" do
-      helper.request = double("request", referer: " ")
+      helper.request = instance_double(ActionDispatch::Request, referer: " ")
       expect(helper.internal_referer).to be_nil
     end
 
     it "returns nil if the referrer is external" do
-      helper.request = double("request", referer: " ")
+      helper.request = instance_double(ActionDispatch::Request, referer: "http://external.com")
       expect(helper.internal_referer).to be_nil
     end
 
     it "returns the referrer if internal" do
-      helper.request = double("request", referer: root_url)
+      helper.request = instance_double(ActionDispatch::Request, referer: root_url)
       expect(helper.internal_referer).to eql(root_url)
     end
   end

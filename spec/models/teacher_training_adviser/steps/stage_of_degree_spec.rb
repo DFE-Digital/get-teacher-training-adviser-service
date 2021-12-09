@@ -1,12 +1,12 @@
 require "rails_helper"
 
 RSpec.describe TeacherTrainingAdviser::Steps::StageOfDegree do
-  include_context "wizard step"
+  include_context "with a wizard step"
   it_behaves_like "a wizard step"
   it_behaves_like "a wizard step that exposes API pick list items as options",
                   :get_qualification_degree_status, nil, described_class::INCLUDE_STATUS_IDS
 
-  context "attributes" do
+  describe "attributes" do
     it { is_expected.to respond_to :degree_status_id }
   end
 

@@ -2,10 +2,10 @@ require "rails_helper"
 
 RSpec.describe TeacherTrainingAdviser::Steps::OverseasCallback do
   it_behaves_like "exposes callback booking quotas"
-  include_context "wizard step"
+  include_context "with a wizard step"
   it_behaves_like "a wizard step"
 
-  context "attributes" do
+  describe "attributes" do
     it { is_expected.to respond_to :phone_call_scheduled_at }
   end
 

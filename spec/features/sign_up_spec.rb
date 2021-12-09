@@ -31,7 +31,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
   context "when a new candidate" do
     before do
       # Emulate an unsuccessful matchback response from the API.
-      expect_any_instance_of(GetIntoTeachingApiClient::CandidatesApi).to \
+      allow_any_instance_of(GetIntoTeachingApiClient::CandidatesApi).to \
         receive(:create_candidate_access_token)
         .and_raise(GetIntoTeachingApiClient::ApiError)
     end

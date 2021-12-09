@@ -42,37 +42,37 @@ RSpec.describe "Feedback" do
   end
 
   describe "#index" do
-    let!(:feedback) do
-      [
-        create(:feedback, rating: :very_satisfied, successful_visit: true, improvements: "None"),
-        create(:feedback, rating: :very_dissatisfied, successful_visit: false, unsuccessful_visit_explanation: "Awful"),
-      ]
-    end
+    context "when there are feedback submissions" do
+      before do
+        create(:feedback, rating: :very_satisfied, successful_visit: true, improvements: "None")
+        create(:feedback, rating: :very_dissatisfied, successful_visit: false, unsuccessful_visit_explanation: "Awful")
 
-    before { get teacher_training_adviser_feedbacks_path }
+        get teacher_training_adviser_feedbacks_path
+      end
 
-    it { is_expected.to have_http_status(:success) }
-    it { expect(response.body).to include("Service feedback") }
-    it { expect(response.body).to include("2 most recent feedback submissions") }
+      it { is_expected.to have_http_status(:success) }
+      it { expect(response.body).to include("Service feedback") }
+      it { expect(response.body).to include("2 most recent feedback submissions") }
 
-    it "contains the recent feedback details" do
-      expect(response.body).to match(/<th.*>Date<\/th>/)
-      expect(response.body).to match(/<th.*>Rating<\/th>/)
-      expect(response.body).to match(/<th.*>Successful visit<\/th>/)
-      expect(response.body).to match(/<th.*>Unsuccessful visit explanation<\/th>/)
-      expect(response.body).to match(/<th.*>Improvements<\/th>/)
+      it "contains the recent feedback details" do
+        expect(response.body).to match(/<th.*>Date<\/th>/)
+        expect(response.body).to match(/<th.*>Rating<\/th>/)
+        expect(response.body).to match(/<th.*>Successful visit<\/th>/)
+        expect(response.body).to match(/<th.*>Unsuccessful visit explanation<\/th>/)
+        expect(response.body).to match(/<th.*>Improvements<\/th>/)
 
-      expect(response.body).to match(/<td.*>Very satisfied<\/td>/)
-      expect(response.body).to match(/<td.*>Yes<\/td>/)
-      expect(response.body).to match(/<td.*>None<\/td>/)
+        expect(response.body).to match(/<td.*>Very satisfied<\/td>/)
+        expect(response.body).to match(/<td.*>Yes<\/td>/)
+        expect(response.body).to match(/<td.*>None<\/td>/)
 
-      expect(response.body).to match(/<td.*>Very dissatisfied<\/td>/)
-      expect(response.body).to match(/<td.*>No<\/td>/)
-      expect(response.body).to match(/<td.*>Awful<\/td>/)
+        expect(response.body).to match(/<td.*>Very dissatisfied<\/td>/)
+        expect(response.body).to match(/<td.*>No<\/td>/)
+        expect(response.body).to match(/<td.*>Awful<\/td>/)
+      end
     end
 
     context "when there are no feedback submissions" do
-      let!(:feedback) { [] }
+      before { get teacher_training_adviser_feedbacks_path }
 
       it { expect(response.body).to include("There are no feedback submissions yet.") }
     end

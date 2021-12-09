@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe TeacherTrainingAdviser::Feedback do
   include_context "sanitize fields", %i[unsuccessful_visit_explanation improvements]
 
-  context "attributes" do
+  describe "attributes" do
     it { is_expected.to respond_to :rating }
     it { is_expected.to respond_to :successful_visit }
     it { is_expected.to respond_to :unsuccessful_visit_explanation }
@@ -20,7 +20,7 @@ RSpec.describe TeacherTrainingAdviser::Feedback do
     end
   end
 
-  context "validation" do
+  describe "validation" do
     it { is_expected.to validate_presence_of(:rating) }
     it { is_expected.to allow_values(true, false).for(:successful_visit) }
     it { is_expected.not_to allow_values(nil, "").for(:successful_visit) }
@@ -44,7 +44,7 @@ RSpec.describe TeacherTrainingAdviser::Feedback do
     end
   end
 
-  context "scope" do
+  describe "scope" do
     describe ".recent" do
       subject { described_class.recent.map(&:created_at) }
 
@@ -58,7 +58,7 @@ RSpec.describe TeacherTrainingAdviser::Feedback do
     end
   end
 
-  context "created_at scopes" do
+  describe "created_at scopes" do
     let(:date) { DateTime.new(2021, 10, 5, 12) }
     let!(:feedback_before) do
       create(:feedback).tap { |f| f.update(created_at: date - 1.day) }
