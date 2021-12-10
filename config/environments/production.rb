@@ -101,8 +101,6 @@ Rails.application.configure do
   config.x.api_client_cache_store = ActiveSupport::Cache::RedisCacheStore.new(namespace: "TTA-HTTP")
   config.x.basic_auth = ENV["BASIC_AUTH"]
 
-  config.x.legacy_tracking_pixels = false
-
   config.session_store :cache_store,
                        key: "_dfe_session",
                        same_site: :lax,
