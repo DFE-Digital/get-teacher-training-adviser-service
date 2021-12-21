@@ -1,7 +1,5 @@
 module TeacherTrainingAdviser
   class Wizard < ::DFEWizard::Base
-    include ::Wizard::ApiClientSupport
-
     self.steps = [
       Steps::Identity,
       DFEWizard::Steps::Authenticate,
@@ -62,7 +60,9 @@ module TeacherTrainingAdviser
   private
 
     def sign_up_candidate
-      request = GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.new(export_camelized_hash)
+      attributes = GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.attribute_map.keys
+      data = export_data.slice(*attributes.map(&:to_s))
+      request = GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.new(data)
       api = GetIntoTeachingApiClient::TeacherTrainingAdviserApi.new
       api.sign_up_teacher_training_adviser_candidate(request)
     end

@@ -72,10 +72,9 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
       let(:request) do
         GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.new({
           email: "email@address.com",
-          firstName: "Joe",
-          lastName: "Joseph",
-          typeId: 123,
-          degreeOptions: "equivalent",
+          first_name: "Joe",
+          last_name: "Joseph",
+          type_id: 123,
         })
       end
 
