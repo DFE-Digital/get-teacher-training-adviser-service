@@ -20,13 +20,28 @@ describe('Google Tag Manager', () => {
     gtm.init();
   };
 
+  const mockWindowLocation = () => {
+    Object.defineProperty(window, 'location', {
+      configurable: true,
+      value: {
+        protocol: 'https',
+        hostname: 'localhost',
+        pathname: '/path',
+        search: '?utm=tag',
+      },
+    });
+  };
+
   beforeEach(() => {
+    mockWindowLocation();
     clearCookies();
     setupHtml();
   });
 
   describe('initialisation', () => {
-    beforeEach(() => run());
+    beforeEach(() => {
+      run();
+    });
 
     it('defines window.dataLayer', () => {
       expect(window.gtag).toBeDefined();
@@ -34,6 +49,16 @@ describe('Google Tag Manager', () => {
 
     it('defines window.gtag', () => {
       expect(window.dataLayer).toBeDefined();
+    });
+
+    it('pushes the original location onto the dataLayer', () => {
+      expect(window.dataLayer).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            originalLocation: 'https://localhost/path?utm=tag',
+          }),
+        ])
+      );
     });
 
     it('appends the GTM script', () => {
@@ -51,7 +76,7 @@ describe('Google Tag Manager', () => {
     });
 
     it('updates the page_path in GTM', () => {
-      window.location.path = '/new-path';
+      window.location.pathname = '/new-path';
 
       document.dispatchEvent(new Event('turbolinks:load'));
 
