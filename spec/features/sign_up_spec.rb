@@ -17,8 +17,8 @@ SUBJECT_PSYCHOLOGY = "b22655a1-2afa-e811-a981-000d3a276620".freeze
 RSpec.feature "Sign up for a teacher training adviser", type: :feature do
   let(:quota) do
     GetIntoTeachingApiClient::CallbackBookingQuota.new(
-      startAt: DateTime.new(2099, 6, 1, 10),
-      endAt: DateTime.new(2099, 6, 1, 11),
+      start_at: DateTime.new(2099, 6, 1, 10),
+      end_at: DateTime.new(2099, 6, 1, 11),
     )
   end
 
@@ -544,13 +544,13 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
     let(:invalid_code) { "111111" }
     let(:existing_candidate) do
       GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.new(
-        preferredEducationPhaseId: TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary],
-        addressLine1: "7 Main Street",
-        addressCity: "Manchester",
-        addressPostcode: "TE7 1NG",
-        dateOfBirth: Date.new(1999, 4, 27),
-        addressTelephone: "123456789",
-        teacherId: "12345",
+        preferred_education_phase_id: TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary],
+        address_line1: "7 Main Street",
+        address_city: "Manchester",
+        address_postcode: "TE7 1NG",
+        date_of_birth: Date.new(1999, 4, 27),
+        address_telephone: "123456789",
+        teacher_id: "12345",
       )
     end
 

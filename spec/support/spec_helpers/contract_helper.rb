@@ -14,14 +14,14 @@ module SpecHelpers
       expect_any_instance_of(GetIntoTeachingApiClient::TeacherTrainingAdviserApi).to \
         receive(:exchange_access_token_for_teacher_training_adviser_sign_up) do
           path = Rails.root.join("spec/contracts/data/teacher_training_adviser/candidates.json")
-          data = JSON.parse(File.open(path).read)
+          data = JSON.parse(File.open(path).read).map { |d| d.transform_keys(&:underscore) }
           matchback_values = candidate_identity.to_hash.except(:existing).values.map(&:downcase)
           candidate_data = data.find do |d|
-            [d["firstName"], d["lastName"], d["email"]].map(&:downcase) == matchback_values
+            [d["first_name"], d["last_name"], d["email"]].map(&:downcase) == matchback_values
           end
 
           GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.new(candidate_data).tap do |c|
-            c.date_of_birth = Date.parse(candidate_data["dateOfBirth"]) if candidate_data["dateOfBirth"].present?
+            c.date_of_birth = Date.parse(candidate_data["date_of_birth"]) if candidate_data["date_of_birth"].present?
           end
         end
     end
@@ -40,7 +40,9 @@ module SpecHelpers
 
     def setup_pick_list_items
       read_data("pick_list_items").each do |hash|
-        items = hash[:values].map { |v| GetIntoTeachingApiClient::PickListItem.new(v) }
+        items = hash[:values].map do |item|
+          GetIntoTeachingApiClient::PickListItem.new(item.slice("id", "value"))
+        end
 
         allow_any_instance_of(GetIntoTeachingApiClient::PickListItemsApi).to \
           receive(hash[:method]) { items }
@@ -49,7 +51,9 @@ module SpecHelpers
 
     def setup_lookup_items
       read_data("lookup_items").each do |hash|
-        items = hash[:values].map { |v| GetIntoTeachingApiClient::LookupItem.new(v) }
+        items = hash[:values].map do |item|
+          GetIntoTeachingApiClient::LookupItem.new(item.slice("id", "value"))
+        end
 
         allow_any_instance_of(GetIntoTeachingApiClient::LookupItemsApi).to \
           receive(hash[:method]) { items }
@@ -59,7 +63,7 @@ module SpecHelpers
     def setup_privacy_policy
       path = Rails.root.join("spec/contracts/data/privacy_policy.json")
       policy_data = JSON.parse(File.open(path).read)
-      policy = GetIntoTeachingApiClient::PrivacyPolicy.new(policy_data)
+      policy = GetIntoTeachingApiClient::PrivacyPolicy.new(policy_data.slice("id", "text"))
 
       allow_any_instance_of(GetIntoTeachingApiClient::PrivacyPoliciesApi).to \
         receive(:get_latest_privacy_policy) { policy }
@@ -72,9 +76,11 @@ module SpecHelpers
       path = Rails.root.join("spec/contracts/data/callback_booking_quotas.json")
       quotas_data = JSON.parse(File.open(path).read)
       quotas = quotas_data.map do |data|
+        data.transform_keys!(&:underscore)
+
         GetIntoTeachingApiClient::CallbackBookingQuota.new(data).tap do |q|
-          q.start_at = Time.zone.parse(data["startAt"])
-          q.end_at = Time.zone.parse(data["endAt"])
+          q.start_at = Time.zone.parse(data["start_at"])
+          q.end_at = Time.zone.parse(data["end_at"])
         end
       end
 
