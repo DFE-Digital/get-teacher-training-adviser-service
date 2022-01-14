@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "@rails/ujs": "^6.1.4",
+    "@rails/ujs": "^7.0.1",
     "@rails/webpacker": "^5.4.0",
-    "govuk-frontend": "^3.13.1",
+    "govuk-frontend": "^4.0.0",
     "js-cookie": "^3.0.1",
     "serialize-javascript": "^6.0.0",
     "set-value": "^4.0.1",
@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "@stimulus/test": "^2.0.0",
-    "jest": "^27.4.3",
+    "jest": "^27.4.7",
     "webpack-dev-server": "^3.11.2"
   },
   "jest": {
