@@ -6,7 +6,8 @@
           <h1 class="govuk-heading-l">Get an adviser</h1>
 
           <p>If you want to become a teacher or return to teaching in England, a teacher training adviser can guide you through the process with free one-to-one support.</p>
-          <p>Your adviser will help you with:</p>
+
+          <p>A teacher training adviser can help with:</p>
           <ul>
             <li>getting school experience</li>
             <li>funding your course</li>
@@ -14,18 +15,54 @@
             <li>writing your personal statement</li>
             <li>interview tips</li>
           </ul>
+
+          <p>A return to teaching adviser can help with:</p>
+          <ul>
+            <li>writing job applications</li>
+            <li>preparing for an interview</li>
+            <li>accessing courses to improve your subject knowledge</li>
+            <li>finding teaching vacancies</li>
+          </ul>
+
           <h2 class="govuk-heading-m">Who can get an adviser?</h2>
-          <p>You’ll need a bachelor’s degree class 2:2 (honours) or higher, or an overseas qualification that is equivalent.</p>
-          <p>You can get an adviser if you’re still studying for your degree. Before your final year, you can get advice for when you're ready to apply. If you're in your final year, you’ll need a predicted class 2:2 (honours) or higher.</p>
-          <p>If you’ve worked as a teacher before, and you’re thinking of returning to the profession to teach maths, physics or modern languages, you’ll need qualified teacher status (QTS)</a>.</p>
+
+          <p>If you are thinking about teacher training, to get an adviser you will need to be:</p>
+
+          <ul>
+            <li>a UK student studying for a bachelor's degree (if you are in your final year, you will need a predicted grade of 2.2 or higher)</li>
+            <li>a UK postgraduate with a bachelor's degree of grade 2.2 or higher</li>
+            <li>a non-UK student studying for a bachelor's degree (in the UK or another country)</li>
+            <li>a non-UK postgraduate with a bachelor's degree (from the UK or another country)</li>
+          </ul>
+
+          <p>If you are already a teacher, trained in England, Scotland, Wales, Northern Ireland or outside the UK, to get an adviser you will need:</p>
+          <ul>
+            <li><%= link_to("qualified teacher status (QTS)", "https://www.gov.uk/guidance/qualified-teacher-status-qts") %></li>
+            <li>to intend to teach maths, physics or modern foreign languages (Spanish, French or German)</li>
+          </ul>
+
+          <h3>Help with international qualifications for teachers and trainees from outside the UK</h3>
+
+          <p>Before you register for an adviser, call us on <%= link_to("0800 389 2500", "tel://08003892500") %> to check your qualifications make you eligible to use this service.</p>
+
           <a href="<%= teacher_training_adviser_step_path(:identity, params.to_unsafe_h.slice(:channel)) %>" role="button" draggable="false" class="govuk-button govuk-!-margin-top-2 govuk-!-margin-bottom-8 govuk-button--start" data-module="govuk-button">
-          Start now
-          <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
-            <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
-          </svg>
-        </a>
-          <p>Find teacher training options if you live in:</p>
-          <ul class="govuk-list govuk-list--bullet">
+            Start now
+            <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+              <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+            </svg>
+          </a>
+
+          <h2>Where else you can go for help</h2>
+
+          <p>International trainees can find more info at <%= link_to_git_site("Train to teach in England as an international student", "train-to-teach-in-england-as-an-international-student") %>.</p>
+          <p>International teachers can find info about qualified teacher status, visas and immigration at Come to England to teach if you're a teacher from outside the UK.</p>
+          <p>Teachers trained in England can find info about coming home to teach at <%= link_to_git_site("Return to teaching from overseas", "international-returners") %>.</p>
+          <p>Teachers coming back to the profession after a break can find info at <%= link_to_git_site("Return to teaching", "returning-to-teaching") %>.</p>
+          <p>UK and non-UK teachers now living and working outside the UK can also email with questions about the information on the Get into Teaching website on <%= link_to("international.teacherrecruitment@education.gov.uk", "mailto:international.teacherrecruitment@education.gov.uk") %></p>
+
+          <h3>Find teacher training options if you live in:</h3>
+
+          <ul>
             <li><a href="https://teachinscotland.scot">Scotland</a></li>
             <li><a href="https://www.discoverteaching.wales/routes-into-teaching/">Wales</a></li>
             <li><a href="https://www.education-ni.gov.uk/articles/initial-teacher-education-courses-northern-ireland">Northern Ireland</a></li>

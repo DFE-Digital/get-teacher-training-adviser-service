@@ -226,7 +226,7 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
         submit_choice_step("Overseas", :uk_or_overseas)
 
         expect_current_step(:overseas_country)
-        expect(page).to have_select("Which country do you live in?", selected: "Bahamas")
+        expect(page).to have_select("Are you a non-UK citizen? Please select your country.", selected: "Bahamas")
         submit_select_step("Brazil", :overseas_country)
 
         submit_review_answers_step
