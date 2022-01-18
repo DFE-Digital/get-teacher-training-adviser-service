@@ -33,7 +33,9 @@ RUN bundle install --jobs=$(nproc --all) && \
 
 # Add code and compile assets
 COPY . .
-RUN bundle exec rake assets:precompile
+# See https://github.com/rails/rails/issues/32947 for why we
+# bypass the credentials here.
+RUN SECRET_KEY_BASE=1 RAILS_BUILD=1 bundle exec rake assets:precompile
 
 ARG APP_SHA
 RUN echo "${APP_SHA}" > /etc/get-teacher-training-adviser-service-sha
