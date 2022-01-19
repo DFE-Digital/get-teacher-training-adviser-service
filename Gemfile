@@ -55,7 +55,7 @@ gem "invisible_captcha"
 
 gem "iso_country_codes"
 
-gem "turbo-rails"
+gem "turbo-rails", ">= 1.0.1"
 
 gem "dfe_wizard", github: "DFE-Digital/dfe_wizard"
 
