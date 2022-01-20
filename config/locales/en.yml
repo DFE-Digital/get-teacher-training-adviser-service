@@ -142,7 +142,7 @@ en:
       teacher_training_adviser_steps_have_a_degree:
         degree_options_options:
           "yes": "Yes"
-          equivalent: "I have, or I'm studying for, an equivalent qualification from another country"
+          equivalent: "I am not a UK citizen and have, or am studying for, an equivalent qualification"
           "no": "No"
           studying: "I'm studying for a degree"
     hint:
@@ -158,7 +158,7 @@ en:
       teacher_training_adviser_steps_stage_interested_teaching:
         preferred_education_phase_id: "Select a stage even if you're not sure yet, as this will not affect the sign up process."
       teacher_training_adviser_steps_returning_teacher:
-        type_id_html: "Select 'yes' if you are a returning teacher and have qualified teacher status (QTS), or have an overseas teaching qualification that's <a href=\"https://www.gov.uk/government/publications/qualified-teacher-status-routes-to-qts-for-teachers-and-those-with-teaching-experience-outside-the-uk/qualified-teacher-status-routes-to-qts-for-teachers-and-those-with-teaching-experience-outside-the-uk#apply-for-qualified-teacher-status-qts\" target=\"blank\">equivalent to QTS</a>."
+        type_id: "Select 'yes' if you are a returning teacher and have qualified teacher status (QTS), or have an overseas teaching qualification."
       teacher_training_adviser_steps_have_a_degree:
         degree_options: "To use this service your bachelor's degree or predicted grade needs to be a 2:2 class honours or above."
       teacher_training_adviser_steps_overseas_telephone:
@@ -204,7 +204,7 @@ en:
     retake_gcse_science:
       planning_to_retake_gcse_science_id: "Are you planning to retake your science GCSE?"
     returning_teacher:
-      returning_to_teaching: "Are you qualified to teach in the UK?"
+      returning_to_teaching: Are you qualified to teach?
     stage_interested_teaching:
       preferred_education_phase_id: "Which stage are you interested in teaching?"
     stage_of_degree:
