@@ -2,18 +2,18 @@
   <div class="govuk-width-container">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l">Get support</h1>
+        <h1 class="govuk-heading-l">We're sorry, but you are not eligible for this service.</h1>
 
-        <p>Teacher training advisers can support you if you're returning to teach maths, physics or languages.</p>
+        <p>To be eligible, you must be planning to teach maths, physics or modern foreign languages (MFL).</p>
+        <p>You can find out more about getting back into teaching on the Get Into Teaching website.</p>
 
-        <p>
-          If you want to teach a different subject you can still get support by <%= link_to_git_events("attending an online return to teaching event", events_path: "category/online-events") %>
-        </p>
+        <ul>
+          <li><%= link_to_git_site("returning to teaching", "returning-to-teaching", target: "_blank") %></li>
+          <li><%= link_to_git_site("coming to England to teach if you're from outside the UK", "come-to-england-to-teach-if-you-are-a-teacher-from-outside-the-uk", target: "_blank") %></li>
+          <li><%= link_to_git_site("return to teaching from overseas", "international-returners", target: "_blank") %></li>
+        </ul>
 
-        <p>
-          You can also <%= link_to("search for a teaching role in England", "https://teaching-vacancies.service.gov.uk/") %> and set up job alerts so that you do not miss out on any opportunities.
-        </p>
-        
+        <p>You can also search for teaching jobs in England at <%= link_to("Teaching Vacancies", "https://teaching-vacancies.service.gov.uk/", target: "_blank") %>.</p>
     </div>
   </div>
 </div>

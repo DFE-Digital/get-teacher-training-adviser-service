@@ -113,7 +113,7 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
 
     it "not returning, equivalent degree, primary, has/retaking gcses, overseas" do
       submit_choice_step("No", :returning_teacher)
-      submit_choice_step("I have, or I'm studying for, an equivalent qualification from another country", :have_a_degree)
+      submit_choice_step("I am not a UK citizen and have, or am studying for, an equivalent qualification", :have_a_degree)
       submit_choice_step("Primary", :stage_interested_teaching)
       submit_select_step("2022", :start_teacher_training)
       submit_date_of_birth_step(Date.new(1974, 3, 16))
@@ -131,7 +131,7 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
 
     it "not returning, equivalent degree, secondary, has gcses, is in uk" do
       submit_choice_step("No", :returning_teacher)
-      submit_choice_step("I have, or I'm studying for, an equivalent qualification from another country", :have_a_degree)
+      submit_choice_step("I am not a UK citizen and have, or am studying for, an equivalent qualification", :have_a_degree)
       submit_choice_step("Secondary", :stage_interested_teaching)
       submit_select_step("Maths", :subject_interested_teaching)
       submit_select_step("2021", :start_teacher_training)
