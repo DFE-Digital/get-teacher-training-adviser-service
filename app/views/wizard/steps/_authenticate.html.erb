@@ -1,9 +1,18 @@
 <%
-  link = link_to("resend verification", resend_verification_path)
-  hint_text = "Check your junk mail folder or #{link}."
-  hint_text += "<br /><b>We've sent you another email.</b>" if params[:verification_resent]
+  hint_text = t("helpers.hint.wizard_steps_authenticate.timed_one_time_password.text")
+  hint_text += "<br><b>#{t('helpers.hint.wizard_steps_authenticate.timed_one_time_password.resent')}</b>" if params[:verification_resent]
 %>
 
+<p class="govuk-hint">
+  <%= t('helpers.label.wizard_steps_authenticate.timed_one_time_password') %>
+</p>
+
 <%= f.govuk_text_field :timed_one_time_password,
-label: { text: "Check your email and enter the verification code sent to #{email}" },
-hint: { text: safe_html_format(hint_text) } %>
+autocomplete: "off",
+label: { text: safe_html_format(hint_text) }
+%>
+<% content_for(:form_help) do %>
+  <p>The code expires in 15 minutes.</p>
+  <p>Check your spam or junk folder if you cannot find the email.</p>
+  <p><%= link_to("Send another code to verify my details.", resend_verification_path) %></p>
+<% end %>
