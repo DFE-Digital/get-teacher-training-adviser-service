@@ -249,7 +249,7 @@ module SpecHelpers
     end
 
     def submit_verification_code(candidate_identity)
-      fill_in "Check your email and enter the verification code sent to #{candidate_identity[:email]}", with: "123456"
+      fill_in "Enter your code here:", with: "123456"
       mock_exchange_code_for_candidate(candidate_identity)
       click_on_continue
     end

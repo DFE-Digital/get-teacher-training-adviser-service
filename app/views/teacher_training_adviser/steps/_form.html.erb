@@ -16,6 +16,10 @@
       <% if wizard.step_can_proceed? %>
         <%= f.govuk_submit(wizard.last_step? ? "Complete" : "Continue") %>
       <% end %>
+
+      <% if content_for?(:form_help) %>
+        <div class="form-help"><%= yield(:form_help) %></div>
+      <% end %>
     <% end %>
   </div>
 </main>

@@ -69,6 +69,8 @@ en:
       teacher_training_adviser_steps_have_a_degree:
         degree_options: "Do you have a degree?"
     label:
+      wizard_steps_authenticate:
+        timed_one_time_password: "To verify your details, we've sent a code to your email address."
       teacher_training_adviser_feedback:
         unsuccessful_visit_explanation: "Give details"
         improvements: "How could we improve the service? (optional)"
@@ -146,6 +148,10 @@ en:
           "no": "No"
           studying: "I'm studying for a degree"
     hint:
+      wizard_steps_authenticate:
+        timed_one_time_password:
+          text: "Enter your code here:"
+          resent: We've sent you another email
       teacher_training_adviser_steps_what_subject_degree:
         degree_subject: "If your subject is not listed choose the option that is nearest to your degree."
       teacher_training_adviser_steps_uk_telephone:
