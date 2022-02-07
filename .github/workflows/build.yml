@@ -280,6 +280,7 @@ jobs:
     needs: [ unit-test , security-test, java-test ]
     if: github.ref != 'refs/heads/master' && startsWith(github.head_ref, 'dependabot/') == false && github.event.pull_request.draft == false
     runs-on: ubuntu-latest
+    concurrency: Review_${{github.event.number}} 
     environment:
        name: Review
     steps:
