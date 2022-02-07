@@ -21,8 +21,6 @@ inputs:
 
 runs:
     using: composite
-    environment:
-       name: ${{ inputs.environment }}
     steps:
        - name: Checkout
          uses: actions/checkout@v2.4.0
@@ -39,7 +37,7 @@ runs:
          with:
            KEY_VAULT: ${{ inputs.KEY_VAULT }}
            SECRETS: |
-                     TA-KEYS
+                     TTA-KEYS
                      INFRA-KEYS
 
        - name: Get Short SHA

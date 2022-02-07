@@ -280,6 +280,8 @@ jobs:
     needs: [ unit-test , security-test, java-test ]
     if: github.ref != 'refs/heads/master' && startsWith(github.head_ref, 'dependabot/') == false && github.event.pull_request.draft == false
     runs-on: ubuntu-latest
+    environment:
+       name: Review
     steps:
 
       - uses: actions/checkout@v2.4.0
@@ -299,7 +301,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-      - name: Deploy to Production
+      - name: Deploy to Review
         uses: ./.github/workflows/actions/deploy
         id: deploy
         with:
@@ -336,6 +338,8 @@ jobs:
     outputs:
       release_tag: ${{steps.tag_version.outputs.pr_number}}
       release_sha: ${{github.sha}}
+    environment:
+       name: Development
     steps:
       - uses: actions/checkout@v2.4.0
 
@@ -424,6 +428,8 @@ jobs:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     concurrency: QA
+    environment:
+       name: Test
     steps:
       - uses: actions/checkout@v2.4.0
 
@@ -471,10 +477,12 @@ jobs:
           SLACK_WEBHOOK: ${{ steps.keyvault-yaml-secret.outputs.SLACK-WEBHOOK }}
 
   cypress:
-     name: Run Cypress Tests on QA
-     runs-on: ubuntu-latest
-     needs: [ qa ]
-     steps:
+    name: Run Cypress Tests on QA
+    runs-on: ubuntu-latest
+    needs: [ qa ]
+    environment:
+       name: Test
+    steps:
       - uses: actions/checkout@v2.4.0
 
       - uses: DFE-Digital/github-actions/set-up-environment@master
@@ -517,11 +525,13 @@ jobs:
         run: exit 1
 
   production:
-     name: Production Deployment
-     runs-on: ubuntu-latest
-     needs: [ cypress , development ]
-     concurrency: Production
-     steps:
+    name: Production Deployment
+    runs-on: ubuntu-latest
+    needs: [ cypress , development ]
+    concurrency: Production
+    environment:
+       name: Production
+    steps:
       - uses: actions/checkout@v2.4.0
 
       - uses: DFE-Digital/github-actions/set-up-environment@master
