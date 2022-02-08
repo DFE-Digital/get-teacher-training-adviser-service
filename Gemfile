@@ -10,7 +10,7 @@ gem "rails", "~> 6.1.4"
 gem "pg"
 
 # Use Puma as the app server
-gem "puma", "~> 5.3"
+gem "puma", "~> 5.6"
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem "webpacker"
@@ -72,7 +72,7 @@ group :development, :test do
   gem "pry-byebug"
 
   # Testing framework
-  gem "rspec-rails", "~> 5.0.2"
+  gem "rspec-rails", "~> 5.1.0"
   gem "rspec-sonarqube-formatter", "~> 1.5"
   gem "simplecov", "~> 0.21.2"
   # Adds support for Capybara system testing and selenium driver
