@@ -15,7 +15,16 @@ ENTRYPOINT ["bundle", "exec"]
 CMD ["rails db:migrate && rails server"]
 
 # hadolint ignore=DL3018
-RUN apk add --no-cache build-base tzdata shared-mime-info git nodejs yarn postgresql-libs postgresql-dev 
+RUN apk add --no-cache build-base tzdata shared-mime-info git nodejs yarn postgresql-libs postgresql-dev
+
+# security patch for apline3.15
+# hadolint ignore=DL3019
+RUN apk add --upgrade gmp=6.2.1-r1
+
+# security patch for apline3.15-EXPAT
+# hadolint ignore=DL3019
+RUN apk add --upgrade expat=2.4.4-r0 
+
 
 # install NPM packages removign artifacts
 COPY package.json yarn.lock ./
@@ -33,9 +42,7 @@ RUN bundle install --jobs=$(nproc --all) && \
 
 # Add code and compile assets
 COPY . .
-# See https://github.com/rails/rails/issues/32947 for why we
-# bypass the credentials here.
-RUN SECRET_KEY_BASE=1 RAILS_BUILD=1 bundle exec rake assets:precompile
+RUN bundle exec rake assets:precompile
 
 ARG APP_SHA
 RUN echo "${APP_SHA}" > /etc/get-teacher-training-adviser-service-sha

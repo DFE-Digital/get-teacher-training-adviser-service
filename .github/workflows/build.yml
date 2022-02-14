@@ -7,48 +7,9 @@ on:
       - master
 
 jobs:
-  turnstyle:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2.4.0
-
-      - name: set-up-environment
-        uses: DFE-Digital/github-actions/set-up-environment@master
-
-      - uses: Azure/login@v1
-        with:
-            creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - uses: DFE-Digital/github-actions/keyvault-yaml-secret@master
-        id: SLACK-WEBHOOK
-        with:
-          keyvault: ${{ secrets.KEY_VAULT}}
-          yaml_secret: INFRA-KEYS
-          secret: SLACK-WEBHOOK
-
-      - name: Check workflow concurrency
-        uses: softprops/turnstyle@v1
-        with:
-          poll-interval-seconds: 20
-          same-branch-only: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Slack Notification
-        if: failure()
-        uses: rtCamp/action-slack-notify@master
-        env:
-          SLACK_COLOR: ${{env.SLACK_ERROR}}
-          SLACK_MESSAGE: Workflow concurrency issue
-          SLACK_TITLE: Turnstyle failure ${{ github.workflow }}
-          SLACK_WEBHOOK: ${{ steps.SLACK-WEBHOOK.outputs.secret-value }}
-
   build:
     name: Build 
     runs-on: ubuntu-latest
-    needs: turnstyle
     outputs:
       DOCKER_IMAGE: ${{ steps.docker.outputs.DOCKER_IMAGE }} 
     steps:
@@ -62,19 +23,14 @@ jobs:
         with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: DFE-Digital/github-actions/keyvault-yaml-secret@master
-        id: SLACK-WEBHOOK
+      - uses: DfE-Digital/keyvault-yaml-secret@v1
+        id:  keyvault-yaml-secret
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
-          yaml_secret: INFRA-KEYS
-          secret: SLACK-WEBHOOK
-
-      - uses: DFE-Digital/github-actions/keyvault-yaml-secret@master
-        id: ACTIONS-API-ACCESS-TOKEN
-        with:
-          keyvault: ${{ secrets.KEY_VAULT}}
-          yaml_secret: INFRA-KEYS
-          secret: ACTIONS-API-ACCESS-TOKEN
+          secret: INFRA-KEYS
+          key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Lint Dockerfile
         uses: brpaz/hadolint-action@master
@@ -113,10 +69,10 @@ jobs:
         with:
            registry: ghcr.io
            username: ${{ github.repository_owner }}
-           password: ${{ steps.ACTIONS-API-ACCESS-TOKEN.outputs.secret-value }}
+           password: ${{ steps.keyvault-yaml-secret.outputs.ACTIONS-API-ACCESS-TOKEN }}
 
       - name: Build and push to GitHub Container Repository
-        uses: docker/build-push-action@v2.7.0
+        uses: docker/build-push-action@v2.9.0
         with:
           builder: ${{ steps.buildx.outputs.name }}
           cache-from: type=local,src=/tmp/.buildx-cache
@@ -134,7 +90,7 @@ jobs:
            SLACK_COLOR: ${{env.SLACK_ERROR}}
            SLACK_TITLE: 'Failure Building Adviser'
            SLACK_MESSAGE: 'There has been a failure building the teacher training adviser'
-           SLACK_WEBHOOK: ${{ steps.SLACK-WEBHOOK.outputs.secret-value }}                     
+           SLACK_WEBHOOK: ${{ steps.keyvault-yaml-secret.outputs.SLACK-WEBHOOK }}                     
 
   java-test:
     name: Javascript Tests 
@@ -151,12 +107,14 @@ jobs:
         with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: DFE-Digital/github-actions/keyvault-yaml-secret@master
-        id: SLACK-WEBHOOK
+      - uses: DfE-Digital/keyvault-yaml-secret@v1
+        id:  keyvault-yaml-secret
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
-          yaml_secret: INFRA-KEYS
-          secret: SLACK-WEBHOOK
+          secret: INFRA-KEYS
+          key: SLACK-WEBHOOK
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Run Javascript Tests
         run: |-
@@ -170,7 +128,7 @@ jobs:
            SLACK_COLOR:   ${{env.SLACK_FAILURE}}
            SLACK_TITLE:   'Failure: Testing  Master ${{env.APPLICATION}} ${{github.ref}}'
            SLACK_TEXT:    'The javascript tests hav failed please click on the Actions URL to investigate the problem.'
-           SLACK_WEBHOOK: ${{ steps.SLACK-WEBHOOK.outputs.secret-value }}
+           SLACK_WEBHOOK: ${{ steps.keyvault-yaml-secret.outputs.SLACK-WEBHOOK }}
 
   security-test:
     name: Security Tests 
@@ -187,19 +145,14 @@ jobs:
         with:
            creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: DFE-Digital/github-actions/keyvault-yaml-secret@master
-        id: SLACK-WEBHOOK
+      - uses: DfE-Digital/keyvault-yaml-secret@v1
+        id:  keyvault-yaml-secret
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
-          yaml_secret: INFRA-KEYS
-          secret: SLACK-WEBHOOK
-
-      - uses: DFE-Digital/github-actions/keyvault-yaml-secret@master
-        id: SNYK-TOKEN
-        with:
-          keyvault: ${{ secrets.KEY_VAULT}}
-          yaml_secret: INFRA-KEYS
-          secret: SNYK-TOKEN
+          secret: INFRA-KEYS
+          key: SNYK-TOKEN, SLACK-WEBHOOK
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Run Brakeman static security scanner
         run: |-
@@ -208,7 +161,7 @@ jobs:
       - name: Run Snyk to check Docker image for vulnerabilities
         uses: snyk/actions/docker@master
         env:
-          SNYK_TOKEN: ${{ steps.SNYK-TOKEN.outputs.secret-value }}
+          SNYK_TOKEN: ${{ steps.keyvault-yaml-secret.outputs.SNYK-TOKEN }}
         with:
           image: ${{needs.build.outputs.DOCKER_IMAGE}}
           args: --severity-threshold=high --file=Dockerfile
@@ -220,7 +173,7 @@ jobs:
            SLACK_COLOR:   ${{env.SLACK_FAILURE}}
            SLACK_TITLE:   'Failure: Testing  Master ${{env.APPLICATION}} ${{github.ref}}'
            SLACK_TEXT:    'The security tests hav failed please click on the Actions URL to investigate the problem.'
-           SLACK_WEBHOOK: ${{ steps.SLACK-WEBHOOK.outputs.secret-value }}
+           SLACK_WEBHOOK: ${{ steps.keyvault-yaml-secret.outputs.SLACK-WEBHOOK }}
 
   unit-test:
     name: Unit Tests 
@@ -250,19 +203,14 @@ jobs:
         with:
            creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: DFE-Digital/github-actions/keyvault-yaml-secret@master
-        id: SLACK-WEBHOOK
+      - uses: DfE-Digital/keyvault-yaml-secret@v1
+        id:  keyvault-yaml-secret
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
-          yaml_secret: INFRA-KEYS
-          secret: SLACK-WEBHOOK
-
-      - uses: DFE-Digital/github-actions/keyvault-yaml-secret@master
-        id: SONAR-TOKEN
-        with:
-          keyvault: ${{ secrets.KEY_VAULT}}
-          yaml_secret: INFRA-KEYS
-          secret: SONAR-TOKEN
+          secret: INFRA-KEYS
+          key: SONAR-TOKEN, SLACK-WEBHOOK
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Setup sonarqube
         uses: warchant/setup-sonar-scanner@v3
@@ -309,7 +257,7 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: sonar-scanner
-           -Dsonar.login=${{ steps.SONAR-TOKEN.outputs.secret-value }}
+           -Dsonar.login=${{ steps.keyvault-yaml-secret.outputs.SONAR-TOKEN }}
            -Dsonar.organization=dfe-digital
            -Dsonar.host.url=https://sonarcloud.io/
            -Dsonar.projectKey=get-teacher-training-adviser-service
@@ -324,7 +272,7 @@ jobs:
            SLACK_COLOR:   ${{env.SLACK_FAILURE}}
            SLACK_TITLE:   'Failure: Testing  Master ${{env.APPLICATION}} ${{github.ref}}'
            SLACK_TEXT:    'The Unit tests hav failed please click on the Actions URL to investigate the problem.'
-           SLACK_WEBHOOK: ${{ steps.SLACK-WEBHOOK.outputs.secret-value }}
+           SLACK_WEBHOOK: ${{ steps.keyvault-yaml-secret.outputs.SLACK-WEBHOOK }}
 
 
   review:
@@ -332,6 +280,9 @@ jobs:
     needs: [ unit-test , security-test, java-test ]
     if: github.ref != 'refs/heads/master' && startsWith(github.head_ref, 'dependabot/') == false && github.event.pull_request.draft == false
     runs-on: ubuntu-latest
+    concurrency: Review_${{github.event.number}} 
+    environment:
+       name: Review
     steps:
 
       - uses: actions/checkout@v2.4.0
@@ -342,39 +293,26 @@ jobs:
         with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: DFE-Digital/github-actions/keyvault-yaml-secret@master
-        id: SLACK-WEBHOOK
+      - uses: DfE-Digital/keyvault-yaml-secret@v1
+        id:  keyvault-yaml-secret
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
-          yaml_secret: INFRA-KEYS
-          secret: SLACK-WEBHOOK
+          secret: INFRA-KEYS
+          key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-      - uses: DFE-Digital/github-actions/keyvault-yaml-secret@master
-        id: ACTIONS-API-ACCESS-TOKEN
+      - name: Deploy to Review
+        uses: ./.github/workflows/actions/deploy
+        id: deploy
         with:
-          keyvault: ${{ secrets.KEY_VAULT}}
-          yaml_secret: INFRA-KEYS
-          secret: ACTIONS-API-ACCESS-TOKEN
-
-      - name: Trigger Review Deployment
-        uses: benc-uk/workflow-dispatch@v1.1
-        with:
-          workflow: Deploy to PaaS
-          token: ${{ steps.ACTIONS-API-ACCESS-TOKEN.outputs.secret-value }}
-          inputs: '{"environment": "Review", "sha": "${{ github.sha }}" , "pr": "${{github.event.number}}"  }'
-          ref: ${{ github.event.pull_request.head.ref }}
-
-      - name: Wait for Deployment to Review
-        uses: fountainhead/action-wait-for-check@v1.0.0
-        id: wait-for-review
-        with:
-          token: ${{ steps.ACTIONS-API-ACCESS-TOKEN.outputs.secret-value}}
-          checkName: Deploy Review
-          ref: ${{ github.event.pull_request.head.ref }}
-
-      - name: Check if Review Deployment has returned with a failure
-        if: steps.wait-for-review.outputs.conclusion == 'failure'
-        run: exit 1
+          environment: Review
+          sha:  ${{ github.sha }}
+          pr:   ${{github.event.number}}
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+          KEY_VAULT:         ${{ secrets.KEY_VAULT }}
+          ARM_ACCESS_KEY:    ${{ secrets.ARM_ACCESS_KEY }}
+          GITHUB_TOKEN:      ${{ secrets.GITHUB_TOKEN }} 
 
       - name: Post PR comment
         run: |
@@ -389,7 +327,7 @@ jobs:
         if: contains(github.event.pull_request.user.login, 'dependabot') == false
         uses: actions-ecosystem/action-add-labels@v1.1.3
         with:
-          github_token: ${{ steps.ACTIONS-API-ACCESS-TOKEN.outputs.secret-value }}
+          github_token: ${{ steps.keyvault-yaml-secret.outputs.ACTIONS-API-ACCESS-TOKEN }}
           labels: Review
 
   development:
@@ -397,307 +335,271 @@ jobs:
     needs: [ unit-test , security-test, java-test ]
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
+    concurrency: Development
     outputs:
       release_tag: ${{steps.tag_version.outputs.pr_number}}
       release_sha: ${{github.sha}}
+    environment:
+       name: Development
     steps:
-       - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v2.4.0
 
-       - uses: DFE-Digital/github-actions/set-up-environment@master
+      - uses: DFE-Digital/github-actions/set-up-environment@master
 
-       - uses: Azure/login@v1
-         with:
+      - uses: Azure/login@v1
+        with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-       - uses: DFE-Digital/github-actions/keyvault-yaml-secret@master
-         id: SLACK-WEBHOOK
-         with:
-           keyvault: ${{ secrets.KEY_VAULT}}
-           yaml_secret: INFRA-KEYS
-           secret: SLACK-WEBHOOK
+      - uses: DfE-Digital/keyvault-yaml-secret@v1
+        id:  keyvault-yaml-secret
+        with:
+          keyvault: ${{ secrets.KEY_VAULT}}
+          secret: INFRA-KEYS
+          key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-       - uses: DFE-Digital/github-actions/keyvault-yaml-secret@master
-         id: ACTIONS-API-ACCESS-TOKEN
-         with:
-           keyvault: ${{ secrets.KEY_VAULT}}
-           yaml_secret: INFRA-KEYS
-           secret: ACTIONS-API-ACCESS-TOKEN
+      - name: Trigger Development Deployment
+        uses: ./.github/workflows/actions/deploy
+        id: deploy
+        with:
+          environment: Development
+          sha:  ${{ github.sha }}
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+          KEY_VAULT:         ${{ secrets.KEY_VAULT }}
+          ARM_ACCESS_KEY:    ${{ secrets.ARM_ACCESS_KEY }}
+          GITHUB_TOKEN:      ${{ secrets.GITHUB_TOKEN }} 
+            
+      - name: Trigger Development Fix Network Policies
+        uses: benc-uk/workflow-dispatch@v1.1
+        with:
+           repo: DFE-Digital/get-into-teaching-api
+           workflow: Fix Network policies
+           token: ${{ steps.keyvault-yaml-secret.outputs.ACTIONS-API-ACCESS-TOKEN }}
+           inputs: '{"environment": "Development" }'
 
-       - name: Trigger Development Deployment
-         uses: benc-uk/workflow-dispatch@v1.1
-         with:
-           workflow: Deploy to PaaS
-           token: ${{ steps.ACTIONS-API-ACCESS-TOKEN.outputs.secret-value }}
-           inputs: '{"environment": "Development", "sha": "${{ github.sha }}"}'
-           ref: "${{github.ref}}"
+      - name: Generate Tag from PR Number
+        id:   tag_version
+        uses: DFE-Digital/github-actions/GenerateReleaseFromSHA@master
+        with:
+          sha: ${{github.sha}}
 
-       - name: Wait for Deployment to Development
-         uses: fountainhead/action-wait-for-check@v1.0.0
-         id: wait-for-deploy
-         with:
-           token: ${{ steps.ACTIONS-API-ACCESS-TOKEN.outputs.secret-value}}
-           checkName: Deploy Development
-           ref: "${{github.ref}}"
+      - name: Create a GitHub Release
+        id: release
+        if:   steps.tag_version.outputs.pr_found == 1
+        uses: actions/create-release@v1.1.4
+        env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+           tag_name: ${{ steps.tag_version.outputs.pr_number }}
+           release_name: Release ${{ steps.tag_version.outputs.pr_number }}
+           commitish: ${{ github.sha }}
+           prerelease: false
+           draft:      false
 
-       - name: Check if Development Deployment has returned with a failure
-         if: steps.wait-for-deploy.outputs.conclusion == 'failure'
-         run: exit 1
+      - name: Copy PR Info to Release
+        if: steps.release.outputs.id
+        uses: DFE-Digital/github-actions/CopyPRtoRelease@master
+        with:
+          PR_NUMBER:  ${{ steps.tag_version.outputs.pr_number }}
+          RELEASE_ID: ${{ steps.release.outputs.id }}
+          TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-       - name: Trigger Development Fix Network Policies
-         uses: benc-uk/workflow-dispatch@v1.1
-         with:
-            repo: DFE-Digital/get-into-teaching-api
-            workflow: Fix Network policies
-            token: ${{ steps.ACTIONS-API-ACCESS-TOKEN.outputs.secret-value }}
-            inputs: '{"environment": "Development" }'
+  owasp:
+    name: OWASP Checks 
+    needs: [ development ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2.4.0
 
-       - name: Trigger OWASP Testing
-         uses: benc-uk/workflow-dispatch@v1.1
-         with:
-           workflow: owasp
-           token: ${{ steps.ACTIONS-API-ACCESS-TOKEN.outputs.secret-value }}
-           inputs: '{"environment": "dev"}'
+      - name: Vunerability Test 
+        uses: ./.github/workflows/actions/owasp
+        id: deploy
+        with:
+          environment: Development
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+          KEY_VAULT:         ${{ secrets.KEY_VAULT }}
+          ARM_ACCESS_KEY:    ${{ secrets.ARM_ACCESS_KEY }}
+          GITHUB_TOKEN:      ${{secrets.GITHUB_TOKEN}}
 
-       - name: Generate Tag from PR Number
-         id:   tag_version
-         uses: DFE-Digital/github-actions/GenerateReleaseFromSHA@master
-         with:
-           sha: ${{github.sha}}
-
-       - name: Create a GitHub Release
-         id: release
-         if:   steps.tag_version.outputs.pr_found == 1
-         uses: actions/create-release@v1.1.4
-         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-         with:
-            tag_name: ${{ steps.tag_version.outputs.pr_number }}
-            release_name: Release ${{ steps.tag_version.outputs.pr_number }}
-            commitish: ${{ github.sha }}
-            prerelease: false
-            draft:      false
-
-       - name: Copy PR Info to Release
-         if: steps.release.outputs.id
-         uses: DFE-Digital/github-actions/CopyPRtoRelease@master
-         with:
-           PR_NUMBER:  ${{ steps.tag_version.outputs.pr_number }}
-           RELEASE_ID: ${{ steps.release.outputs.id }}
-           TOKEN: ${{secrets.GITHUB_TOKEN}}
   qa:
     name: Quality Assurance Deployment
     needs: [ development ]
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
+    concurrency: QA
+    environment:
+       name: Test
     steps:
-       - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v2.4.0
 
-       - uses: DFE-Digital/github-actions/set-up-environment@master
+      - uses: DFE-Digital/github-actions/set-up-environment@master
 
-       - uses: Azure/login@v1
-         with:
-             creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - uses: Azure/login@v1
+        with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-       - uses: DFE-Digital/github-actions/keyvault-yaml-secret@master
-         id: SLACK-WEBHOOK
-         with:
-           keyvault: ${{ secrets.KEY_VAULT}}
-           yaml_secret: INFRA-KEYS
-           secret: SLACK-WEBHOOK
- 
-       - uses: DFE-Digital/github-actions/keyvault-yaml-secret@master
-         id: ACTIONS-API-ACCESS-TOKEN
-         with:
-           keyvault: ${{ secrets.KEY_VAULT}}
-           yaml_secret: INFRA-KEYS
-           secret: ACTIONS-API-ACCESS-TOKEN
+      - uses: DfE-Digital/keyvault-yaml-secret@v1
+        id:  keyvault-yaml-secret
+        with:
+          keyvault: ${{ secrets.KEY_VAULT}}
+          secret: INFRA-KEYS
+          key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-       - name: Trigger Deployment to QA
-         uses: benc-uk/workflow-dispatch@v1.1
-         with:
-           workflow: Deploy to PaaS
-           token: ${{ steps.ACTIONS-API-ACCESS-TOKEN.outputs.secret-value }}
-           inputs: '{"environment": "Test", "sha": "${{ github.sha }}" }'
-           ref: "${{github.ref}}"
+      - name: Deploy to Test
+        uses: ./.github/workflows/actions/deploy
+        id: deploy
+        with:
+          environment: Test
+          sha:  ${{ github.sha }}
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+          KEY_VAULT:         ${{ secrets.KEY_VAULT }}
+          ARM_ACCESS_KEY:    ${{ secrets.ARM_ACCESS_KEY }}
+          GITHUB_TOKEN:      ${{ secrets.GITHUB_TOKEN }} 
 
-       - name: Wait for Deployment to QA
-         uses: fountainhead/action-wait-for-check@v1.0.0
-         id: wait-for-deploy
-         with:
-           token: ${{ steps.ACTIONS-API-ACCESS-TOKEN.outputs.secret-value}}
-           checkName: Deploy Test
-           ref: "${{github.ref}}"
+      - name: Trigger Test Fix Network Policies
+        uses: benc-uk/workflow-dispatch@v1.1
+        with:
+           repo: DFE-Digital/get-into-teaching-api
+           workflow: Fix Network policies
+           token: ${{ steps.keyvault-yaml-secret.outputs.ACTIONS-API-ACCESS-TOKEN }}
+           inputs: '{"environment": "Test" }'
 
-       - name: Trigger Test Fix Network Policies
-         uses: benc-uk/workflow-dispatch@v1.1
-         with:
-            repo: DFE-Digital/get-into-teaching-api
-            workflow: Fix Network policies
-            token: ${{ steps.ACTIONS-API-ACCESS-TOKEN.outputs.secret-value }}
-            inputs: '{"environment": "Test" }'
-
-       - name: Check if QA Deployment has returned with a failure
-         if: steps.wait-for-deploy.outputs.conclusion == 'failure'
-         run: exit 1
-
-       - name: Slack Notification
-         if: failure()
-         uses: rtCamp/action-slack-notify@master
-         env:
-           SLACK_COLOR:   ${{env.SLACK_FAILURE}}
-           SLACK_TITLE:   'Failure: Failure in Post-Development Deploy'
-           SLACK_MESSAGE: 'Failure with initialising QA deployment  for ${{env.APPLICATION}}'
-           SLACK_WEBHOOK: ${{ steps.SLACK-WEBHOOK.outputs.secret-value }}
+      - name: Slack Notification
+        if: failure()
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_COLOR:   ${{env.SLACK_FAILURE}}
+          SLACK_TITLE:   'Failure: Failure in Post-Development Deploy'
+          SLACK_MESSAGE: 'Failure with initialising QA deployment  for ${{env.APPLICATION}}'
+          SLACK_WEBHOOK: ${{ steps.keyvault-yaml-secret.outputs.SLACK-WEBHOOK }}
 
   cypress:
-     name: Run Cypress Tests on QA
-     runs-on: ubuntu-latest
-     needs: [ qa ]
-     steps:
-       - uses: actions/checkout@v2.4.0
+    name: Run Cypress Tests on QA
+    runs-on: ubuntu-latest
+    needs: [ qa ]
+    environment:
+       name: Test
+    steps:
+      - uses: actions/checkout@v2.4.0
 
-       - uses: DFE-Digital/github-actions/set-up-environment@master
+      - uses: DFE-Digital/github-actions/set-up-environment@master
 
-       - uses: Azure/login@v1
-         with:
+      - uses: Azure/login@v1
+        with:
              creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-       - uses: DFE-Digital/github-actions/keyvault-yaml-secret@master
-         id: SLACK-WEBHOOK
-         with:
-           keyvault: ${{ secrets.KEY_VAULT}}
-           yaml_secret: INFRA-KEYS
-           secret: SLACK-WEBHOOK
+      - uses: DfE-Digital/keyvault-yaml-secret@v1
+        id:  keyvault-yaml-secret
+        with:
+          keyvault: ${{ secrets.KEY_VAULT}}
+          secret: INFRA-KEYS
+          key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-       - uses: DFE-Digital/github-actions/keyvault-yaml-secret@master
-         id: ACTIONS-API-ACCESS-TOKEN
-         with:
-           keyvault: ${{ secrets.KEY_VAULT}}
-           yaml_secret: INFRA-KEYS
-           secret: ACTIONS-API-ACCESS-TOKEN
+      - name: Trigger Cypress Tests (DFE-Digital/get-into-teaching-frontend-tests )
+        uses: benc-uk/workflow-dispatch@v1.1
+        with:
+          repo: DFE-Digital/get-into-teaching-frontend-tests
+          workflow: Cypress
+          token: ${{ steps.keyvault-yaml-secret.outputs.ACTIONS-API-ACCESS-TOKEN }}
+          inputs: '{"application": "TTA" , "reference": "${{ github.sha }}" }'
+          ref:  refs/heads/master
 
-       - name: Trigger Cypress Tests (DFE-Digital/get-into-teaching-frontend-tests )
-         uses: benc-uk/workflow-dispatch@v1.1
-         with:
-           repo: DFE-Digital/get-into-teaching-frontend-tests
-           workflow: Cypress
-           token: ${{ steps.ACTIONS-API-ACCESS-TOKEN.outputs.secret-value }}
-           inputs: '{"application": "TTA" , "reference": "${{ github.sha }}" }'
-           ref:  refs/heads/master
+      - name: Wait for Cypress Tests
+        uses: fountainhead/action-wait-for-check@v1.0.0
+        id: wait-for-deploy
+        with:
+          token: ${{ steps.keyvault-yaml-secret.outputs.ACTIONS-API-ACCESS-TOKEN}}
+          checkName: "${{ github.sha }}"
+          ref: refs/heads/master
+          repo: get-into-teaching-frontend-tests
+          intervalSeconds: 30
+          timeoutSeconds: 1800
 
-       - name: Wait for Cypress Tests
-         uses: fountainhead/action-wait-for-check@v1.0.0
-         id: wait-for-deploy
-         with:
-           token: ${{ steps.ACTIONS-API-ACCESS-TOKEN.outputs.secret-value}}
-           checkName: "${{ github.sha }}"
-           ref: refs/heads/master
-           repo: get-into-teaching-frontend-tests
-           intervalSeconds: 30
-           timeoutSeconds: 1800
-
-       - name: Check for test failure
-         if: steps.wait-for-build.outputs.conclusion == 'failure'
-         run: exit 1
+      - name: Check for test failure
+        if: steps.wait-for-build.outputs.conclusion == 'failure'
+        run: exit 1
 
   production:
-     name: Production Deployment
-     runs-on: ubuntu-latest
-     needs: [ cypress , development ]
-     steps:
-       - uses: actions/checkout@v2.4.0
+    name: Production Deployment
+    runs-on: ubuntu-latest
+    needs: [ cypress , development ]
+    concurrency: Production
+    environment:
+       name: Production
+    steps:
+      - uses: actions/checkout@v2.4.0
 
-       - uses: DFE-Digital/github-actions/set-up-environment@master
+      - uses: DFE-Digital/github-actions/set-up-environment@master
 
-       - uses: Azure/login@v1
-         with:
-             creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - uses: Azure/login@v1
+        with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-       - uses: DFE-Digital/github-actions/keyvault-yaml-secret@master
-         id: SLACK-WEBHOOK
-         with:
-           keyvault: ${{ secrets.KEY_VAULT}}
-           yaml_secret: INFRA-KEYS
-           secret: SLACK-WEBHOOK
+      - uses: DfE-Digital/keyvault-yaml-secret@v1
+        id:  keyvault-yaml-secret
+        with:
+          keyvault: ${{ secrets.KEY_VAULT}}
+          secret: INFRA-KEYS
+          key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK, SLACK-RELEASE-NOTE-WEBHOOK
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-       - uses: DFE-Digital/github-actions/keyvault-yaml-secret@master
-         id: ACTIONS-API-ACCESS-TOKEN
-         with:
-           keyvault: ${{ secrets.KEY_VAULT}}
-           yaml_secret: INFRA-KEYS
-           secret: ACTIONS-API-ACCESS-TOKEN
+      - name: Get Release Id from Tag
+        id: tag_id
+        uses: DFE-Digital/github-actions/DraftReleaseByTag@master
+        with:
+          TAG: ${{needs.development.outputs.release_tag}}
+          TOKEN: ${{steps.keyvault-yaml-secret.outputs.ACTIONS-API-ACCESS-TOKEN}}
 
-       - uses: DFE-Digital/github-actions/keyvault-yaml-secret@master
-         id: SLACK-RELEASE-NOTE-WEBHOOK
-         with:
-           keyvault: ${{ secrets.KEY_VAULT}}
-           yaml_secret: INFRA-KEYS
-           secret: SLACK-RELEASE-NOTE-WEBHOOK
+      - name: Publish Release
+        if: steps.tag_id.outputs.release_id
+        uses: eregon/publish-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          release_id: ${{steps.tag_id.outputs.release_id}}
 
-       - name: Get Release Id from Tag
-         id: tag_id
-         uses: DFE-Digital/github-actions/DraftReleaseByTag@master
-         with:
-           TAG: ${{needs.development.outputs.release_tag}}
-           TOKEN: ${{steps.ACTIONS-API-ACCESS-TOKEN.outputs.secret-value}}
+      - name: Deploy to Production
+        uses: ./.github/workflows/actions/deploy
+        id: deploy
+        with:
+          environment: Production
+          sha:  ${{ github.sha }}
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+          KEY_VAULT:         ${{ secrets.KEY_VAULT }}
+          ARM_ACCESS_KEY:    ${{ secrets.ARM_ACCESS_KEY }}
+          GITHUB_TOKEN:      ${{ secrets.GITHUB_TOKEN }} 
 
-       - name: Publish Release
-         if: steps.tag_id.outputs.release_id
-         uses: eregon/publish-release@v1
-         env:
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-         with:
-           release_id: ${{steps.tag_id.outputs.release_id}}
+      - name: Trigger Production Fix Network Policies
+        uses: benc-uk/workflow-dispatch@v1.1
+        with:
+           repo: DFE-Digital/get-into-teaching-api
+           workflow: Fix Network policies
+           token: ${{ steps.keyvault-yaml-secret.outputs.ACTIONS-API-ACCESS-TOKEN }}
+           inputs: '{"environment": "Production" }'
 
-       - name: Trigger Deployment to Production
-         uses: benc-uk/workflow-dispatch@v1.1
-         with:
-           workflow: Deploy to PaaS
-           token: ${{ steps.ACTIONS-API-ACCESS-TOKEN.outputs.secret-value }}
-           inputs: '{"environment": "Production", "sha": "${{ github.sha }}" }'
-           ref: ${{github.ref}}
+      - name: Slack Release Notification
+        if: steps.tag_id.outputs.release_id
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_COLOR:   ${{env.SLACK_SUCCESS}}
+          SLACK_TITLE:   "Release Published: ${{steps.tag_id.outputs.release_name}}"
+          SLACK_MESSAGE: ${{ fromJson( steps.tag_id.outputs.release_body) }}
+          SLACK_WEBHOOK: ${{ steps.keyvault-yaml-secret.outputs.SLACK-RELEASE-NOTE-WEBHOOK }}
+          MSG_MINIMAL:   true
 
-       - name: Wait for Deployment to Production
-         uses: fountainhead/action-wait-for-check@v1.0.0
-         id: wait-for-deploy
-         with:
-           token: ${{ steps.ACTIONS-API-ACCESS-TOKEN.outputs.secret-value}}
-           checkName: Deploy Production
-           timeoutSeconds: 180
-           ref: ${{github.ref}}
-
-       - name: Check if Production Deployment has returned with a failure
-         if: steps.wait-for-deploy.outputs.conclusion == 'failure'
-         run: exit 1
-
-       - name: Check if Production Deployment has returned with a timeout
-         if: steps.wait-for-deploy.outputs.conclusion == 'timeout'
-         run: exit 1
-
-       - name: Trigger Production Fix Network Policies
-         uses: benc-uk/workflow-dispatch@v1.1
-         with:
-            repo: DFE-Digital/get-into-teaching-api
-            workflow: Fix Network policies
-            token: ${{ steps.ACTIONS-API-ACCESS-TOKEN.outputs.secret-value }}
-            inputs: '{"environment": "Production" }'
-
-       - name: Slack Release Notification
-         if: steps.tag_id.outputs.release_id
-         uses: rtCamp/action-slack-notify@master
-         env:
-           SLACK_COLOR:   ${{env.SLACK_SUCCESS}}
-           SLACK_TITLE:   "Release Published: ${{steps.tag_id.outputs.release_name}}"
-           SLACK_MESSAGE: ${{ fromJson( steps.tag_id.outputs.release_body) }}
-           SLACK_WEBHOOK: ${{ steps.SLACK-RELEASE-NOTE-WEBHOOK.outputs.secret-value }}
-           MSG_MINIMAL:   true
-
-       - name: Slack Notification
-         if: failure()
-         uses: rtCamp/action-slack-notify@master
-         env:
-           SLACK_COLOR:   ${{env.SLACK_FAILURE}}
-           SLACK_TITLE: "Production Release : ${{github.event.title}}"
-           SLACK_MESSAGE: 'Failure deploying Production release'
-           SLACK_WEBHOOK: ${{ steps.SLACK-WEBHOOK.outputs.secret-value }}
+      - name: Slack Notification
+        if: failure()
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_COLOR:   ${{env.SLACK_FAILURE}}
+          SLACK_TITLE: "Production Release : ${{github.event.title}}"
+          SLACK_MESSAGE: 'Failure deploying Production release'
+          SLACK_WEBHOOK: ${{ steps.keyvault-yaml-secret.outputs.SLACK-WEBHOOK }}
 
