@@ -6,6 +6,8 @@ module TeacherTrainingAdviser::Steps
 
     OTHER_SUBJECT_ID = "-1".freeze
     INCLUDE_SUBJECT_IDS = [
+      "842655a1-2afa-e811-a981-000d3a276620", # Chemistry
+      "8a2655a1-2afa-e811-a981-000d3a276620", # Computing
       "a42655a1-2afa-e811-a981-000d3a276620", # Maths
       "ac2655a1-2afa-e811-a981-000d3a276620", # Physics
       "a22655a1-2afa-e811-a981-000d3a276620", # Languages (other)
