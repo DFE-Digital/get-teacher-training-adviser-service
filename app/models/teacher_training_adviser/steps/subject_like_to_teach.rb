@@ -18,9 +18,9 @@ module TeacherTrainingAdviser::Steps
     end
 
     def self.sanitized_options
-      sorted_options = options.tap do |opts|
+      sorted_options = options.tap { |opts|
         opts["Modern foreign language"] = opts.delete("Languages (other)")
-      end.sort
+      }.sort
       sorted_options << ["Other", OTHER_SUBJECT_ID]
     end
 

@@ -20,7 +20,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::SubjectLikeToTeach do
     it {
       expect(subject).to eq([
         ["Modern foreign language", "1"],
-        ["Zoology", "0"],
+        %w[Zoology 0],
         ["Other", "-1"],
       ])
     }
