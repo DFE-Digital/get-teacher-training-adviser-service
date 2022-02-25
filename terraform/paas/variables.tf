@@ -27,7 +27,7 @@ variable "instances" {
 }
 
 variable "basic_auth" {
-   default = 1
+  default = 1
 }
 
 variable "paas_logging_name" {
@@ -43,9 +43,13 @@ variable "paas_linked_services" {
   , "get-into-teaching-api-dev-pg-common-svc"]
 }
 
+variable "paas_monitoring_space" {}
+
 variable "paas_space" {
   default = "sandbox"
 }
+
+variable "paas_monitoring_app" {}
 
 variable "paas_org_name" {
   default = "dfe"

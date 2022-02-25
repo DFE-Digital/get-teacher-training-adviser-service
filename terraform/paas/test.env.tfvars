@@ -1,4 +1,6 @@
 paas_space                    = "get-into-teaching-test"
+paas_monitoring_space         = "get-into-teaching-monitoring"
+paas_monitoring_app           = "prometheus-prod-get-into-teaching"
 paas_adviser_application_name = "get-teacher-training-adviser-service-test"
 paas_adviser_route_name       = "get-teacher-training-adviser-service-test"
 paas_linked_services          = ["get-into-teaching-test-redis-svc", "get-into-teaching-api-test-pg-common-svc"]
