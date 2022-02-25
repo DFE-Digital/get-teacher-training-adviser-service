@@ -23,7 +23,7 @@ RUN apk add --upgrade gmp=6.2.1-r1
 
 # security patch for apline3.15-EXPAT
 # hadolint ignore=DL3019
-RUN apk add --upgrade expat=2.4.4-r0 
+RUN apk add --upgrade expat=2.4.5-r0 
 
 
 # install NPM packages removign artifacts
