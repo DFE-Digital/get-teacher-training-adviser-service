@@ -15,13 +15,14 @@ RSpec.describe TeacherTrainingAdviser::Steps::SubjectLikeToTeach do
   describe "#sanitized_options" do
     subject { described_class.sanitized_options }
 
-    before { allow(described_class).to receive(:options).and_return({ "Languages (other)" => "1" }) }
+    before { allow(described_class).to receive(:options).and_return({ "Zoology" => "0", "Languages (other)" => "1" }) }
 
     it {
-      expect(subject).to eq({
-        "Modern foreign language" => "1",
-        "Other" => "-1",
-      })
+      expect(subject).to eq([
+        ["Modern foreign language", "1"],
+        %w[Zoology 0],
+        ["Other", "-1"],
+      ])
     }
   end
 

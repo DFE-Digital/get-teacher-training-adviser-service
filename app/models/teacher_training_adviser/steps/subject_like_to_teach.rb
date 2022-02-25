@@ -6,9 +6,11 @@ module TeacherTrainingAdviser::Steps
 
     OTHER_SUBJECT_ID = "-1".freeze
     INCLUDE_SUBJECT_IDS = [
+      "842655a1-2afa-e811-a981-000d3a276620", # Chemistry
+      "8a2655a1-2afa-e811-a981-000d3a276620", # Computing
       "a42655a1-2afa-e811-a981-000d3a276620", # Maths
-      "ac2655a1-2afa-e811-a981-000d3a276620", # Physics
       "a22655a1-2afa-e811-a981-000d3a276620", # Languages (other)
+      "ac2655a1-2afa-e811-a981-000d3a276620", # Physics
     ].freeze
 
     def self.options
@@ -16,13 +18,13 @@ module TeacherTrainingAdviser::Steps
     end
 
     def self.sanitized_options
-      options.tap do |options|
-        options["Modern foreign language"] = options.delete("Languages (other)")
-        options["Other"] = OTHER_SUBJECT_ID
-      end
+      sorted_options = options.tap { |opts|
+        opts["Modern foreign language"] = opts.delete("Languages (other)")
+      }.sort
+      sorted_options << ["Other", OTHER_SUBJECT_ID]
     end
 
-    validates :preferred_teaching_subject_id, inclusion: { in: sanitized_options.values }
+    validates :preferred_teaching_subject_id, inclusion: { in: sanitized_options.map(&:last) }
 
     def skipped?
       !other_step(:returning_teacher).returning_to_teaching
