@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read(".ruby-version").chomp
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.1.4"
+gem "rails", "~> 6.1.4", ">= 6.1.4.6"
 
 # Use postgres as the database for Active Record
 gem "pg"
@@ -76,7 +76,7 @@ group :development, :test do
   gem "rspec-sonarqube-formatter", "~> 1.5"
   gem "simplecov", "~> 0.21.2"
   # Adds support for Capybara system testing and selenium driver
-  gem "capybara", "~> 3.35", ">= 3.35.3"
+  gem "capybara", "~> 3.36", ">= 3.36.0"
   # Factory builder
   gem "factory_bot_rails"
 end
@@ -84,7 +84,7 @@ end
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem "listen", ">= 3.7.1", "< 3.8"
-  gem "web-console", ">= 3.3.0"
+  gem "web-console", ">= 4.2.0"
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "spring"
@@ -94,7 +94,7 @@ end
 group :test do
   gem "shoulda-matchers"
   gem "vcr"
-  gem "webdrivers", "~> 5.0"
+  gem "webdrivers", "~> 5.0", ">= 5.0.0"
   # Used when VCR is turned off to block HTTP requests.
   gem "webmock"
 end
@@ -106,5 +106,5 @@ group :rolling, :preprod, :userresearch, :production, :pagespeed do
   # loading the Gem monkey patches rails logger
   # only load in prod-like environments when we actually need it
   gem "amazing_print"
-  gem "rails_semantic_logger", ">= 4.5.1"
+  gem "rails_semantic_logger", ">= 4.10.0"
 end
