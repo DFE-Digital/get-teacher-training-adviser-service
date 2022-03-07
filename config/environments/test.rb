@@ -47,4 +47,8 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.x.git_api_endpoint = "https://get-into-teaching-api-dev.london.cloudapps.digital"
+
+  config.x.integration_host = "get-teacher-training-adviser-service-test.london.cloudapps.digital"
+  config.x.integration_credentials = { username: ENV["HTTP_USERNAME"], password: ENV["HTTP_PASSWORD"] }
+  config.x.mailsac_api_key = ENV["MAILSAC_API_KEY"]
 end
