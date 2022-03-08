@@ -11,6 +11,7 @@ resource "cloudfoundry_app" "adviser_application" {
   memory       = 1024
   timeout      = 1000
   instances    = var.instances
+  disk_quota   = 2048
 
   dynamic "service_binding" {
     for_each = data.cloudfoundry_service_instance.linked
