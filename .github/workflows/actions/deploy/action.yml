@@ -23,7 +23,7 @@ runs:
     using: composite
     steps:
        - name: Checkout
-         uses: actions/checkout@v2.4.0
+         uses: actions/checkout@v3
 
        - name: set-up-environment
          uses: DFE-Digital/github-actions/set-up-environment@master
@@ -98,7 +98,7 @@ runs:
          with:
            keyvault: ${{ inputs.KEY_VAULT}}
            secret: INFRA-KEYS
-           key: LOGIT-API 
+           key: LOGIT-API
          env:
            GITHUB_TOKEN: ${{inputs.GITHUB_TOKEN}}
 
@@ -130,8 +130,8 @@ runs:
             LOGIT-API-KEY: ${{ steps.keyvault-yaml-secret.outputs.LOGIT-API }}
             logtype: "github"
             JSON: |
-                '{"Application" : "${{env.PAAS_APPLICATION_NAME}}", 
+                '{"Application" : "${{env.PAAS_APPLICATION_NAME}}",
                   "Status"      : "${{ job.status }}",
-                  "Action"      : "Deploy",                        
-                  "Environment" : "${{inputs.environment}}",              
+                  "Action"      : "Deploy",
+                  "Environment" : "${{inputs.environment}}",
                   "Version"     : "${{ inputs.sha }}" }'
