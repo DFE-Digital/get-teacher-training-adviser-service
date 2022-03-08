@@ -111,4 +111,6 @@ RSpec.configure do |config|
 
   # Raise errors for deprecation warnings
   config.raise_errors_for_deprecations!
+
+  config.filter_run_excluding :integration
 end
