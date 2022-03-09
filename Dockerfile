@@ -15,16 +15,11 @@ ENTRYPOINT ["bundle", "exec"]
 CMD ["rails db:migrate && rails server"]
 
 # hadolint ignore=DL3018
-RUN apk add --no-cache build-base tzdata shared-mime-info git nodejs yarn postgresql-libs postgresql-dev
+RUN apk add --no-cache build-base tzdata shared-mime-info git nodejs yarn postgresql-libs postgresql-dev chromium chromium-chromedriver
 
 # security patch for apline3.15
 # hadolint ignore=DL3019
 RUN apk add --upgrade gmp=6.2.1-r1
-
-# security patch for apline3.15-EXPAT
-# hadolint ignore=DL3019
-RUN apk add --upgrade expat=2.4.5-r0 
-
 
 # install NPM packages removign artifacts
 COPY package.json yarn.lock ./

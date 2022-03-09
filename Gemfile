@@ -92,9 +92,9 @@ group :development do
 end
 
 group :test do
+  gem "selenium-webdriver"
   gem "shoulda-matchers"
   gem "vcr"
-  gem "webdrivers", "~> 5.0", ">= 5.0.0"
   # Used when VCR is turned off to block HTTP requests.
   gem "webmock"
 end
