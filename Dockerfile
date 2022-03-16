@@ -17,9 +17,9 @@ CMD ["rails db:migrate && rails server"]
 # hadolint ignore=DL3018
 RUN apk add --no-cache build-base tzdata shared-mime-info git nodejs yarn postgresql-libs postgresql-dev chromium chromium-chromedriver
 
-# security patch for apline3.15
+# security patches for apline3.15
 # hadolint ignore=DL3019
-RUN apk add --upgrade gmp=6.2.1-r1
+RUN apk add --upgrade gmp=6.2.1-r1 libxslt=1.1.35-r0 libxml2=2.9.13-r0
 
 # install NPM packages removign artifacts
 COPY package.json yarn.lock ./
