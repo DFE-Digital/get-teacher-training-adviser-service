@@ -10,7 +10,6 @@ module TeacherTrainingAdviser::Steps
     validates :first_name, presence: true, length: { maximum: 256 }
     validates :last_name, presence: true, length: { maximum: 256 }
     validates :email, presence: true, email_format: true
-    validates :channel_id, inclusion: { in: :channel_ids, allow_nil: true }
 
     before_validation :sanitize_input
 
@@ -30,7 +29,17 @@ module TeacherTrainingAdviser::Steps
       query_channels.map { |channel| channel.id.to_i }
     end
 
+    def save
+      self.channel_id = nil if channel_invalid?
+
+      super
+    end
+
   private
+
+    def channel_invalid?
+      channel_id.present? && !channel_id.in?(channel_ids)
+    end
 
     def query_channels
       @query_channels ||= GetIntoTeachingApiClient::PickListItemsApi.new.get_candidate_teacher_training_adviser_subscription_channels
