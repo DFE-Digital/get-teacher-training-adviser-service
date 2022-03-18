@@ -15,7 +15,8 @@ RSpec.describe "Sign up", :integration, type: :feature, js: true do
   end
 
   it "Full journey as a new candidate" do
-    sign_up(rand_first_name, rand_last_name, rand_email)
+    submit_personal_details(rand_first_name, rand_last_name, rand_email)
+    complete_sign_up
   end
 
   it "Full journey as an existing candidate" do
@@ -24,16 +25,14 @@ RSpec.describe "Sign up", :integration, type: :feature, js: true do
 
     submit_code(email)
 
-    expect(page).to have_text("You have already signed up to this service")
+    complete_sign_up
   end
 
-  def sign_up(first_name, last_name, email)
-    submit_personal_details(first_name, last_name, email)
-    submit_label_step("Yes", :returning_teacher)
-    submit_label_step("Yes", :has_teacher_id)
-    submit_previous_teacher_id_step("12345")
-    submit_select_step("Maths", :subject_taught)
-    submit_label_step("Physics", :subject_like_to_teach)
+  def complete_sign_up
+    submit_label_step("No", :returning_teacher)
+    submit_label_step("I am not a UK citizen and have, or am studying for, an equivalent qualification", :have_a_degree)
+    submit_label_step("Primary", :stage_interested_teaching)
+    submit_select_step("Not sure", :start_teacher_training)
     submit_date_of_birth_step(Date.new(1974, 3, 16))
     submit_label_step("UK", :uk_or_overseas)
     submit_uk_address_step(
@@ -42,7 +41,7 @@ RSpec.describe "Sign up", :integration, type: :feature, js: true do
       town_city: "Edinburgh",
       postcode: "TE7 5TR",
     )
-    submit_uk_telephone_step("123456789")
+    submit_uk_callback_step("123456789")
     submit_review_answers_step
     submit_label_step(
       "Accept the privacy policy",
