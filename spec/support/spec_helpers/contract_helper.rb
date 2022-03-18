@@ -221,11 +221,11 @@ module SpecHelpers
       click_on_continue
     end
 
-    def submit_uk_callback_step(telephone, slot)
+    def submit_uk_callback_step(telephone, slot = nil)
       expect_current_step(:uk_callback)
 
       fill_in "Contact telephone number", with: telephone
-      select slot
+      select slot if slot.present?
       click_on_continue
     end
 
