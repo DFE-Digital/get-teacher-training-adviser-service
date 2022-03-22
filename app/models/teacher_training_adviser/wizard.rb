@@ -49,7 +49,7 @@ module TeacherTrainingAdviser
 
       sign_up_candidate
 
-      @store.prune!(leave: %w[type_id degree_options])
+      @store.prune!(leave: %w[type_id degree_options sub_channel_id])
     end
 
     def exchange_access_token(timed_one_time_password, request)

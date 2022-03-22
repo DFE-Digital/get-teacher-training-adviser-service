@@ -6,6 +6,7 @@ module TeacherTrainingAdviser::Steps
     attribute :last_name, :string
     attribute :email, :string
     attribute :channel_id, :integer
+    attribute :sub_channel_id
 
     validates :first_name, presence: true, length: { maximum: 256 }
     validates :last_name, presence: true, length: { maximum: 256 }
@@ -17,12 +18,16 @@ module TeacherTrainingAdviser::Steps
       true
     end
 
+    def export
+      super.except("sub_channel_id")
+    end
+
     def reviewable_answers
       super
         .tap { |answers|
           answers["name"] = "#{answers['first_name']} #{answers['last_name']}"
         }
-        .without("first_name", "last_name", "channel_id")
+        .without("first_name", "last_name", "channel_id", "sub_channel_id")
     end
 
     def channel_ids
