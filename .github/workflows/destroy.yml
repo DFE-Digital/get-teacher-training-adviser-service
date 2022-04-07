@@ -6,6 +6,7 @@ on:
 jobs:
   destroy:
     name: Destroy
+    if: startsWith(github.head_ref, 'dependabot/') == false
     environment:
        name: Review
     runs-on: ubuntu-latest
