@@ -6,8 +6,8 @@ RSpec.describe BasicAuth do
   let(:instance) { described_class }
 
   before do
-    allow(Rails.application.credentials.config).to receive(:[]).and_call_original
-    allow(Rails.application.credentials.config).to receive(:[]).with(:http_auth) { http_auth }
+    allow(ENV).to receive(:[]).and_call_original
+    allow(ENV).to receive(:[]).with("HTTP_AUTH") { http_auth }
     described_class.class_variable_set(:@@credentials, nil)
   end
 
