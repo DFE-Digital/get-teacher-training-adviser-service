@@ -18,8 +18,9 @@
 1. Run `bundle install` to install the gem dependencies
 2. Run `yarn` to install node dependencies
 3. Run `rails db:setup` to setup the database.
-4. Run `bundle exec rails server` to launch the app on http://localhost:3000
-5. (optional) Run `./bin/webpack-dev-server` in a separate shell for faster compilation of assets
+4. Run `az login` and then `make local set-local-env` to populate development secrets
+5. Run `bundle exec rails server` to launch the app on http://localhost:3000
+6. (optional) Run `./bin/webpack-dev-server` in a separate shell for faster compilation of assets
 
 ## Whats included in this application?
 
@@ -113,7 +114,7 @@ files for each environment
 
 ### Variables
 
-Setting `http_auth` in the Rails credentials enables site wide password protection (in the format `http_auth: username1=password1,username2=password2,...`). The authenticated `username` will also be set in the `session` so that we can scope certain actions to certain credentials (the same username can have multiple passwords).
+Setting `HTTP_AUTH` in the environment variable/.env enables site wide password protection (in the format `http_auth: username1=password1,username2=password2,...`). The authenticated `username` will also be set in the `session` so that we can scope certain actions to certain credentials (the same username can have multiple passwords).
 
 ## DevOps
 
