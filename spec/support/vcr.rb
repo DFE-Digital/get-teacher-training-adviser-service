@@ -9,8 +9,4 @@ VCR.configure do |config|
   config.around_http_request(->(req) { req.method == :get && VCR.turned_on? }) do |request|
     VCR.use_cassette(request.uri, &request)
   end
-
-  Rails.application.credentials.config.each do |k, v|
-    config.filter_sensitive_data("ENV[#{k}]") { v }
-  end
 end

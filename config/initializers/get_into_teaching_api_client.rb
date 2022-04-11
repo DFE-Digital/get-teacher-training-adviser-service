@@ -6,7 +6,7 @@ GetIntoTeachingApiClient.configure do |config|
     config.host = parsed.hostname
   end
 
-  config.api_key["apiKey"] = ENV["GIT_API_TOKEN"].presence || Rails.application.credentials.config[:api_key].presence
+  config.api_key["apiKey"] = ENV["GIT_API_TOKEN"].presence
 
   config.server_index = nil
   config.api_key_prefix["apiKey"] = "Bearer"
