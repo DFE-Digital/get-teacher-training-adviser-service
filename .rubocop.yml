@@ -14,7 +14,6 @@ Rails/UnknownEnv:
     - test
     - rolling
     - preprod
-    - userresearch
     - production
 
 Style/DateTime:
