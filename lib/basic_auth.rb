@@ -14,7 +14,7 @@ class BasicAuth
     end
 
     def http_auth
-      ENV["HTTP_AUTH"] || Rails.application.credentials.config[:http_auth] || ""
+      ENV["HTTP_AUTH"] || ""
     end
 
     def env_requires_auth?
