@@ -21,6 +21,3 @@ rolling:
 
 preprod:
   <<: *production
-
-userresearch:
-  <<: *production
