@@ -28,7 +28,7 @@ jobs:
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
-          key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK, SNYK-TOKEN
+          key: SLACK-WEBHOOK, SNYK-TOKEN
 
       - name: Lint Dockerfile
         uses: brpaz/hadolint-action@master
@@ -60,7 +60,7 @@ jobs:
         with:
            registry: ghcr.io
            username: ${{ github.repository_owner }}
-           password: ${{ steps.keyvault-yaml-secret.outputs.ACTIONS-API-ACCESS-TOKEN }}
+           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build docker image
         uses: docker/build-push-action@v2.10.0
@@ -345,7 +345,7 @@ jobs:
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
-          key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK
+          key: SLACK-WEBHOOK
 
       - name: Trigger Development Deployment
         uses: ./.github/workflows/actions/deploy
@@ -425,7 +425,7 @@ jobs:
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
-          key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK
+          key: SLACK-WEBHOOK
 
       - name: Deploy to Test
         uses: ./.github/workflows/actions/deploy
