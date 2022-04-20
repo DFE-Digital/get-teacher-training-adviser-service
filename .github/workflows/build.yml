@@ -28,7 +28,7 @@ jobs:
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
-          key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK
+          key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK, SNYK-TOKEN
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
@@ -64,7 +64,7 @@ jobs:
            username: ${{ github.repository_owner }}
            password: ${{ steps.keyvault-yaml-secret.outputs.ACTIONS-API-ACCESS-TOKEN }}
 
-      - name: Build and push to GitHub Container Repository
+      - name: Build docker image
         uses: docker/build-push-action@v2.10.0
         with:
           cache-from: |
@@ -74,9 +74,22 @@ jobs:
           tags: |
             ${{ env.DOCKER_IMAGE }}
             ${{ env.DOCKER_REPOSITORY }}:${{ env.GIT_BRANCH }}
-          push: true
+          push: false
+          load: true
           build-args: |
             APP_SHA=${{ env.GIT_SHORT_SHA }}
+
+      - name: Run Snyk to check Docker image for vulnerabilities
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ steps.keyvault-yaml-secret.outputs.SNYK-TOKEN }}
+        with:
+          image: ${{ env.DOCKER_IMAGE }}
+          args: --severity-threshold=high --file=Dockerfile
+
+      - name: Push image to registry
+        if: ${{ success() }}
+        run: docker image push --all-tags ${{ env.DOCKER_REPOSITORY }}
 
       - name: Slack Notification
         if: failure() && github.ref == 'refs/heads/master'
@@ -145,21 +158,13 @@ jobs:
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
-          key: SNYK-TOKEN, SLACK-WEBHOOK
+          key: SLACK-WEBHOOK
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Run Brakeman static security scanner
         run: |-
           docker run -t --rm -e RAILS_ENV=test ${{ needs.build.outputs.DOCKER_IMAGE }} brakeman --no-pager
-
-      - name: Run Snyk to check Docker image for vulnerabilities
-        uses: snyk/actions/docker@master
-        env:
-          SNYK_TOKEN: ${{ steps.keyvault-yaml-secret.outputs.SNYK-TOKEN }}
-        with:
-          image: ${{needs.build.outputs.DOCKER_IMAGE}}
-          args: --severity-threshold=high --file=Dockerfile
 
       - name: Slack Notification
         if: failure() && github.ref == 'refs/heads/master'
