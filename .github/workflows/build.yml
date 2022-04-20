@@ -38,7 +38,6 @@ jobs:
              dockerfile: "Dockerfile"
 
       - name: Set up Docker Buildx
-        id: buildx
         uses: docker/setup-buildx-action@master
 
       - name: Get Settings
@@ -49,20 +48,16 @@ jobs:
       - name: Set DOCKER_IMAGE environment variable
         id:   docker
         run: |
-             if [ "${{github.ref}}" == "refs/heads/master" ]
-             then
-                echo ::set-output name=DOCKER_IMAGE::${{ env.DOCKER_REPOSITORY }}:sha-${{ steps.sha.outputs.short }}
-             else
-                echo ::set-output name=DOCKER_IMAGE::${{ env.DOCKER_REPOSITORY }}:review-${{steps.sha.outputs.short }}
-             fi
-
-      - name: Cache Docker layers
-        uses: actions/cache@v3
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-             ${{ runner.os }}-buildx-
+          if [ "${{github.ref}}" == "refs/heads/master" ]
+          then
+            echo ::set-output name=DOCKER_IMAGE::${{ env.DOCKER_REPOSITORY }}:sha-${{ steps.sha.outputs.short }}
+            GIT_REF=${{ github.ref }}
+            echo "GIT_BRANCH=${GIT_REF##*/}" >> $GITHUB_ENV # GIT_BRANCH will be main for refs/heads/main
+          else
+            echo ::set-output name=DOCKER_IMAGE::${{ env.DOCKER_REPOSITORY }}:review-${{steps.sha.outputs.short }}
+            GIT_REF=${{ github.head_ref }}
+            echo "GIT_BRANCH=${GIT_REF##*/}" >> $GITHUB_ENV
+          fi
 
       - name: Login to GitHub Container Repository
         uses: docker/login-action@v1
@@ -74,14 +69,16 @@ jobs:
       - name: Build and push to GitHub Container Repository
         uses: docker/build-push-action@v2.10.0
         with:
-          builder: ${{ steps.buildx.outputs.name }}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
+          cache-from: |
+            type=registry,ref=${{ env.DOCKER_REPOSITORY }}:${{ env.GIT_BRANCH }}
+            type=registry,ref=${{ env.DOCKER_REPOSITORY }}:master
+          cache-to: type=inline
           tags: |
-                 ${{ steps.docker.outputs.DOCKER_IMAGE }}
+            ${{ steps.docker.outputs.DOCKER_IMAGE }}
+            ${{ env.DOCKER_REPOSITORY }}:${{ env.GIT_BRANCH }}
           push: true
           build-args: |
-                      APP_SHA=${{ steps.sha.outputs.short }}
+            APP_SHA=${{ steps.sha.outputs.short }}
 
       - name: Slack Notification
         if: failure() && github.ref == 'refs/heads/master'
@@ -580,4 +577,3 @@ jobs:
           SLACK_TITLE: "Production Release : ${{github.event.title}}"
           SLACK_MESSAGE: 'Failure deploying Production release'
           SLACK_WEBHOOK: ${{ steps.keyvault-yaml-secret.outputs.SLACK-WEBHOOK }}
-
