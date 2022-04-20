@@ -29,8 +29,6 @@ jobs:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
           key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK, SNYK-TOKEN
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Lint Dockerfile
         uses: brpaz/hadolint-action@master
@@ -121,8 +119,6 @@ jobs:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
           key: SLACK-WEBHOOK
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Run Javascript Tests
         run: |-
@@ -159,8 +155,6 @@ jobs:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
           key: SLACK-WEBHOOK
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Run Brakeman static security scanner
         run: |-
@@ -209,8 +203,6 @@ jobs:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
           key: SONAR-TOKEN, SLACK-WEBHOOK
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Setup sonarqube
         uses: warchant/setup-sonar-scanner@v3
@@ -299,8 +291,6 @@ jobs:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
           key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Deploy to Review
         uses: ./.github/workflows/actions/deploy
@@ -356,8 +346,6 @@ jobs:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
           key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Trigger Development Deployment
         uses: ./.github/workflows/actions/deploy
@@ -438,8 +426,6 @@ jobs:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
           key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Deploy to Test
         uses: ./.github/workflows/actions/deploy
@@ -495,8 +481,6 @@ jobs:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
           key: HTTP-USERNAME, HTTP-PASSWORD, MAILSAC-API-KEY
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Prepare DB
         run: |-
@@ -533,8 +517,6 @@ jobs:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
           key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK, SLACK-RELEASE-NOTE-WEBHOOK
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Get Release Id from Tag
         id: tag_id
