@@ -11,7 +11,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     outputs:
-      DOCKER_IMAGE: ${{ steps.docker.outputs.DOCKER_IMAGE }}
+      DOCKER_IMAGE: ${{ env.DOCKER_IMAGE }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -28,9 +28,7 @@ jobs:
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
-          key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          key: SLACK-WEBHOOK, SNYK-TOKEN
 
       - name: Lint Dockerfile
         uses: brpaz/hadolint-action@master
@@ -38,50 +36,58 @@ jobs:
              dockerfile: "Dockerfile"
 
       - name: Set up Docker Buildx
-        id: buildx
         uses: docker/setup-buildx-action@master
 
-      - name: Get Settings
-        id: sha
+      - name: Set environment variables
         run: |
-              echo ::set-output name=short::$(echo "${{ github.sha }}" | cut -c -7)
+          GIT_SHORT_SHA=$(echo "${{ github.sha }}" | cut -c -7)
+          echo "GIT_SHORT_SHA=${GIT_SHORT_SHA}" >> $GITHUB_ENV
 
-      - name: Set DOCKER_IMAGE environment variable
-        id:   docker
-        run: |
-             if [ "${{github.ref}}" == "refs/heads/master" ]
-             then
-                echo ::set-output name=DOCKER_IMAGE::${{ env.DOCKER_REPOSITORY }}:sha-${{ steps.sha.outputs.short }}
-             else
-                echo ::set-output name=DOCKER_IMAGE::${{ env.DOCKER_REPOSITORY }}:review-${{steps.sha.outputs.short }}
-             fi
-
-      - name: Cache Docker layers
-        uses: actions/cache@v3
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-             ${{ runner.os }}-buildx-
+          if [ "${{github.ref}}" == "refs/heads/master" ]
+          then
+            DOCKER_IMAGE=${{ env.DOCKER_REPOSITORY }}:sha-${GIT_SHORT_SHA}
+            echo "DOCKER_IMAGE=${DOCKER_IMAGE}" >> $GITHUB_ENV
+            GIT_REF=${{ github.ref }} # GIT_BRANCH will be main for refs/heads/main
+          else
+            DOCKER_IMAGE=${{ env.DOCKER_REPOSITORY }}:review-${GIT_SHORT_SHA}
+            echo "DOCKER_IMAGE=${DOCKER_IMAGE}" >> $GITHUB_ENV
+            GIT_REF=${{ github.head_ref }}
+          fi
+          echo "GIT_BRANCH=${GIT_REF##*/}" >> $GITHUB_ENV
 
       - name: Login to GitHub Container Repository
         uses: docker/login-action@v1
         with:
            registry: ghcr.io
            username: ${{ github.repository_owner }}
-           password: ${{ steps.keyvault-yaml-secret.outputs.ACTIONS-API-ACCESS-TOKEN }}
+           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push to GitHub Container Repository
+      - name: Build docker image
         uses: docker/build-push-action@v2.10.0
         with:
-          builder: ${{ steps.buildx.outputs.name }}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
+          cache-from: |
+            type=registry,ref=${{ env.DOCKER_REPOSITORY }}:${{ env.GIT_BRANCH }}
+            type=registry,ref=${{ env.DOCKER_REPOSITORY }}:master
+          cache-to: type=inline
           tags: |
-                 ${{ steps.docker.outputs.DOCKER_IMAGE }}
-          push: true
+            ${{ env.DOCKER_IMAGE }}
+            ${{ env.DOCKER_REPOSITORY }}:${{ env.GIT_BRANCH }}
+          push: false
+          load: true
           build-args: |
-                      APP_SHA=${{ steps.sha.outputs.short }}
+            APP_SHA=${{ env.GIT_SHORT_SHA }}
+
+      - name: Run Snyk to check Docker image for vulnerabilities
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ steps.keyvault-yaml-secret.outputs.SNYK-TOKEN }}
+        with:
+          image: ${{ env.DOCKER_IMAGE }}
+          args: --severity-threshold=high --file=Dockerfile
+
+      - name: Push image to registry
+        if: ${{ success() }}
+        run: docker image push --all-tags ${{ env.DOCKER_REPOSITORY }}
 
       - name: Slack Notification
         if: failure() && github.ref == 'refs/heads/master'
@@ -113,8 +119,6 @@ jobs:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
           key: SLACK-WEBHOOK
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Run Javascript Tests
         run: |-
@@ -150,21 +154,11 @@ jobs:
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
-          key: SNYK-TOKEN, SLACK-WEBHOOK
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          key: SLACK-WEBHOOK
 
       - name: Run Brakeman static security scanner
         run: |-
           docker run -t --rm -e RAILS_ENV=test ${{ needs.build.outputs.DOCKER_IMAGE }} brakeman --no-pager
-
-      - name: Run Snyk to check Docker image for vulnerabilities
-        uses: snyk/actions/docker@master
-        env:
-          SNYK_TOKEN: ${{ steps.keyvault-yaml-secret.outputs.SNYK-TOKEN }}
-        with:
-          image: ${{needs.build.outputs.DOCKER_IMAGE}}
-          args: --severity-threshold=high --file=Dockerfile
 
       - name: Slack Notification
         if: failure() && github.ref == 'refs/heads/master'
@@ -209,8 +203,6 @@ jobs:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
           key: SONAR-TOKEN, SLACK-WEBHOOK
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Setup sonarqube
         uses: warchant/setup-sonar-scanner@v3
@@ -299,8 +291,6 @@ jobs:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
           key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Deploy to Review
         uses: ./.github/workflows/actions/deploy
@@ -355,9 +345,7 @@ jobs:
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
-          key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          key: SLACK-WEBHOOK
 
       - name: Trigger Development Deployment
         uses: ./.github/workflows/actions/deploy
@@ -437,9 +425,7 @@ jobs:
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
-          key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          key: SLACK-WEBHOOK
 
       - name: Deploy to Test
         uses: ./.github/workflows/actions/deploy
@@ -495,8 +481,6 @@ jobs:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
           key: HTTP-USERNAME, HTTP-PASSWORD, MAILSAC-API-KEY
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Prepare DB
         run: |-
@@ -533,8 +517,6 @@ jobs:
           keyvault: ${{ secrets.KEY_VAULT}}
           secret: INFRA-KEYS
           key: ACTIONS-API-ACCESS-TOKEN, SLACK-WEBHOOK, SLACK-RELEASE-NOTE-WEBHOOK
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Get Release Id from Tag
         id: tag_id
@@ -580,4 +562,3 @@ jobs:
           SLACK_TITLE: "Production Release : ${{github.event.title}}"
           SLACK_MESSAGE: 'Failure deploying Production release'
           SLACK_WEBHOOK: ${{ steps.keyvault-yaml-secret.outputs.SLACK-WEBHOOK }}
-

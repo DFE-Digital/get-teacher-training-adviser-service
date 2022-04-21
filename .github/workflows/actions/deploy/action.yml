@@ -99,8 +99,6 @@ runs:
            keyvault: ${{ inputs.KEY_VAULT}}
            secret: INFRA-KEYS
            key: LOGIT-API
-         env:
-           GITHUB_TOKEN: ${{inputs.GITHUB_TOKEN}}
 
        - uses: hashicorp/setup-terraform@v1.3.2
          with:

@@ -29,8 +29,6 @@ runs:
           keyvault: ${{ inputs.KEY_VAULT}}
           secret: INFRA-KEYS
           key: SLACK-WEBHOOK, HTTP-PASSWORD, HTTP-USERNAME
-        env:
-          GITHUB_TOKEN: ${{inputs.GITHUB_TOKEN}}
 
       - name: set-up-environment
         uses: DFE-Digital/github-actions/set-up-environment@master
