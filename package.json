@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "@stimulus/test": "^2.0.0",
-    "jest": "^28.0.2",
+    "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.0.2",
     "webpack-dev-server": "^3.11.2"
   },
