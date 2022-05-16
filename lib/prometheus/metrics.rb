@@ -73,5 +73,12 @@ module Prometheus
       labels: %i[rating] + preset_labels.keys,
       preset_labels: preset_labels,
     )
+
+    prometheus.counter(
+      :tta_client_cookie_consent_total,
+      docstring: "A counter of cookie consent",
+      labels: %i[non_functional marketing] + preset_labels.keys,
+      preset_labels: preset_labels,
+    )
   end
 end

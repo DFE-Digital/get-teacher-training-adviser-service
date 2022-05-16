@@ -103,4 +103,35 @@ RSpec.describe "Instrumentation" do
       expect(metric).to receive(:increment).with(labels: { rating: "satisfied" }).once
     end
   end
+
+  describe "tta.client_metrics" do
+    let(:params) do
+      {
+        key: "tta_client_cookie_consent_total",
+        labels: {
+          non_functional: true,
+          marketing: false,
+        },
+      }
+    end
+
+    it "increments the client metric" do
+      metric = registry.get(:tta_client_cookie_consent_total)
+      expect(metric).to receive(:increment).with(labels:
+        {
+          non_functional: true,
+          marketing: false,
+        }).once
+      post client_metrics_path, params: params.to_json
+    end
+
+    context "when attempting to increment a non-client tta metric" do
+      before { params[:key] = "tta_metric" }
+
+      it "raises an error" do
+        expect { post client_metrics_path, params: params.to_json }.to \
+          raise_error(ArgumentError, "attempted to increment non-client metric")
+      end
+    end
+  end
 end
