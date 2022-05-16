@@ -4,8 +4,6 @@ import { Application } from 'stimulus' ;
 import CookieAcceptanceController from 'cookie-acceptance_controller.js' ;
 
 describe('CookieAcceptanceController', () => {
-  let cookieName = "gta-cookie-preferences-v1" ;
-
   document.body.innerHTML =
   `<div data-controller="cookie-acceptance" class="hide">
       <div data-cookie-acceptance-target="banner">
