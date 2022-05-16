@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec::describe "Client metrics", type: :request do
+RSpec.describe "Client metrics", type: :request do
   subject { response }
 
   let(:params) { { "key" => "tta_client_cookie_consent_total", "labels" => { "non_functional" => true, "marketing" => false } } }

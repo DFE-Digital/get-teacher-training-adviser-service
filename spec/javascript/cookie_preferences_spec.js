@@ -1,161 +1,334 @@
-const Cookies = require('js-cookie') ;
-import CookiePreferences from 'cookie_preferences' ;
+import Cookies from 'js-cookie';
+import CookiePreferences from 'cookie_preferences';
 
 describe('CookiePreferences', () => {
-  let prefs = null ;
-  let newCategoriesEvent = null ;
+  let prefs = null;
+  let newCategoriesEvent = null;
 
   function setCookie(name, content) {
-    Cookies.set(name, content) ;
+    Cookies.set(name, content);
   }
 
   function setJsonCookie(name, data) {
-    setCookie(name, JSON.stringify(data)) ;
+    setCookie(name, JSON.stringify(data));
   }
 
-  document.addEventListener("cookies:accepted", (event) => {
-    newCategoriesEvent = event.detail.cookies ;
-  })
+  document.addEventListener('cookies:accepted', (event) => {
+    newCategoriesEvent = event.detail.cookies;
+  });
 
   beforeEach(() => {
-    Cookies.remove(CookiePreferences.cookieName)
-    newCategoriesEvent = null ;
-  })
+    Cookies.remove(CookiePreferences.cookieName);
+    newCategoriesEvent = null;
+  });
 
-  describe("cookieName", () => {
-    it("should include version number", () => {
-      expect(CookiePreferences.cookieName).toBe("gta-cookie-preferences-v1")
-    })
-  })
+  describe('cookieName', () => {
+    it('should include version number', () => {
+      expect(CookiePreferences.cookieName).toBe('gta-cookie-preferences-v1');
+    });
+  });
 
-  describe("with cookie set", () => {
+  describe('with cookie set', () => {
     beforeEach(() => {
-      setJsonCookie(CookiePreferences.cookieName, { required: true, marketing: false }) ;
-      prefs = new CookiePreferences ;
-    }) ;
+      setJsonCookie(CookiePreferences.cookieName, {
+        required: true,
+        marketing: false,
+      });
+      prefs = new CookiePreferences();
+    });
 
-    it("#all should load settings from cookie", () => {
-      expect(prefs.all).toEqual({functional: true, required: true, marketing: false}) ;
-    }) ;
+    it('#all should load settings from cookie', () => {
+      expect(prefs.all).toEqual({
+        functional: true,
+        required: true,
+        marketing: false,
+      });
+    });
 
-    it("should mark cookie as set", () => {
-      expect(prefs.cookieSet).toBe(true) ;
-    })
+    it('should mark cookie as set', () => {
+      expect(prefs.cookieSet).toBe(true);
+    });
 
-    describe("#allowed", () => {
-      it("should return per category values",() => {
-        expect(prefs.allowed('required')).toBe(true) ;
-        expect(prefs.allowed('marketing')).toBe(false) ;
-        expect(prefs.allowed('functional')).toBe(true) ;
-      })
+    describe('#allowed', () => {
+      it('should return per category values', () => {
+        expect(prefs.allowed('required')).toBe(true);
+        expect(prefs.allowed('marketing')).toBe(false);
+        expect(prefs.allowed('functional')).toBe(true);
+      });
 
-      it("should return false for unknown categories", () => {
-        expect(prefs.allowed('unknown')).toBe(false) ;
-      })
-    })
+      it('should return false for unknown categories', () => {
+        expect(prefs.allowed('unknown')).toBe(false);
+      });
+    });
 
-    describe("#categories", () => {
-      it("should return the categories held in the cookie", () => {
-        expect(prefs.categories).toEqual(["required", "marketing", "functional"]) ;
-      }) ;
-    }) ;
+    describe('#categories', () => {
+      it('should return the categories held in the cookie', () => {
+        expect(prefs.categories).toEqual([
+          'required',
+          'marketing',
+          'functional',
+        ]);
+      });
+    });
 
-    describe("#allowedCategories", () => {
-      it("should return categories set to true", () => {
-        expect(prefs.allowedCategories).toEqual(['required', 'functional'])
-      })
-    })
+    describe('#allowedCategories', () => {
+      it('should return categories set to true', () => {
+        expect(prefs.allowedCategories).toEqual(['required', 'functional']);
+      });
+    });
 
-    describe("assigning #all", () => {
-      beforeEach(() => { prefs.all = {required: false, features: true} })
+    describe('#setCategories', () => {
+      it('casts values to boolean', () => {
+        prefs.setCategories({
+          marketing: 'yes',
+          test: 1,
+          other: 'true',
+        });
 
-      it("should update", () => {
-        expect(prefs.all).toEqual({required: false, features: true, functional: true})
-      })
+        expect(prefs.allowed('marketing')).toBe(true);
+        expect(prefs.allowed('test')).toBe(true);
+        expect(prefs.allowed('other')).toBe(true);
 
-      it("should return new values for #allowed", () => {
-        expect(prefs.allowed('required')).toBe(false)
-        expect(prefs.allowed('features')).toBe(true)
-        expect(prefs.allowed('marketing')).toBe(false)
-        expect(prefs.allowed('functional')).toBe(true)
-      })
+        prefs.setCategories({
+          marketing: 'no',
+          test: 0,
+          other: 'false',
+        });
 
-      it("should update #categories list", () => {
-        expect(prefs.categories).toEqual(['required', 'features', 'functional'])
-      }) ;
+        expect(prefs.allowed('marketing')).toBe(false);
+        expect(prefs.allowed('test')).toBe(false);
+        expect(prefs.allowed('other')).toBe(false);
+      });
+    });
 
-      it("emits event", () => {
-        expect(newCategoriesEvent).toEqual(['features'])
-      })
-    }) ;
+    describe('assigning #all', () => {
+      beforeEach(() => {
+        prefs.all = { required: false, features: true };
+      });
 
-    describe("assigning existing category", () => {
-      beforeEach(() => { prefs.setCategory('marketing', true) })
+      it('should update', () => {
+        expect(prefs.all).toEqual({
+          required: false,
+          features: true,
+          functional: true,
+        });
+      });
 
-      it("updates allowed value", () => {
-        expect(prefs.allowed('marketing')).toBe(true)
-      })
+      it('should return new values for #allowed', () => {
+        expect(prefs.allowed('required')).toBe(false);
+        expect(prefs.allowed('features')).toBe(true);
+        expect(prefs.allowed('marketing')).toBe(false);
+        expect(prefs.allowed('functional')).toBe(true);
+      });
 
-      it("updates #all", () => {
-        expect(prefs.all).toEqual({required: true, marketing: true, functional: true})
-      })
+      it('should update #categories list', () => {
+        expect(prefs.categories).toEqual([
+          'required',
+          'features',
+          'functional',
+        ]);
+      });
 
-      it("does not update category list", () => {
-        expect(prefs.categories).toEqual(['required', 'marketing', 'functional'])
-      })
+      it('emits event', () => {
+        expect(newCategoriesEvent).toEqual(['features']);
+      });
+    });
 
-      it("does update allowed categories", () => {
-        expect(prefs.allowedCategories).toEqual(['required', 'marketing', 'functional'])
-      })
+    describe('assigning existing category', () => {
+      beforeEach(() => {
+        prefs.setCategories({ marketing: true });
+      });
 
-      it("emits event", () => {
-        expect(newCategoriesEvent).toEqual(['marketing'])
-      })
-    })
+      it('updates allowed value', () => {
+        expect(prefs.allowed('marketing')).toBe(true);
+      });
 
-    describe("assigning functional to false", () => {
-      beforeEach(() => { prefs.setCategory('functional', false) })
+      it('updates #all', () => {
+        expect(prefs.all).toEqual({
+          required: true,
+          marketing: true,
+          functional: true,
+        });
+      });
 
-      it("leaves the value as true", () => {
-        expect(prefs.allowed('functional')).toBe(true)
-      })
+      it('does not update category list', () => {
+        expect(prefs.categories).toEqual([
+          'required',
+          'marketing',
+          'functional',
+        ]);
+      });
 
-      it("is included in category list", () => {
-        expect(prefs.categories.includes('functional')).toBe(true)
-      })
+      it('does update allowed categories', () => {
+        expect(prefs.allowedCategories).toEqual([
+          'required',
+          'marketing',
+          'functional',
+        ]);
+      });
 
-      it("is included in the allowedCategories list", () => {
-        expect(prefs.allowedCategories.includes('functional')).toBe(true)
-      }) ;
-    }) ;
+      it('emits event', () => {
+        expect(newCategoriesEvent).toEqual(['marketing']);
+      });
+    });
 
-    describe("assigning new category", () => {
-      beforeEach(() => { prefs.setCategory('features', true) })
+    describe('assigning functional to false', () => {
+      beforeEach(() => {
+        prefs.setCategories({ functional: false });
+      });
 
-      it("updates allowed value", () => {
-        expect(prefs.allowed('features')).toBe(true)
-      })
+      it('leaves the value as true', () => {
+        expect(prefs.allowed('functional')).toBe(true);
+      });
 
-      it("updates #all", () => {
-        expect(prefs.all).toEqual({required: true, marketing: false, features: true, functional: true})
-      })
+      it('is included in category list', () => {
+        expect(prefs.categories.includes('functional')).toBe(true);
+      });
 
-      it("does not update category list", () => {
-        expect(prefs.categories).toEqual(['required', 'marketing', 'functional', 'features'])
-      })
+      it('is included in the allowedCategories list', () => {
+        expect(prefs.allowedCategories.includes('functional')).toBe(true);
+      });
+    });
 
-      it("does update allowed categories", () => {
-        expect(prefs.allowedCategories).toEqual(['required', 'functional', 'features'])
-      })
+    describe('assigning new category', () => {
+      beforeEach(() => {
+        prefs.setCategories({ features: true });
+      });
 
-      it("emits event", () => {
-        expect(newCategoriesEvent).toEqual(['features'])
-      })
-    })
+      it('updates allowed value', () => {
+        expect(prefs.allowed('features')).toBe(true);
+      });
+
+      it('updates #all', () => {
+        expect(prefs.all).toEqual({
+          required: true,
+          marketing: false,
+          features: true,
+          functional: true,
+        });
+      });
+
+      it('does not update category list', () => {
+        expect(prefs.categories).toEqual([
+          'required',
+          'marketing',
+          'functional',
+          'features',
+        ]);
+      });
+
+      it('does update allowed categories', () => {
+        expect(prefs.allowedCategories).toEqual([
+          'required',
+          'functional',
+          'features',
+        ]);
+      });
+
+      it('emits event', () => {
+        expect(newCategoriesEvent).toEqual(['features']);
+      });
+    });
+
+    describe('allowAll', () => {
+      beforeEach(() => {
+        prefs.allowAll();
+      });
+
+      it('sets all to true', () => {
+        expect(prefs.allowedCategories).toEqual([
+          'functional',
+          'non-functional',
+          'marketing',
+        ]);
+      });
+    });
+  });
+
+  describe('without cookie set', () => {
+    beforeEach(() => {
+      prefs = new CookiePreferences();
+    });
+
+    it('should mark cookie as set', () => {
+      expect(prefs.cookieSet).toBe(false);
+    });
+
+    describe('#all', () => {
+      it('should still include functional', () => {
+        expect(prefs.all).toEqual({ functional: true });
+      });
+    });
+
+    describe('#allowed', () => {
+      it('should return false for all categories', () => {
+        expect(prefs.allowed('functional')).toBe(true);
+        expect(prefs.allowed('required')).toBe(false);
+        expect(prefs.allowed('marketing')).toBe(false);
+      });
+    });
+
+    describe('#categories', () => {
+      it('should be functional only', () => {
+        expect(prefs.categories).toEqual(['functional']);
+      });
+    });
+
+    describe('#allowedCategories', () => {
+      it('should be functional only', () => {
+        expect(prefs.allowedCategories).toEqual(['functional']);
+      });
+    });
+
+    describe('assigning #all', () => {
+      beforeEach(() => {
+        prefs.all = { required: false, functional: true };
+      });
+
+      it('should update', () => {
+        expect(prefs.all).toEqual({ required: false, functional: true });
+      });
+
+      it('should return new values for #allowed', () => {
+        expect(prefs.allowed('required')).toBe(false);
+        expect(prefs.allowed('functional')).toBe(true);
+        expect(prefs.allowed('marketing')).toBe(false);
+      });
+
+      it('should update #categories list', () => {
+        expect(prefs.categories).toEqual(['required', 'functional']);
+      });
+
+      it('emits event', () => {
+        expect(newCategoriesEvent).toEqual([]);
+      });
+    });
+
+    describe('assigning new category', () => {
+      beforeEach(() => {
+        prefs.setCategories({ functional: true });
+      });
+
+      it('updates allowed value', () => {
+        expect(prefs.allowed('functional')).toBe(true);
+      });
+
+      it('updates #all', () => {
+        expect(prefs.all).toEqual({ functional: true });
+      });
+
+      it('does not update category list', () => {
+        expect(prefs.categories).toEqual(['functional']);
+      });
+
+      it('emits event', () => {
+        expect(newCategoriesEvent).toEqual([]);
+      });
+    });
 
     describe('opting out of a category', () => {
       beforeEach(() => {
-        prefs.setCategory('marketing', true);
+        prefs.setCategories({ marketing: true });
       });
 
       it('retains essential cookies and clears non-essential cookies', () => {
@@ -164,101 +337,47 @@ describe('CookiePreferences', () => {
         const essentialCookieKey = CookiePreferences.functionalCookies[2];
         Cookies.set(essentialCookieKey, 'essential');
 
-        prefs.setCategory('marketing', false);
+        prefs.setCategories({ marketing: false });
 
         expect(Cookies.get('non-essential')).toBeUndefined();
         expect(Cookies.get(essentialCookieKey)).toEqual('essential');
       });
     });
 
-    describe("allowAll", () => {
-      beforeEach(() => { prefs.allowAll() }) ;
+    describe('allowAll', () => {
+      beforeEach(() => {
+        prefs.allowAll();
+      });
 
-      it("sets all to true", () => {
-        expect(prefs.allowedCategories).toEqual(
-          ['functional', 'non-functional', 'marketing']
-        ) ;
-      }) ;
-    }) ;
-  })
+      it('sets all to true', () => {
+        expect(prefs.allowedCategories).toEqual([
+          'functional',
+          'non-functional',
+          'marketing',
+        ]);
+      });
+    });
+  });
 
-  describe("without cookie set", () => {
-    beforeEach(() => { prefs = new CookiePreferences })
+  describe('clearCookie', () => {
+    it('clears the cookie from all domains', () => {
+      Object.defineProperty(window, 'location', {
+        configurable: true,
+        value: new URL('https://getintoteaching.education.gov.uk/'),
+      });
 
-    it("should mark cookie as set", () => {
-      expect(prefs.cookieSet).toBe(false) ;
-    })
+      const spy = jest.spyOn(Cookies, 'remove');
 
-    describe("#all", () => {
-      it("should still include functional", () => { expect(prefs.all).toEqual({'functional' : true}) })
-    })
+      CookiePreferences.clearCookie('key');
 
-    describe("#allowed", () => {
-      it("should return false for all categories", () => {
-        expect(prefs.allowed('functional')).toBe(true)
-        expect(prefs.allowed('required')).toBe(false)
-        expect(prefs.allowed('marketing')).toBe(false)
-      })
-    })
-
-    describe("#categories", () => {
-      it("should be functional only", () => { expect(prefs.categories).toEqual(['functional']) })
-    })
-
-    describe("#allowedCategories", () => {
-      it("should be functional only", () => { expect(prefs.allowedCategories).toEqual(['functional']) })
-    })
-
-    describe("assigning #all", () => {
-      beforeEach(() => { prefs.all = {required: false, functional: true} })
-
-      it("should update", () => {
-        expect(prefs.all).toEqual({required: false, functional: true})
-      })
-
-      it("should return new values for #allowed", () => {
-        expect(prefs.allowed('required')).toBe(false)
-        expect(prefs.allowed('functional')).toBe(true)
-        expect(prefs.allowed('marketing')).toBe(false)
-      })
-
-      it("should update #categories list", () => {
-        expect(prefs.categories).toEqual(['required', 'functional'])
-      }) ;
-
-      it("emits event", () => {
-        expect(newCategoriesEvent).toEqual([])
-      })
-    }) ;
-
-    describe("assigning new category", () => {
-      beforeEach(() => { prefs.setCategory('functional', true) })
-
-      it("updates allowed value", () => {
-        expect(prefs.allowed('functional')).toBe(true)
-      })
-
-      it("updates #all", () => {
-        expect(prefs.all).toEqual({functional: true})
-      })
-
-      it("does not update category list", () => {
-        expect(prefs.categories).toEqual(['functional'])
-      })
-
-      it("emits event", () => {
-        expect(newCategoriesEvent).toEqual([])
-      })
-    })
-
-    describe("allowAll", () => {
-      beforeEach(() => { prefs.allowAll() }) ;
-
-      it("sets all to true", () => {
-        expect(prefs.allowedCategories).toEqual(
-          ['functional', 'non-functional', 'marketing']
-        ) ;
-      }) ;
-    }) ;
-  }) ;
-})
+      expect(spy).toHaveBeenCalledWith('key', {
+        domain: 'getintoteaching.education.gov.uk',
+      });
+      expect(spy).toHaveBeenCalledWith('key', {
+        domain: '.getintoteaching.education.gov.uk',
+      });
+      expect(spy).toHaveBeenCalledWith('key', { domain: 'education.gov.uk' });
+      expect(spy).toHaveBeenCalledWith('key', { domain: '.education.gov.uk' });
+    });
+  });
+});
