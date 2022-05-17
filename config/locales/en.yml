@@ -181,62 +181,124 @@ en:
       studying: "I'm studying for a degree"
   answers:
     identity:
-      name: "Name"
-      email: "Email"
+      name:
+        title: "Name"
+        change: "your name"
+      email:
+        title: "Email"
+        change: "your email"
     date_of_birth:
-      date_of_birth: "Date of birth"
+      date_of_birth:
+        title: "Date of birth"
+        change: "your date of birth"
     gcse_maths_english:
-      has_gcse_maths_and_english_id: "Do you have grade 4 (C) or above in maths and English GCSE, or equivalent?"
+      has_gcse_maths_and_english_id:
+        title: "Do you have grade 4 (C) or above in maths and English GCSE, or equivalent?"
+        change: "if you have grade 4 (C) or above in maths and English GCSE, or equivalent"
     gcse_science:
-      has_gcse_science_id: "Do you have science GCSE Grade 4 or above?"
+      has_gcse_science_id:
+        title: "Do you have science GCSE Grade 4 or above?"
+        change: "if you have science GCSE Grade 4 or above"
     has_teacher_id:
-      has_id: "Do you have your previous teacher reference number?"
+      has_id:
+        title: "Do you have your previous teacher reference number?"
+        change: "if you have a previous teacher reference number"
     have_a_degree:
-      degree_options: "Do you have a degree?"
+      degree_options:
+        title: "Do you have a degree?"
+        change: "if you have a degree"
     overseas_callback:
-      callback_date: "Callback date"
-      callback_time: "Callback time"
-      time_zone: "Time zone"
+      callback_date:
+        title: "Callback date"
+        change: "callback date"
+      callback_time:
+        title: "Callback time"
+        change: "callback time"
+      time_zone:
+        title: "Time zone"
+        change: "callback time zone"
     overseas_country:
-      country_id: "Which country do you live in?"
+      country_id:
+        title: "Which country do you live in?"
+        change: "which country you live in"
     overseas_telephone:
-      address_telephone: "Telephone"
+      address_telephone:
+        title: "Telephone"
+        change: "your telephone"
     overseas_time_zone:
-      address_telephone: "Telephone"
+      address_telephone:
+        title: "Telephone"
+        change: "your telephone"
     previous_teacher_id:
-      teacher_id: "What is your previous teacher reference number?"
+      teacher_id:
+        title: "What is your previous teacher reference number?"
+        change: "your previous teacher reference number"
     retake_gcse_maths_english:
-      planning_to_retake_gcse_maths_and_english_id: "Are you planning to retake your English or maths GCSEs?"
+      planning_to_retake_gcse_maths_and_english_id:
+        title: "Are you planning to retake your English or maths GCSEs?"
+        change: "if you are planning to retake your English or maths GCSEs"
     retake_gcse_science:
-      planning_to_retake_gcse_science_id: "Are you planning to retake your science GCSE?"
+      planning_to_retake_gcse_science_id:
+        title: "Are you planning to retake your science GCSE?"
+        change: "if you have planning to retake your science GCSE"
     returning_teacher:
-      returning_to_teaching: Are you qualified to teach?
+      returning_to_teaching:
+        title: "Are you qualified to teach?"
+        change: "if you are qualified to teach"
     stage_interested_teaching:
-      preferred_education_phase_id: "Which stage are you interested in teaching?"
+      preferred_education_phase_id:
+        title: "Which stage are you interested in teaching?"
+        change: "the stage you are interested in teaching"
     stage_of_degree:
-      degree_status_id: "In which year are you studying?"
+      degree_status_id:
+        title: "In which year are you studying?"
+        change: "the year in which you are studying"
     start_teacher_training:
-      initial_teacher_training_year_id: "When do you want to start teacher training?"
+      initial_teacher_training_year_id:
+        title: "When do you want to start teacher training?"
+        change: "when you want to start teacher training"
     subject_interested_teaching:
-      preferred_teaching_subject_id: "Which subject are you interested in teaching?"
+      preferred_teaching_subject_id:
+        title: "Which subject are you interested in teaching?"
+        change: "which subject you are interested in teaching"
     subject_like_to_teach:
-      preferred_teaching_subject_id: "Which subject would you like to teach if you return to teaching?"
+      preferred_teaching_subject_id:
+        title: "Which subject would you like to teach if you return to teaching?"
+        change: "the subject you would like to teach if you return to teaching"
     subject_taught:
-      subject_taught_id: "Which main subject did you previously teach?"
+      subject_taught_id:
+        title: "Which main subject did you previously teach?"
+        change: "the main subject you previously taught"
     uk_address:
-      address: "Address"
+      address:
+        title: "Address"
+        change: "your address"
     uk_callback:
-      callback_date: "Callback date"
-      callback_time: "Callback time"
-      address_telephone: "Telephone"
+      callback_date:
+        title: "Callback date"
+        change: "the callback date"
+      callback_time:
+        title: "Callback time"
+        change: "the callback time"
+      address_telephone:
+        title: "Telephone"
+        change: "your telephone"
     uk_or_overseas:
-      uk_or_overseas: "Where do you live?"
+      uk_or_overseas:
+        title: "Where do you live?"
+        change: "where you live"
     uk_telephone:
-      address_telephone: "Telephone"
+      address_telephone:
+        title: "Telephone"
+        change: "your telephone"
     what_degree_class:
-      uk_degree_grade_id: "Which class is your degree?"
+      uk_degree_grade_id:
+        title: "Which class is your degree?"
+        change: "the class of your degree"
     what_subject_degree:
-      degree_subject: "Which subject is your degree?"
+      degree_subject:
+        title: "Which subject is your degree?"
+        change: "the subject of your degree"
   activerecord:
     errors:
       models:
