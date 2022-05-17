@@ -9,12 +9,10 @@ class PagesController < ApplicationController
   end
 
   def session_expired
-    @page_title = "session expired"
     render template: "pages/session_expired"
   end
 
   def privacy_policy
-    @page_title = "privacy policy"
     policy_id = params[:id]
 
     @privacy_policy = if policy_id

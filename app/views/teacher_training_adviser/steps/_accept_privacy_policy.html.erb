@@ -1,3 +1,5 @@
+<% @page_title = "Read and accept the privacy policy" %>
+
 <% policy_id = session[:privacy_policy_id].presence || GetIntoTeachingApiClient::PrivacyPoliciesApi.new.get_latest_privacy_policy.id %>
 
 <%= f.govuk_check_boxes_fieldset :accepted_policy_id, legend: { text: "Read and accept the privacy policy"} do %>

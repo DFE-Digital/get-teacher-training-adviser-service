@@ -10,7 +10,6 @@ module TeacherTrainingAdviser
     before_action :restrict_access, if: :authenticate?
 
     def new
-      @page_title = "Give feedback on this service"
       @feedback = Feedback.new
     end
 
@@ -25,17 +24,13 @@ module TeacherTrainingAdviser
       end
     end
 
-    def thank_you
-      @page_title = "Thank you for your feedback"
-    end
+    def thank_you; end
 
     def index
-      @page_title = "Service feedback"
       @search = FeedbackSearch.new
     end
 
     def export
-      @page_title = "Export feedback"
       @search = FeedbackSearch.new(feedback_search_params)
 
       if @search.valid?

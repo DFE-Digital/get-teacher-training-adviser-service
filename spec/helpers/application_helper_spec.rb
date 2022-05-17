@@ -17,6 +17,27 @@ RSpec.describe ApplicationHelper do
     it { is_expected.to have_css "body hr" }
   end
 
+  describe "#format_page_title" do
+    subject { format_page_title(title, status) }
+
+    let(:title) { "Page title" }
+    let(:status) { 200 }
+
+    it { is_expected.to eq("Page title - Get an adviser - GOV.UK") }
+
+    context "when there is no title" do
+      let(:title) { nil }
+
+      it { is_expected.to eq("Get an adviser - GOV.UK") }
+    end
+
+    context "when there is an error" do
+      let(:status) { 422 }
+
+      it { is_expected.to eq("Error: Page title - Get an adviser - GOV.UK") }
+    end
+  end
+
   describe "#govuk_form_for" do
     it "renders a form with GOV.UK form builder" do
       expect(govuk_form_for(StubModel.new, url: "http://test.com") {}).to eq(
