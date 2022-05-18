@@ -21,9 +21,9 @@
 
   <%= analytics_body_tag class: "govuk-template__body govuk-body" do %>
     <%= render(partial: "shared/gtm_fallback") if gtm_enabled? %>
+    <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
     <header class="govuk-header" role="banner" data-module="govuk-header">
     <%= render partial: 'shared/cookie_banner' %>
-    <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
       <div class="govuk-header__container govuk-width-container">
         <div class="govuk-header__logo">
           <%= link_to "/", class: "govuk-header__link govuk-header__link--homepage" do %>

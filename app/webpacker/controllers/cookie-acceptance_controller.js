@@ -28,7 +28,6 @@ export default class extends Controller {
 
   showBanner() {
     this.element.classList.remove('hide') ;
-    this.acceptTarget.focus() ;
   }
 
   isPreferencesPage() {
