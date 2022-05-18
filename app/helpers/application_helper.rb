@@ -10,12 +10,11 @@ module ApplicationHelper
     ENV["GTM_ID"].present?
   end
 
-  def prefix_title(title)
-    if title
-      "Get an adviser: #{title}"
-    else
-      "Get an adviser"
-    end
+  def format_page_title(title, status)
+    prefix = status == 422 ? "Error: " : ""
+    title = [title, "Get an adviser", "GOV.UK"].compact.join(" - ")
+
+    "#{prefix}#{title}"
   end
 
   def govuk_form_for(*args, **options, &block)
