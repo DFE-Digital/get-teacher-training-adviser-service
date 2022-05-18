@@ -1,5 +1,7 @@
 module TeacherTrainingAdviser
   class Wizard < ::DFEWizard::Base
+    UK_COUNTRY_ID = "72f5c2e6-74f9-e811-a97a-000d3a2760f2".freeze
+
     self.steps = [
       Steps::Identity,
       DFEWizard::Steps::Authenticate,
@@ -55,6 +57,13 @@ module TeacherTrainingAdviser
     def exchange_access_token(timed_one_time_password, request)
       @api ||= GetIntoTeachingApiClient::TeacherTrainingAdviserApi.new
       @api.exchange_access_token_for_teacher_training_adviser_sign_up(timed_one_time_password, request)
+    end
+
+    def export_data
+      super.tap do |export|
+        # Default country_id to be UK if applicable
+        export["country_id"] = UK_COUNTRY_ID if @store[:uk_or_overseas] == Steps::UkOrOverseas::OPTIONS[:uk]
+      end
     end
 
   private

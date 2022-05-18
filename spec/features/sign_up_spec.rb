@@ -394,6 +394,76 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       expect(page).to have_css "h1", text: "Sign up complete"
     end
 
+    scenario "candidate changes an answer" do
+      visit teacher_training_adviser_steps_path
+
+      expect(page).to have_css "h1", text: "About you"
+      fill_in_identity_step
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Are you qualified to teach?"
+      choose "Yes"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Do you have your previous teacher reference number?"
+      choose "Yes"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "What is your previous teacher reference number?"
+      fill_in "Teacher reference number (optional)", with: "1234"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Which main subject did you previously teach?"
+      select "Psychology"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Which subject would you like to teach if you return to teaching?"
+      choose "Physics"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Enter your date of birth"
+      fill_in_date_of_birth_step
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Where do you live?"
+      choose "UK"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "What is your address?"
+      fill_in_address_step
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "What is your telephone number?"
+      fill_in "UK telephone number (optional)", with: "123456789"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Check your answers before you continue"
+      click_on "Change your previous teacher reference number"
+
+      expect(page).to have_css "h1", text: "What is your previous teacher reference number?"
+      fill_in "Teacher reference number (optional)", with: "5678"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Check your answers before you continue"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Read and accept the privacy policy"
+      check "Accept the privacy policy"
+
+      request_attributes = uk_candidate_request_attributes({
+        type_id: RETURNING_TO_TEACHING,
+        subject_taught_id: SUBJECT_PSYCHOLOGY,
+        preferred_teaching_subject_id: SUBJECT_PHYSICS,
+        teacher_id: "5678",
+      })
+      expect_sign_up_with_attributes(request_attributes)
+
+      click_on "Complete"
+
+      expect(page).to have_css "h1", text: "Thank you"
+      expect(page).to have_css "h1", text: "Sign up complete"
+    end
+
     scenario "candidate tries to skip past an exit step" do
       visit teacher_training_adviser_steps_path
 
