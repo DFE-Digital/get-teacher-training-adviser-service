@@ -1,3 +1,4 @@
+<% content_for(:above_main_content) do %>
 <div role="navigation">
   <div class="govuk-width-container">
     <p>
@@ -5,21 +6,20 @@
     </p>
   </div>
 </div>
+<% end %>
 
-<main class="govuk-main-wrapper no-margin" id="main-content" role="main">
-  <div class="govuk-width-container">
-    <%= govuk_form_for current_step, url: step_path do |f| %>
-      <%= f.govuk_error_summary %>
+<div class="govuk-width-container">
+  <%= govuk_form_for current_step, url: step_path do |f| %>
+    <%= f.govuk_error_summary %>
 
-      <%= render current_step.key, current_step: current_step, f: f %>
+    <%= render current_step.key, current_step: current_step, f: f %>
 
-      <% if wizard.step_can_proceed? %>
-        <%= f.govuk_submit(wizard.last_step? ? "Complete" : "Continue") %>
-      <% end %>
-
-      <% if content_for?(:form_help) %>
-        <div class="form-help"><%= yield(:form_help) %></div>
-      <% end %>
+    <% if wizard.step_can_proceed? %>
+      <%= f.govuk_submit(wizard.last_step? ? "Complete" : "Continue") %>
     <% end %>
-  </div>
-</main>
+
+    <% if content_for?(:form_help) %>
+      <div class="form-help"><%= yield(:form_help) %></div>
+    <% end %>
+  <% end %>
+</div>
