@@ -1,117 +1,156 @@
-const Cookies = require('js-cookie') ;
+const Cookies = require('js-cookie');
 
 export default class CookiePreferences {
-  static cookieBaseName = "gta-cookie-preferences" ;
-  static cookieVersion = 1 ;
-  static cookieLifetimeInDays = 90 ;
-  static alwaysOnCategory = 'functional' ;
+  static cookieBaseName = 'gta-cookie-preferences';
+  static cookieVersion = 1;
+  static cookieLifetimeInDays = 90;
+  static alwaysOnCategory = 'functional';
   static allCategories = {
-    'functional' : true,
-    'non-functional' : true,
-    'marketing' : true
-  } ;
+    functional: true,
+    'non-functional': true,
+    marketing: true,
+  };
+
   static functionalCookies = [
-    'git-cookie-preferences-v1',
+    'gta-cookie-preferences-v1',
     '_dfe_session',
     'GiTBetaBannerCovid',
   ];
 
-  settings = null ;
-  cookieSet = false ;
+  settings = null;
+  cookieSet = false;
 
   constructor() {
-    this.readCookie() ;
+    this.readCookie();
   }
 
   static get cookieName() {
-    return CookiePreferences.cookieBaseName + "-v" + CookiePreferences.cookieVersion ;
+    return (
+      CookiePreferences.cookieBaseName + '-v' + CookiePreferences.cookieVersion
+    );
+  }
+
+  static get cookieDomains() {
+    const hostname = window.location.hostname;
+    const rootDomain = hostname.replace(/(.*?)\./, '');
+
+    return [hostname, `.${hostname}`, rootDomain, `.${rootDomain}`];
+  }
+
+  static clearCookie(key) {
+    CookiePreferences.cookieDomains.forEach((domain) =>
+      Cookies.remove(key, { domain })
+    );
   }
 
   readCookie() {
     const cookie = Cookies.get(CookiePreferences.cookieName);
-    if (typeof(cookie) == 'undefined' || !cookie) {
-      this.settings = {} ;
+    if (typeof cookie === 'undefined' || !cookie) {
+      this.settings = {};
     } else {
-      this.settings = JSON.parse(cookie) ;
-      this.cookieSet = true ;
+      this.settings = JSON.parse(cookie);
+      this.cookieSet = true;
     }
 
-    this.settings[CookiePreferences.alwaysOnCategory] = true ;
+    this.settings[CookiePreferences.alwaysOnCategory] = true;
   }
 
   writeCookie(categories) {
-    categories[CookiePreferences.alwaysOnCategory] = true ;
-    const serialized = JSON.stringify(categories)
+    categories[CookiePreferences.alwaysOnCategory] = true;
+    const serialized = JSON.stringify(categories);
     Cookies.set(CookiePreferences.cookieName, serialized, {
-      expires: CookiePreferences.cookieLifetimeInDays
-    }) ;
+      expires: CookiePreferences.cookieLifetimeInDays,
+      sameSite: 'Lax',
+    });
 
-    this.cookieSet = true ;
+    this.cookieSet = true;
   }
 
   get all() {
-    return this.settings ;
+    return this.settings;
   }
 
   allowed(category) {
-    return this.settings[category] || false ;
+    return this.settings[category] || false;
   }
 
   get categories() {
-    if (this.settings)
-      return Object.keys(this.settings) ;
-    else
-      return new Array ;
+    if (this.settings) return Object.keys(this.settings);
+    else return [];
   }
 
   set all(categories) {
-    const existingAllowed = this.allowedCategories ;
+    const existingAllowed = this.allowedCategories;
 
-    this.writeCookie(categories) ;
-    this.readCookie() ;
+    this.writeCookie(categories);
+    this.readCookie();
 
-    const newlyAllowed = this.allowedCategories.filter(category => !existingAllowed.includes(category))
+    const newlyAllowed = this.allowedCategories.filter(
+      (category) => !existingAllowed.includes(category)
+    );
 
-    this.emitEvent(newlyAllowed) ;
+    this.emitEvent(newlyAllowed);
+    this.sendMetric();
   }
 
   clearNonEssentialCookies() {
     Object.keys(Cookies.get()).forEach((key) => {
-      if (!CookiePreferences.functionalCookies.includes(key))
-        Cookies.remove(key);
+      if (!CookiePreferences.functionalCookies.includes(key)) {
+        CookiePreferences.clearCookie(key);
+      }
     });
   }
 
-  setCategory(category, value) {
-    const strValue = value.toString() ;
-    const boolValue =
-      (strValue == "1" || strValue == "true" || strValue == "yes") ;
+  setCategories(categories) {
+    for (const [key, value] of Object.entries(categories)) {
+      categories[key] = this.boolValue(value);
+    }
 
-    let newSettings = Object.assign({}, this.settings) ;
-    const optingOut = newSettings[category] === true && !boolValue;
+    const newSettings = { ...this.settings, ...categories };
+    const optingOut = Object.keys(categories).some((category) => {
+      return !categories[category] && this.settings[category];
+    });
 
     if (optingOut) {
       this.clearNonEssentialCookies();
     }
 
-    newSettings[category] = boolValue ;
-
-    this.all = newSettings ;
+    this.all = newSettings;
   }
 
   get allowedCategories() {
-    return this.categories.filter(category => this.allowed(category))
+    return this.categories.filter((category) => this.allowed(category));
+  }
+
+  boolValue(value) {
+    const strValue = value.toString();
+    return strValue === '1' || strValue === 'true' || strValue === 'yes';
+  }
+
+  sendMetric() {
+    const xhr = new XMLHttpRequest();
+    const data = JSON.stringify({
+      key: 'tta_client_cookie_consent_total',
+      labels: {
+        non_functional: this.allowed('non-functional'),
+        marketing: this.allowed('marketing'),
+      },
+    });
+
+    xhr.open('POST', '/client_metrics', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(data);
   }
 
   emitEvent(newCategories) {
-    let acceptedCookies = new CustomEvent("cookies:accepted", {
-      detail: { cookies: newCategories }
-    }) ;
+    const acceptedCookies = new CustomEvent('cookies:accepted', {
+      detail: { cookies: newCategories },
+    });
 
-    document.dispatchEvent(acceptedCookies) ;
+    document.dispatchEvent(acceptedCookies);
   }
 
   allowAll() {
-    this.all = CookiePreferences.allCategories ;
+    this.all = CookiePreferences.allCategories;
   }
 }

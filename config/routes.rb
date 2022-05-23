@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   get "/robots.txt", to: "robots#show"
 
+  resource :client_metrics, only: %i[create]
+
   namespace :teacher_training_adviser, path: "/teacher_training_adviser" do
     resources :feedbacks, only: %i[new create index] do
       collection do

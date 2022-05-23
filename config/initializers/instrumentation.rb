@@ -94,3 +94,15 @@ ActiveSupport::Notifications.subscribe "tta.feedback" do |*args|
   metric = prometheus.get(:tta_feedback_rating_total)
   metric.increment(labels: { rating: feedback.rating.to_s })
 end
+
+ActiveSupport::Notifications.subscribe "tta.client_metric" do |*args|
+  event = ActiveSupport::Notifications::Event.new(*args)
+  metric_details = event.payload.deep_symbolize_keys
+
+  raise(ArgumentError, "attempted to increment non-client metric") unless metric_details[:key].start_with?("tta_client_")
+
+  prometheus = Prometheus::Client.registry
+
+  metric = prometheus.get(metric_details[:key])
+  metric.increment(labels: metric_details[:labels])
+end
