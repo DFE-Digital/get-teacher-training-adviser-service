@@ -1,47 +1,45 @@
-<main class="govuk-main-wrapper no-margin" id="main-content" role="main">
-  <div class="govuk-width-container">
-    <div class="govuk-main-wrapper">
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-          <h1 class="govuk-heading-l">Get an adviser</h1>
+<div class="govuk-width-container">
+  <div class="govuk-main-wrapper">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">Get an adviser</h1>
 
-          <p>If you want to become a teacher or return to teaching in England, a teacher training adviser can guide you through the process with free one-to-one support.</p>
-          <p>Your adviser will help you with:</p>
-          <ul>
-            <li>getting school experience</li>
-            <li>funding your course</li>
-            <li>choosing the right training</li>
-            <li>writing your personal statement</li>
-            <li>interview tips</li>
-          </ul>
-          <h2 class="govuk-heading-m">Who can get an adviser?</h2>
+        <p>If you want to become a teacher or return to teaching in England, a teacher training adviser can guide you through the process with free one-to-one support.</p>
+        <p>Your adviser will help you with:</p>
+        <ul>
+          <li>getting school experience</li>
+          <li>funding your course</li>
+          <li>choosing the right training</li>
+          <li>writing your personal statement</li>
+          <li>interview tips</li>
+        </ul>
+        <h2 class="govuk-heading-m">Who can get an adviser?</h2>
 
-          <p>You can get an adviser if you:</p>
+        <p>You can get an adviser if you:</p>
 
-          <ul>
-            <li>have a bachelor's degree, class 2:2 (honours) or higher</li>
-            <li>are studying for a degree and are predicted to get a class 2:2 (honours) or higher</li>
-            <li>already have qualified teacher status (QTS) and are returning to teach chemistry, computing, maths, modern foreign languages or physics</li>
-          </ul>
+        <ul>
+          <li>have a bachelor's degree, class 2:2 (honours) or higher</li>
+          <li>are studying for a degree and are predicted to get a class 2:2 (honours) or higher</li>
+          <li>already have qualified teacher status (QTS) and are returning to teach chemistry, computing, maths, modern foreign languages or physics</li>
+        </ul>
 
-          <p>If you are a non-UK citizen, you also need to have or be studying for a bachelor's degree (or equivalent qualification).</p>
+        <p>If you are a non-UK citizen, you also need to have or be studying for a bachelor's degree (or equivalent qualification).</p>
 
-          <p>Before you use this service as a non-UK citizen, you can check your qualifications by calling <%= link_to("0800 389 2500", "tel://08003892500") %>.</p>
+        <p>Before you use this service as a non-UK citizen, you can check your qualifications by calling <%= link_to("0800 389 2500", "tel://08003892500") %>.</p>
 
-          <a href="<%= teacher_training_adviser_step_path(:identity, params.to_unsafe_h.slice(:channel, :sub_channel)) %>" role="button" draggable="false" class="govuk-button govuk-!-margin-top-2 govuk-!-margin-bottom-8 govuk-button--start" data-module="govuk-button">
-          Start now
-          <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
-            <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
-          </svg>
-        </a>
-          <p>Find teacher training options if you live in:</p>
-          <ul class="govuk-list govuk-list--bullet">
-            <li><a href="https://teachinscotland.scot">Scotland</a></li>
-            <li><a href="https://educators.wales/">Wales</a></li>
-            <li><a href="https://www.education-ni.gov.uk/articles/initial-teacher-education-courses-northern-ireland">Northern Ireland</a></li>
-          </ul>
-        </div>
+        <a href="<%= teacher_training_adviser_step_path(:identity, params.to_unsafe_h.slice(:channel, :sub_channel)) %>" role="button" draggable="false" class="govuk-button govuk-!-margin-top-2 govuk-!-margin-bottom-8 govuk-button--start" data-module="govuk-button">
+        Start now
+        <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+        </svg>
+      </a>
+        <p>Find teacher training options if you live in:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li><a href="https://teachinscotland.scot">Scotland</a></li>
+          <li><a href="https://educators.wales/">Wales</a></li>
+          <li><a href="https://www.education-ni.gov.uk/articles/initial-teacher-education-courses-northern-ireland">Northern Ireland</a></li>
+        </ul>
       </div>
     </div>
   </div>
-</main>
+</div>

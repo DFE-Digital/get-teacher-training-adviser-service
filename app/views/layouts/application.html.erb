@@ -57,7 +57,13 @@
       </div>
     </div>
 
-    <%= yield %>
+    <% if content_for?(:above_main_content) %>
+      <%= yield(:above_main_content) %>
+    <% end %>
+
+    <main class="govuk-main-wrapper no-margin" id="main-content" role="main">
+      <%= yield %>
+    </main>
 
     <%= render "layouts/footer" %>
   <% end %>

@@ -1,11 +1,9 @@
 <% @page_title = "Privacy Policy" %>
 
-<main class="govuk-main-wrapper no-margin" id="main-content" role="main">
-  <div class="govuk-width-container">
-    <div class="content__left">
-      <%= link_to 'Back', 'javascript:history.go(-1);', class: "govuk-back-link hidden", id: "backlink" %>
-      <h2>Privacy Policy</h2>
-      <%= safe_html_format @privacy_policy.text %>
-    </div>
+<div class="govuk-width-container">
+  <div class="content__left">
+    <%= link_to 'Back', 'javascript:history.go(-1);', class: "govuk-back-link hidden", id: "backlink" %>
+    <h2>Privacy Policy</h2>
+    <%= safe_html_format @privacy_policy.text %>
   </div>
-</main>
+</div>
