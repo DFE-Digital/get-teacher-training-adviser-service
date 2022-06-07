@@ -1,4 +1,4 @@
-FROM ruby:2.7.5-alpine3.15
+FROM ruby:3.1.2-alpine3.16
 
 ENV RAILS_ENV=production \
     NODE_ENV=production \
@@ -13,9 +13,6 @@ WORKDIR /app
 EXPOSE 3000
 ENTRYPOINT ["bundle", "exec"]
 CMD ["rails db:migrate && rails server"]
-
-# fix vulnerabilities
-RUN apk update freetype=2.11.1-r2
 
 # hadolint ignore=DL3018
 RUN apk add --no-cache build-base tzdata shared-mime-info git nodejs yarn postgresql-libs postgresql-dev chromium chromium-chromedriver
