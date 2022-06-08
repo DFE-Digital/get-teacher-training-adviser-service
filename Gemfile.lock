@@ -21,6 +21,15 @@ GIT
       faraday_middleware-circuit_breaker
       get_into_teaching_api_client
 
+GIT
+  remote: https://github.com/adzap/validates_timeliness.git
+  revision: 5204ccb2a7aee17c1595d0bbc259e0225867c07d
+  tag: v6.0.0.beta2
+  specs:
+    validates_timeliness (6.0.0.beta2)
+      activemodel (>= 6.0.0, < 7)
+      timeliness (>= 0.3.10, < 1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -373,8 +382,6 @@ GEM
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
-    validates_timeliness (5.0.0)
-      timeliness (>= 0.3.10, < 1)
     vcr (6.1.0)
     web-console (4.2.0)
       actionview (>= 6.0.0)
@@ -441,7 +448,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
-  validates_timeliness
+  validates_timeliness!
   vcr
   web-console (>= 4.2.0)
   webmock

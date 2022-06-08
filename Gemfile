@@ -37,7 +37,8 @@ gem "govuk_design_system_formbuilder"
 
 gem "secure_headers"
 
-gem "validates_timeliness"
+# Beta needed for Ruby 3.1
+gem "validates_timeliness", github: "adzap/validates_timeliness", tag: "v6.0.0.beta2"
 
 gem "dotenv-rails"
 
