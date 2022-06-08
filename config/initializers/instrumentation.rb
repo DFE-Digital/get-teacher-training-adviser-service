@@ -10,14 +10,14 @@ ActiveSupport::Notifications.subscribe "process_action.action_controller" do |*a
   labels[:path] = labels[:path].split("?").first if labels[:path]
 
   metric = prometheus.get(:tta_requests_total)
-  metric.increment(labels: labels)
+  metric.increment(labels:)
 
   metric = prometheus.get(:tta_request_duration_ms)
-  metric.observe(event.duration, labels: labels)
+  metric.observe(event.duration, labels:)
 
   if payload.key?(:view_runtime)
     metric = prometheus.get(:tta_request_view_runtime_ms)
-    metric.observe(payload[:view_runtime], labels: labels)
+    metric.observe(payload[:view_runtime], labels:)
   end
 end
 
@@ -32,7 +32,7 @@ ActiveSupport::Notifications.subscribe "render_template.action_view" do |*args|
   labels[:identifier] = labels[:identifier].split("/app/views/").last if labels[:identifier]
 
   metric = prometheus.get(:tta_render_view_ms)
-  metric.observe(event.duration, labels: labels)
+  metric.observe(event.duration, labels:)
 end
 
 ActiveSupport::Notifications.subscribe "render_partial.action_view" do |*args|
@@ -46,7 +46,7 @@ ActiveSupport::Notifications.subscribe "render_partial.action_view" do |*args|
   labels[:identifier] = labels[:identifier].split("/app/views/").last if labels[:identifier]
 
   metric = prometheus.get(:tta_render_partial_ms)
-  metric.observe(event.duration, labels: labels)
+  metric.observe(event.duration, labels:)
 end
 
 ActiveSupport::Notifications.subscribe "cache_read.active_support" do |*args|
@@ -58,7 +58,7 @@ ActiveSupport::Notifications.subscribe "cache_read.active_support" do |*args|
   labels.merge!(event.payload.symbolize_keys.slice(*labels.keys))
 
   metric = prometheus.get(:tta_cache_read_total)
-  metric.increment(labels: labels)
+  metric.increment(labels:)
 end
 
 ActiveSupport::Notifications.subscribe "tta.csp_violation" do |*args|
@@ -79,7 +79,7 @@ ActiveSupport::Notifications.subscribe "tta.csp_violation" do |*args|
   end
 
   metric = prometheus.get(:tta_csp_violations_total)
-  metric.increment(labels: labels)
+  metric.increment(labels:)
 end
 
 ActiveSupport::Notifications.subscribe "tta.feedback" do |*args|

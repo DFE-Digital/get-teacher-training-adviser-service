@@ -91,7 +91,7 @@ RSpec.describe "Instrumentation" do
       }
     end
 
-    after { post teacher_training_adviser_feedbacks_path, params: params }
+    after { post teacher_training_adviser_feedbacks_path, params: }
 
     it "increments the :tta_feedback_visit_total metric" do
       metric = registry.get(:tta_feedback_visit_total)

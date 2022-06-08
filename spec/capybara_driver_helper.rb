@@ -10,7 +10,7 @@ Capybara.register_driver JS_DRIVER do |app|
   options.add_argument("--disable-dev-shm-usage")
   options.add_argument("--window-size=1400,1400")
 
-  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
 end
 
 Capybara.configure do |config|

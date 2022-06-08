@@ -42,7 +42,7 @@ RSpec.shared_examples "a wizard step that exposes API pick list items as options
 
   if omit_ids
     it "omits options with the ids #{omit_ids}" do
-      omitted_pick_list_items = omit_ids.map { |id| GetIntoTeachingApiClient::PickListItem.new(id: id, value: "omit-#{id}") }
+      omitted_pick_list_items = omit_ids.map { |id| GetIntoTeachingApiClient::PickListItem.new(id:, value: "omit-#{id}") }
 
       allow_any_instance_of(GetIntoTeachingApiClient::PickListItemsApi).to \
         receive(api_method) { omitted_pick_list_items + pick_list_items }
@@ -53,7 +53,7 @@ RSpec.shared_examples "a wizard step that exposes API pick list items as options
 
   if include_ids
     it "includes only options with the ids #{include_ids}" do
-      included_pick_list_items = include_ids.map { |id| GetIntoTeachingApiClient::PickListItem.new(id: id, value: "include-#{id}") }
+      included_pick_list_items = include_ids.map { |id| GetIntoTeachingApiClient::PickListItem.new(id:, value: "include-#{id}") }
       included_pick_list_item_ids = included_pick_list_items.map(&:id)
 
       allow_any_instance_of(GetIntoTeachingApiClient::PickListItemsApi).to \
@@ -86,7 +86,7 @@ RSpec.shared_examples "with a wizard step that exposes API lookup items as optio
 
   if omit_ids
     it "omits options with the ids #{omit_ids}" do
-      omitted_lookup_items = omit_ids.map { |id| GetIntoTeachingApiClient::LookupItem.new(id: id, value: "omit-#{id}") }
+      omitted_lookup_items = omit_ids.map { |id| GetIntoTeachingApiClient::LookupItem.new(id:, value: "omit-#{id}") }
 
       allow_any_instance_of(GetIntoTeachingApiClient::LookupItemsApi).to \
         receive(api_method) { omitted_lookup_items + lookup_items }
@@ -97,7 +97,7 @@ RSpec.shared_examples "with a wizard step that exposes API lookup items as optio
 
   if include_ids
     it "includes only options with the ids #{include_ids}" do
-      included_lookup_items = include_ids.map { |id| GetIntoTeachingApiClient::LookupItem.new(id: id, value: "include-#{id}") }
+      included_lookup_items = include_ids.map { |id| GetIntoTeachingApiClient::LookupItem.new(id:, value: "include-#{id}") }
       included_lookup_item_ids = included_lookup_items.map(&:id)
 
       allow_any_instance_of(GetIntoTeachingApiClient::LookupItemsApi).to \

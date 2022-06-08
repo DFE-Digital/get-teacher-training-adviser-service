@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  PAGE_TEMPLATE_FILTER = %r{\A[a-zA-Z0-9][a-zA-Z0-9_\-/]*(\.[a-zA-Z]+)?\z}.freeze
+  PAGE_TEMPLATE_FILTER = %r{\A[a-zA-Z0-9][a-zA-Z0-9_\-/]*(\.[a-zA-Z]+)?\z}
   class InvalidTemplateName < RuntimeError; end
 
   rescue_from ActionView::MissingTemplate, InvalidTemplateName, with: :rescue_missing_template
