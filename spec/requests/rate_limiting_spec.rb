@@ -18,7 +18,7 @@ RSpec.describe "Rate limiting" do
     def perform_request
       key = TeacherTrainingAdviser::Steps::Identity.model_name.param_key
       params = { key => { first_name: "first", last_name: "last", email: "email@address.com" } }
-      patch teacher_training_adviser_step_path(:identity), params: params, headers: { "REMOTE_ADDR" => ip }
+      patch teacher_training_adviser_step_path(:identity), params:, headers: { "REMOTE_ADDR" => ip }
     end
   end
 
@@ -32,7 +32,7 @@ RSpec.describe "Rate limiting" do
     def perform_request
       key = TeacherTrainingAdviser::Steps::AcceptPrivacyPolicy.model_name.param_key
       params = { key => { accepted_policy_id: "0a203956-e935-ea11-a813-000d3a44a8e9" } }
-      patch teacher_training_adviser_step_path(:accept_privacy_policy), params: params, headers: { "REMOTE_ADDR" => ip }
+      patch teacher_training_adviser_step_path(:accept_privacy_policy), params:, headers: { "REMOTE_ADDR" => ip }
     end
   end
 end

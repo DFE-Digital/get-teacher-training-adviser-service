@@ -5,7 +5,7 @@ RSpec.describe "Basic auth", type: :request do
   let(:password) { "password" }
 
   before do
-    allow_basic_auth_users([{ username: username, password: password }])
+    allow_basic_auth_users([{ username:, password: }])
   end
 
   context "when basic auth is disabled" do

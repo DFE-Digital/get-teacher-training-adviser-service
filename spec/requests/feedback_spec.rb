@@ -22,7 +22,7 @@ RSpec.describe "Feedback" do
       expect(ActiveSupport::Notifications).to receive(:instrument)
         .with("tta.feedback", instance_of(TeacherTrainingAdviser::Feedback))
 
-      expect { post teacher_training_adviser_feedbacks_path, params: params }.to \
+      expect { post teacher_training_adviser_feedbacks_path, params: }.to \
         change(TeacherTrainingAdviser::Feedback, :count).by(1)
 
       expect(response).to redirect_to(thank_you_teacher_training_adviser_feedbacks_path)
@@ -33,7 +33,7 @@ RSpec.describe "Feedback" do
     context "when there are errors" do
       let(:params) { { teacher_training_adviser_feedback: { rating: nil } } }
 
-      before { post teacher_training_adviser_feedbacks_path, params: params }
+      before { post teacher_training_adviser_feedbacks_path, params: }
 
       it { is_expected.to have_http_status(:success) }
       it { expect(response.body).to include("Give feedback on this service") }
@@ -100,7 +100,7 @@ RSpec.describe "Feedback" do
       ]
     end
 
-    before { post export_teacher_training_adviser_feedbacks_path(format: :csv), params: params }
+    before { post export_teacher_training_adviser_feedbacks_path(format: :csv), params: }
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response.content_type).to eq("text/csv") }
@@ -171,7 +171,7 @@ RSpec.describe "Feedback" do
       describe "#create" do
         let(:params) { { teacher_training_adviser_feedback: { rating: nil } } }
 
-        before { post teacher_training_adviser_feedbacks_path, params: params }
+        before { post teacher_training_adviser_feedbacks_path, params: }
 
         it { is_expected.to have_http_status(:success) }
       end
@@ -183,7 +183,7 @@ RSpec.describe "Feedback" do
       end
 
       describe "#index" do
-        before { get teacher_training_adviser_feedbacks_path, params: {}, headers: headers }
+        before { get teacher_training_adviser_feedbacks_path, params: {}, headers: }
 
         it { is_expected.to have_http_status(:unauthorized) }
 
@@ -210,7 +210,7 @@ RSpec.describe "Feedback" do
           }
         end
 
-        before { post export_teacher_training_adviser_feedbacks_path(format: :csv), params: params, headers: headers }
+        before { post export_teacher_training_adviser_feedbacks_path(format: :csv), params:, headers: }
 
         it { is_expected.to have_http_status(:unauthorized) }
 
@@ -235,7 +235,7 @@ RSpec.describe "Feedback" do
       end
 
       describe "#new" do
-        before { get new_teacher_training_adviser_feedback_path, params: {}, headers: headers }
+        before { get new_teacher_training_adviser_feedback_path, params: {}, headers: }
 
         it { is_expected.to have_http_status(:unauthorized) }
 
@@ -249,7 +249,7 @@ RSpec.describe "Feedback" do
       describe "#create" do
         let(:params) { { teacher_training_adviser_feedback: { rating: nil } } }
 
-        before { post teacher_training_adviser_feedbacks_path, params: params, headers: headers }
+        before { post teacher_training_adviser_feedbacks_path, params:, headers: }
 
         it { is_expected.to have_http_status(:unauthorized) }
 
@@ -261,7 +261,7 @@ RSpec.describe "Feedback" do
       end
 
       describe "#thank_you" do
-        before { get thank_you_teacher_training_adviser_feedbacks_path, params: {}, headers: headers }
+        before { get thank_you_teacher_training_adviser_feedbacks_path, params: {}, headers: }
 
         it { is_expected.to have_http_status(:unauthorized) }
 
@@ -273,7 +273,7 @@ RSpec.describe "Feedback" do
       end
 
       describe "#index" do
-        before { get teacher_training_adviser_feedbacks_path, params: {}, headers: headers }
+        before { get teacher_training_adviser_feedbacks_path, params: {}, headers: }
 
         it { is_expected.to have_http_status(:unauthorized) }
 
@@ -300,7 +300,7 @@ RSpec.describe "Feedback" do
           }
         end
 
-        before { post export_teacher_training_adviser_feedbacks_path(format: :csv), params: params, headers: headers }
+        before { post export_teacher_training_adviser_feedbacks_path(format: :csv), params:, headers: }
 
         it { is_expected.to have_http_status(:unauthorized) }
 

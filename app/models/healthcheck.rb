@@ -22,7 +22,7 @@ class Healthcheck
 
   def to_h
     {
-      app_sha: app_sha,
+      app_sha:,
       api: test_api,
       redis: test_redis,
     }

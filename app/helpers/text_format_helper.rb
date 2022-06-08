@@ -3,7 +3,7 @@ module TextFormatHelper
   include ActionView::Helpers::TextHelper
 
   def safe_format(content, wrapper_tag: "p")
-    simple_format(strip_tags(content), {}, wrapper_tag: wrapper_tag)
+    simple_format(strip_tags(content), {}, wrapper_tag:)
   end
 
   def safe_html_format(html)

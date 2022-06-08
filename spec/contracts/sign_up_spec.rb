@@ -7,7 +7,7 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
 
     visit teacher_training_adviser_steps_path
 
-    submit_identity_step(candidate_identity)
+    submit_identity_step(**candidate_identity)
   end
 
   around do |example|

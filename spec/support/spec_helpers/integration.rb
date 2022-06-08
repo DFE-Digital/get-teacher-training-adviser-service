@@ -31,7 +31,7 @@ module SpecHelpers
 
       # Capybara choose/check methods aren't working
       # for radio/checkbox inputs on integration tests.
-      find("label", text: text).click
+      find("label", text:).click
 
       click_on button_text
     end

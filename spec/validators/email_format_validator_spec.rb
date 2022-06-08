@@ -20,7 +20,7 @@ RSpec.describe EmailFormatValidator do
 
   context "with invalid addresses" do
     %w[test.com test@@test.com test@test test@test.].each do |email|
-      let(:instance) { test_model.new(email: email) }
+      let(:instance) { test_model.new(email:) }
 
       it "#{email} should not be valid" do
         expect(subject).to be_added(:email, :invalid)
@@ -39,7 +39,7 @@ RSpec.describe EmailFormatValidator do
   context "with valid addresses" do
     %w[test@example.com testymctest@gmail.com test%.mctest@domain.co.uk]
       .each do |email|
-      let(:instance) { test_model.new(email: email) }
+      let(:instance) { test_model.new(email:) }
 
       it "#{email} should be valid" do
         expect(subject).to be_empty
