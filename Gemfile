@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read(".ruby-version").chomp
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.1.5"
+gem "rails", "~> 6.1.6"
 
 # Temporarily adding as part of Ruby 3.1 upgrade, we should be able
 # to remove them once we're on Rails 7.0.1+
