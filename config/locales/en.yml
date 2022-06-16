@@ -172,7 +172,7 @@ en:
       teacher_training_adviser_steps_date_of_birth:
         date_of_birth: "For example, 31 3 1980"
       teacher_training_adviser_steps_overseas_country:
-        country_id_html: You can apply to train or teach from any country in the world, but you may need a visa. Our guidance for <a target="_blank" href="https://getintoteaching.education.gov.uk/come-to-england-to-teach-if-you-are-a-teacher-from-outside-the-uk">international teachers</a> and <a target="_blank" href="https://getintoteaching.education.gov.uk/train-to-teach-in-england-as-an-international-student">international trainees</a> explains how to apply for the correct visa or immigration status for your employment or study in the UK.
+        country_id_html: You can apply to train or teach from any country in the world, but you may need a visa. Our guidance for <a target="_blank" href="https://getintoteaching.education.gov.uk/non-uk-teachers/teach-in-england-if-you-trained-overseas">international teachers</a> and <a target="_blank" href="https://getintoteaching.education.gov.uk/non-uk-teachers/train-to-teach-in-england-as-an-international-student">international trainees</a> explains how to apply for the correct visa or immigration status for your employment or study in the UK.
   have_a_degree:
     degree_options:
       "yes": "Yes"
