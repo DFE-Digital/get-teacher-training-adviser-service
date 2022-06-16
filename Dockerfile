@@ -14,6 +14,9 @@ EXPOSE 3000
 ENTRYPOINT ["bundle", "exec"]
 CMD ["rails db:migrate && rails server"]
 
+# patches
+RUN apk add --no-cache pcre2=10.40-r0
+
 # hadolint ignore=DL3018
 RUN apk add --no-cache build-base tzdata shared-mime-info git nodejs yarn postgresql-libs postgresql-dev chromium chromium-chromedriver
 
