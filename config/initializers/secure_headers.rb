@@ -7,7 +7,7 @@ SecureHeaders::Configuration.default do |config|
   config.x_permitted_cross_domain_policies = "none"
   config.referrer_policy = %w[origin-when-cross-origin strict-origin-when-cross-origin]
 
-  google_analytics = %w[www.google-analytics.com ssl.google-analytics.com *.googletagmanager.com tagmanager.google.com *.googleusercontent.com *.gstatic.com s.ytimg.com https://www.googleadservices.com *.google.co.uk https://www.google.com https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com]
+  google_analytics = %w[*.google-analytics.com *.googletagmanager.com tagmanager.google.com *.googleusercontent.com *.gstatic.com s.ytimg.com https://www.googleadservices.com *.google.co.uk https://www.google.com https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com]
   lid_pixels = %w[pixelg.adswizz.com tracking.audio.thisisdax.com]
   bam_pixels = %w[linkbam.uk]
 
@@ -21,7 +21,7 @@ SecureHeaders::Configuration.default do |config|
     form_action: %w['self' tr.snapchat.com www.facebook.com],
     frame_ancestors: %w['self'],
     frame_src: %w['self' tr.snapchat.com www.facebook.com www.youtube.com *.doubleclick.net *.pinterest.com *.pinterest.co.uk],
-    img_src: %W['self' *.gov.uk data: *.googleapis.com ade.googlesyndication.com www.facebook.com ct.pinterest.com t.co www.facebook.com cx.atdmt.com ad.doubleclick.net *.fls.doubleclick.net i.ytimg.com adservice.google.com adservice.google.co.uk] + google_analytics + lid_pixels + bam_pixels,
+    img_src: %W['self' *.gov.uk data: *.googleapis.com ade.googlesyndication.com analytics.twitter.com www.facebook.com ct.pinterest.com t.co www.facebook.com cx.atdmt.com ad.doubleclick.net *.fls.doubleclick.net i.ytimg.com adservice.google.com adservice.google.co.uk] + google_analytics + lid_pixels + bam_pixels,
     manifest_src: %w['self'],
     media_src: %w['self'],
     script_src: %W['self' 'unsafe-inline' 'unsafe-eval' *.googleapis.com *.gov.uk code.jquery.com *.youtube.com *.facebook.net *.pinimg.com sc-static.net static.ads-twitter.com analytics.twitter.com ad.doubleclick.com] + google_analytics,
