@@ -8,6 +8,11 @@ module TeacherTrainingAdviser::Steps
       answers_by_step.reject { |k| k.contains_personal_details? } # rubocop:disable Style/SymbolProc
     end
 
+    def seen?
+      # ensure this step is always shown to the candidate
+      false
+    end
+
   private
 
     def answers_by_step

@@ -68,6 +68,20 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
       end
     end
 
+    describe "#export_data" do
+      it "sets country_id when uk_or_overseas is UK" do
+        wizardstore["uk_or_overseas"] = TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:uk]
+        wizardstore["country_id"] = "abc-123"
+        expect(subject.export_data).to include({ "country_id" => described_class::UK_COUNTRY_ID })
+      end
+
+      it "does nothing when uk_or_overseas is not UK" do
+        wizardstore["uk_or_overseas"] = TeacherTrainingAdviser::Steps::UkOrOverseas::OPTIONS[:overseas]
+        wizardstore["country_id"] = "abc-123"
+        expect(subject.export_data).to include({ "country_id" => wizardstore["country_id"] })
+      end
+    end
+
     describe "#complete!" do
       let(:request) do
         GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.new({

@@ -17,6 +17,10 @@ RSpec.describe TeacherTrainingAdviser::Steps::ReviewAnswers do
 
   it_behaves_like "a wizard step"
 
+  describe "#seen?" do
+    it { is_expected.not_to be_seen }
+  end
+
   describe "#personal_detail_answers_by_step" do
     subject { instance.personal_detail_answers_by_step }
 
