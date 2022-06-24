@@ -28,6 +28,8 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
         GetIntoTeachingApiClient::PickListItem.new(id: 12_920, value: 2022),
         GetIntoTeachingApiClient::PickListItem.new(id: 12_921, value: 2023),
         GetIntoTeachingApiClient::PickListItem.new(id: 12_921, value: 2024),
+        GetIntoTeachingApiClient::PickListItem.new(id: 12_922, value: 2025),
+        GetIntoTeachingApiClient::PickListItem.new(id: 12_922, value: 2026),
       ]
 
       allow_any_instance_of(GetIntoTeachingApiClient::PickListItemsApi).to \
@@ -36,32 +38,64 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
 
     let(:years) { subject.years }
 
-    context "when its on or before 6th September of the current year" do
+    context "when its before 24th June of the current year" do
       around do |example|
-        travel_to(Date.new(2020, 9, 6)) { example.run }
+        travel_to(Date.new(2022, 6, 23)) { example.run }
       end
 
       it "returns 'Not sure', and the current year plus next 2 years" do
         expect(years.map(&:value)).to contain_exactly(
           "Not sure",
-          "2020 - start your training this September",
-          "2021",
-          "2022",
+          "2022 - start your training this September",
+          "2023",
+          "2024",
+        )
+      end
+    end
+
+    context "when its 24th June of the current year" do
+      around do |example|
+        travel_to(Date.new(2022, 6, 24)) { example.run }
+      end
+
+      it "returns 'Not sure', and the current year plus next 3 years" do
+        expect(years.map(&:value)).to contain_exactly(
+          "Not sure",
+          "2022 - start your training this September",
+          "2023",
+          "2024",
+          "2025",
+        )
+      end
+    end
+
+    context "when its between 24th June and 6th September of the current year" do
+      around do |example|
+        travel_to(Date.new(2022, 9, 6)) { example.run }
+      end
+
+      it "returns 'Not sure', and the current year plus next 2 years" do
+        expect(years.map(&:value)).to contain_exactly(
+          "Not sure",
+          "2022 - start your training this September",
+          "2023",
+          "2024",
+          "2025",
         )
       end
     end
 
     context "when its after 6th September of the current year" do
       around do |example|
-        travel_to(Date.new(2020, 9, 7)) { example.run }
+        travel_to(Date.new(2022, 9, 7)) { example.run }
       end
 
       it "returns 'Not sure', and the next 3 years" do
         expect(years.map(&:value)).to contain_exactly(
           "Not sure",
-          "2021",
-          "2022",
           "2023",
+          "2024",
+          "2025",
         )
       end
     end

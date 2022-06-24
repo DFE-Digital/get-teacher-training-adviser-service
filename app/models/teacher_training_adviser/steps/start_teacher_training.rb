@@ -4,7 +4,6 @@ module TeacherTrainingAdviser::Steps
 
     validates :initial_teacher_training_year_id, inclusion: { in: :year_ids }
 
-    NUMBER_OF_YEARS = 3
     NOT_SURE_ID = 12_917
 
     def reviewable_answers
@@ -47,14 +46,26 @@ module TeacherTrainingAdviser::Steps
     def filter_items(items)
       items.select do |item|
         item.id == NOT_SURE_ID ||
-          item.value.to_i.between?(first_year, first_year + (NUMBER_OF_YEARS - 1))
+          item.value.to_i.between?(first_year, first_year + number_of_years)
       end
     end
 
     def first_year
       # After 6th September you can no longer start teacher training for that year.
-      include_current_year = Time.zone.today < Date.new(current_year, 9, 7)
+      include_current_year = Time.zone.today < date_to_drop_current_year
       include_current_year ? current_year : current_year + 1
+    end
+
+    def number_of_years
+      Time.zone.today.between?(date_to_add_additional_year, date_to_drop_current_year - 1.day) ? 3 : 2
+    end
+
+    def date_to_add_additional_year
+      Date.new(current_year, 6, 24)
+    end
+
+    def date_to_drop_current_year
+      Date.new(current_year, 9, 7)
     end
 
     def current_year
