@@ -214,9 +214,6 @@ en:
       callback_time:
         title: "Callback time"
         change: "callback time"
-      time_zone:
-        title: "Time zone"
-        change: "callback time zone"
     overseas_country:
       country_id:
         title: "Which country do you live in?"
@@ -226,6 +223,9 @@ en:
         title: "Telephone"
         change: "your telephone"
     overseas_time_zone:
+      time_zone:
+        title: "Time zone"
+        change: "callback time zone"
       address_telephone:
         title: "Telephone"
         change: "your telephone"
