@@ -48,8 +48,6 @@ en:
         date_of_birth: "Enter your date of birth"
       teacher_training_adviser_steps_uk_or_overseas:
         uk_or_overseas: "Where do you live?"
-      teacher_training_adviser_steps_subject_like_to_teach:
-        preferred_teaching_subject_id: "Which subject would you like to teach if you return to teaching?"
       teacher_training_adviser_steps_stage_of_degree:
         degree_status_id: "In which year are you studying?"
       teacher_training_adviser_steps_stage_interested_teaching:
@@ -95,6 +93,8 @@ en:
         teacher_id: "Teacher reference number (optional)."
       teacher_training_adviser_steps_what_subject_degree:
         degree_subject: "What subject is your degree?"
+      teacher_training_adviser_steps_subject_like_to_teach:
+        preferred_teaching_subject_id: "Which subject would you like to teach if you return to teaching?"
       teacher_training_adviser_steps_subject_taught:
         subject_taught_id: "Which main subject did you previously teach?"
       teacher_training_adviser_steps_subject_interested_teaching:

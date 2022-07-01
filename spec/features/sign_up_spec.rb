@@ -70,7 +70,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Which subject would you like to teach if you return to teaching?"
-      choose "Physics"
+      select "Physics"
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Enter your date of birth"
@@ -139,7 +139,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Which subject would you like to teach if you return to teaching?"
-      choose "Physics"
+      select "Physics"
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Enter your date of birth"
@@ -205,7 +205,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Which subject would you like to teach if you return to teaching?"
-      choose "Physics"
+      select "Physics"
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Enter your date of birth"
@@ -434,7 +434,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Which subject would you like to teach if you return to teaching?"
-      choose "Physics"
+      select "Physics"
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Enter your date of birth"
@@ -504,7 +504,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Which subject would you like to teach if you return to teaching?"
-      choose "Other"
+      select "Other"
       click_on "Continue"
 
       # Hit dead end
@@ -694,7 +694,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Which subject would you like to teach if you return to teaching?"
-      choose "Other"
+      select "Other"
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "We're sorry, but you are not eligible for this service."
@@ -850,7 +850,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Which subject would you like to teach if you return to teaching?"
-      choose "Physics"
+      select "Physics"
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Enter your date of birth"

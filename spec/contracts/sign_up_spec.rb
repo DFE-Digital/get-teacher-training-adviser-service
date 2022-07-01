@@ -25,7 +25,7 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       submit_choice_step("Yes", :has_teacher_id)
       submit_previous_teacher_id_step("12345")
       submit_select_step("Maths", :subject_taught)
-      submit_choice_step("Physics", :subject_like_to_teach)
+      submit_select_step("Physics", :subject_like_to_teach)
       submit_date_of_birth_step(Date.new(1974, 3, 16))
       submit_choice_step("UK", :uk_or_overseas)
       submit_uk_address_step(
@@ -45,7 +45,7 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       submit_choice_step("Yes", :has_teacher_id)
       submit_previous_teacher_id_step("12345")
       submit_select_step("Maths", :subject_taught)
-      submit_choice_step("Physics", :subject_like_to_teach)
+      submit_select_step("Physics", :subject_like_to_teach)
       submit_date_of_birth_step(Date.new(1974, 3, 16))
       submit_choice_step("Overseas", :uk_or_overseas)
       submit_select_step("Brazil", :overseas_country)
@@ -163,7 +163,7 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       click_on_continue
 
       expect_current_step(:subject_like_to_teach)
-      expect(page.find_field("Physics")).to be_checked
+      expect(page).to have_select("Which subject would you like to teach if you return to teaching?", selected: "Physics")
       click_on_continue
 
       expect_current_step(:date_of_birth)
