@@ -21,6 +21,7 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
 
     it "returning, teacher reference number, in the UK and telephone" do
       submit_choice_step("Yes", :returning_teacher)
+      submit_choice_step("Secondary", :stage_interested_teaching)
       submit_choice_step("Yes", :has_teacher_id)
       submit_previous_teacher_id_step("12345")
       submit_select_step("Maths", :subject_taught)
@@ -40,6 +41,7 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
 
     it "returning, no teacher reference number, overseas and no telephone" do
       submit_choice_step("Yes", :returning_teacher)
+      submit_choice_step("Secondary", :stage_interested_teaching)
       submit_choice_step("Yes", :has_teacher_id)
       submit_previous_teacher_id_step("12345")
       submit_select_step("Maths", :subject_taught)
@@ -151,6 +153,10 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
     it "returning, existing data, change address" do
       submit_verification_code(candidate_identity)
       submit_choice_step("Yes", :returning_teacher)
+
+      expect_current_step(:stage_interested_teaching)
+      expect(page.find_field("Secondary")).to be_checked
+      click_on_continue
 
       expect_current_step(:subject_taught)
       expect(page).to have_select("Which main subject did you previously teach?", selected: "Maths")

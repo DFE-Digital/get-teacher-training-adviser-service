@@ -13,9 +13,5 @@ module TeacherTrainingAdviser::Steps
         answers["preferred_education_phase_id"] = OPTIONS.key(preferred_education_phase_id).to_s.capitalize
       end
     end
-
-    def skipped?
-      other_step(:have_a_degree).skipped?
-    end
   end
 end
