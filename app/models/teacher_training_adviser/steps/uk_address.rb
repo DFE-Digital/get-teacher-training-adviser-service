@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class UkAddress < DFEWizard::Step
+  class UkAddress < GITWizard::Step
     attribute :address_line1, :string
     attribute :address_line2, :string
     attribute :address_city, :string

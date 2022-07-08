@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class NoDegree < DFEWizard::Step
+  class NoDegree < GITWizard::Step
     def can_proceed?
       false
     end

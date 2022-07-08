@@ -1,6 +1,6 @@
 module TeacherTrainingAdviser::Steps
-  class Identity < DFEWizard::Step
-    include ::DFEWizard::IssueVerificationCode
+  class Identity < GITWizard::Step
+    include ::GITWizard::IssueVerificationCode
 
     attribute :first_name, :string
     attribute :last_name, :string

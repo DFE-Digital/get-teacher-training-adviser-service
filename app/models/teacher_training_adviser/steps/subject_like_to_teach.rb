@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class SubjectLikeToTeach < DFEWizard::Step
+  class SubjectLikeToTeach < GITWizard::Step
     extend ApiOptions
 
     OMIT_SUBJECT_IDS = [

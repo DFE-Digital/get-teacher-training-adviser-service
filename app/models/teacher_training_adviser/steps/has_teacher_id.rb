@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class HasTeacherId < DFEWizard::Step
+  class HasTeacherId < GITWizard::Step
     attribute :has_id, :boolean
 
     validates :has_id, inclusion: { in: [true, false] }
