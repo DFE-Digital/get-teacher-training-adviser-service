@@ -13,5 +13,9 @@ module TeacherTrainingAdviser::Steps
         answers["preferred_education_phase_id"] = OPTIONS.key(preferred_education_phase_id).to_s.capitalize
       end
     end
+
+    def returning_teacher?
+      other_step(:returning_teacher).returning_to_teaching
+    end
   end
 end

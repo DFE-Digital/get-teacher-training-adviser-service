@@ -15,6 +15,25 @@ RSpec.describe TeacherTrainingAdviser::Steps::StageInterestedTeaching do
     it { is_expected.to allow_value(*TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS.values).for :preferred_education_phase_id }
   end
 
+  describe "#returning_teacher?" do
+    before do
+      allow_any_instance_of(TeacherTrainingAdviser::Steps::ReturningTeacher).to \
+        receive(:returning_to_teaching) { returning_to_teaching }
+    end
+
+    context "when returning_to_teaching" do
+      let(:returning_to_teaching) { true }
+
+      it { is_expected.to be_returning_teacher }
+    end
+
+    context "when not returning_to_teaching" do
+      let(:returning_to_teaching) { false }
+
+      it { is_expected.not_to be_returning_teacher }
+    end
+  end
+
   describe "#reviewable_answers" do
     subject { instance.reviewable_answers }
 
