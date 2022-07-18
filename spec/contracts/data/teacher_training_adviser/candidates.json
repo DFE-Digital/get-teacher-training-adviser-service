@@ -7,6 +7,7 @@
     "teacherId": "abc123",
     "subjectTaughtId": "a42655a1-2afa-e811-a981-000d3a276620",
     "preferredTeachingSubjectId": "ac2655a1-2afa-e811-a981-000d3a276620",
+    "preferredEducationPhaseId": 222750001,
     "dateOfBirth": "1987-03-22T00:00:00",
     "countryId": "72f5c2e6-74f9-e811-a97a-000d3a2760f2",
     "addressLine1": "11",

@@ -57,6 +57,10 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       choose "Yes"
       click_on "Continue"
 
+      expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
+      choose "Secondary"
+      click_on "Continue"
+
       expect(page).to have_css "h1", text: "Do you have your previous teacher reference number?"
       choose "No"
       click_on "Continue"
@@ -66,7 +70,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Which subject would you like to teach if you return to teaching?"
-      choose "Physics"
+      select "Physics"
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Enter your date of birth"
@@ -122,6 +126,10 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       choose "Yes"
       click_on "Continue"
 
+      expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
+      choose "Secondary"
+      click_on "Continue"
+
       expect(page).to have_css "h1", text: "Do you have your previous teacher reference number?"
       choose "No"
       click_on "Continue"
@@ -131,7 +139,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Which subject would you like to teach if you return to teaching?"
-      choose "Physics"
+      select "Physics"
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Enter your date of birth"
@@ -180,6 +188,10 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       choose "Yes"
       click_on "Continue"
 
+      expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
+      choose "Secondary"
+      click_on "Continue"
+
       expect(page).to have_css "h1", text: "Do you have your previous teacher reference number?"
       choose "Yes"
       click_on "Continue"
@@ -193,7 +205,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Which subject would you like to teach if you return to teaching?"
-      choose "Physics"
+      select "Physics"
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Enter your date of birth"
@@ -405,6 +417,10 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       choose "Yes"
       click_on "Continue"
 
+      expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
+      choose "Secondary"
+      click_on "Continue"
+
       expect(page).to have_css "h1", text: "Do you have your previous teacher reference number?"
       choose "Yes"
       click_on "Continue"
@@ -418,7 +434,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Which subject would you like to teach if you return to teaching?"
-      choose "Physics"
+      select "Physics"
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Enter your date of birth"
@@ -475,16 +491,8 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       choose "Yes"
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "Do you have your previous teacher reference number?"
-      choose "No"
-      click_on "Continue"
-
-      expect(page).to have_css "h1", text: "Which main subject did you previously teach?"
-      select "Physics"
-      click_on "Continue"
-
-      expect(page).to have_css "h1", text: "Which subject would you like to teach if you return to teaching?"
-      choose "Other"
+      expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
+      choose "Primary"
       click_on "Continue"
 
       # Hit dead end
@@ -661,16 +669,8 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       choose "Yes"
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "Do you have your previous teacher reference number?"
-      choose "No"
-      click_on "Continue"
-
-      expect(page).to have_css "h1", text: "Which main subject did you previously teach?"
-      select "Physics"
-      click_on "Continue"
-
-      expect(page).to have_css "h1", text: "Which subject would you like to teach if you return to teaching?"
-      choose "Other"
+      expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
+      choose "Primary"
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "We're sorry, but you are not eligible for this service."
@@ -814,6 +814,10 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       choose "Yes"
       click_on "Continue"
 
+      expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
+      choose "Secondary"
+      click_on "Continue"
+
       expect(page).not_to have_css "h1", text: "Do you have your previous teacher reference number?"
       expect(page).not_to have_css "h1", text: "What is your previous teacher reference number?"
 
@@ -822,7 +826,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Which subject would you like to teach if you return to teaching?"
-      choose "Physics"
+      select "Physics"
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Enter your date of birth"
@@ -906,6 +910,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       address_postcode: "EH12 8JF",
       country_id: "72f5c2e6-74f9-e811-a97a-000d3a2760f2",
       accepted_policy_id: "0a203956-e935-ea11-a813-000d3a44a8e9",
+      preferred_education_phase_id: EDUCATION_PHASE_SECONDARY,
     }
     .merge(shared_request_attributes)
     .merge(attributes)

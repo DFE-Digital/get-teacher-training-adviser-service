@@ -22,14 +22,14 @@ RSpec.describe TeacherTrainingAdviser::Steps::SubjectInterestedTeaching do
   end
 
   describe "#skipped?" do
-    it "returns false if StageInterestedTeaching step was shown and preferred_education_phase_id is secondary" do
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::StageInterestedTeaching).to receive(:skipped?).and_return(false)
+    it "returns false if HaveADegree step was shown and preferred_education_phase_id is secondary" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(false)
       wizardstore["preferred_education_phase_id"] = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
       expect(subject).not_to be_skipped
     end
 
-    it "returns true if StageInterestedTeaching was skipped" do
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::StageInterestedTeaching).to receive(:skipped?).and_return(true)
+    it "returns true if HaveADegree was skipped" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(true)
       expect(subject).to be_skipped
     end
 

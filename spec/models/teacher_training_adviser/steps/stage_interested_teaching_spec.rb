@@ -4,6 +4,8 @@ RSpec.describe TeacherTrainingAdviser::Steps::StageInterestedTeaching do
   include_context "with a wizard step"
   it_behaves_like "a wizard step"
 
+  it { is_expected.not_to be_skipped }
+
   describe "attributes" do
     it { is_expected.to respond_to :preferred_education_phase_id }
   end
@@ -13,15 +15,22 @@ RSpec.describe TeacherTrainingAdviser::Steps::StageInterestedTeaching do
     it { is_expected.to allow_value(*TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS.values).for :preferred_education_phase_id }
   end
 
-  describe "#skipped?" do
-    it "returns false if HaveADegree step was shown" do
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(false)
-      expect(subject).not_to be_skipped
+  describe "#returning_teacher?" do
+    before do
+      allow_any_instance_of(TeacherTrainingAdviser::Steps::ReturningTeacher).to \
+        receive(:returning_to_teaching) { returning_to_teaching }
     end
 
-    it "returns true if HaveADegree was skipped" do
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(true)
-      expect(subject).to be_skipped
+    context "when returning_to_teaching" do
+      let(:returning_to_teaching) { true }
+
+      it { is_expected.to be_returning_teacher }
+    end
+
+    context "when not returning_to_teaching" do
+      let(:returning_to_teaching) { false }
+
+      it { is_expected.not_to be_returning_teacher }
     end
   end
 
