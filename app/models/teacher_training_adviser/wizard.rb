@@ -1,10 +1,10 @@
 module TeacherTrainingAdviser
-  class Wizard < ::DFEWizard::Base
+  class Wizard < ::GITWizard::Base
     UK_COUNTRY_ID = "72f5c2e6-74f9-e811-a97a-000d3a2760f2".freeze
 
     self.steps = [
       Steps::Identity,
-      DFEWizard::Steps::Authenticate,
+      GITWizard::Steps::Authenticate,
       Steps::AlreadySignedUp,
       Steps::ReturningTeacher,
       Steps::HaveADegree,

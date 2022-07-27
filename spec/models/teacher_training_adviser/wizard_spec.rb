@@ -7,7 +7,7 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
     it do
       expect(subject).to eql [
         TeacherTrainingAdviser::Steps::Identity,
-        DFEWizard::Steps::Authenticate,
+        GITWizard::Steps::Authenticate,
         TeacherTrainingAdviser::Steps::AlreadySignedUp,
         TeacherTrainingAdviser::Steps::ReturningTeacher,
         TeacherTrainingAdviser::Steps::HaveADegree,
@@ -55,7 +55,7 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
         "degree_options" => "equivalent",
       }
     end
-    let(:wizardstore) { DFEWizard::Store.new store, {} }
+    let(:wizardstore) { GITWizard::Store.new store, {} }
 
     describe "#time_zone" do
       it "defaults to London" do

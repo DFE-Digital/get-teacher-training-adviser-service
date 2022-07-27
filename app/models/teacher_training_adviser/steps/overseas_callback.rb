@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class OverseasCallback < DFEWizard::Step
+  class OverseasCallback < GITWizard::Step
     extend CallbackBookingQuotas
 
     attribute :phone_call_scheduled_at, :datetime

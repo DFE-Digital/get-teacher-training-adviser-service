@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/DFE-Digital/dfe_wizard.git
-  revision: 08a2dda2de41b67ea28dfa3513f59245ea6dcc6a
-  specs:
-    dfe_wizard (1.0.1)
-      activemodel (>= 6.0.3.4)
-      activesupport (>= 6.0.3.4)
-
-GIT
   remote: https://github.com/DFE-Digital/get-into-teaching-api-ruby-client.git
   revision: cf858eb830316acbb9a7cb1f2991a7eb89f17f36
   specs:
@@ -20,6 +12,14 @@ GIT
       faraday_middleware
       faraday_middleware-circuit_breaker
       get_into_teaching_api_client
+
+GIT
+  remote: https://github.com/DFE-Digital/get-into-teaching-wizard.git
+  revision: 3d35745683526ee015f1a1de06cade6ab76119bb
+  specs:
+    git_wizard (2.0.0)
+      activemodel (>= 6.0.3.4)
+      activesupport (>= 6.0.3.4)
 
 GIT
   remote: https://github.com/mitsuru/validates_timeliness.git
@@ -419,11 +419,11 @@ DEPENDENCIES
   byebug
   canonical-rails
   capybara (~> 3.37)
-  dfe_wizard!
   dotenv-rails
   factory_bot_rails
   foreman
   get_into_teaching_api_client_faraday!
+  git_wizard!
   govuk_design_system_formbuilder
   invisible_captcha
   iso_country_codes

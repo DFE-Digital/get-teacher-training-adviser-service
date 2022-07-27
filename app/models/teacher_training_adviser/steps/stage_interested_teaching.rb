@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class StageInterestedTeaching < DFEWizard::Step
+  class StageInterestedTeaching < GITWizard::Step
     extend ApiOptions
 
     attribute :preferred_education_phase_id, :integer

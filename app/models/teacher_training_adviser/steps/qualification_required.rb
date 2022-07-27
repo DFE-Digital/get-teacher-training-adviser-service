@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class QualificationRequired < DFEWizard::Step
+  class QualificationRequired < GITWizard::Step
     def can_proceed?
       false
     end

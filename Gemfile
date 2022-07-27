@@ -62,7 +62,7 @@ gem "invisible_captcha"
 
 gem "iso_country_codes"
 
-gem "dfe_wizard", github: "DFE-Digital/dfe_wizard"
+gem "git_wizard", github: "DFE-Digital/get-into-teaching-wizard"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class DateOfBirth < DFEWizard::Step
+  class DateOfBirth < GITWizard::Step
     # multi parameter date fields aren't yet support by ActiveModel so we
     # need to include the support for them from ActiveRecord
     require "active_record/attribute_assignment"

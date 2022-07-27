@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class UkTelephone < DFEWizard::Step
+  class UkTelephone < GITWizard::Step
     attribute :address_telephone, :string
 
     validates :address_telephone, telephone: true, allow_blank: true

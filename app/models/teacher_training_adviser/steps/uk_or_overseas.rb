@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class UkOrOverseas < DFEWizard::Step
+  class UkOrOverseas < GITWizard::Step
     attribute :uk_or_overseas, :string
 
     OPTIONS = { uk: "UK", overseas: "Overseas" }.freeze

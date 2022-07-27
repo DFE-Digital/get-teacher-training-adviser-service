@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class PrimaryReturner < DFEWizard::Step
+  class PrimaryReturner < GITWizard::Step
     def can_proceed?
       false
     end

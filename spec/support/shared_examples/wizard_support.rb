@@ -1,7 +1,7 @@
 RSpec.shared_context "with a wizard store" do
   let(:backingstore) { { "name" => "Joe", "age" => 35 } }
   let(:crm_backingstore) { {} }
-  let(:wizardstore) { DFEWizard::Store.new backingstore, crm_backingstore }
+  let(:wizardstore) { GITWizard::Store.new backingstore, crm_backingstore }
 end
 
 RSpec.shared_context "with a wizard step" do
@@ -108,24 +108,24 @@ RSpec.shared_examples "with a wizard step that exposes API lookup items as optio
   end
 end
 
-class TestWizard < DFEWizard::Base
-  class Name < DFEWizard::Step
+class TestWizard < GITWizard::Base
+  class Name < GITWizard::Step
     attribute :name
     validates :name, presence: true
   end
 
   # To simulate two steps writing to the same attribute.
-  class OtherAge < DFEWizard::Step
+  class OtherAge < GITWizard::Step
     attribute :age, :integer
     validates :age, presence: false
   end
 
-  class Age < DFEWizard::Step
+  class Age < GITWizard::Step
     attribute :age, :integer
     validates :age, presence: true
   end
 
-  class Postcode < DFEWizard::Step
+  class Postcode < GITWizard::Step
     attribute :postcode
     validates :postcode, presence: true
   end

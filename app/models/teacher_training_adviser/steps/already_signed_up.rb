@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class AlreadySignedUp < DFEWizard::Step
+  class AlreadySignedUp < GITWizard::Step
     def skipped?
       can_subscribe = @store["can_subscribe_to_teacher_training_adviser"]
       can_subscribe.nil? || can_subscribe

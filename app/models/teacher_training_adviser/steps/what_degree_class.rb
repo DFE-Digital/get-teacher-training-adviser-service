@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class WhatDegreeClass < DFEWizard::Step
+  class WhatDegreeClass < GITWizard::Step
     extend ApiOptions
 
     OMIT_GRADE_IDS = [

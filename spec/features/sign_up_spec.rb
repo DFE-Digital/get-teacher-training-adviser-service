@@ -718,11 +718,11 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Send another code to verify my details."
 
       expect(page).to have_text "We've sent you another email"
-      fill_in "dfe-wizard-steps-authenticate-timed-one-time-password-field", with: invalid_code
+      fill_in "git-wizard-steps-authenticate-timed-one-time-password-field", with: invalid_code
       click_on "Continue"
 
       expect(page).to have_text "Please enter the latest verification code sent to your email address"
-      fill_in "dfe-wizard-steps-authenticate-timed-one-time-password-field-error", with: valid_code
+      fill_in "git-wizard-steps-authenticate-timed-one-time-password-field-error", with: valid_code
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Are you qualified to teach?"
@@ -807,7 +807,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "You're already registered with us"
-      fill_in "dfe-wizard-steps-authenticate-timed-one-time-password-field", with: valid_code
+      fill_in "git-wizard-steps-authenticate-timed-one-time-password-field", with: valid_code
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Are you qualified to teach?"

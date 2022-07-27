@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class HaveADegree < DFEWizard::Step
+  class HaveADegree < GITWizard::Step
     attribute :degree_options, :string
     attribute :degree_status_id, :integer
     attribute :degree_type_id, :integer

@@ -1,5 +1,5 @@
 module TeacherTrainingAdviser::Steps
-  class StageOfDegree < DFEWizard::Step
+  class StageOfDegree < GITWizard::Step
     extend ApiOptions
 
     # overwrites session[:sign_up]["degree_status_id"]
