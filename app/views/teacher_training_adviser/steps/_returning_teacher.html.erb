@@ -1,3 +1,21 @@
 <% @page_title = "Are you qualified to teach?" %>
 
 <%= f.govuk_collection_radio_buttons :type_id, f.object.class::OPTIONS, :last, nil, inline: true %>
+
+<details class="govuk-details" data-module="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      What is QTS?
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    GCSE stands for General Certificate of Secondary Education. It&apos;s the part of the National Curriculum taught to pupils aged 14 to 16.<br><br>
+    The Department for Education does not provide a list of qualifications that can be considered equivalent to GCSEs in English, maths and science. <br><br>
+    A training provider will look for evidence that an equivalent qualification:
+    <ul>
+      <li>meets the standard of GCSE grade 4 (C)</li>
+      <li>covers sufficient content</li>
+      <li>contains the breadth of content equal to that of a GCSE grade 4 (C)</li>
+    </ul>
+  </div>
+</details>
