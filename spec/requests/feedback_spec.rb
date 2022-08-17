@@ -30,6 +30,11 @@ RSpec.describe "Feedback" do
       expect(response.body).to include("Thank you for your feedback.")
     end
 
+    it "sends DFE Analytics request and entity events" do
+      post teacher_training_adviser_feedbacks_path, params: params
+      expect(:create_entity).to have_been_enqueued_as_analytics_events
+    end
+
     context "when there are errors" do
       let(:params) { { teacher_training_adviser_feedback: { rating: nil } } }
 
