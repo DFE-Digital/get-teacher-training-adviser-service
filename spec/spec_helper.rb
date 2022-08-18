@@ -16,6 +16,7 @@ require "simplecov"
 require "simplecov_json_formatter"
 require "active_support/testing/time_helpers"
 require "webmock/rspec"
+require "dfe/analytics/testing"
 
 SimpleCov.start "rails" do
   add_filter "/bin/"
@@ -27,6 +28,8 @@ SimpleCov.start "rails" do
     SimpleCov::Formatter::JSONFormatter,
   ]
 end
+
+DfE::Analytics::Testing.fake!
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|

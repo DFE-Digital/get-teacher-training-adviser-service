@@ -42,6 +42,8 @@ gem "validates_timeliness", github: "mitsuru/validates_timeliness", branch: "rai
 
 gem "dotenv-rails"
 
+gem "dfe-analytics", github: "DFE-Digital/dfe-analytics", tag: "v1.3.2"
+
 gem "rack-attack"
 
 # redis for session store

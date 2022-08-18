@@ -1,6 +1,8 @@
 require "basic_auth"
 
 class ApplicationController < ActionController::Base
+  include DfE::Analytics::Requests
+
   class ForbiddenError < StandardError; end
 
   default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
