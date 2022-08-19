@@ -42,3 +42,5 @@ dump.rdb
 
 *.idea
 fetch_config.rb
+
+.vscode
