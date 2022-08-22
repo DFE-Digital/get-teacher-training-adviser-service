@@ -36,7 +36,9 @@ module TeacherTrainingAdviser::Steps
 
       year = item.value.to_i
 
-      if year == current_year
+      if [first_year, current_year + 1].all?(year)
+        "#{year} - start your training next September"
+      elsif year == first_year
         "#{year} - start your training this September"
       else
         year.to_s
@@ -69,7 +71,11 @@ module TeacherTrainingAdviser::Steps
     end
 
     def current_year
-      Time.zone.today.year
+      current_date.year
+    end
+
+    def current_date
+      Time.zone.today
     end
   end
 end
