@@ -5,13 +5,13 @@
         <h1 class="govuk-heading-l">Get an adviser</h1>
 
         <p>If you want to become a teacher or return to teaching in England, a teacher training adviser can guide you through the process with free one-to-one support.</p>
-        <p>Your adviser will help you with:</p>
+        <p>Your adviser can help you:</p>
         <ul>
-          <li>getting school experience</li>
-          <li>funding your course</li>
-          <li>choosing the right training</li>
-          <li>writing your personal statement</li>
-          <li>interview tips</li>
+          <li>get school experience</li>
+          <li>choose the right training</li>
+          <li>write your personal statement</li>
+          <li>find a teaching role</li>
+          <li>find out how to improve your subject knowledge</li>
         </ul>
         <h2 class="govuk-heading-m">Who can get an adviser?</h2>
 
@@ -19,13 +19,18 @@
 
         <ul>
           <li>a bachelor's degree, class 2:2 (honours) or higher</li>
-          <li>to be studying for a degree and are predicted to get a class 2:2 (honours) or higher</li>
-          <li>an overseas qualification equivalent to a bachelor’s degree with honours, class 2:2 or higher</li>
+          <li>to be studying for a degree and predicted to get a class 2:2 (honours) or higher</li>
         </ul>
         
-        <p>If you’re thinking about returning to teaching, you'll need to have qualified teacher status (QTS) and want to teach a secondary subject in England to get an adviser.</p>
+        <p>If you’re thinking about returning to teaching, you'll need to have <a href="https://www.gov.uk/guidance/qualified-teacher-status-qts">qualified teacher status (QTS)</a> and want to teach a secondary subject in England to get an adviser.</p>
 
-        <p>Before you use this service as a non-UK citizen, you can check your qualifications by calling <%= link_to("0800 389 2500", "tel://08003892500") %>.</p>
+        <h2 class="govuk-heading-m">Non-UK trainees and teachers</h2>
+
+        <p>To get an adviser, you'll need to have or be studying for an overseas qualification of the same standard as a UK bachelor’s degree, class 2:2 (honours) or higher.</p>
+        
+        <p>You can check the UK equivalents of your degree qualifications by calling us on <%= link_to("0800 389 2500", "tel://08003892500") %>.</p>
+
+        <p>If you're already qualified as a teacher outside the UK, you'll need to have <a href="https://www.gov.uk/guidance/qualified-teacher-status-qts">English qualified teacher status (QTS)</a> and want to teach a secondary subject to get an adviser.</p>
 
         <a href="<%= teacher_training_adviser_step_path(:identity, params.to_unsafe_h.slice(:channel, :sub_channel)) %>" role="button" draggable="false" class="govuk-button govuk-!-margin-top-2 govuk-!-margin-bottom-8 govuk-button--start" data-module="govuk-button">
         Start now
