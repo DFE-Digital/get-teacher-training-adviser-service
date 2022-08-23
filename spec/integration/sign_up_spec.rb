@@ -25,7 +25,7 @@ RSpec.describe "Sign up", :integration, type: :feature, js: true do
 
     submit_code(email)
 
-    complete_sign_up
+    expect_current_step(:returning_teacher)
   end
 
   def complete_sign_up
