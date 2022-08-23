@@ -23,13 +23,10 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
     before do
       years = [
         GetIntoTeachingApiClient::PickListItem.new(id: 12_917, value: "Not sure"),
-        GetIntoTeachingApiClient::PickListItem.new(id: 12_918, value: 2020),
-        GetIntoTeachingApiClient::PickListItem.new(id: 12_919, value: 2021),
         GetIntoTeachingApiClient::PickListItem.new(id: 12_920, value: 2022),
         GetIntoTeachingApiClient::PickListItem.new(id: 12_921, value: 2023),
         GetIntoTeachingApiClient::PickListItem.new(id: 12_921, value: 2024),
         GetIntoTeachingApiClient::PickListItem.new(id: 12_922, value: 2025),
-        GetIntoTeachingApiClient::PickListItem.new(id: 12_922, value: 2026),
       ]
 
       allow_any_instance_of(GetIntoTeachingApiClient::PickListItemsApi).to \
@@ -38,7 +35,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
 
     let(:years) { subject.years }
 
-    context "when its before 24th June of the current year" do
+    context "when its before 24th June of the current year (2022)" do
       around do |example|
         travel_to(Date.new(2022, 6, 23)) { example.run }
       end
@@ -53,7 +50,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
       end
     end
 
-    context "when its 24th June of the current year" do
+    context "when its 24th June of the current year (2022)" do
       around do |example|
         travel_to(Date.new(2022, 6, 24)) { example.run }
       end
@@ -69,7 +66,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
       end
     end
 
-    context "when its between 24th June and 6th September of the current year" do
+    context "when its between 24th June and 6th September of the current year (2022)" do
       around do |example|
         travel_to(Date.new(2022, 9, 6)) { example.run }
       end
@@ -85,7 +82,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
       end
     end
 
-    context "when its after 6th September of the current year" do
+    context "when its after 6th September of the current year (2022)" do
       around do |example|
         travel_to(Date.new(2022, 9, 7)) { example.run }
       end
@@ -93,7 +90,22 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
       it "returns 'Not sure', and the next 3 years" do
         expect(years.map(&:value)).to contain_exactly(
           "Not sure",
-          "2023",
+          "2023 - start your training next September",
+          "2024",
+          "2025",
+        )
+      end
+    end
+
+    context "when its 1st January of the current year (2023)" do
+      around do |example|
+        travel_to(Date.new(2023, 1, 1)) { example.run }
+      end
+
+      it "returns 'Not sure', and the next 3 years" do
+        expect(years.map(&:value)).to contain_exactly(
+          "Not sure",
+          "2023 - start your training this September",
           "2024",
           "2025",
         )
