@@ -74,3 +74,8 @@ variable "paas_additional_route_names" {
 variable "alerts" {
   type = map(any)
 }
+
+variable "statuscake_enable_basic_auth" {
+  type    = bool
+  default = false
+}
