@@ -28,6 +28,12 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       receive(:get_callback_booking_quotas) { [quota] }
   end
 
+  around do |example|
+    travel_to(Date.new(2022, 6, 1)) do
+      example.run
+    end
+  end
+
   context "when a new candidate" do
     before do
       # Emulate an unsuccessful matchback response from the API.
