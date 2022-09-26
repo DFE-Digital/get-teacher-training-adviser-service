@@ -9,6 +9,7 @@ RSpec.describe "Google Tag Manager", type: :request do
 
   context "when the GTM_ID is not set" do
     before do
+      allow(ENV).to receive(:[]).and_call_original
       allow(ENV).to receive(:[]).with("GTM_ID").and_return(nil)
     end
 
