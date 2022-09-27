@@ -31,7 +31,7 @@ jobs:
         with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: DfE-Digital/keyvault-yaml-secret@v1
+      - uses: DfE-Digital/keyvault-yaml-secret@v2
         id:  keyvault-yaml-secret
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
@@ -121,7 +121,7 @@ jobs:
         with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: DfE-Digital/keyvault-yaml-secret@v1
+      - uses: DfE-Digital/keyvault-yaml-secret@v2
         id:  keyvault-yaml-secret
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
@@ -157,7 +157,7 @@ jobs:
         with:
            creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: DfE-Digital/keyvault-yaml-secret@v1
+      - uses: DfE-Digital/keyvault-yaml-secret@v2
         id:  keyvault-yaml-secret
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
@@ -205,7 +205,7 @@ jobs:
         with:
            creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: DfE-Digital/keyvault-yaml-secret@v1
+      - uses: DfE-Digital/keyvault-yaml-secret@v2
         id:  keyvault-yaml-secret
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
@@ -293,7 +293,7 @@ jobs:
         with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: DfE-Digital/keyvault-yaml-secret@v1
+      - uses: DfE-Digital/keyvault-yaml-secret@v2
         id:  keyvault-yaml-secret
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
@@ -347,7 +347,7 @@ jobs:
         with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: DfE-Digital/keyvault-yaml-secret@v1
+      - uses: DfE-Digital/keyvault-yaml-secret@v2
         id:  keyvault-yaml-secret
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
@@ -427,7 +427,7 @@ jobs:
         with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: DfE-Digital/keyvault-yaml-secret@v1
+      - uses: DfE-Digital/keyvault-yaml-secret@v2
         id:  keyvault-yaml-secret
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
@@ -482,7 +482,7 @@ jobs:
         with:
            creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: DfE-Digital/keyvault-yaml-secret@v1
+      - uses: DfE-Digital/keyvault-yaml-secret@v2
         id:  keyvault-yaml-secret
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
@@ -518,7 +518,7 @@ jobs:
         with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: DfE-Digital/keyvault-yaml-secret@v1
+      - uses: DfE-Digital/keyvault-yaml-secret@v2
         id:  keyvault-yaml-secret
         with:
           keyvault: ${{ secrets.KEY_VAULT}}
