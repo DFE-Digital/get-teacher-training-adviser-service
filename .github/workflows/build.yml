@@ -323,7 +323,7 @@ jobs:
 
       - name: Add Review Label
         if: contains(github.event.pull_request.user.login, 'dependabot') == false
-        uses: actions-ecosystem/action-add-labels@v1.1.3
+        uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: Review
 
@@ -374,7 +374,7 @@ jobs:
       - name: Create a GitHub Release
         id: release
         if:   steps.tag_version.outputs.pr_found == 1
-        uses: actions/create-release@v1.1.4
+        uses: actions/create-release@v1
         env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
