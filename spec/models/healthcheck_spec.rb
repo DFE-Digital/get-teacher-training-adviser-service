@@ -57,6 +57,8 @@ RSpec.describe Healthcheck do
     subject { described_class.new.test_redis }
 
     before do
+      stub_const("REDIS", Redis.new)
+
       allow(ENV).to receive(:[]).and_call_original
       allow(ENV).to receive(:[]).with("REDIS_URL").and_return \
         "redis://localhost:6379/1"
@@ -64,7 +66,7 @@ RSpec.describe Healthcheck do
 
     context "with working connection" do
       before do
-        allow(Redis).to receive(:current).and_return instance_double(Redis, ping: "PONG")
+        allow(REDIS).to receive(:ping).and_return("PONG")
       end
 
       it { is_expected.to be true }
@@ -72,7 +74,7 @@ RSpec.describe Healthcheck do
 
     context "with broken connection" do
       before do
-        allow(Redis).to receive(:current).and_raise Redis::CannotConnectError
+        allow(REDIS).to receive(:ping).and_raise(Redis::CannotConnectError)
       end
 
       it { is_expected.to be false }

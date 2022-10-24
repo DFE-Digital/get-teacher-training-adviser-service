@@ -47,7 +47,8 @@ gem "dfe-analytics", github: "DFE-Digital/dfe-analytics", tag: "v1.3.2"
 gem "rack-attack"
 
 # redis for session store
-gem "redis"
+gem "connection_pool"
+gem "redis", "~> 4.8.0"
 
 gem "prometheus-client"
 
