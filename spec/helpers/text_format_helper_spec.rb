@@ -36,7 +36,26 @@ RSpec.describe TextFormatHelper, type: :helper do
     subject { safe_html_format html }
 
     context "with allowed HTML" do
-      let(:html) { "<p><strong>hello</strong><br><a href=\"http://test.com\">world</a></p><ul><li>test</li></ul>" }
+      let(:html) do
+        <<~HTML
+          <div>test</div>
+          <p id="paragraph">
+            <strong>hello</strong>
+            <a href="http://test.com">world</a>
+          </p>
+          <ul>
+            <li>test</li>
+          </ul>
+          <span class="test">test</span>
+          <h1>heading1</h1>
+          <h2>heading1</h2>
+          <h3>heading1</h3>
+          <h4>heading1</h4>
+          <h5>heading1</h5>
+          <br>
+          <link href="/test" rel="canonical">
+        HTML
+      end
 
       it { is_expected.to eql html }
     end
@@ -51,6 +70,18 @@ RSpec.describe TextFormatHelper, type: :helper do
       let(:html) { "<a href=\"http://test.com\" onclick=\"somethingNasty();\">boom</a>" }
 
       it { is_expected.to eql "<a href=\"http://test.com\">boom</a>" }
+    end
+
+    context "with anchor tags" do
+      let(:html) { "<a href=\"http://test.com\" target=\"blank\">open</a>" }
+
+      it { is_expected.to eql html }
+    end
+
+    context "with href containing disallowed protocol" do
+      let(:html) { "<a href=\"file://test.com\" target=\"blank\">open</a>" }
+
+      it { is_expected.to eql "<a target=\"blank\">open</a>" }
     end
   end
 end
