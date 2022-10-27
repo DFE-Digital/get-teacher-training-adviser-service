@@ -26,7 +26,7 @@ SecureHeaders::Configuration.default do |config|
     font_src: %w['self' *.gov.uk fonts.gstatic.com],
     form_action: %w['self' tr.snapchat.com www.facebook.com],
     frame_ancestors: %w['self'] + hotjar,
-    frame_src: %w['self' tr.snapchat.com www.facebook.com www.youtube.com *.doubleclick.net *.pinterest.com *.pinterest.co.uk],
+    frame_src: %w['self' tr.snapchat.com www.facebook.com www.youtube.com *.doubleclick.net *.pinterest.com *.pinterest.co.uk] + hotjar,
     img_src: %W['self' *.gov.uk data: *.googleapis.com ade.googlesyndication.com analytics.twitter.com www.facebook.com ct.pinterest.com t.co www.facebook.com cx.atdmt.com ad.doubleclick.net *.fls.doubleclick.net i.ytimg.com adservice.google.com adservice.google.co.uk] + google_analytics + lid_pixels + bam_pixels + gtm_server + reddit,
     manifest_src: %w['self'],
     media_src: %w['self'],
