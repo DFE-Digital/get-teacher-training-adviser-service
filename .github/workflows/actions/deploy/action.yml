@@ -43,7 +43,7 @@ runs:
        - name: Get Short SHA
          id: sha
          shell: bash
-         run: echo ::set-output name=short::$(echo "${{ inputs.sha }}" | cut -c -7)
+         run: echo "short=$(echo "${{ inputs.sha }}" | cut -c -7)" >> $GITHUB_OUTPUT
 
        - name: Setup Environment Variables
          id:  variables
@@ -51,46 +51,46 @@ runs:
          run: |
              if [ "${{inputs.environment }}" == "Review" ]
              then
-                 echo ::set-output name=control::$(echo "review" )
+                 echo "control=review" >> $GITHUB_OUTPUT
                  pr_name="${{env.REVIEW_APPLICATION}}-${{inputs.pr}}"
-                 echo ::set-output name=pr_name::${pr_name}
-                 echo ::set-output name=healthcheck::${pr_name}
-                 echo ::set-output name=key::${pr_name}
+                 echo "pr_name=${pr_name}" >> $GITHUB_OUTPUT
+                 echo "healthcheck=${pr_name}" >> $GITHUB_OUTPUT
+                 echo "key=${pr_name}" >> $GITHUB_OUTPUT
                  echo "TF_VAR_paas_adviser_application_name=${pr_name}" >> $GITHUB_ENV
                  echo "TF_VAR_paas_adviser_route_name=${pr_name}"       >> $GITHUB_ENV
-                 echo ::set-output name=docker_image::${{env.DOCKER_REPOSITORY}}:review-${{steps.sha.outputs.short}}
+                 echo "docker_image=${{env.DOCKER_REPOSITORY}}:review-${{steps.sha.outputs.short}}" >> $GITHUB_OUTPUT
              fi
 
              if [ "${{inputs.environment }}" == "Development" ]
              then
-                 echo ::set-output name=control::$(echo "dev" )
-                 echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-dev" )
-                 echo ::set-output name=key::"tta.dev.terraform"
-                 echo ::set-output name=docker_image::${{env.DOCKER_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
+                 echo "control=dev" >> $GITHUB_OUTPUT
+                 echo "healthcheck=${{env.PAAS_APPLICATION_NAME}}-dev" >> $GITHUB_OUTPUT
+                 echo "key=tta.dev.terraform" >> $GITHUB_OUTPUT
+                 echo "docker_image=${{env.DOCKER_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}" >> $GITHUB_OUTPUT
              fi
 
              if [ "${{inputs.environment }}" == "Test" ]
              then
-                 echo ::set-output name=control::$(echo "test" )
-                 echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-test" )
-                 echo ::set-output name=key::"tta.test.terraform"
-                 echo ::set-output name=docker_image::${{env.DOCKER_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
+                 echo "control=test" >> $GITHUB_OUTPUT
+                 echo "healthcheck=${{env.PAAS_APPLICATION_NAME}}-test" >> $GITHUB_OUTPUT
+                 echo "key=tta.test.terraform" >> $GITHUB_OUTPUT
+                 echo "docker_image=${{env.DOCKER_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}" >> $GITHUB_OUTPUT
              fi
 
              if [ "${{inputs.environment }}" == "UR" ]
              then
-                 echo ::set-output name=control::$(echo "ur" )
-                 echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-ur" )
-                 echo ::set-output name=key::"tta.ur.terraform"
-                 echo ::set-output name=docker_image::${{env.DOCKER_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
+                 echo "control=ur" >> $GITHUB_OUTPUT
+                 echo "healthcheck=${{env.PAAS_APPLICATION_NAME}}-ur" >> $GITHUB_OUTPUT
+                 echo "key=tta.ur.terraform" >> $GITHUB_OUTPUT
+                 echo "docker_image=${{env.DOCKER_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}" >> $GITHUB_OUTPUT
              fi
 
              if [ "${{inputs.environment }}" == "Production" ]
              then
-                 echo ::set-output name=control::$(echo "production" )
-                 echo ::set-output name=healthcheck::$(echo "${{env.PAAS_APPLICATION_NAME}}-prod" )
-                 echo ::set-output name=key::"tta.prod.terraform"
-                 echo ::set-output name=docker_image::${{env.DOCKER_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}
+                 echo "control=production" >> $GITHUB_OUTPUT
+                 echo "healthcheck=${{env.PAAS_APPLICATION_NAME}}-prod" >> $GITHUB_OUTPUT
+                 echo "key=tta.prod.terraform" >> $GITHUB_OUTPUT
+                 echo "docker_image=${{env.DOCKER_REPOSITORY}}:sha-${{ steps.sha.outputs.short}}" >> $GITHUB_OUTPUT
              fi
 
        - uses: DfE-Digital/keyvault-yaml-secret@v1
