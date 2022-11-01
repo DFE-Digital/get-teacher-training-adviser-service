@@ -1,6 +1,6 @@
 const Cookies = require('js-cookie') ;
 import CookiePreferences from "cookie_preferences" ;
-import { Application } from 'stimulus' ;
+import { Application } from '@hotwired/stimulus' ;
 import CookieAcceptanceController from 'cookie-acceptance_controller.js' ;
 
 describe('CookieAcceptanceController', () => {

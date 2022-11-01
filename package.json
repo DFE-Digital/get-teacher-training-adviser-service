@@ -6,7 +6,7 @@
     "js-cookie": "^3.0.1",
     "serialize-javascript": "^6.0.0",
     "set-value": "^4.0.1",
-    "stimulus": "^2.0.0",
+    "stimulus": "^3.1",
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {

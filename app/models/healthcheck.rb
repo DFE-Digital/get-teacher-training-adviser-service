@@ -15,8 +15,8 @@ class Healthcheck
   def test_redis
     return nil unless ENV["REDIS_URL"]
 
-    Redis.current.ping == "PONG"
-  rescue RuntimeError
+    REDIS.ping == "PONG"
+  rescue Redis::BaseError
     false
   end
 
