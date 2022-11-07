@@ -15,7 +15,7 @@ ENTRYPOINT ["bundle", "exec"]
 CMD ["rails db:migrate && rails server"]
 
 # patches
-RUN apk add --no-cache pcre2=10.40-r0 postgresql14=14.5-r0 expat=2.5.0-r0
+RUN apk add --no-cache pcre2=10.40-r0 postgresql14=14.5-r0 expat=2.5.0-r0 pixman=0.40.0-r4
 
 # hadolint ignore=DL3018
 RUN apk add --no-cache build-base tzdata shared-mime-info git nodejs yarn postgresql-libs postgresql-dev chromium chromium-chromedriver
