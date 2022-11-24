@@ -16,7 +16,7 @@ gem "net-smtp", require: false
 gem "pg"
 
 # Use Puma as the app server
-gem "puma", "~> 5.6"
+gem "puma", "~> 6.0"
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem "webpacker"
