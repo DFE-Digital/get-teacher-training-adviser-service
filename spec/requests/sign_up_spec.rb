@@ -34,7 +34,7 @@ RSpec.describe "Sign up" do
           .and_raise(GetIntoTeachingApiClient::ApiError)
       end
 
-      let(:params) { { first_name: "John", last_name: "Doe", email: "john@doe.com" } }
+      let(:params) { { first_name: "John", last_name: "Doe", email: "john@doe.com", accepted_policy_id: "latest" } }
 
       it { is_expected.to redirect_to teacher_training_adviser_step_path("returning_teacher") }
     end
@@ -48,7 +48,7 @@ RSpec.describe "Sign up" do
     context "when the last step" do
       let(:steps) { TeacherTrainingAdviser::Wizard.steps }
       let(:model) { steps.last }
-      let(:params) { { accepted_policy_id: "latest" } }
+      let(:params) { {} }
 
       context "when all valid and proceedable" do
         before do

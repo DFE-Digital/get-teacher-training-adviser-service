@@ -35,7 +35,7 @@ module Rack
 
       # Throttle teacher training adviser sign ups by IP (5rpm)
       throttle("teacher_training_adviser_sign_up req/ip", limit: 5, period: 1.minute) do |req|
-        req.ip if (req.patch? || req.put?) && req.path == "/teacher_training_adviser/sign_up/accept_privacy_policy"
+        req.ip if (req.patch? || req.put?) && req.path == "/teacher_training_adviser/sign_up/review_answers"
       end
     end
 

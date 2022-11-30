@@ -28,11 +28,9 @@ RSpec.describe "Rate limiting" do
     end
   end
 
-  it_behaves_like "an IP-based rate limited endpoint", "PATCH */teacher_training_adviser/sign_up/accept_privacy_policy", 5, 1.minute do
+  it_behaves_like "an IP-based rate limited endpoint", "PATCH */teacher_training_adviser/sign_up/review_answers", 5, 1.minute do
     def perform_request
-      key = TeacherTrainingAdviser::Steps::AcceptPrivacyPolicy.model_name.param_key
-      params = { key => { accepted_policy_id: "0a203956-e935-ea11-a813-000d3a44a8e9" } }
-      patch teacher_training_adviser_step_path(:accept_privacy_policy), params:, headers: { "REMOTE_ADDR" => ip }
+      patch teacher_training_adviser_step_path(:review_answers), params: {}, headers: { "REMOTE_ADDR" => ip }
     end
   end
 end

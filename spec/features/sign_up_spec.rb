@@ -96,10 +96,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Check your answers before you continue"
-      click_on "Continue"
-
-      expect(page).to have_css "h1", text: "Read and accept the privacy policy"
-      check "Accept the privacy policy"
 
       request_attributes = uk_candidate_request_attributes({
         type_id: RETURNING_TO_TEACHING,
@@ -165,10 +161,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Check your answers before you continue"
-      click_on "Continue"
-
-      expect(page).to have_css "h1", text: "Read and accept the privacy policy"
-      check "Accept the privacy policy"
 
       request_attributes = uk_candidate_request_attributes({
         type_id: RETURNING_TO_TEACHING,
@@ -231,10 +223,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Check your answers before you continue"
-      click_on "Continue"
-
-      expect(page).to have_css "h1", text: "Read and accept the privacy policy"
-      check "Accept the privacy policy"
 
       request_attributes = uk_candidate_request_attributes({
         type_id: RETURNING_TO_TEACHING,
@@ -305,10 +293,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Check your answers before you continue"
-      click_on "Continue"
-
-      expect(page).to have_css "h1", text: "Read and accept the privacy policy"
-      check "Accept the privacy policy"
 
       request_attributes = overseas_candidate_request_attributes({
         type_id: INTERESTED_IN_TEACHING,
@@ -388,10 +372,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Check your answers before you continue"
-      click_on "Continue"
-
-      expect(page).to have_css "h1", text: "Read and accept the privacy policy"
-      check "Accept the privacy policy"
 
       request_attributes = overseas_candidate_request_attributes({
         type_id: INTERESTED_IN_TEACHING,
@@ -467,10 +447,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Check your answers before you continue"
-      click_on "Continue"
-
-      expect(page).to have_css "h1", text: "Read and accept the privacy policy"
-      check "Accept the privacy policy"
 
       request_attributes = uk_candidate_request_attributes({
         type_id: RETURNING_TO_TEACHING,
@@ -509,10 +485,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       visit teacher_training_adviser_step_path(:review_answers)
 
       expect(page).to have_css "h1", text: "Check your answers before you continue"
-      click_on "Continue"
-
-      expect(page).to have_css "h1", text: "Read and accept the privacy policy"
-      check "Accept the privacy policy"
       click_on "Complete"
 
       # Forced back to dead end
@@ -779,10 +751,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "Check your answers before you continue"
-      click_on "Continue"
-
-      expect(page).to have_css "h1", text: "Read and accept the privacy policy"
-      check "Accept the privacy policy"
 
       request_attributes = uk_candidate_request_attributes({
         preferred_education_phase_id: EDUCATION_PHASE_SECONDARY,
@@ -854,10 +822,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       expect(page).not_to have_css "h1", text: "What is your telephone number?"
 
       expect(page).to have_css "h1", text: "Check your answers before you continue"
-      click_on "Continue"
-
-      expect(page).to have_css "h1", text: "Read and accept the privacy policy"
-      check "Accept the privacy policy"
 
       request_attributes = uk_candidate_request_attributes({
         subject_taught_id: SUBJECT_PSYCHOLOGY,

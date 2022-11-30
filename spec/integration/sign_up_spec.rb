@@ -43,11 +43,6 @@ RSpec.describe "Sign up", :integration, type: :feature, js: true do
     )
     submit_uk_callback_step("123456789")
     submit_review_answers_step
-    submit_label_step(
-      "Accept the privacy policy",
-      :accept_privacy_policy,
-      button_text: "Complete",
-    )
     expect(page).to have_text("Sign up complete")
   end
 end

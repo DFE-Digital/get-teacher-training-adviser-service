@@ -36,7 +36,6 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       )
       submit_uk_telephone_step("123456789")
       submit_review_answers_step
-      submit_privacy_policy_step
     end
 
     it "returning, no teacher reference number, overseas and no telephone" do
@@ -51,7 +50,6 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       submit_select_step("Brazil", :overseas_country)
       submit_overseas_telephone_step
       submit_review_answers_step
-      submit_privacy_policy_step
     end
 
     it "not returning, has degree, primary, has gcses, in the UK and telephone" do
@@ -73,7 +71,6 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       )
       submit_uk_telephone_step("123456789")
       submit_review_answers_step
-      submit_privacy_policy_step
     end
 
     it "not returning, has degree, secodary, retaking gcses, overseas and no telephone" do
@@ -91,7 +88,6 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       submit_select_step("Canada", :overseas_country)
       submit_overseas_telephone_step
       submit_review_answers_step
-      submit_privacy_policy_step
     end
 
     it "not returning, studying for degree, primary, has/retaking gcses, overseas and telephone" do
@@ -110,7 +106,6 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       submit_select_step("Barbados", :overseas_country)
       submit_overseas_telephone_step("123456789")
       submit_review_answers_step
-      submit_privacy_policy_step
     end
 
     it "not returning, equivalent degree, primary, has/retaking gcses, overseas" do
@@ -128,7 +123,6 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       )
       submit_uk_callback_step("123456789", "1:00pm to 1:30pm")
       submit_review_answers_step
-      submit_privacy_policy_step
     end
 
     it "not returning, equivalent degree, secondary, has gcses, is in uk" do
@@ -143,7 +137,6 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       submit_overseas_time_zone_step("447584736574", "(GMT-04:00) Caracas")
       submit_select_step("9:00am to 9:30am", :overseas_callback)
       submit_review_answers_step
-      submit_privacy_policy_step
     end
   end
 
@@ -188,7 +181,6 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       )
 
       submit_review_answers_step
-      submit_privacy_policy_step
     end
 
     context "when in a closed state" do
@@ -236,7 +228,6 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
         submit_select_step("Brazil", :overseas_country)
 
         submit_review_answers_step
-        submit_privacy_policy_step
       end
     end
   end

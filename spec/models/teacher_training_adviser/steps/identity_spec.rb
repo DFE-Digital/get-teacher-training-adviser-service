@@ -25,6 +25,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::Identity do
     it { is_expected.to respond_to :first_name }
     it { is_expected.to respond_to :last_name }
     it { is_expected.to respond_to :email }
+    it { is_expected.to respond_to :accepted_policy_id }
   end
 
   describe "first_name" do
@@ -40,6 +41,11 @@ RSpec.describe TeacherTrainingAdviser::Steps::Identity do
   describe "email" do
     it { is_expected.not_to allow_values(nil, "", "a@#{'a' * 101}.com", "some@thing").for :email }
     it { is_expected.to allow_values("test@test.com", "test%.mctest@domain.co.uk").for :email }
+  end
+
+  describe "#accepted_policy_id" do
+    it { is_expected.to allow_value("0a203956-e935-ea11-a813-000d3a44a8e9").for :accepted_policy_id }
+    it { is_expected.not_to allow_value("invalid-id").for :accepted_policy_id }
   end
 
   describe "#export" do
@@ -64,6 +70,19 @@ RSpec.describe TeacherTrainingAdviser::Steps::Identity do
       subject.save
       expect(subject.channel_id).to eq(channels.first.id)
     end
+  end
+
+  describe "#latest_privacy_policy" do
+    subject { instance.latest_privacy_policy }
+
+    let(:policy) { GetIntoTeachingApiClient::PrivacyPolicy.new(id: "abc-123", text: "Latest privacy policy") }
+
+    before do
+      allow_any_instance_of(GetIntoTeachingApiClient::PrivacyPoliciesApi).to \
+        receive(:get_latest_privacy_policy).and_return(policy)
+    end
+
+    it { is_expected.to eq(policy) }
   end
 
   describe "#reviewable_answers" do

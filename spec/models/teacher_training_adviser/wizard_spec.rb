@@ -38,13 +38,12 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
         TeacherTrainingAdviser::Steps::OverseasTimeZone,
         TeacherTrainingAdviser::Steps::OverseasCallback,
         TeacherTrainingAdviser::Steps::ReviewAnswers,
-        TeacherTrainingAdviser::Steps::AcceptPrivacyPolicy,
       ]
     end
   end
 
   describe "instance methods" do
-    subject { described_class.new wizardstore, "accept_privacy_policy" }
+    subject { described_class.new wizardstore, "review_answers" }
 
     let(:store) do
       {

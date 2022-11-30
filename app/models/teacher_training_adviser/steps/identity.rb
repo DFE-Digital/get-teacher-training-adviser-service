@@ -7,7 +7,9 @@ module TeacherTrainingAdviser::Steps
     attribute :email, :string
     attribute :channel_id, :integer
     attribute :sub_channel_id
+    attribute :accepted_policy_id, :string
 
+    validates :accepted_policy_id, policy: true
     validates :first_name, presence: true, length: { maximum: 256 }
     validates :last_name, presence: true, length: { maximum: 256 }
     validates :email, presence: true, email_format: true
@@ -22,12 +24,16 @@ module TeacherTrainingAdviser::Steps
       super.except("sub_channel_id")
     end
 
+    def latest_privacy_policy
+      @latest_privacy_policy ||= GetIntoTeachingApiClient::PrivacyPoliciesApi.new.get_latest_privacy_policy
+    end
+
     def reviewable_answers
       super
         .tap { |answers|
           answers["name"] = "#{answers['first_name']} #{answers['last_name']}"
         }
-        .without("first_name", "last_name", "channel_id", "sub_channel_id")
+        .without("first_name", "last_name", "channel_id", "sub_channel_id", "accepted_policy_id")
     end
 
     def channel_ids
