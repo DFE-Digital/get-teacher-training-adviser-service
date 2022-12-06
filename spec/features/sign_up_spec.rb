@@ -105,7 +105,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       })
       expect_sign_up_with_attributes(request_attributes)
 
-      click_on "Complete"
+      click_on "Complete sign up"
 
       expect(page).to have_css "h1", text: "Sign up complete"
 
@@ -170,7 +170,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       })
       expect_sign_up_with_attributes(request_attributes)
 
-      click_on "Complete"
+      click_on "Complete sign up"
 
       expect(page).to have_css "h1", text: "Sign up complete"
     end
@@ -232,7 +232,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       })
       expect_sign_up_with_attributes(request_attributes)
 
-      click_on "Complete"
+      click_on "Complete sign up"
 
       expect(page).to have_css "h1", text: "Thank you"
       expect(page).to have_css "h1", text: "Sign up complete"
@@ -304,7 +304,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       })
       expect_sign_up_with_attributes(request_attributes)
 
-      click_on "Complete"
+      click_on "Complete sign up"
 
       expect(page).to have_css "h1", text: "Thank you"
       expect(page).to have_css "h1", text: "Sign up complete"
@@ -386,7 +386,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       })
       expect_sign_up_with_attributes(request_attributes)
 
-      click_on "Complete"
+      click_on "Complete sign up"
 
       expect(page).to have_css "h1", text: "Thank you"
       expect(page).to have_css "h1", text: "Sign up complete"
@@ -456,7 +456,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       })
       expect_sign_up_with_attributes(request_attributes)
 
-      click_on "Complete"
+      click_on "Complete sign up"
 
       expect(page).to have_css "h1", text: "Thank you"
       expect(page).to have_css "h1", text: "Sign up complete"
@@ -485,7 +485,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       visit teacher_training_adviser_step_path(:review_answers)
 
       expect(page).to have_css "h1", text: "Check your answers before you continue"
-      click_on "Complete"
+      click_on "Complete sign up"
 
       # Forced back to dead end
       expect(page).to have_css "h1", text: "We're sorry, but you are not eligible for this service."
@@ -767,7 +767,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       })
       expect_sign_up_with_attributes(request_attributes)
 
-      click_on "Complete"
+      click_on "Complete sign up"
 
       expect(page).to have_css "h1", text: "Thank you"
       expect(page).to have_css "h1", text: "Sign up complete"
@@ -835,7 +835,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       })
       expect_sign_up_with_attributes(request_attributes)
 
-      click_on "Complete"
+      click_on "Complete sign up"
 
       expect(page).to have_css "h1", text: "Thank you"
       expect(page).to have_css "h1", text: "Sign up complete"

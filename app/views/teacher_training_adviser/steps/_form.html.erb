@@ -15,7 +15,7 @@
     <%= render current_step.key, current_step: current_step, f: f %>
 
     <% if wizard.step_can_proceed? %>
-      <%= f.govuk_submit(wizard.last_step? ? "Complete" : "Continue") %>
+      <%= f.govuk_submit(wizard.last_step? ? "Complete sign up" : "Continue") %>
     <% end %>
 
     <% if content_for?(:form_help) %>

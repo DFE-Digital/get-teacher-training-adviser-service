@@ -239,7 +239,7 @@ module SpecHelpers
 
     def submit_review_answers_step
       expect_current_step(:review_answers)
-      click_on "Complete"
+      click_on "Complete sign up"
     end
 
     def submit_verification_code(candidate_identity)
