@@ -426,10 +426,6 @@ en:
           attributes:
             has_gcse_maths_and_english_id:
               invalid_type: "Select yes if you have grade 4(C) or above in English and Maths GCSE or equivalent"
-        teacher_training_adviser/steps/accept_privacy_policy:
-          attributes:
-            accepted_policy_id:
-              invalid_policy: "You must accept the privacy policy in order to talk to a teacher training adviser"
         teacher_training_adviser/steps/have_a_degree:
           attributes:
             degree_options:

@@ -35,7 +35,6 @@ module TeacherTrainingAdviser
       Steps::OverseasTimeZone,
       Steps::OverseasCallback,
       Steps::ReviewAnswers,
-      Steps::AcceptPrivacyPolicy,
     ].freeze
 
     def matchback_attributes
