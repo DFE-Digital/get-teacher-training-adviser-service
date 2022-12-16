@@ -15,7 +15,7 @@ ENTRYPOINT ["bundle", "exec"]
 CMD ["rails db:migrate && rails server"]
 
 # patches
-RUN apk add --no-cache postgresql14=14.5-r0
+RUN apk add --no-cache postgresql14=14.5-r0 libtasn1=4.18.0-r1 
 
 # hadolint ignore=DL3018
 RUN apk add --no-cache build-base tzdata shared-mime-info git nodejs yarn postgresql-libs postgresql-dev chromium chromium-chromedriver
