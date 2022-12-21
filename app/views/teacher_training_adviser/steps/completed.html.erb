@@ -17,22 +17,21 @@
         </p>
         <p> We’re getting a lot of requests at the moment so you may not get a response from us until early January.
         </p>
-        <% elsif @equivalent_degree %>
+        <% elsif @callback_booked %>
         <p>
           We've booked a call. We will be in contact with you at the time you selected.
         </p>
         <p>
           If we are unable to contact you at this time, we will try to contact you a further 2 times. If we are still unable to contact you, you will have to sign up again.
         </p>
+        <% elsif @equivalent %>
+        <p>Please give us a call so that we can check your degree.</p>
         <% else %>
-
         <p>An adviser will email you within 3 working days.</p>
 
-       <p>You need to reply to the email to be assigned an adviser.</p>
+        <p>You need to reply to the email to be assigned an adviser.</p>
 
-       <p> It may take us longer to respond to you during the holiday period until early January. We’ll be in touch as soon as we can, thank you for your patience. 
-        </p>
-
+        <p>It may take us longer to respond to you during the holiday period until early January. We’ll be in touch as soon as we can, thank you for your patience.</p>
         <% end %>
 
         <h2 class="govuk-heading-m">Understanding your options</h2>

@@ -1,10 +1,13 @@
 module TeacherTrainingAdviser::Steps
   class OverseasTimeZone < GITWizard::Step
+    extend CallbackBookingQuotas
+
     attribute :address_telephone, :string
     attribute :time_zone, :string
+    attribute :callback_offered, :boolean
 
-    validates :address_telephone, telephone: { international: true }, presence: true
-    validates :time_zone, presence: true
+    validates :address_telephone, telephone: { international: true }, presence: true, if: :callback_offered
+    validates :time_zone, presence: true, if: :callback_offered
 
     before_validation if: :address_telephone do
       self.address_telephone = address_telephone.to_s.strip.presence
@@ -19,9 +22,15 @@ module TeacherTrainingAdviser::Steps
     end
 
     def reviewable_answers
+      return {} unless callback_offered
+
       { "address_telephone" => address_telephone }.tap do |answers|
         answers["time_zone"] = time_zone if time_zone.present?
       end
+    end
+
+    def export
+      super.except("callback_offered")
     end
 
     def address_telephone_value

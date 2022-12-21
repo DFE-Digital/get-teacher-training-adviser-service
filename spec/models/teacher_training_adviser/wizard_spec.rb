@@ -52,6 +52,7 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
         "last_name" => "Joseph",
         "type_id" => 123,
         "degree_options" => "equivalent",
+        "callback_offered" => true,
       }
     end
     let(:wizardstore) { GITWizard::Store.new store, {} }
@@ -105,7 +106,7 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
       it { is_expected.to have_received(:can_proceed?) }
 
       it "prunes the store leaving data required to render the completion page" do
-        expect(store).to eql({ "type_id" => 123, "degree_options" => "equivalent" })
+        expect(store).to eql({ "type_id" => 123, "degree_options" => "equivalent", "callback_offered" => true })
       end
     end
 

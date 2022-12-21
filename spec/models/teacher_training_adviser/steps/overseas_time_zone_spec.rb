@@ -11,17 +11,35 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasTimeZone do
   describe "attributes" do
     it { is_expected.to respond_to :time_zone }
     it { is_expected.to respond_to :address_telephone }
+    it { is_expected.to respond_to :callback_offered }
   end
 
   describe "address_telephone" do
+    before { instance.callback_offered = true }
+
     it { is_expected.not_to allow_values(nil, "abc12345", "12", "1" * 21, "000000000").for :address_telephone }
     it { is_expected.to allow_values("123456789").for :address_telephone }
+    it { is_expected.to validate_presence_of :address_telephone }
+
+    context "when callback_offered is false" do
+      before { instance.callback_offered = false }
+
+      it { is_expected.not_to validate_presence_of :time_zone }
+    end
   end
 
   describe "#time_zone" do
+    before { instance.callback_offered = true }
+
     it { is_expected.not_to allow_values("", nil).for :time_zone }
     it { is_expected.to allow_values(ActiveSupport::TimeZone.all).for :time_zone }
     it { is_expected.to validate_presence_of :time_zone }
+
+    context "when callback_offered is false" do
+      before { instance.callback_offered = false }
+
+      it { is_expected.not_to validate_presence_of :time_zone }
+    end
   end
 
   describe "#filtered_time_zones" do
@@ -50,12 +68,19 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasTimeZone do
     end
   end
 
+  describe "#export" do
+    subject { instance.export.keys }
+
+    it { is_expected.to contain_exactly("address_telephone", "time_zone") }
+  end
+
   describe "#reviewable_answers" do
     subject { instance.reviewable_answers }
 
     before do
       instance.address_telephone = "1234567"
       instance.time_zone = "London"
+      instance.callback_offered = true
     end
 
     it {
@@ -69,6 +94,12 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasTimeZone do
       before { instance.time_zone = nil }
 
       it { is_expected.to eq({ "address_telephone" => "1234567" }) }
+    end
+
+    context "when callback_offered is false" do
+      before { instance.callback_offered = false }
+
+      it { is_expected.to be_empty }
     end
   end
 end
