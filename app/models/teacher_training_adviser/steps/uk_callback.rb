@@ -4,9 +4,10 @@ module TeacherTrainingAdviser::Steps
 
     attribute :address_telephone, :string
     attribute :phone_call_scheduled_at, :datetime
+    attribute :callback_offered, :boolean
 
-    validates :address_telephone, telephone: true, presence: true
-    validates :phone_call_scheduled_at, presence: true
+    validates :address_telephone, telephone: true, presence: true, if: :callback_offered
+    validates :phone_call_scheduled_at, presence: true, if: :callback_offered
 
     before_validation if: :address_telephone do
       self.address_telephone = address_telephone.to_s.strip.presence
@@ -17,11 +18,17 @@ module TeacherTrainingAdviser::Steps
     end
 
     def reviewable_answers
+      return {} unless callback_offered
+
       {
         "address_telephone" => address_telephone,
         "callback_date" => phone_call_scheduled_at&.to_date,
         "callback_time" => phone_call_scheduled_at&.to_time,
       }
+    end
+
+    def export
+      super.except("callback_offered")
     end
 
     def skipped?

@@ -25,7 +25,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
   before do
     # Future callback booking slots (the VCR cassette contains outdated ones)
     allow_any_instance_of(GetIntoTeachingApiClient::CallbackBookingQuotasApi).to \
-      receive(:get_callback_booking_quotas) { [quota] }
+      receive(:get_callback_booking_quotas) { [quota].compact }
   end
 
   around do |example|
@@ -242,7 +242,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       expect(page).not_to have_text "Find out about funding"
     end
 
-    scenario "with an equivalent degree" do
+    scenario "with an equivalent degree (overseas)" do
       visit teacher_training_adviser_steps_path
 
       expect(page).to have_css "h1", text: "About you"
@@ -301,6 +301,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
         degree_type_id: DEGREE_TYPE_EQUIVALENT,
         initial_teacher_training_year_id: TEACHER_TRAINING_YEAR_2022,
         preferred_education_phase_id: EDUCATION_PHASE_SECONDARY,
+        phone_call_scheduled_at: "#{quota.start_at.strftime('%Y-%m-%dT%H:%M:%S')}.000Z",
       })
       expect_sign_up_with_attributes(request_attributes)
 
@@ -309,6 +310,201 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       expect(page).to have_css "h1", text: "Thank you"
       expect(page).to have_css "h1", text: "Sign up complete"
       expect(page).to have_text "We've booked a call."
+    end
+
+    scenario "with an equivalent degree (UK)" do
+      visit teacher_training_adviser_steps_path
+
+      expect(page).to have_css "h1", text: "About you"
+      fill_in_identity_step
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Are you qualified to teach?"
+      choose "No"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Do you have a degree?"
+      choose "I am not a UK citizen and have, or am studying for, an equivalent qualification"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
+      choose "Secondary"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Which subject would you like to teach?"
+      select "Physics"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "When do you want to start your teacher training?"
+      select "2022"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Enter your date of birth"
+      fill_in_date_of_birth_step
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Where do you live?"
+      choose "UK"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "What is your address?"
+      fill_in_address_step
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "You told us you have an equivalent degree and live in the United Kingdom"
+      fill_in "Contact telephone number", with: "123456789"
+      # Select time in local time zone (London)
+      select "11:00am to 12:00pm", from: "Select your preferred day and time for a callback"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Check your answers before you continue"
+
+      request_attributes = uk_candidate_request_attributes({
+        type_id: INTERESTED_IN_TEACHING,
+        preferred_teaching_subject_id: SUBJECT_PHYSICS,
+        degree_status_id: DEGREE_STATUS_HAS_DEGREE,
+        degree_type_id: DEGREE_TYPE_EQUIVALENT,
+        initial_teacher_training_year_id: TEACHER_TRAINING_YEAR_2022,
+        preferred_education_phase_id: EDUCATION_PHASE_SECONDARY,
+        phone_call_scheduled_at: "#{quota.start_at.strftime('%Y-%m-%dT%H:%M:%S')}.000Z",
+      })
+      expect_sign_up_with_attributes(request_attributes)
+
+      click_on "Complete sign up"
+
+      expect(page).to have_css "h1", text: "Thank you"
+      expect(page).to have_css "h1", text: "Sign up complete"
+      expect(page).to have_text "We've booked a call."
+    end
+
+    context "when there are no callback slots available" do
+      let(:quota) { nil }
+
+      scenario "with an equivalent degree" do
+        visit teacher_training_adviser_steps_path
+
+        expect(page).to have_css "h1", text: "About you"
+        fill_in_identity_step
+        click_on "Continue"
+
+        expect(page).to have_css "h1", text: "Are you qualified to teach?"
+        choose "No"
+        click_on "Continue"
+
+        expect(page).to have_css "h1", text: "Do you have a degree?"
+        choose "I am not a UK citizen and have, or am studying for, an equivalent qualification"
+        click_on "Continue"
+
+        expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
+        choose "Secondary"
+        click_on "Continue"
+
+        expect(page).to have_css "h1", text: "Which subject would you like to teach?"
+        select "Physics"
+        click_on "Continue"
+
+        expect(page).to have_css "h1", text: "When do you want to start your teacher training?"
+        select "2022"
+        click_on "Continue"
+
+        expect(page).to have_css "h1", text: "Enter your date of birth"
+        fill_in_date_of_birth_step
+        click_on "Continue"
+
+        expect(page).to have_css "h1", text: "Where do you live?"
+        choose "Overseas"
+        click_on "Continue"
+
+        expect(page).to have_css "h1", text: "Which country do you live in?"
+        select "Argentina"
+        click_on "Continue"
+
+        expect(page).to have_css "h1", text: "You told us you have an equivalent degree and live overseas"
+        expect(page).to have_text "When you call, our adviser will ask for more details about the qualification you have."
+        click_on "Continue"
+
+        expect(page).to have_css "h1", text: "Check your answers before you continue"
+
+        request_attributes = overseas_candidate_request_attributes({
+          type_id: INTERESTED_IN_TEACHING,
+          preferred_teaching_subject_id: SUBJECT_PHYSICS,
+          degree_status_id: DEGREE_STATUS_HAS_DEGREE,
+          degree_type_id: DEGREE_TYPE_EQUIVALENT,
+          initial_teacher_training_year_id: TEACHER_TRAINING_YEAR_2022,
+          preferred_education_phase_id: EDUCATION_PHASE_SECONDARY,
+          address_telephone: nil,
+        })
+        expect_sign_up_with_attributes(request_attributes)
+
+        click_on "Complete sign up"
+
+        expect(page).to have_css "h1", text: "Thank you"
+        expect(page).to have_css "h1", text: "Sign up complete"
+        expect(page).to have_text "Please give us a call so that we can check your degree"
+      end
+
+      scenario "with an equivalent degree (UK)" do
+        visit teacher_training_adviser_steps_path
+
+        expect(page).to have_css "h1", text: "About you"
+        fill_in_identity_step
+        click_on "Continue"
+
+        expect(page).to have_css "h1", text: "Are you qualified to teach?"
+        choose "No"
+        click_on "Continue"
+
+        expect(page).to have_css "h1", text: "Do you have a degree?"
+        choose "I am not a UK citizen and have, or am studying for, an equivalent qualification"
+        click_on "Continue"
+
+        expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
+        choose "Secondary"
+        click_on "Continue"
+
+        expect(page).to have_css "h1", text: "Which subject would you like to teach?"
+        select "Physics"
+        click_on "Continue"
+
+        expect(page).to have_css "h1", text: "When do you want to start your teacher training?"
+        select "2022"
+        click_on "Continue"
+
+        expect(page).to have_css "h1", text: "Enter your date of birth"
+        fill_in_date_of_birth_step
+        click_on "Continue"
+
+        expect(page).to have_css "h1", text: "Where do you live?"
+        choose "UK"
+        click_on "Continue"
+
+        expect(page).to have_css "h1", text: "What is your address?"
+        fill_in_address_step
+        click_on "Continue"
+
+        expect(page).to have_css "h1", text: "You told us you have an equivalent degree and live in the United Kingdom"
+        expect(page).to have_text "Please have the details of your overseas qualifications to hand when you call."
+        click_on "Continue"
+
+        expect(page).to have_css "h1", text: "Check your answers before you continue"
+
+        request_attributes = uk_candidate_request_attributes({
+          type_id: INTERESTED_IN_TEACHING,
+          preferred_teaching_subject_id: SUBJECT_PHYSICS,
+          degree_status_id: DEGREE_STATUS_HAS_DEGREE,
+          degree_type_id: DEGREE_TYPE_EQUIVALENT,
+          initial_teacher_training_year_id: TEACHER_TRAINING_YEAR_2022,
+          preferred_education_phase_id: EDUCATION_PHASE_SECONDARY,
+          address_telephone: nil,
+        })
+        expect_sign_up_with_attributes(request_attributes)
+
+        click_on "Complete sign up"
+
+        expect(page).to have_css "h1", text: "Thank you"
+        expect(page).to have_css "h1", text: "Sign up complete"
+        expect(page).to have_text "Please give us a call so that we can check your degree"
+      end
     end
 
     scenario "studying for a degree" do

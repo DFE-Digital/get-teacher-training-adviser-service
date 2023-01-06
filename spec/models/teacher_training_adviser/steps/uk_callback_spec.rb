@@ -11,16 +11,33 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkCallback do
   describe "attributes" do
     it { is_expected.to respond_to :phone_call_scheduled_at }
     it { is_expected.to respond_to :address_telephone }
+    it { is_expected.to respond_to :callback_offered }
   end
 
   describe "#phone_call_scheduled_at" do
+    before { instance.callback_offered = true }
+
     it { is_expected.not_to allow_values("", nil, "invalid_date").for :phone_call_scheduled_at }
     it { is_expected.to allow_value(Time.zone.now).for :phone_call_scheduled_at }
+
+    context "when callback_offered is false" do
+      before { instance.callback_offered = false }
+
+      it { is_expected.not_to validate_presence_of :phone_call_scheduled_at }
+    end
   end
 
   describe "#address_telephone" do
+    before { instance.callback_offered = true }
+
     it { is_expected.not_to allow_values(nil, "", "abc12345", "12", "1" * 21).for :address_telephone }
     it { is_expected.to allow_values("123456789").for :address_telephone }
+
+    context "when callback_offered is false" do
+      before { instance.callback_offered = false }
+
+      it { is_expected.not_to validate_presence_of :address_telephone }
+    end
   end
 
   describe "#skipped?" do
@@ -55,6 +72,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkCallback do
     before do
       instance.phone_call_scheduled_at = date_time
       instance.address_telephone = address_telephone
+      instance.callback_offered = true
     end
 
     it {
@@ -70,6 +88,12 @@ RSpec.describe TeacherTrainingAdviser::Steps::UkCallback do
       let(:address_telephone) { nil }
 
       it { is_expected.to eq({ "callback_date" => nil, "callback_time" => nil, "address_telephone" => nil }) }
+    end
+
+    context "when callback_offered is false" do
+      before { instance.callback_offered = false }
+
+      it { is_expected.to be_empty }
     end
   end
 end
