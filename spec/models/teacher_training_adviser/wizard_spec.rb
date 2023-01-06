@@ -89,6 +89,7 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
           first_name: "Joe",
           last_name: "Joseph",
           type_id: 123,
+          accepted_policy_id: "0a203956-e935-ea11-a813-000d3a44a8e9",
         })
       end
 
