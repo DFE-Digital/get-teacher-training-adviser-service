@@ -16,11 +16,11 @@ module TeacherTrainingAdviser::Steps
     validates :uk_degree_grade_id, inclusion: { in: options.values.map(&:to_i) }
 
     def skipped?
-      other_step(:what_subject_degree).skipped?
-    end
+      have_a_degree_step = other_step(:have_a_degree)
+      have_a_degree_skipped = have_a_degree_step.skipped?
+      not_have_a_degree = have_a_degree_step.degree_options != HaveADegree::DEGREE_OPTIONS[:yes]
 
-    def studying?
-      other_step(:have_a_degree).degree_options == HaveADegree::DEGREE_OPTIONS[:studying]
+      have_a_degree_skipped || not_have_a_degree
     end
 
     def reviewable_answers

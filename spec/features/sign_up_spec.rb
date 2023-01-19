@@ -530,10 +530,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       select "Maths"
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "What degree class are you predicted to get?"
-      select "2:2"
-      click_on "Continue"
-
       expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
       choose "Primary"
       click_on "Continue"
@@ -571,7 +567,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
 
       request_attributes = overseas_candidate_request_attributes({
         type_id: INTERESTED_IN_TEACHING,
-        uk_degree_grade_id: UK_DEGREE_GRADE_2_2,
         degree_status_id: DEGREE_STATUS_FIRST_YEAR,
         degree_type_id: DEGREE_TYPE_DEGREE,
         initial_teacher_training_year_id: TEACHER_TRAINING_YEAR_2022,
