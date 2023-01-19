@@ -14,6 +14,14 @@ module TeacherTrainingAdviser::Steps
       end
     end
 
+    def skipped?
+      have_a_degree_step = other_step(:have_a_degree)
+      have_a_degree_shown = !have_a_degree_step.skipped?
+      studying = have_a_degree_step.degree_options == HaveADegree::DEGREE_OPTIONS[:studying]
+
+      have_a_degree_shown && studying
+    end
+
     def returning_teacher?
       other_step(:returning_teacher).returning_to_teaching
     end

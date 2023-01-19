@@ -15,6 +15,26 @@ RSpec.describe TeacherTrainingAdviser::Steps::StageInterestedTeaching do
     it { is_expected.to allow_value(*TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS.values).for :preferred_education_phase_id }
   end
 
+  describe "#skipped?" do
+    it "returns false if HaveADegree step was shown and degree_options is not studying" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(false)
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:yes]
+      expect(subject).not_to be_skipped
+    end
+
+    it "returns false if HaveADegree step was not shown and degree_options is studying" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(true)
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
+      expect(subject).not_to be_skipped
+    end
+
+    it "returns true if HaveADegree was shown and degree_options is studying" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(false)
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
+      expect(subject).to be_skipped
+    end
+  end
+
   describe "#returning_teacher?" do
     before do
       allow_any_instance_of(TeacherTrainingAdviser::Steps::ReturningTeacher).to \

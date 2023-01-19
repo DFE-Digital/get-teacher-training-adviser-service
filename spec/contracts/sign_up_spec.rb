@@ -89,7 +89,6 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       submit_choice_step("I'm studying for a degree", :have_a_degree)
       submit_choice_step("First year", :stage_of_degree)
       submit_select_step("Physics", :what_subject_degree)
-      submit_choice_step("Primary", :stage_interested_teaching)
       submit_choice_step("No", :gcse_maths_english)
       submit_choice_step("Yes", :retake_gcse_maths_english)
       submit_choice_step("Yes", :gcse_science)
