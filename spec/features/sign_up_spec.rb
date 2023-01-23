@@ -530,14 +530,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       select "Maths"
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "Do you have grade 4 (C) or above in English and maths GCSEs, or equivalent?"
-      choose "Yes"
-      click_on "Continue"
-
-      expect(page).to have_css "h1", text: "Do you have grade 4 (C) or above in GCSE science, or equivalent?"
-      choose "Yes"
-      click_on "Continue"
-
       expect(page).to have_css "h1", text: "When do you want to start your teacher training?"
       select "2022"
       click_on "Continue"
@@ -566,8 +558,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
         degree_status_id: DEGREE_STATUS_FIRST_YEAR,
         degree_type_id: DEGREE_TYPE_DEGREE,
         initial_teacher_training_year_id: TEACHER_TRAINING_YEAR_2022,
-        has_gcse_maths_and_english_id: HAS_GCSE,
-        has_gcse_science_id: HAS_GCSE,
         degree_subject: "Maths",
       })
       expect_sign_up_with_attributes(request_attributes)
