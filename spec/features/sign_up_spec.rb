@@ -530,10 +530,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       select "Maths"
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "When do you want to start your teacher training?"
-      select "2022"
-      click_on "Continue"
-
       expect(page).to have_css "h1", text: "Enter your date of birth"
       fill_in_date_of_birth_step
       click_on "Continue"
@@ -557,7 +553,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
         type_id: INTERESTED_IN_TEACHING,
         degree_status_id: DEGREE_STATUS_FIRST_YEAR,
         degree_type_id: DEGREE_TYPE_DEGREE,
-        initial_teacher_training_year_id: TEACHER_TRAINING_YEAR_2022,
         degree_subject: "Maths",
       })
       expect_sign_up_with_attributes(request_attributes)

@@ -114,13 +114,21 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
   end
 
   describe "#skipped?" do
-    it "returns false if returning_to_teaching is false" do
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::ReturningTeacher).to receive(:returning_to_teaching).and_return(false)
+    it "returns false if HaveADegree step was shown and degree_options is not studying" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(false)
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:yes]
       expect(subject).not_to be_skipped
     end
 
-    it "returns true if returning_to_teaching is true" do
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::ReturningTeacher).to receive(:returning_to_teaching).and_return(true)
+    it "returns true if HaveADegree was skipped" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(true)
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:yes]
+      expect(subject).to be_skipped
+    end
+
+    it "returns true if degree_options is studying" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(false)
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
       expect(subject).to be_skipped
     end
   end
