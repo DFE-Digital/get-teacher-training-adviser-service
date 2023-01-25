@@ -22,15 +22,17 @@ RSpec.describe TeacherTrainingAdviser::Steps::StageInterestedTeaching do
       expect(subject).not_to be_skipped
     end
 
-    it "returns false if HaveADegree step was not shown and degree_options is studying" do
+    it "returns false if HaveADegree step was not shown and degree_options is studying (final year)" do
       expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(true)
       wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::StageOfDegree).to receive(:final_year?).and_return(true)
       expect(subject).not_to be_skipped
     end
 
-    it "returns true if HaveADegree was shown and degree_options is studying" do
+    it "returns true if HaveADegree was shown and degree_options is studying (not final year)" do
       expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(false)
       wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::StageOfDegree).to receive(:final_year?).and_return(false)
       expect(subject).to be_skipped
     end
   end

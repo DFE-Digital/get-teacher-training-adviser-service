@@ -21,6 +21,26 @@ RSpec.describe TeacherTrainingAdviser::Steps::StageOfDegree do
     it { is_expected.not_to allow_values("", nil, 456).for :degree_status_id }
   end
 
+  describe "#final_year?" do
+    context "when degree_status_id is not yet set" do
+      before { wizardstore["degree_status_id"] = nil }
+
+      it { is_expected.not_to be_final_year }
+    end
+
+    context "when degree_status_id is not 222_750_001 (not final year)" do
+      before { wizardstore["degree_status_id"] = 222_750_002 }
+
+      it { is_expected.not_to be_final_year }
+    end
+
+    context "when degree_status_id is 222_750_001 (final year)" do
+      before { wizardstore["degree_status_id"] = 222_750_001 }
+
+      it { is_expected.to be_final_year }
+    end
+  end
+
   describe "#skipped?" do
     it "returns false if HaveADegree step was shown and they are studying for a degree" do
       expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(false)

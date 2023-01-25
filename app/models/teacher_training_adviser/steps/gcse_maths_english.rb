@@ -13,11 +13,7 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      have_a_degree_step = other_step(:have_a_degree)
-      have_a_degree_skipped = have_a_degree_step.skipped?
-      not_have_a_degree = have_a_degree_step.degree_options != HaveADegree::DEGREE_OPTIONS[:yes]
-
-      have_a_degree_skipped || not_have_a_degree
+      other_step(:what_degree_class).skipped?
     end
   end
 end

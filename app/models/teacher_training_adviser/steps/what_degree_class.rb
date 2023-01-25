@@ -18,9 +18,14 @@ module TeacherTrainingAdviser::Steps
     def skipped?
       have_a_degree_step = other_step(:have_a_degree)
       have_a_degree_skipped = have_a_degree_step.skipped?
-      not_have_a_degree = have_a_degree_step.degree_options != HaveADegree::DEGREE_OPTIONS[:yes]
+      have_a_degree = have_a_degree_step.degree_options == HaveADegree::DEGREE_OPTIONS[:yes]
+      studying_final_year = have_a_degree_step.degree_options == HaveADegree::DEGREE_OPTIONS[:studying] && other_step(:stage_of_degree).final_year?
 
-      have_a_degree_skipped || not_have_a_degree
+      have_a_degree_skipped || (!have_a_degree && !studying_final_year)
+    end
+
+    def studying?
+      other_step(:have_a_degree).degree_options == HaveADegree::DEGREE_OPTIONS[:studying]
     end
 
     def reviewable_answers

@@ -28,6 +28,10 @@ module TeacherTrainingAdviser::Steps
       end
     end
 
+    def final_year?
+      degree_status_id == 222_750_001
+    end
+
     def self.options
       generate_api_options(GetIntoTeachingApiClient::PickListItemsApi, :get_qualification_degree_status, nil, INCLUDE_STATUS_IDS)
     end

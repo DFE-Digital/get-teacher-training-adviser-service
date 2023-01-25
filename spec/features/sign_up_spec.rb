@@ -10,6 +10,7 @@ DEGREE_TYPE_DEGREE = 222_750_000
 TEACHER_TRAINING_YEAR_2022 = 22_304
 UK_DEGREE_GRADE_2_2 = 222_750_003
 DEGREE_STATUS_FIRST_YEAR = 222_750_003
+DEGREE_STATUS_FINAL_YEAR = 222_750_001
 HAS_GCSE = 222_750_000
 SUBJECT_PHYSICS = "ac2655a1-2afa-e811-a981-000d3a276620".freeze
 SUBJECT_PSYCHOLOGY = "b22655a1-2afa-e811-a981-000d3a276620".freeze
@@ -507,7 +508,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       end
     end
 
-    scenario "studying for a degree" do
+    scenario "studying for a degree (not final year)" do
       visit teacher_training_adviser_steps_path
 
       expect(page).to have_css "h1", text: "About you"
@@ -553,6 +554,87 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
         type_id: INTERESTED_IN_TEACHING,
         degree_status_id: DEGREE_STATUS_FIRST_YEAR,
         degree_type_id: DEGREE_TYPE_DEGREE,
+        degree_subject: "Maths",
+      })
+      expect_sign_up_with_attributes(request_attributes)
+
+      click_on "Complete sign up"
+
+      expect(page).to have_css "h1", text: "Thank you"
+      expect(page).to have_css "h1", text: "Sign up complete"
+    end
+
+    scenario "studying for a degree (final year)" do
+      visit teacher_training_adviser_steps_path
+
+      expect(page).to have_css "h1", text: "About you"
+      fill_in_identity_step
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Are you qualified to teach?"
+      choose "No"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Do you have a degree?"
+      choose "I'm studying for a degree"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "In which year are you studying?"
+      choose "Final year"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "What subject is your degree?"
+      select "Maths"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "What degree class are you predicted to get?"
+      select "2:2"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Which stage are you interested in teaching?"
+      choose "Primary"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Do you have grade 4 (C) or above in English and maths GCSEs, or equivalent?"
+      choose "Yes"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Do you have grade 4 (C) or above in GCSE science, or equivalent?"
+      choose "Yes"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "When do you want to start your teacher training?"
+      select "2022"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Enter your date of birth"
+      fill_in_date_of_birth_step
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Where do you live?"
+      choose "Overseas"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Which country do you live in?"
+      select "Argentina"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "What is your telephone number?"
+      expect(find_field("Overseas telephone number (optional)").value).to eq "54"
+      fill_in "Overseas telephone number (optional)", with: "123456789"
+      click_on "Continue"
+
+      expect(page).to have_css "h1", text: "Check your answers before you continue"
+
+      request_attributes = overseas_candidate_request_attributes({
+        type_id: INTERESTED_IN_TEACHING,
+        uk_degree_grade_id: UK_DEGREE_GRADE_2_2,
+        degree_status_id: DEGREE_STATUS_FINAL_YEAR,
+        degree_type_id: DEGREE_TYPE_DEGREE,
+        initial_teacher_training_year_id: TEACHER_TRAINING_YEAR_2022,
+        preferred_education_phase_id: EDUCATION_PHASE_PRIMARY,
+        has_gcse_maths_and_english_id: HAS_GCSE,
+        has_gcse_science_id: HAS_GCSE,
         degree_subject: "Maths",
       })
       expect_sign_up_with_attributes(request_attributes)

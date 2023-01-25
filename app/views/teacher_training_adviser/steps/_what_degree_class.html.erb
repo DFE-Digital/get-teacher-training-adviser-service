@@ -1,8 +1,16 @@
-<% @page_title = "Which class is your degree?" %>
+<%
+if f.object.studying?
+  text = "What degree class are you predicted to get?"
+else
+  text = "Which class is your degree?"
+end
+%>
+
+<% @page_title = text %>
 
 <%= f.govuk_collection_select :uk_degree_grade_id,
   f.object.class.options,
   :last,
   :first,
-  label: { text: "Which class is your degree?", tag: "h1", size: "m" }
+  label: { text: text, tag: "h1", size: "m" }
 %>

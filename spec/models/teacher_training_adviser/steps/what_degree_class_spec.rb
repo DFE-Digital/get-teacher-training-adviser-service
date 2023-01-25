@@ -21,10 +21,37 @@ RSpec.describe TeacherTrainingAdviser::Steps::WhatDegreeClass do
     it { is_expected.not_to allow_values("", nil, 456).for :uk_degree_grade_id }
   end
 
+  describe "#studying?" do
+    context "when degree_options is not yet set" do
+      before { wizardstore["degree_options"] = nil }
+
+      it { is_expected.not_to be_studying }
+    end
+
+    context "when degree_options is studying" do
+      before { wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying] }
+
+      it { is_expected.to be_studying }
+    end
+
+    context "when degree_options is not studying" do
+      before { wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:yes] }
+
+      it { is_expected.not_to be_studying }
+    end
+  end
+
   describe "#skipped?" do
     it "returns false if HaveADegree step was shown and degree_options is yes" do
       expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(false)
       wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:yes]
+      expect(subject).not_to be_skipped
+    end
+
+    it "returns false if HaveADegree step was shown and degree_options is studying (final year)" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(false)
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::StageOfDegree).to receive(:final_year?).and_return(true)
       expect(subject).not_to be_skipped
     end
 
@@ -37,6 +64,13 @@ RSpec.describe TeacherTrainingAdviser::Steps::WhatDegreeClass do
     it "returns true if degree_options is not yes" do
       expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(false)
       wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:equivalent]
+      expect(subject).to be_skipped
+    end
+
+    it "returns true if degree_options is studying (not final year)" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(false)
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::StageOfDegree).to receive(:final_year?).and_return(false)
       expect(subject).to be_skipped
     end
   end
