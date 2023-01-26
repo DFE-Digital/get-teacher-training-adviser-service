@@ -4,9 +4,6 @@
 # sensitive information. See the ActiveSupport::ParameterFilter documentation for supported
 # notations and behaviors.
 Rails.application.config.filter_parameters += %i[
-  address_city
-  address_line1
-  address_line2
   address_postcode
   date_of_birth
   email

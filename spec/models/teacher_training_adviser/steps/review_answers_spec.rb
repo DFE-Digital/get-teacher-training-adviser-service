@@ -6,7 +6,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::ReviewAnswers do
     {
       TeacherTrainingAdviser::Steps::Identity => { "first_name": "Joe" },
       TeacherTrainingAdviser::Steps::DateOfBirth => { "date_of_birth": 20.years.ago },
-      TeacherTrainingAdviser::Steps::UkAddress => { "address_line1": "7 Main Street" },
+      TeacherTrainingAdviser::Steps::UkAddress => { "address_postcode": "TE5 1NG" },
       TeacherTrainingAdviser::Steps::UkTelephone => { "address_telephone": "123456789" },
       TeacherTrainingAdviser::Steps::HaveADegree => { "degree_options": "studying" },
       TeacherTrainingAdviser::Steps::ReturningTeacher => {

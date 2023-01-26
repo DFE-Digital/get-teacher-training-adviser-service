@@ -36,9 +36,6 @@ RSpec.describe "Sign up", :integration, type: :feature, js: true do
     submit_date_of_birth_step(Date.new(1974, 3, 16))
     submit_label_step("UK", :uk_or_overseas)
     submit_uk_address_step(
-      address_line1: "5 Main Street",
-      address_line2: "Dalkeith",
-      town_city: "Edinburgh",
       postcode: "TE7 5TR",
     )
     submit_uk_callback_step("123456789")

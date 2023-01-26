@@ -29,9 +29,6 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       submit_date_of_birth_step(Date.new(1974, 3, 16))
       submit_choice_step("UK", :uk_or_overseas)
       submit_uk_address_step(
-        address_line1: "5 Main Street",
-        address_line2: "Dalkeith",
-        town_city: "Edinburgh",
         postcode: "TE7 5TR",
       )
       submit_uk_telephone_step("123456789")
@@ -64,9 +61,6 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       submit_date_of_birth_step(Date.new(1974, 3, 16))
       submit_choice_step("UK", :uk_or_overseas)
       submit_uk_address_step(
-        address_line1: "5 Main Street",
-        address_line2: "Dalkeith",
-        town_city: "Edinburgh",
         postcode: "TE7 5TR",
       )
       submit_uk_telephone_step("123456789")
@@ -116,9 +110,6 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       submit_date_of_birth_step(Date.new(1974, 3, 16))
       submit_choice_step("UK", :uk_or_overseas)
       submit_uk_address_step(
-        address_line1: "5 Main Street",
-        address_line2: "Dalkeith",
-        town_city: "Edinburgh",
         postcode: "TE7 5TR",
       )
       submit_uk_callback_step("123456789", "1:00pm to 1:30pm")
@@ -168,15 +159,9 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       submit_choice_step("UK", :uk_or_overseas)
 
       expect_current_step(:uk_address)
-      expect(find_field("Address line 1").value).to eq("11")
-      expect(find_field("Address line 2 (optional)").value).to eq("Main Street")
-      expect(find_field("Town or City").value).to eq("St Andrews")
-      expect(find_field("Postcode").value).to eq("KY9 6NJ")
+      expect(find_field("What is your postcode?").value).to eq("KY9 6NJ")
 
       submit_uk_address_step(
-        address_line1: "5 Main Street",
-        address_line2: "Dalkeith",
-        town_city: "Edinburgh",
         postcode: "TE7 5TR",
       )
 
