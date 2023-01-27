@@ -85,14 +85,6 @@ jobs:
           build-args: |
             APP_SHA=${{ env.GIT_SHORT_SHA }}
 
-      - name: Run Snyk to check Docker image for vulnerabilities
-        uses: snyk/actions/docker@master
-        env:
-          SNYK_TOKEN: ${{ steps.keyvault-yaml-secret.outputs.SNYK-TOKEN }}
-        with:
-          image: ${{ env.DOCKER_IMAGE }}
-          args: --severity-threshold=high --file=Dockerfile
-
       - name: Push image to registry
         if: ${{ success() }}
         run: docker image push --all-tags ${{ env.DOCKER_REPOSITORY }}
