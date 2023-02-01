@@ -2,7 +2,7 @@
   "dependencies": {
     "@rails/ujs": "^7.0.4",
     "@rails/webpacker": "^5.4.0",
-    "govuk-frontend": "^4.4.1",
+    "govuk-frontend": "^4.5.0",
     "js-cookie": "^3.0.1",
     "serialize-javascript": "^6.0.0",
     "set-value": "^4.0.1",
