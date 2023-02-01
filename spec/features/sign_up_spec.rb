@@ -531,6 +531,10 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       select "Maths"
       click_on "Continue"
 
+      expect(page).to have_css "h1", text: "Which subject would you like to teach?"
+      select "Physics"
+      click_on "Continue"
+
       expect(page).to have_css "h1", text: "Enter your date of birth"
       fill_in_date_of_birth_step
       click_on "Continue"

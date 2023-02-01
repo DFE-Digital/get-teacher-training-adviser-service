@@ -89,6 +89,7 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       submit_choice_step("I'm studying for a degree", :have_a_degree)
       submit_choice_step("First year", :stage_of_degree)
       submit_select_step("Physics", :what_subject_degree)
+      submit_select_step("Maths", :subject_interested_teaching)
       submit_date_of_birth_step(Date.new(1974, 3, 16))
       submit_choice_step("Overseas", :uk_or_overseas)
       submit_select_step("Barbados", :overseas_country)
