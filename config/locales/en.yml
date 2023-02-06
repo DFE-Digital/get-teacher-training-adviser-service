@@ -265,9 +265,9 @@ en:
         title: "Which main subject did you previously teach?"
         change: "the main subject you previously taught"
     uk_address:
-      address:
-        title: "Address"
-        change: "your address"
+      address_postcode:
+        title: "Postcode"
+        change: "your postcode"
     uk_callback:
       callback_date:
         title: "Callback date"
