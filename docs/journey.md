@@ -38,7 +38,7 @@ graph TD;
   start_teacher_training --> date_of_birth[Date of birth]
   date_of_birth --> where_do_you_live[Where do you live?]
 
-  where_do_you_live -- In the UK --> address[What is your address?]
+  where_do_you_live -- In the UK --> address[What is your postcode?]
   where_do_you_live -- Overseas --> country[What country do you live in?]
 
   subgraph overseas

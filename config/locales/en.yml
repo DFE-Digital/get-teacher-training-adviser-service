@@ -108,11 +108,6 @@ en:
         phone_call_scheduled_at: "Select your preferred day and time for a callback"
       teacher_training_adviser_steps_overseas_country:
         country_id: "Which country do you live in?"
-      teacher_training_adviser_steps_uk_address:
-        address_line1: "Address line 1"
-        address_line2: "Address line 2 (optional)"
-        address_city: "Town or City"
-        address_postcode: "Postcode"
       teacher_training_adviser_steps_uk_or_overseas:
         uk_or_overseas_options:
           UK: "UK"
@@ -270,9 +265,9 @@ en:
         title: "Which main subject did you previously teach?"
         change: "the main subject you previously taught"
     uk_address:
-      address:
-        title: "Address"
-        change: "your address"
+      address_postcode:
+        title: "Postcode"
+        change: "your postcode"
     uk_callback:
       callback_date:
         title: "Callback date"
@@ -361,14 +356,6 @@ en:
               <<: *telephone_errors
         teacher_training_adviser/steps/uk_address:
           attributes:
-            address_line1:
-              blank: Enter the first line of your address
-              too_long: "You have entered too many characters - you need to enter the first line of your address"
-            address_line2:
-              too_long: "You have entered too many characters - enter the second line of your address"
-            address_city:
-              blank: "Enter your town or city"
-              too_long: "You have entered too many characters - you need to enter your town or city"
             address_postcode:
               invalid: "Enter a real postcode"
         teacher_training_adviser/steps/subject_like_to_teach:

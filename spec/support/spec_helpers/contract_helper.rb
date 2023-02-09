@@ -189,13 +189,10 @@ module SpecHelpers
       click_on_continue
     end
 
-    def submit_uk_address_step(address_line1:, address_line2:, town_city:, postcode:)
+    def submit_uk_address_step(postcode:)
       expect_current_step(:uk_address)
 
-      fill_in "Address line 1", with: address_line1
-      fill_in "Address line 2 (optional)", with: address_line2
-      fill_in "Town or City", with: town_city
-      fill_in "Postcode", with: postcode
+      fill_in "What is your postcode?", with: postcode
 
       click_on_continue
     end

@@ -87,7 +87,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       choose "UK"
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "What is your address?"
+      expect(page).to have_css "h1", text: "What is your postcode?"
       fill_in_address_step
       click_on "Continue"
 
@@ -152,7 +152,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       choose "UK"
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "What is your address?"
+      expect(page).to have_css "h1", text: "What is your postcode?"
       fill_in_address_step
       click_on "Continue"
 
@@ -214,7 +214,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       choose "UK"
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "What is your address?"
+      expect(page).to have_css "h1", text: "What is your postcode?"
       fill_in_address_step
       click_on "Continue"
 
@@ -347,7 +347,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       choose "UK"
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "What is your address?"
+      expect(page).to have_css "h1", text: "What is your postcode?"
       fill_in_address_step
       click_on "Continue"
 
@@ -478,7 +478,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
         choose "UK"
         click_on "Continue"
 
-        expect(page).to have_css "h1", text: "What is your address?"
+        expect(page).to have_css "h1", text: "What is your postcode?"
         fill_in_address_step
         click_on "Continue"
 
@@ -627,7 +627,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       choose "UK"
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "What is your address?"
+      expect(page).to have_css "h1", text: "What is your postcode?"
       fill_in_address_step
       click_on "Continue"
 
@@ -858,8 +858,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
     let(:existing_candidate) do
       GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.new(
         preferred_education_phase_id: TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary],
-        address_line1: "7 Main Street",
-        address_city: "Manchester",
         address_postcode: "TE7 1NG",
         date_of_birth: Date.new(1999, 4, 27),
         address_telephone: "123456789",
@@ -929,10 +927,8 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       choose "UK"
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "What is your address?"
-      expect(find_field("Address line 1").value).to eq("7 Main Street")
-      expect(find_field("Town or City").value).to eq("Manchester")
-      expect(find_field("Postcode").value).to eq("TE7 1NG")
+      expect(page).to have_css "h1", text: "What is your postcode?"
+      expect(find_field("What is your postcode?").value).to eq("TE7 1NG")
       click_on "Continue"
 
       expect(page).to have_css "h1", text: "You told us you have an equivalent degree and live in the United Kingdom"
@@ -956,9 +952,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
         initial_teacher_training_year_id: TEACHER_TRAINING_YEAR_2022,
         phone_call_scheduled_at: "#{quota.start_at.strftime('%Y-%m-%dT%H:%M:%S')}.000Z",
         date_of_birth: "1999-04-27",
-        address_line1: "7 Main Street",
-        address_line2: nil,
-        address_city: "Manchester",
         address_postcode: "TE7 1NG",
       })
       expect_sign_up_with_attributes(request_attributes)
@@ -1009,10 +1002,8 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       choose "UK"
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "What is your address?"
-      expect(find_field("Address line 1").value).to eq("7 Main Street")
-      expect(find_field("Town or City").value).to eq("Manchester")
-      expect(find_field("Postcode").value).to eq("TE7 1NG")
+      expect(page).to have_css "h1", text: "What is your postcode?"
+      expect(find_field("What is your postcode?").value).to eq("TE7 1NG")
       click_on "Continue"
 
       expect(page).not_to have_css "h1", text: "What is your telephone number?"
@@ -1023,9 +1014,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
         subject_taught_id: SUBJECT_PSYCHOLOGY,
         preferred_teaching_subject_id: SUBJECT_PHYSICS,
         date_of_birth: "1999-04-27",
-        address_line1: "7 Main Street",
-        address_line2: nil,
-        address_city: "Manchester",
         address_postcode: "TE7 1NG",
         teacher_id: "12345",
       })
@@ -1051,10 +1039,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
   end
 
   def fill_in_address_step
-    fill_in "Address line 1", with: "7"
-    fill_in "Address line 2 (optional)", with: "Main Street"
-    fill_in "Town or City", with: "Edinburgh"
-    fill_in "Postcode", with: "EH12 8JF"
+    fill_in "What is your postcode?", with: "EH12 8JF"
   end
 
   def expect_sign_up_with_attributes(request_attributes)
@@ -1070,9 +1055,6 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       first_name: "John",
       last_name: "Doe",
       date_of_birth: "1966-03-24",
-      address_line1: "7",
-      address_line2: "Main Street",
-      address_city: "Edinburgh",
       address_postcode: "EH12 8JF",
       country_id: "72f5c2e6-74f9-e811-a97a-000d3a2760f2",
       accepted_policy_id: "0a203956-e935-ea11-a813-000d3a44a8e9",
