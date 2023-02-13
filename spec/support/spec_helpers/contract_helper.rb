@@ -52,7 +52,14 @@ module SpecHelpers
     def setup_lookup_items
       read_data("lookup_items").each do |hash|
         items = hash[:values].map do |item|
-          GetIntoTeachingApiClient::LookupItem.new(item.slice("id", "value"))
+          case item["entityName"]
+          when "dfe_country"
+            GetIntoTeachingApiClient::Country.new(item.slice("id", "value"))
+          when "dfe_teachingsubjectlist"
+            GetIntoTeachingApiClient::TeachingSubject.new(item.slice("id", "value"))
+          else
+            raise RuntimeError("Unrecognized lookup item: #{item}")
+          end
         end
 
         allow_any_instance_of(GetIntoTeachingApiClient::LookupItemsApi).to \

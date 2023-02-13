@@ -67,8 +67,8 @@ end
 RSpec.shared_examples "with a wizard step that exposes API lookup items as options" do |api_method, omit_ids, include_ids|
   let(:lookup_items) do
     [
-      GetIntoTeachingApiClient::LookupItem.new(id: "1", value: "one"),
-      GetIntoTeachingApiClient::LookupItem.new(id: "2", value: "two"),
+      GetIntoTeachingApiClient::Country.new(id: "1", value: "one"),
+      GetIntoTeachingApiClient::Country.new(id: "2", value: "two"),
     ]
   end
   let(:lookup_item_ids) { lookup_items.map(&:id) }
@@ -86,7 +86,7 @@ RSpec.shared_examples "with a wizard step that exposes API lookup items as optio
 
   if omit_ids
     it "omits options with the ids #{omit_ids}" do
-      omitted_lookup_items = omit_ids.map { |id| GetIntoTeachingApiClient::LookupItem.new(id:, value: "omit-#{id}") }
+      omitted_lookup_items = omit_ids.map { |id| GetIntoTeachingApiClient::Country.new(id:, value: "omit-#{id}") }
 
       allow_any_instance_of(GetIntoTeachingApiClient::LookupItemsApi).to \
         receive(api_method) { omitted_lookup_items + lookup_items }
@@ -97,7 +97,7 @@ RSpec.shared_examples "with a wizard step that exposes API lookup items as optio
 
   if include_ids
     it "includes only options with the ids #{include_ids}" do
-      included_lookup_items = include_ids.map { |id| GetIntoTeachingApiClient::LookupItem.new(id:, value: "include-#{id}") }
+      included_lookup_items = include_ids.map { |id| GetIntoTeachingApiClient::Country.new(id:, value: "include-#{id}") }
       included_lookup_item_ids = included_lookup_items.map(&:id)
 
       allow_any_instance_of(GetIntoTeachingApiClient::LookupItemsApi).to \
