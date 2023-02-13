@@ -12,7 +12,7 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasCountry do
 
   describe "country_id" do
     it "allows a valid country id" do
-      country = GetIntoTeachingApiClient::LookupItem.new(id: "abc-123")
+      country = GetIntoTeachingApiClient::Country.new(id: "abc-123")
       allow_any_instance_of(GetIntoTeachingApiClient::LookupItemsApi).to \
         receive(:get_countries) { [country] }
       expect(subject).to allow_value(country.id).for :country_id
@@ -36,12 +36,12 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasCountry do
   describe "#reviewable_answers" do
     subject { instance.reviewable_answers }
 
-    let(:lookup_item) { GetIntoTeachingApiClient::LookupItem.new(id: "123", value: "Value") }
+    let(:country) { GetIntoTeachingApiClient::Country.new(id: "123", value: "Value") }
 
     before do
       allow_any_instance_of(GetIntoTeachingApiClient::LookupItemsApi).to \
-        receive(:get_countries) { [lookup_item] }
-      instance.country_id = lookup_item.id
+        receive(:get_countries) { [country] }
+      instance.country_id = country.id
     end
 
     it { is_expected.to eq({ "country_id" => "Value" }) }
@@ -52,8 +52,8 @@ RSpec.describe TeacherTrainingAdviser::Steps::OverseasCountry do
 
     before do
       countries = [
-        GetIntoTeachingApiClient::LookupItem.new(id: "italy-id", value: "Italy"),
-        GetIntoTeachingApiClient::LookupItem.new(id: "unknown-id", value: "Unknown"),
+        GetIntoTeachingApiClient::Country.new(id: "italy-id", value: "Italy"),
+        GetIntoTeachingApiClient::Country.new(id: "unknown-id", value: "Unknown"),
       ]
       allow_any_instance_of(GetIntoTeachingApiClient::LookupItemsApi).to \
         receive(:get_countries) { countries }
