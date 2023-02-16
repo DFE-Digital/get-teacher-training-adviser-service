@@ -25,7 +25,7 @@ module TeacherTrainingAdviser::Steps
     end
 
     def studying?
-      other_step(:have_a_degree).degree_options == HaveADegree::DEGREE_OPTIONS[:studying]
+      other_step(:have_a_degree).studying?
     end
 
     def reviewable_answers

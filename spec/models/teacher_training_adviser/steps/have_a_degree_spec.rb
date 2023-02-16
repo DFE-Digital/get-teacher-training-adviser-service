@@ -53,6 +53,26 @@ RSpec.describe TeacherTrainingAdviser::Steps::HaveADegree do
     end
   end
 
+  describe "#studying?" do
+    context "when degree_options is not yet set" do
+      before { wizardstore["degree_options"] = nil }
+
+      it { is_expected.not_to be_studying }
+    end
+
+    context "when degree_options is studying" do
+      before { wizardstore["degree_options"] = described_class::DEGREE_OPTIONS[:studying] }
+
+      it { is_expected.to be_studying }
+    end
+
+    context "when degree_options is not studying" do
+      before { wizardstore["degree_options"] = described_class::DEGREE_OPTIONS[:yes] }
+
+      it { is_expected.not_to be_studying }
+    end
+  end
+
   describe "#reviewable_answers" do
     subject { instance.reviewable_answers }
 

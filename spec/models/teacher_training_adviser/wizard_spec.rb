@@ -80,6 +80,17 @@ RSpec.describe TeacherTrainingAdviser::Wizard do
         wizardstore["country_id"] = "abc-123"
         expect(subject.export_data).to include({ "country_id" => wizardstore["country_id"] })
       end
+
+      it "sets the inferred initial_teacher_training_year_id if nil" do
+        allow_any_instance_of(TeacherTrainingAdviser::Steps::StartTeacherTraining).to receive(:inferred_year_id).and_return(123_456)
+        expect(subject.export_data).to include({ "initial_teacher_training_year_id" => 123_456 })
+      end
+
+      it "does not overwrite the current initial_teacher_training_year_id if present" do
+        wizardstore["initial_teacher_training_year_id"] = 789_012
+        allow_any_instance_of(TeacherTrainingAdviser::Steps::StartTeacherTraining).to receive(:inferred_year_id).and_return(123_456)
+        expect(subject.export_data).to include({ "initial_teacher_training_year_id" => 789_012 })
+      end
     end
 
     describe "#complete!" do
