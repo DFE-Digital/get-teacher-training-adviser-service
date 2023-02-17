@@ -18,8 +18,7 @@ gem "pg"
 # Use Puma as the app server
 gem "puma", "~> 6.0"
 
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem "webpacker"
+gem "shakapacker", "6.5.6"
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

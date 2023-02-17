@@ -20,7 +20,7 @@
 3. Run `rails db:setup` to setup the database.
 4. Run `az login` and then `make local setup-local-env` to populate development secrets
 5. Run `bundle exec rails server` to launch the app on http://localhost:3000
-6. (optional) Run `./bin/webpack-dev-server` in a separate shell for faster compilation of assets
+6. (optional) Run `./bin/webpacker-dev-server` in a separate shell for faster compilation of assets
 
 ## Whats included in this application?
 
