@@ -5,11 +5,6 @@ module TeacherTrainingAdviser::Steps
     validates :initial_teacher_training_year_id, inclusion: { in: :year_ids }
 
     NOT_SURE_ID = 12_917
-    STUDYING_NOT_FINAL_YEAR = {
-      second_year: 222_750_002,
-      first_year: 222_750_003,
-      other: 222_750_005,
-    }.freeze
 
     def reviewable_answers
       super.tap do |answers|
@@ -39,9 +34,9 @@ module TeacherTrainingAdviser::Steps
     def inferred_year_id
       degree_status = other_step(:stage_of_degree).degree_status_id
 
-      return unless other_step(:have_a_degree).studying? && degree_status.in?(STUDYING_NOT_FINAL_YEAR.values)
+      return unless other_step(:have_a_degree).studying? && degree_status.in?(StageOfDegree::NOT_FINAL_YEAR.values)
 
-      inferred_year = if degree_status == STUDYING_NOT_FINAL_YEAR[:first_year]
+      inferred_year = if degree_status == StageOfDegree::NOT_FINAL_YEAR[:first_year]
                         current_year + (before_current_year_threshold? ? 2 : 3)
                       else
                         current_year + (before_current_year_threshold? ? 1 : 2)
