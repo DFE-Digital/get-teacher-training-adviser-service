@@ -36,5 +36,10 @@ SecureHeaders::Configuration.default do |config|
     upgrade_insecure_requests: !Rails.env.development?, # see https://www.w3.org/TR/upgrade-insecure-requests/
     report_uri: %w[/csp_reports],
   }
+
+  if Rails.env.development?
+    # Webpack-dev-server
+    config.csp[:connect_src] += %w[http://localhost:3035 ws://localhost:3035 wss://localhost:3035]
+  end
 end
 # rubocop:enable Lint/PercentStringArray
