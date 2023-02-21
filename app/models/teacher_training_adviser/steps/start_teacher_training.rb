@@ -13,9 +13,7 @@ module TeacherTrainingAdviser::Steps
     end
 
     def years
-      items = GetIntoTeachingApiClient::PickListItemsApi.new.get_candidate_initial_teacher_training_years
-
-      filter_items(items).map do |item|
+      filter_items(itt_years).map do |item|
         item.value = formatted_value(item)
         item
       end
@@ -26,10 +24,32 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      other_step(:returning_teacher).returning_to_teaching
+      have_a_degree_step = other_step(:have_a_degree)
+      have_a_degree_skipped = have_a_degree_step.skipped?
+      studying_not_final_year = have_a_degree_step.studying? && !other_step(:stage_of_degree).final_year?
+
+      have_a_degree_skipped || studying_not_final_year
+    end
+
+    def inferred_year_id
+      degree_status = other_step(:stage_of_degree).degree_status_id
+
+      return unless other_step(:have_a_degree).studying? && degree_status.in?(StageOfDegree::NOT_FINAL_YEAR.values)
+
+      inferred_year = if degree_status == StageOfDegree::NOT_FINAL_YEAR[:first_year]
+                        current_year + (before_current_year_threshold? ? 2 : 3)
+                      else
+                        current_year + (before_current_year_threshold? ? 1 : 2)
+                      end
+
+      itt_years.find { |item| item.value == inferred_year.to_s }&.id
     end
 
   private
+
+    def itt_years
+      @itt_years ||= GetIntoTeachingApiClient::PickListItemsApi.new.get_candidate_initial_teacher_training_years
+    end
 
     def formatted_value(item)
       return item.value if item.id == NOT_SURE_ID
@@ -53,9 +73,12 @@ module TeacherTrainingAdviser::Steps
     end
 
     def first_year
+      before_current_year_threshold? ? current_year : current_year + 1
+    end
+
+    def before_current_year_threshold?
       # After 6th September you can no longer start teacher training for that year.
-      include_current_year = Time.zone.today < date_to_drop_current_year
-      include_current_year ? current_year : current_year + 1
+      Time.zone.today < date_to_drop_current_year
     end
 
     def number_of_years

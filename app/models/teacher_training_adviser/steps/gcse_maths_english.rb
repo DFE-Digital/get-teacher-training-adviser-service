@@ -13,7 +13,7 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      other_step(:what_subject_degree).skipped?
+      other_step(:what_degree_class).skipped?
     end
   end
 end

@@ -30,6 +30,10 @@ module TeacherTrainingAdviser::Steps
       set_degree_type
     end
 
+    def studying?
+      degree_options == HaveADegree::DEGREE_OPTIONS[:studying]
+    end
+
     def reviewable_answers
       {
         "degree_options" => degree_options ? I18n.t("have_a_degree.degree_options.#{degree_options}") : nil,

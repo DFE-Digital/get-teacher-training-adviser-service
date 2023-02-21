@@ -23,10 +23,10 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
     before do
       years = [
         GetIntoTeachingApiClient::PickListItem.new(id: 12_917, value: "Not sure"),
-        GetIntoTeachingApiClient::PickListItem.new(id: 12_920, value: 2022),
-        GetIntoTeachingApiClient::PickListItem.new(id: 12_921, value: 2023),
-        GetIntoTeachingApiClient::PickListItem.new(id: 12_921, value: 2024),
-        GetIntoTeachingApiClient::PickListItem.new(id: 12_922, value: 2025),
+        GetIntoTeachingApiClient::PickListItem.new(id: 12_920, value: "2022"),
+        GetIntoTeachingApiClient::PickListItem.new(id: 12_921, value: "2023"),
+        GetIntoTeachingApiClient::PickListItem.new(id: 12_922, value: "2024"),
+        GetIntoTeachingApiClient::PickListItem.new(id: 12_923, value: "2025"),
       ]
 
       allow_any_instance_of(GetIntoTeachingApiClient::PickListItemsApi).to \
@@ -114,14 +114,104 @@ RSpec.describe TeacherTrainingAdviser::Steps::StartTeacherTraining do
   end
 
   describe "#skipped?" do
-    it "returns false if returning_to_teaching is false" do
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::ReturningTeacher).to receive(:returning_to_teaching).and_return(false)
+    it "returns false if HaveADegree step was shown and degree_options is not studying" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(false)
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:yes]
       expect(subject).not_to be_skipped
     end
 
-    it "returns true if returning_to_teaching is true" do
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::ReturningTeacher).to receive(:returning_to_teaching).and_return(true)
+    it "returns false if HaveADegree step was shown and degree_options is studying (final year)" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(false)
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::StageOfDegree).to receive(:final_year?).and_return(true)
+      expect(subject).not_to be_skipped
+    end
+
+    it "returns true if HaveADegree was skipped" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(true)
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:yes]
       expect(subject).to be_skipped
+    end
+
+    it "returns true if degree_options is studying (not final year)" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(false)
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::StageOfDegree).to receive(:final_year?).and_return(false)
+      expect(subject).to be_skipped
+    end
+  end
+
+  describe "inferred_year_id" do
+    before do
+      years = [
+        GetIntoTeachingApiClient::PickListItem.new(id: 12_917, value: "Not sure"),
+        GetIntoTeachingApiClient::PickListItem.new(id: 12_920, value: "2022"),
+        GetIntoTeachingApiClient::PickListItem.new(id: 12_921, value: "2023"),
+        GetIntoTeachingApiClient::PickListItem.new(id: 12_922, value: "2024"),
+        GetIntoTeachingApiClient::PickListItem.new(id: 12_923, value: "2025"),
+      ]
+
+      allow_any_instance_of(GetIntoTeachingApiClient::PickListItemsApi).to \
+        receive(:get_candidate_initial_teacher_training_years) { years }
+
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
+    end
+
+    it "returns current calendar year + 2 years if first year and before 7th September" do
+      wizardstore["degree_status_id"] = TeacherTrainingAdviser::Steps::StageOfDegree::NOT_FINAL_YEAR[:first_year]
+      travel_to(Date.new(2022, 9, 6)) do
+        expect(instance.inferred_year_id).to eq(12_922)
+      end
+    end
+
+    it "returns current calendar year + 3 years if first year and on or after 7th September" do
+      wizardstore["degree_status_id"] = TeacherTrainingAdviser::Steps::StageOfDegree::NOT_FINAL_YEAR[:first_year]
+      travel_to(Date.new(2022, 9, 7)) do
+        expect(instance.inferred_year_id).to eq(12_923)
+      end
+    end
+
+    it "returns current calendar year + 1 years if second year and before 7th September" do
+      wizardstore["degree_status_id"] = TeacherTrainingAdviser::Steps::StageOfDegree::NOT_FINAL_YEAR[:second_year]
+      travel_to(Date.new(2022, 9, 6)) do
+        expect(instance.inferred_year_id).to eq(12_921)
+      end
+    end
+
+    it "returns current calendar year + 2 year if second year and on or after 7th September" do
+      wizardstore["degree_status_id"] = TeacherTrainingAdviser::Steps::StageOfDegree::NOT_FINAL_YEAR[:second_year]
+      travel_to(Date.new(2022, 9, 7)) do
+        expect(instance.inferred_year_id).to eq(12_922)
+      end
+    end
+
+    it "returns current calendar year + 1 years if other and before 7th September" do
+      wizardstore["degree_status_id"] = TeacherTrainingAdviser::Steps::StageOfDegree::NOT_FINAL_YEAR[:other]
+      travel_to(Date.new(2022, 9, 6)) do
+        expect(instance.inferred_year_id).to eq(12_921)
+      end
+    end
+
+    it "returns current calendar year + 2 year if other and on or after 7th September" do
+      wizardstore["degree_status_id"] = TeacherTrainingAdviser::Steps::StageOfDegree::NOT_FINAL_YEAR[:other]
+      travel_to(Date.new(2022, 9, 7)) do
+        expect(instance.inferred_year_id).to eq(12_922)
+      end
+    end
+
+    it "returns nil if final year" do
+      wizardstore["degree_status_id"] = TeacherTrainingAdviser::Steps::StageOfDegree::NOT_FINAL_YEAR[:final_year]
+      travel_to(Date.new(2022, 9, 7)) do
+        expect(instance.inferred_year_id).to be_nil
+      end
+    end
+
+    it "returns nil if not studying" do
+      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:yes]
+      wizardstore["degree_status_id"] = TeacherTrainingAdviser::Steps::StageOfDegree::NOT_FINAL_YEAR[:first_year]
+      travel_to(Date.new(2022, 9, 7)) do
+        expect(instance.inferred_year_id).to be_nil
+      end
     end
   end
 

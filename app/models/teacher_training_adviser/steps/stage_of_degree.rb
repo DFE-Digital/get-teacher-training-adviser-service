@@ -7,12 +7,14 @@ module TeacherTrainingAdviser::Steps
 
     validates :degree_status_id, pick_list_items: { method: :get_qualification_degree_status }
 
-    INCLUDE_STATUS_IDS = [
-      222_750_001, # Final year
-      222_750_002, # Second year
-      222_750_003, # First year
-      222_750_005, # Other
-    ].freeze
+    DEGREE_STATUS = {
+      final_year: 222_750_001,
+      second_year: 222_750_002,
+      first_year: 222_750_003,
+      other: 222_750_005,
+    }.freeze
+
+    NOT_FINAL_YEAR = DEGREE_STATUS.except(:final_year)
 
     def skipped?
       have_a_degree_step = other_step(:have_a_degree)
@@ -28,8 +30,12 @@ module TeacherTrainingAdviser::Steps
       end
     end
 
+    def final_year?
+      degree_status_id == DEGREE_STATUS[:final_year]
+    end
+
     def self.options
-      generate_api_options(GetIntoTeachingApiClient::PickListItemsApi, :get_qualification_degree_status, nil, INCLUDE_STATUS_IDS)
+      generate_api_options(GetIntoTeachingApiClient::PickListItemsApi, :get_qualification_degree_status, nil, DEGREE_STATUS.values)
     end
   end
 end

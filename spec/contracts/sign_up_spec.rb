@@ -84,10 +84,23 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       submit_review_answers_step
     end
 
-    it "not returning, studying for degree, primary, has/retaking gcses, overseas and telephone" do
+    it "not returning, studying for degree (not final year), overseas and telephone" do
       submit_choice_step("No", :returning_teacher)
       submit_choice_step("I'm studying for a degree", :have_a_degree)
       submit_choice_step("First year", :stage_of_degree)
+      submit_select_step("Physics", :what_subject_degree)
+      submit_select_step("Maths", :subject_interested_teaching)
+      submit_date_of_birth_step(Date.new(1974, 3, 16))
+      submit_choice_step("Overseas", :uk_or_overseas)
+      submit_select_step("Barbados", :overseas_country)
+      submit_overseas_telephone_step("123456789")
+      submit_review_answers_step
+    end
+
+    it "not returning, studying for degree (final year), overseas and telephone" do
+      submit_choice_step("No", :returning_teacher)
+      submit_choice_step("I'm studying for a degree", :have_a_degree)
+      submit_choice_step("Final year", :stage_of_degree)
       submit_select_step("Physics", :what_subject_degree)
       submit_select_step("First class", :what_degree_class)
       submit_choice_step("Primary", :stage_interested_teaching)

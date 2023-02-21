@@ -60,8 +60,8 @@ module TeacherTrainingAdviser
 
     def export_data
       super.tap do |export|
-        # Default country_id to be UK if applicable
-        export["country_id"] = UK_COUNTRY_ID if @store[:uk_or_overseas] == Steps::UkOrOverseas::OPTIONS[:uk]
+        default_country(export)
+        default_itt_year(export)
       end
     end
 
@@ -73,6 +73,16 @@ module TeacherTrainingAdviser
       request = GetIntoTeachingApiClient::TeacherTrainingAdviserSignUp.new(data)
       api = GetIntoTeachingApiClient::TeacherTrainingAdviserApi.new
       api.sign_up_teacher_training_adviser_candidate(request)
+    end
+
+    def default_country(export)
+      # Default country_id to be UK if applicable
+      export["country_id"] = UK_COUNTRY_ID if find("uk_or_overseas").uk?
+    end
+
+    def default_itt_year(export)
+      itt_step = find("start_teacher_training")
+      export["initial_teacher_training_year_id"] ||= itt_step.inferred_year_id
     end
   end
 end

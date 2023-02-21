@@ -14,14 +14,14 @@ RSpec.describe TeacherTrainingAdviser::Steps::GcseMathsEnglish do
   end
 
   describe "#skipped?" do
-    it "returns false if WhatSubjectDegree step was shown" do
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::WhatSubjectDegree).to receive(:skipped?).and_return(false)
-      expect(subject).not_to be_skipped
+    it "returns true if WhatDegreeClass was skipped" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::WhatDegreeClass).to receive(:skipped?).and_return(true)
+      expect(subject).to be_skipped
     end
 
-    it "returns true if WhatSubjectDegree step was skipped" do
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::WhatSubjectDegree).to receive(:skipped?).and_return(true)
-      expect(subject).to be_skipped
+    it "returns false if WhatDegreeClass was not skipped" do
+      expect_any_instance_of(TeacherTrainingAdviser::Steps::WhatDegreeClass).to receive(:skipped?).and_return(false)
+      expect(subject).not_to be_skipped
     end
   end
 
