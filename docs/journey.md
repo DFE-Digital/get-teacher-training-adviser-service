@@ -29,7 +29,7 @@ graph TD;
   what_stage --> gcses[Do you have English and maths GCSEs?]
 
   gcses -- No --> retake_gcses[Are you planning on retaking English and maths GCSEs?]
-  gcses -- Yes --> subject[Which subject would you like to]
+  gcses -- Yes --> subject[What would you like to]
 
   retake_gcses -- Yes --> subject
   retake_gcses -- No --> get_gcses[Get the right GCSEs]
