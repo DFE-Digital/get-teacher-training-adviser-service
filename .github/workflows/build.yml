@@ -71,7 +71,7 @@ jobs:
            password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build docker image
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           cache-from: |
             type=registry,ref=${{ env.DOCKER_REPOSITORY }}:${{ env.GIT_BRANCH }}
