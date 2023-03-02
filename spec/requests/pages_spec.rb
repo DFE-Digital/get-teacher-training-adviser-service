@@ -53,14 +53,14 @@ RSpec.describe "Pages", type: :request do
       before { get "/unknown" }
 
       it { is_expected.to have_http_status :not_found }
-      it { expect(response.body).to match "The page you were looking for doesn't exist" }
+      it { expect(response.body).to match "Page not found" }
     end
 
     context "with an invalid page" do
       before { get "/!invalid" }
 
       it { is_expected.to have_http_status :not_found }
-      it { expect(response.body).to match "The page you were looking for doesn't exist" }
+      it { expect(response.body).to match "Page not found" }
     end
   end
 end
