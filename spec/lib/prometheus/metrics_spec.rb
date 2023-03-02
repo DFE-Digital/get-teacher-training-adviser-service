@@ -56,15 +56,6 @@ RSpec.describe Prometheus::Metrics do
     it { expect { subject.get(labels: %i[identifier]) }.not_to raise_error }
   end
 
-  describe "tta_cache_read_total" do
-    subject { registry.get(:tta_cache_read_total) }
-
-    it { is_expected.not_to be_nil }
-    it { is_expected.to have_attributes(docstring: "A counter of cache reads") }
-    it { is_expected.to have_attributes(preset_labels: expected_preset_labels) }
-    it { expect { subject.get(labels: %i[key hit]) }.not_to raise_error }
-  end
-
   describe "tta_csp_violations_total" do
     subject { registry.get(:tta_csp_violations_total) }
 
