@@ -150,7 +150,7 @@ en:
       teacher_training_adviser_steps_what_subject_degree:
         degree_subject: "If your subject is not listed choose the option that is nearest to your degree."
       teacher_training_adviser_steps_subject_interested_teaching:
-        preferred_teaching_subject_id: "Select 'primary' or the secondary subject you're interested in teaching, even if you're not sure yet. We try and match you with an adviser based on your subject."
+        preferred_teaching_subject_id: "Choose a subject, even if you're not sure yet. We try and match you with an adviser based on your subject."
       teacher_training_adviser_steps_uk_telephone:
         address_telephone: |-
           Your adviser can talk to you by text and WhatsApp, as well as by
