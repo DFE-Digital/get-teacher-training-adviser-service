@@ -32,6 +32,8 @@ gem "foreman"
 # Canonical meta tag
 gem "canonical-rails"
 
+gem "rack-cors"
+
 gem "govuk_design_system_formbuilder"
 
 gem "secure_headers"
