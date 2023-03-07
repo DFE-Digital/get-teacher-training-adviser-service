@@ -262,7 +262,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       choose "Secondary"
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "What would you like like to teach?"
+      expect(page).to have_css "h1", text: "What would you like to teach?"
       select "Physics"
       click_on "Continue"
 
@@ -332,7 +332,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       choose "Secondary"
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "What would you like like to teach?"
+      expect(page).to have_css "h1", text: "What would you like to teach?"
       select "Physics"
       click_on "Continue"
 
@@ -400,7 +400,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
         choose "Secondary"
         click_on "Continue"
 
-        expect(page).to have_css "h1", text: "What would you like like to teach?"
+        expect(page).to have_css "h1", text: "What would you like to teach?"
         select "Physics"
         click_on "Continue"
 
@@ -463,7 +463,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
         choose "Secondary"
         click_on "Continue"
 
-        expect(page).to have_css "h1", text: "What would you like like to teach?"
+        expect(page).to have_css "h1", text: "What would you like to teach?"
         select "Physics"
         click_on "Continue"
 
@@ -535,7 +535,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       choose "Secondary"
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "What would you like like to teach?"
+      expect(page).to have_css "h1", text: "What would you like to teach?"
       select "Physics"
       click_on "Continue"
 
@@ -975,7 +975,7 @@ RSpec.feature "Sign up for a teacher training adviser", type: :feature do
       expect(find_field("Secondary")).to be_checked
       click_on "Continue"
 
-      expect(page).to have_css "h1", text: "What would you like like to teach?"
+      expect(page).to have_css "h1", text: "What would you like to teach?"
       select "Physics"
       click_on "Continue"
 
