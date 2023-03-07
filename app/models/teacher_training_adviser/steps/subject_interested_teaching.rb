@@ -9,6 +9,7 @@ module TeacherTrainingAdviser::Steps
     OMIT_SUBJECT_IDS = [
       "bc2655a1-2afa-e811-a981-000d3a276620", # Other
       "bc68e0c1-7212-e911-a974-000d3a206976", # No Preference
+      "b02655a1-2afa-e811-a981-000d3a276620", # Primary
     ].freeze
 
     def self.options
@@ -22,13 +23,11 @@ module TeacherTrainingAdviser::Steps
     end
 
     def skipped?
-      have_a_degree_step = other_step(:have_a_degree)
-      have_a_degree_skipped = have_a_degree_step.skipped?
+      have_a_degree_skipped = other_step(:have_a_degree).skipped?
       preferred_education_phase_id = other_step(:stage_interested_teaching).preferred_education_phase_id
       phase_is_not_secondary = preferred_education_phase_id != StageInterestedTeaching::OPTIONS[:secondary]
-      studying_not_final_year = have_a_degree_step.degree_options == HaveADegree::DEGREE_OPTIONS[:studying] && !other_step(:stage_of_degree).final_year?
 
-      have_a_degree_skipped || (phase_is_not_secondary && !studying_not_final_year)
+      have_a_degree_skipped || phase_is_not_secondary
     end
   end
 end

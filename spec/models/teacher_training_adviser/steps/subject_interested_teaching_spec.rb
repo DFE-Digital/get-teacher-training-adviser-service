@@ -22,19 +22,9 @@ RSpec.describe TeacherTrainingAdviser::Steps::SubjectInterestedTeaching do
   end
 
   describe "#skipped?" do
-    it "returns false if HaveADegree step was shown and preferred_education_phase_id is secondary and studying (final year)" do
+    it "returns false if HaveADegree step was shown and preferred_education_phase_id is secondary" do
       expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(false)
       wizardstore["preferred_education_phase_id"] = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
-      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::StageOfDegree).to receive(:final_year?).and_return(true)
-      expect(subject).not_to be_skipped
-    end
-
-    it "returns false if HaveADegree step was shown and preferred_education_phase_id is nil and studying (not final year)" do
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(false)
-      wizardstore["preferred_education_phase_id"] = nil
-      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::StageOfDegree).to receive(:final_year?).and_return(false)
       expect(subject).not_to be_skipped
     end
 
@@ -48,16 +38,12 @@ RSpec.describe TeacherTrainingAdviser::Steps::SubjectInterestedTeaching do
     it "returns true if HaveADegree was skipped" do
       expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(true)
       wizardstore["preferred_education_phase_id"] = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:secondary]
-      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::StageOfDegree).to receive(:final_year?).and_return(true)
       expect(subject).to be_skipped
     end
 
     it "returns true if education phase is primary" do
       expect_any_instance_of(TeacherTrainingAdviser::Steps::HaveADegree).to receive(:skipped?).and_return(false)
       wizardstore["preferred_education_phase_id"] = TeacherTrainingAdviser::Steps::StageInterestedTeaching::OPTIONS[:primary]
-      wizardstore["degree_options"] = TeacherTrainingAdviser::Steps::HaveADegree::DEGREE_OPTIONS[:studying]
-      expect_any_instance_of(TeacherTrainingAdviser::Steps::StageOfDegree).to receive(:final_year?).and_return(true)
       expect(subject).to be_skipped
     end
   end
