@@ -207,7 +207,7 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
         click_on_continue
 
         expect_current_step(:subject_interested_teaching)
-        expect(page).to have_select("What would you like like to teach?", selected: "Physics")
+        expect(page).to have_select("What would you like to teach?", selected: "Physics")
         click_on_continue
 
         expect_current_step(:start_teacher_training)
