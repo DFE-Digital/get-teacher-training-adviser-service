@@ -49,7 +49,7 @@ gem "rack-attack"
 
 # redis for session store
 gem "connection_pool"
-gem "redis", "~> 4.8.0"
+gem "redis", "~> 4.8.1"
 
 gem "prometheus-client"
 
