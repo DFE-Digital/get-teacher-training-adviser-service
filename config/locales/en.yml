@@ -159,7 +159,7 @@ en:
       teacher_training_adviser_steps_start_teacher_training:
         initial_teacher_training_year_id: "Choose the year you would like to start your teacher training."
       teacher_training_adviser_steps_stage_interested_teaching:
-        preferred_education_phase_id: "Select a stage even if you're not sure yet, as this will not affect the sign up process."
+        preferred_education_phase_id: "Select a stage even if you're not sure yet — we try and match you with an adviser based on who you'd like to teach. You can change your mind later."
       teacher_training_adviser_steps_returning_teacher:
         type_id: "Only select 'yes' if you have English qualified teacher status (QTS)."
       teacher_training_adviser_steps_have_a_degree:
