@@ -89,6 +89,7 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
       submit_choice_step("I'm studying for a degree", :have_a_degree)
       submit_choice_step("First year", :stage_of_degree)
       submit_select_step("Physics", :what_subject_degree)
+      submit_choice_step("Secondary", :stage_interested_teaching)
       submit_select_step("Maths", :subject_interested_teaching)
       submit_date_of_birth_step(Date.new(1974, 3, 16))
       submit_choice_step("Overseas", :uk_or_overseas)
@@ -206,7 +207,7 @@ RSpec.describe "Sign up", type: :feature, vcr: false do
         click_on_continue
 
         expect_current_step(:subject_interested_teaching)
-        expect(page).to have_select("Which subject would you like to teach?", selected: "Physics")
+        expect(page).to have_select("What would you like to teach?", selected: "Physics")
         click_on_continue
 
         expect_current_step(:start_teacher_training)
