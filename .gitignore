@@ -44,3 +44,5 @@ dump.rdb
 fetch_config.rb
 
 .vscode
+
+.DS_Store

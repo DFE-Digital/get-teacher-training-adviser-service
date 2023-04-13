@@ -23,14 +23,6 @@ GIT
       get_into_teaching_api_client
 
 GIT
-  remote: https://github.com/DFE-Digital/get-into-teaching-wizard.git
-  revision: d2f364735f51715696f63fa0bc220cfd17b32ef8
-  specs:
-    git_wizard (2.2.0)
-      activemodel (>= 6.0.3.4)
-      activesupport (>= 6.0.3.4)
-
-GIT
   remote: https://github.com/mitsuru/validates_timeliness.git
   revision: f28a62589cc069d1d1f5dfd99e1749edca04cd68
   branch: rails7
@@ -38,6 +30,13 @@ GIT
     validates_timeliness (6.0.0.beta2)
       activemodel (>= 6.0.0, < 7.1)
       timeliness (>= 0.3.10, < 1)
+
+PATH
+  remote: ../dfe_wizard
+  specs:
+    git_wizard (2.2.0)
+      activemodel (>= 6.0.3.4)
+      activesupport (>= 6.0.3.4)
 
 GEM
   remote: https://rubygems.org/

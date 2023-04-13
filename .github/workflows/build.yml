@@ -483,11 +483,11 @@ jobs:
 
       - name: Prepare DB
         run: |-
-          docker run --net=host -t --rm -e RAILS_ENV=test -e DATABASE_URL="postgresql://postgres:postgres@localhost" ${{ needs.build.outputs.DOCKER_IMAGE }} rails db:prepare
+          docker run -t --rm -e RAILS_ENV=test -e DATABASE_URL="postgresql://postgres:postgres@localhost" ${{ needs.build.outputs.DOCKER_IMAGE }} rails db:prepare
 
       - name: Run Integration Tests
         run: |-
-          docker run --net=host -t --rm -e RAILS_ENV=test -e HTTP_USERNAME -e HTTP_PASSWORD -e MAILSAC_API_KEY \
+          docker run -t --rm -e RAILS_ENV=test -e HTTP_USERNAME -e HTTP_PASSWORD -e MAILSAC_API_KEY \
             -e DATABASE_URL="postgresql://postgres:postgres@localhost" ${{needs.build.outputs.DOCKER_IMAGE}} "bundle exec rspec --tag integration"
         env:
           HTTP_USERNAME: ${{ steps.keyvault-yaml-secret.outputs.HTTP-USERNAME }}
