@@ -9,11 +9,11 @@ GIT
 
 GIT
   remote: https://github.com/DFE-Digital/get-into-teaching-api-ruby-client.git
-  revision: 7f776f597109304f275db26852051b19070e568d
+  revision: a7a90dcad3504755cde124a7e180cdc9e6211c2d
   specs:
-    get_into_teaching_api_client (3.0.0)
+    get_into_teaching_api_client (3.2.0)
       faraday (~> 1.0, >= 1.0.1)
-    get_into_teaching_api_client_faraday (3.0.0)
+    get_into_teaching_api_client_faraday (3.2.0)
       activesupport
       faraday
       faraday-encoding
@@ -168,7 +168,7 @@ GEM
     faraday-encoding (0.0.5)
       faraday
     faraday-excon (1.1.0)
-    faraday-http-cache (2.4.1)
+    faraday-http-cache (2.5.0)
       faraday (>= 0.8)
     faraday-httpclient (1.0.1)
     faraday-multipart (1.0.4)
