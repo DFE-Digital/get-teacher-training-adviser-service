@@ -41,6 +41,7 @@ $govuk-global-styles: true;
 }
 
 @import 'cookie-banner' ;
+@import 'google-optimize' ;
 
 [data-controller="cookie-preferences"] {
   .save-with-confirmation button {

@@ -14,7 +14,12 @@
     <%= favicon_link_tag asset_pack_path('static/govuk-frontend/govuk/assets/images/govuk-apple-touch-icon-152x152.png'), rel: 'apple-touch-icon', type: 'image/png', size: '152x152' %>
     <%= favicon_link_tag asset_pack_path('static/govuk-frontend/govuk/assets/images/govuk-apple-touch-icon-167x167.png'), rel: 'apple-touch-icon', type: 'image/png', size: '167x167' %>
     <%= favicon_link_tag asset_pack_path('static/govuk-frontend/govuk/assets/images/govuk-apple-touch-icon-180x180.png'), rel: 'apple-touch-icon', type: 'image/png', size: '180x180' %>
-    <%= javascript_pack_tag 'gtm', 'application', 'data-turbolinks-track': 'reload', data: { "gtm-id": ENV["GTM_ID"] }, async: true %>
+    <%= javascript_pack_tag 'gtm', 'google_optimize', 'application', 'data-turbolinks-track': 'reload', data:
+    {
+      "gtm-id": ENV["GTM_ID"],
+      "google-optimize-id": ENV["GOOGLE_OPTIMIZE_ID"],
+      "google-optimize-paths": google_optimize_config[:paths],
+    } %>
     <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload', media: 'all' %>
   </head>
 

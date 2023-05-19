@@ -62,6 +62,12 @@ module ApplicationHelper
     boolean ? "Yes" : "No"
   end
 
+  def google_optimize_config
+    @@google_optimize_config ||=
+      YAML.safe_load(File.read(Rails.root.join("config/google_optimize.yml")))
+        .deep_symbolize_keys
+  end
+
 private
 
   def git_url(path = "")

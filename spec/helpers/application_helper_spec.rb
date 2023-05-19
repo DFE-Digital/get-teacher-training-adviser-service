@@ -38,6 +38,18 @@ RSpec.describe ApplicationHelper do
     end
   end
 
+  describe "#google_optimize_config" do
+    subject { google_optimize_config }
+
+    it "includes pages currently under test" do
+      expect(subject).to eq({
+        paths: [
+          "/",
+        ],
+      })
+    end
+  end
+
   describe "#govuk_form_for" do
     it "renders a form with GOV.UK form builder" do
       expect(govuk_form_for(StubModel.new, url: "http://test.com") {}).to eq(
