@@ -7,7 +7,7 @@
     "@rails/ujs": "^7.0.4",
     "babel-loader": "9",
     "babel-plugin-macros": "^3.1.0",
-    "compression-webpack-plugin": "9",
+    "compression-webpack-plugin": "10",
     "css-loader": "^6.7.2",
     "govuk-frontend": "^4.5.0",
     "js-cookie": "^3.0.1",
