@@ -15,7 +15,10 @@ ENTRYPOINT ["bundle", "exec"]
 CMD ["rails db:migrate && rails server"]
 
 # patches
-RUN apk add --no-cache libtasn1=4.18.0-r1 openssl=1.1.1t-r2 tiff=4.4.0-r1 ncurses=6.3_p20220521-r1
+RUN apk add --no-cache libtasn1=4.18.0-r1 \
+"ncurses-libs>=6.3_p20211120-r1" \
+"openssl>=1.1.1t-r2" \
+"tiff>=4.4.0"
 
 # hadolint ignore=DL3018
 RUN apk add --no-cache build-base tzdata shared-mime-info git nodejs yarn postgresql-libs postgresql-dev chromium chromium-chromedriver
