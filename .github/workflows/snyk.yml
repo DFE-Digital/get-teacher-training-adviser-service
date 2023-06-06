@@ -30,7 +30,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ steps.keyvault-yaml-secret.outputs.SNYK-TOKEN }}
         with:
-          image:  ${{ env.DOCKER_REPOSITORY }}:master
+          image:  ${{ env.DOCKER_REPOSITORY }}:fix-ncurses-vulnerability-image
           args: --severity-threshold=high --file=Dockerfile
 
       - name: Run Brakeman static security scanner
