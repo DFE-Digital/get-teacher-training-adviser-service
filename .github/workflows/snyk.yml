@@ -1,8 +1,7 @@
 name: Nightly Snyk Security Scan
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: '30 5 * * *'  # 5:30am daily
+  push:
+    branches: [ fix-ncurses-vulnerability-again ]
 
 jobs:
   security_tests:
