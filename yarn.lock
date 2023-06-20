@@ -2213,10 +2213,10 @@ compressible@~2.0.16:
   dependencies:
     mime-db ">= 1.43.0 < 2"
 
-compression-webpack-plugin@9:
-  version "9.2.0"
-  resolved "https://registry.yarnpkg.com/compression-webpack-plugin/-/compression-webpack-plugin-9.2.0.tgz#57fd539d17c5907eebdeb4e83dcfe2d7eceb9ef6"
-  integrity sha512-R/Oi+2+UHotGfu72fJiRoVpuRifZT0tTC6UqFD/DUo+mv8dbOow9rVOuTvDv5nPPm3GZhHL/fKkwxwIHnJ8Nyw==
+compression-webpack-plugin@10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/compression-webpack-plugin/-/compression-webpack-plugin-10.0.0.tgz#3496af1b0dc792e13efc474498838dbff915c823"
+  integrity sha512-wLXLIBwpul/ALcm7Aj+69X0pYT3BYt6DdPn3qrgBIh9YejV9Bju9ShhlAsjujLyWMo6SAweFIWaUoFmXZNuNrg==
   dependencies:
     schema-utils "^4.0.0"
     serialize-javascript "^6.0.0"
@@ -2831,10 +2831,10 @@ globals@^11.1.0:
   resolved "https://registry.yarnpkg.com/globals/-/globals-11.12.0.tgz#ab8795338868a0babd8525758018c2a7eb95c42e"
   integrity sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==
 
-govuk-frontend@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-4.5.0.tgz#64759e39efbaa81f9cb7a35cc6cff6fd9fa619ef"
-  integrity sha512-gZHDqf5vdlHjmx0NGJiNT12XLyR3d5KCS4AnlC3xTWOObJ0kQROrkIFyp3w4/PY3EQiYdgacVaJ6lizzygnzYw==
+govuk-frontend@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-4.6.0.tgz#662b41f7c468bb5468441218c720f0b31c948cbd"
+  integrity sha512-pLJVHVvfsTmNDBH/YBCMyuqSMCQmOrNQXoThdcAzhXJVbuaWnGc1URvjOR7EJeZyOm101fHDjzTkTvpEy6zfiw==
 
 graceful-fs@^4.1.2, graceful-fs@^4.2.4, graceful-fs@^4.2.6, graceful-fs@^4.2.9:
   version "4.2.10"
@@ -3705,11 +3705,6 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
-klona@^2.0.6:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/klona/-/klona-2.0.6.tgz#85bffbf819c03b2f53270412420a4555ef882e22"
-  integrity sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==
-
 leven@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/leven/-/leven-3.1.0.tgz#77891de834064cccba82ae7842bb6b14a13ed7f2"
@@ -3847,10 +3842,10 @@ mimic-fn@^2.1.0:
   resolved "https://registry.yarnpkg.com/mimic-fn/-/mimic-fn-2.1.0.tgz#7ed2c2ccccaf84d3ffcb7a69b57711fc2083401b"
   integrity sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==
 
-mini-css-extract-plugin@^2.7.5:
-  version "2.7.5"
-  resolved "https://registry.yarnpkg.com/mini-css-extract-plugin/-/mini-css-extract-plugin-2.7.5.tgz#afbb344977659ec0f1f6e050c7aea456b121cfc5"
-  integrity sha512-9HaR++0mlgom81s95vvNjxkg52n2b5s//3ZTI1EtzFb98awsLSivs2LMsVqnQ3ay0PVhqWcGNyDaTE961FOcjQ==
+mini-css-extract-plugin@^2.7.6:
+  version "2.7.6"
+  resolved "https://registry.yarnpkg.com/mini-css-extract-plugin/-/mini-css-extract-plugin-2.7.6.tgz#282a3d38863fddcd2e0c220aaed5b90bc156564d"
+  integrity sha512-Qk7HcgaPkGG6eD77mLvZS1nmxlao3j+9PkrT9Uc7HAE1id3F41+DdBRYRYkbyfNRGzm8/YWtzhw7nVPmwhqTQw==
   dependencies:
     schema-utils "^4.0.0"
 
@@ -4418,12 +4413,11 @@ safe-buffer@5.2.1, safe-buffer@>=5.1.0, safe-buffer@^5.1.0, safe-buffer@~5.2.0:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-sass-loader@^13.2.2:
-  version "13.2.2"
-  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-13.2.2.tgz#f97e803993b24012c10d7ba9676548bf7a6b18b9"
-  integrity sha512-nrIdVAAte3B9icfBiGWvmMhT/D+eCDwnk+yA7VE/76dp/WkHX+i44Q/pfo71NYbwj0Ap+PGsn0ekOuU1WFJ2AA==
+sass-loader@^13.3.1:
+  version "13.3.2"
+  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-13.3.2.tgz#460022de27aec772480f03de17f5ba88fa7e18c6"
+  integrity sha512-CQbKl57kdEv+KDLquhC+gE3pXt74LEAzm+tzywcA0/aHZuub8wTErbjAoNI57rPUWRYRNC5WUnNl8eGJNbDdwg==
   dependencies:
-    klona "^2.0.6"
     neo-async "^2.6.2"
 
 sass@^1.62.1:
@@ -5082,7 +5076,15 @@ webpack-dev-server@^4.11.1:
     webpack-dev-middleware "^5.3.1"
     ws "^8.4.2"
 
-webpack-merge@5, webpack-merge@^5.7.3:
+webpack-merge@5.9.0:
+  version "5.9.0"
+  resolved "https://registry.yarnpkg.com/webpack-merge/-/webpack-merge-5.9.0.tgz#dc160a1c4cf512ceca515cc231669e9ddb133826"
+  integrity sha512-6NbRQw4+Sy50vYNTw7EyOn41OZItPiXB8GNv3INSoe3PSFaHJEz3SHTrYVaRm2LilNGnFUzh0FAwqPEmU/CwDg==
+  dependencies:
+    clone-deep "^4.0.1"
+    wildcard "^2.0.0"
+
+webpack-merge@^5.7.3:
   version "5.8.0"
   resolved "https://registry.yarnpkg.com/webpack-merge/-/webpack-merge-5.8.0.tgz#2b39dbf22af87776ad744c390223731d30a68f61"
   integrity sha512-/SaI7xY0831XwP6kzuwhKWVKDP9t1QY1h65lAFLbZqMPIuYcD9QAW4u9STIbU9kaJbPBB/geU/gLr1wDjOhQ+Q==
