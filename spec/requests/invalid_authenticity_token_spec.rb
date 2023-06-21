@@ -14,7 +14,7 @@ RSpec.describe "Invalid Authenticity Token", type: :request do
     it "redirects to the session_expired page" do
       identity_params = { email: "email@address.com", first_name: "first", last_name: "last" }
       params = { "authenticity_token" => "expired", identity: identity_params }
-      put teacher_training_adviser_step_path(:identity), params: params
+      put(teacher_training_adviser_step_path(:identity), params:)
       expect(response).to redirect_to session_expired_path
       expect(Sentry).to have_received(:capture_exception)
     end
