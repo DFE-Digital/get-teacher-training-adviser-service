@@ -16,7 +16,7 @@ gem "net-smtp", require: false
 gem "pg"
 
 # Use Puma as the app server
-gem "puma", "~> 6.0"
+gem "puma", "~> 6.3"
 
 gem "shakapacker", "6.6.0"
 
