@@ -43,7 +43,7 @@ gem "validates_timeliness", github: "mitsuru/validates_timeliness", branch: "rai
 
 gem "dotenv-rails"
 
-gem "dfe-analytics", github: "DFE-Digital/dfe-analytics", tag: "v1.8.1"
+gem "dfe-analytics", github: "DFE-Digital/dfe-analytics", tag: "v1.10.1"
 
 gem "rack-attack"
 
