@@ -18,7 +18,7 @@ gem "pg"
 # Use Puma as the app server
 gem "puma", "~> 6.3"
 
-gem "shakapacker", "6.6.0"
+gem "shakapacker", "7.0.3"
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
@@ -32,7 +32,7 @@ gem "foreman"
 # Canonical meta tag
 gem "canonical-rails"
 
-gem "rack-cors"
+gem "rack-cors", ">= 2.0.1"
 
 gem "govuk_design_system_formbuilder"
 
@@ -43,7 +43,7 @@ gem "validates_timeliness", github: "mitsuru/validates_timeliness", branch: "rai
 
 gem "dotenv-rails"
 
-gem "dfe-analytics", github: "DFE-Digital/dfe-analytics", tag: "v1.8.1"
+gem "dfe-analytics", github: "DFE-Digital/dfe-analytics", tag: "v1.10.1"
 
 gem "rack-attack"
 
@@ -87,7 +87,7 @@ group :development, :test do
   gem "rspec-sonarqube-formatter", "~> 1.5"
   gem "simplecov", "~> 0.22.0"
   # Adds support for Capybara system testing and selenium driver
-  gem "capybara", "~> 3.38"
+  gem "capybara", "~> 3.39.2"
   # Factory builder
   gem "factory_bot_rails"
 end
