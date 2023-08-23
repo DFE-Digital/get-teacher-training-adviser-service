@@ -205,7 +205,7 @@ jobs:
           key: SONAR-TOKEN, SLACK-WEBHOOK
 
       - name: Setup sonarqube
-        uses: warchant/setup-sonar-scanner@v4
+        uses: warchant/setup-sonar-scanner@v7
 
       - name: Prepare DB
         run: |-
