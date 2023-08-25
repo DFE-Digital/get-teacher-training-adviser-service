@@ -6,7 +6,7 @@ Rails.application.configure do
   config.x.enable_beta_redirects = false
   config.x.dfe_analytics = true
 
-  # config.middleware.insert_before ActionDispatch::Static, Rack::HostRedirect, {
-  #   "review-teacher-training-adviser-1375.london.cloudapps.digital" => { host: "getintoteaching.education.gov.uk", path: "/teacher-training-adviser/sign_up/identity" },
-  # }
+  config.middleware.insert_before ActionDispatch::Static, Rack::HostRedirect, {
+    "review-teacher-training-adviser-1375.london.cloudapps.digital" => { host: "getintoteaching.education.gov.uk", path: "/teacher-training-adviser/sign_up/identity", query: "tta-redirect" },
+  }
 end
