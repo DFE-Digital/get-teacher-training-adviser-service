@@ -60,4 +60,8 @@ Rails.application.configure do
   config.x.integration_credentials = { username: ENV["HTTP_USERNAME"], password: ENV["HTTP_PASSWORD"] }
   config.x.mailsac_api_key = ENV["MAILSAC_API_KEY"]
   config.x.dfe_analytics = true
+
+  config.middleware.insert_before ActionDispatch::Static, Rack::HostRedirect, {
+    "review-teacher-training-adviser-1375.london.cloudapps.digital" => { host: "getintoteaching.education.gov.uk/teacher-training-adviser", path: "/sign_up/identity", query: nil },
+  }
 end
