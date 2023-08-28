@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   if Rails.configuration.x.enable_beta_redirects
-    constraints(host: "beta-adviser-getintoteaching.education.gov.uk") do
-      get "/(*path)", to: redirect(host: "adviser-getintoteaching.education.gov.uk")
+    constraints(host: "review-teacher-training-adviser-1375.london.cloudapps.digital") do
+      get "/(*path)", to: redirect(host: "getintoteaching.education.gov.uk", path: "/teacher-training-adviser/sign_up/identity?tta-redirect")
     end
   end
 
