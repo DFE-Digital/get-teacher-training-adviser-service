@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     end
   end
 
-  root "pages#home"
+  get "/", to: redirect(host: "getintoteaching.education.gov.uk", path: "/teacher-training-adviser/sign_up/identity?adviser-redirect")
 
   get "/teacher_training_adviser/not_available", to: "teacher_training_adviser/steps#not_available"
 
