@@ -115,12 +115,6 @@ runs:
              TF_VAR_paas_adviser_docker_image: ${{ steps.variables.outputs.docker_image}}
              TF_VAR_AZURE_CREDENTIALS:         ${{ inputs.AZURE_CREDENTIALS }}
 
-
-       - name: Smoke tests
-         shell: bash
-         run: |
-             tests/confidence/healthcheck.sh  "${{steps.variables.outputs.healthcheck}}"  "${{ steps.sha.outputs.short }}"
-
        - name: Log Deployment
          if: always()
          uses: DFE-Digital/github-actions/SendToLogit@master
