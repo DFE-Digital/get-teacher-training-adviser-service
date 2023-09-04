@@ -22,7 +22,7 @@ jobs:
       DOCKER_IMAGE: ${{ env.DOCKER_IMAGE }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: set-up-environment
         uses: DFE-Digital/github-actions/set-up-environment@master
@@ -104,7 +104,7 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: set-up-environment
         uses: DFE-Digital/github-actions/set-up-environment@master
@@ -140,7 +140,7 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: set-up-environment
         uses: DFE-Digital/github-actions/set-up-environment@master
@@ -188,7 +188,7 @@ jobs:
           - 5432:5432
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: set-up-environment
         uses: DFE-Digital/github-actions/set-up-environment@master
@@ -277,7 +277,7 @@ jobs:
        name: Review
     steps:
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: DFE-Digital/github-actions/set-up-environment@master
 
@@ -331,7 +331,7 @@ jobs:
     environment:
        name: Development
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: DFE-Digital/github-actions/set-up-environment@master
 
@@ -390,7 +390,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Vunerability Test
         uses: ./.github/workflows/actions/owasp
@@ -411,7 +411,7 @@ jobs:
     environment:
        name: Test
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: DFE-Digital/github-actions/set-up-environment@master
 
@@ -465,7 +465,7 @@ jobs:
           - 5432:5432
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: set-up-environment
         uses: DFE-Digital/github-actions/set-up-environment@master
@@ -502,7 +502,7 @@ jobs:
     environment:
        name: Production
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: DFE-Digital/github-actions/set-up-environment@master
 
