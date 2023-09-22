@@ -39,7 +39,7 @@ jobs:
           echo "GIT_SHORT_SHA=${GIT_SHORT_SHA}" >> $GITHUB_ENV
 
       - name: Login to GitHub Container Repository
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
