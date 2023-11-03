@@ -44,3 +44,7 @@ dump.rdb
 fetch_config.rb
 
 .vscode
+
+bin/terrafile
+terraform/domains/environment_domains/vendor
+terraform/domains/infrastructure/vendor
