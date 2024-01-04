@@ -30,7 +30,7 @@
 - Dotenv (managing environment variables)
 - Dockerfile
 - CI based on GitHub Actions
-- Deployment utilising GovUK PAAS
+- Deployment utilising Azure
 
 ## Running specs, linter(without auto correct) and annotate models and serializers
 

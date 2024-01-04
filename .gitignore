@@ -4,47 +4,6 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
-# Ignore bundler config.
-/.bundle
-
-# Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
-
-# Ignore uploaded files in development
-/storage/*
-
-/public/assets
-.byebug_history
-
-# Ignore master key for decrypting credentials and more.
-/config/master.key
-/public/packs
-/public/packs-test
-/node_modules
-/vendor/cache
-yarn-debug.log*
-.yarn-integrity
-#spec state
-/spec/examples.txt
-/out/*
-# redis dump
-dump.rdb
-# coverage files
-/coverage/*
-
-.env
-.env*.local
-.env.development
-*.log
-
-/config/credentials/*.key
-
-*.idea
-fetch_config.rb
-
-.vscode
-
 bin/terrafile
 terraform/domains/environment_domains/vendor
 terraform/domains/infrastructure/vendor
