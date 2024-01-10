@@ -23,17 +23,6 @@ development:
 	$(eval export KEY_VAULT=s146d01-kv)
 	$(eval export AZURE_SUBSCRIPTION=s146-getintoteachingwebsite-development)
 
-.PHONY: review
-review:
-	$(if $(PR_NUMBER), , $(error Missing environment variable "PR_NUMBER", Please specify a pr number for your review app))
-	$(eval export PR_NAME=review-teacher-training-adviser-${PR_NUMBER})
-	$(eval export DEPLOY_ENV=review)
-	$(eval export TF_VAR_paas_adviser_application_name=${PR_NAME})
-	$(eval export KEY_VAULT=s146d01-kv)
-	$(eval export AZURE_SUBSCRIPTION=s146-getintoteachingwebsite-development)
-	$(eval BACKEND_KEY=-backend-config=key=${PR_NAME}.tfstate)
-	$(eval export TF_VAR_paas_adviser_route_name=${PR_NAME})
-
 .PHONY: test
 test:
 	$(eval export DEPLOY_ENV=test)
@@ -81,22 +70,6 @@ ci:
 	$(eval AUTO_APPROVE=-auto-approve)
 	$(eval SKIP_AZURE_LOGIN=true)
 	$(eval SKIP_CONFIRM=true)
-
-terraform-init: set-azure-account
-	$(if $(or $(IMAGE_TAG), $(NO_IMAGE_TAG_DEFAULT)), , $(eval export IMAGE_TAG=master))
-	$(if $(IMAGE_TAG), , $(error Missing environment variable "IMAGE_TAG"))
-	$(eval export TF_VAR_paas_adviser_docker_image=ghcr.io/dfe-digital/get-teacher-training-adviser-service:$(IMAGE_TAG))
-
-	terraform -chdir=terraform/paas init -reconfigure -backend-config=${DEPLOY_ENV}.bk.vars ${BACKEND_KEY}
-
-terraform-plan: terraform-init
-	terraform -chdir=terraform/paas plan -var-file=${DEPLOY_ENV}.env.tfvars
-
-terraform: terraform-init
-	terraform -chdir=terraform/paas apply -var-file=${DEPLOY_ENV}.env.tfvars ${AUTO_APPROVE}
-
-terraform-destroy: terraform-init
-	terraform -chdir=terraform/paas destroy -var-file=${DEPLOY_ENV}.env.tfvars ${AUTO_APPROVE}
 
 delete-state-file:
 	az storage blob delete --container-name pass-tfstate --delete-snapshots include --account-name s146d01sgtfstate -n ${PR_NAME}.tfstate
