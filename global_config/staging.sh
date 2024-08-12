@@ -1,2 +1,1 @@
 CONFIG=staging
-ENVIRONMENT=staging
