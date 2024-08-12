@@ -1,2 +1,1 @@
 CONFIG=production
-ENVIRONMENT=production
