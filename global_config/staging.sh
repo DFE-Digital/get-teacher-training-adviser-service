@@ -1,1 +1,2 @@
 CONFIG=staging
+TERRAFORM_MODULES_TAG=testing
