@@ -1,1 +1,2 @@
 CONFIG=production
+TERRAFORM_MODULES_TAG=stable

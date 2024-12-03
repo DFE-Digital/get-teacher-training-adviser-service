@@ -1,4 +1,3 @@
-TERRAFILE_VERSION=0.8
 ARM_TEMPLATE_TAG=1.1.10
 RG_TAGS={"Product" : "Teacher services cloud"}
 REGION=UK South
@@ -59,9 +58,13 @@ deploy-arm-resources: arm-deployment ## Validate ARM resource deployment. Usage:
 
 validate-arm-resources: set-what-if arm-deployment ## Validate ARM resource deployment. Usage: make domains validate-arm-resources
 
-domains-infra-init: bin/terrafile domains composed-variables set-azure-account
-	./bin/terrafile -p terraform/domains/infrastructure/vendor/modules -f terraform/domains/infrastructure/config/zones_Terrafile
+.PHONY: vendor-domain-infra-modules
+vendor-domain-infra-modules:
+	rm -rf terraform/domains/infrastructure/vendor/modules/domains
+	TERRAFORM_MODULES_TAG=stable
+	git -c advice.detachedHead=false clone --depth=1 --single-branch --branch ${TERRAFORM_MODULES_TAG} https://github.com/DFE-Digital/terraform-modules.git terraform/domains/infrastructure/vendor/modules/domains
 
+domains-infra-init: domains composed-variables vendor-domain-infra-modules set-azure-account
 	terraform -chdir=terraform/domains/infrastructure init -reconfigure -upgrade \
 		-backend-config=resource_group_name=${RESOURCE_GROUP_NAME} \
 		-backend-config=storage_account_name=${STORAGE_ACCOUNT_NAME} \
@@ -73,10 +76,13 @@ domains-infra-plan: domains domains-infra-init  ## Terraform plan for DNS infras
 domains-infra-apply: domains domains-infra-init  ## Terraform apply for DNS infrastructure (zone and front door). Usage: make domains-infra-apply
 	terraform -chdir=terraform/domains/infrastructure apply -var-file config/zones.tfvars.json ${AUTO_APPROVE}
 
-domains-init: bin/terrafile domains composed-variables set-azure-account
-	./bin/terrafile -p terraform/domains/environment_domains/vendor/modules -f terraform/domains/environment_domains/config/${CONFIG}_Terrafile
+.PHONY: vendor-domain-modules
+vendor-domain-modules:
+	rm -rf terraform/domains/environment_domains/vendor/modules/domains
+	git -c advice.detachedHead=false clone --depth=1 --single-branch --branch ${TERRAFORM_MODULES_TAG} https://github.com/DFE-Digital/terraform-modules.git terraform/domains/environment_domains/vendor/modules/domains
 
-	terraform -chdir=terraform/domains/environment_domains init -upgrade -reconfigure \
+domains-init: domains composed-variables vendor-domain-modules set-azure-account
+		terraform -chdir=terraform/domains/environment_domains init -upgrade -reconfigure \
 		-backend-config=resource_group_name=${RESOURCE_GROUP_NAME} \
 		-backend-config=storage_account_name=${STORAGE_ACCOUNT_NAME} \
 		-backend-config=key=${CONFIG}.tfstate
