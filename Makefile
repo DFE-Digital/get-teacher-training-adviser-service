@@ -36,10 +36,6 @@ composed-variables:
 	$(eval STORAGE_ACCOUNT_NAME=${AZURE_RESOURCE_PREFIX}${SERVICE_SHORT}${CONFIG_SHORT}tfsa)
 	$(eval KEYVAULT_NAMES='["${AZURE_RESOURCE_PREFIX}-${SERVICE_SHORT}-${CONFIG_SHORT}-kv"]')
 
-bin/terrafile: ## Install terrafile to manage terraform modules
-	curl -sL https://github.com/coretech/terrafile/releases/download/v${TERRAFILE_VERSION}/terrafile_${TERRAFILE_VERSION}_$$(uname)_x86_64.tar.gz \
-		| tar xz -C ./bin terrafile
-
 set-what-if:
 	$(eval WHAT_IF=--what-if)
 
